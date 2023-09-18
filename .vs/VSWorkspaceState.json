@@ -1,9 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+<<<<<<< HEAD
+    "\\Klasser"
+  ],
+  "SelectedNode": "\\Klasser\\MasterBokning.cs",
+=======
     "\\Klasser",
     "\\SkiCenter"
   ],
   "SelectedNode": "\\SkiCenter\\Program.cs",
+>>>>>>> fd2a02c45a4e31a2ebfefddb104d54915ac78b49
   "PreviewInSolutionExplorer": false
 }
