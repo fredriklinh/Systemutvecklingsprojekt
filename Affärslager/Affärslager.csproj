@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Datalager\Datalager.csproj" />
+    <ProjectReference Include="..\Entiteter\Entiteter.csproj" />
+  </ItemGroup>
+
 </Project>

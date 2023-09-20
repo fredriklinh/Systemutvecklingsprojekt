@@ -13,4 +13,9 @@
     <Folder Include="Presentationslager\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Affärslager\Affärslager.csproj" />
+    <ProjectReference Include="..\Entiteter\Entiteter.csproj" />
+  </ItemGroup>
+
 </Project>

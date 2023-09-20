@@ -1,5 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Affärslager;
 
 
 
+
+internal class Program
+{
+
+
+    public static void Main(string[] args)
+    {
+
+        BokningsKontroller kontroller = new BokningsKontroller();
+        kontroller.LaddaData();
+
+    }
+}

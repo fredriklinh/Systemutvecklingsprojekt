@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace Datalager.Repository
 {
-    internal class Repository
-    {
+
 
         public class Repository<T> //operations only needed for this version of CarPool's use cases implemented
-    where T : class
+        where T : class
         {
-            internal ExpeditAppContext context;
+            internal DbContext context;
             internal DbSet<T> dbSet;
+            //protected DbSet<T> Table { get; }
 
-            public Repository(ExpeditAppContext context)
+
+            public Repository(DbContext context)
             {
                 this.context = context;
                 dbSet = context.Set<T>();
@@ -66,8 +67,6 @@ namespace Datalager.Repository
                 return query.FirstOrDefault(predicate);
             }
         }
-    }
-
-
+    
 }
-}
+

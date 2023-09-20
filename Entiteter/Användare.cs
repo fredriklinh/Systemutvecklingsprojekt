@@ -8,5 +8,11 @@ namespace Entiteter
 {
     public class Användare
     {
+        public int Behörighetsnivå { get; set; }
+
+        public string Användarnamn { get; set; }
+
+        public string Lösenord { get; set; }
+
     }
 }
