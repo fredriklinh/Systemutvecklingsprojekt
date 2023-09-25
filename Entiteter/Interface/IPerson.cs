@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entiteter.Interface
 {
-    internal class IPerson
+    public interface IPerson
     {
+        string Förnamn { get; set; }
+        string Efternamn { get; set; }
     }
 }

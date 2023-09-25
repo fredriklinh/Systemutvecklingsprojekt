@@ -1,12 +1,24 @@
-﻿using System;
+﻿using Entiteter.Tjänster;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entiteter.Prislistor
 {
-    internal class PrisLogi
+    public class PrislistaLogi
+
     {
+        [Key]
+        public int PrisId { get; set; }
+        public int Vecka { get; set; }
+
+        public int PrisVardag { get; set; }
+        public int PrisHelg { get; set; }
+        public int PrisVecka { get; set; }
+
+        public Logi Logi { get; set; }
     }
 }

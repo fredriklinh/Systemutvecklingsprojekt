@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entiteter.Personer
 {
-    internal class Person
+    public abstract class Person
     {
+        
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
     }
 }
