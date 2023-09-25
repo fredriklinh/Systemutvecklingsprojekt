@@ -8,9 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Datalager\" />
-    <Folder Include="Affärslager\" />
-    <Folder Include="Presentationslager\" />
+    <Compile Remove="Affärslager\**" />
+    <Compile Remove="Datalager\**" />
+    <Compile Remove="Presentationslager\**" />
+    <EmbeddedResource Remove="Affärslager\**" />
+    <EmbeddedResource Remove="Datalager\**" />
+    <EmbeddedResource Remove="Presentationslager\**" />
+    <None Remove="Affärslager\**" />
+    <None Remove="Datalager\**" />
+    <None Remove="Presentationslager\**" />
   </ItemGroup>
 
   <ItemGroup>
