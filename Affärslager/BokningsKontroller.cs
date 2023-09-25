@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Datalager;
 using Datalager.Context;
 using Entiteter;
+using Entiteter.Personer;
 
 namespace Affärslager
 {

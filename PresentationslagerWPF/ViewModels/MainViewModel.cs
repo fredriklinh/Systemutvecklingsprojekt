@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Affärslager;
 using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF.ViewModels
