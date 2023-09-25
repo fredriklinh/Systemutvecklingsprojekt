@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Security.Authentication.ExtendedProtection;
+using Entiteter.Personer;
+using Entiteter.Tjänster;
+using Entiteter.Prislistor;
 
 namespace Datalager.Context
 {
@@ -52,17 +55,27 @@ namespace Datalager.Context
             modelBuilder.Entity<Användare>()
             .HasKey(e => e.Användarnamn);
 
-            //modelBuilder.Entity<Bokning>()
-            //    .HasKey(bk => bk.BokningId);
 
-            //modelBuilder.Entity<Medlem>()
-            //    .HasKey(m => m.MedlemsId);
+            modelBuilder.Entity<MasterBokning>()
+            .HasKey(e => e.BokningsNr);
 
-            //modelBuilder.Entity<Faktura>()
-            //    .HasKey(f => f.FakturaId);
+            modelBuilder.Entity<Logi>()
+            .HasKey(e => e.LogiId);
 
-            //modelBuilder.Entity<Bok>()
-            //    .HasKey(b => b.Id);
+            modelBuilder.Entity<LogiTyp>()
+            .HasKey(e => e.LogiTypID);
+
+            modelBuilder.Entity<Faktura>()
+            .HasKey(e => e.FakturaId);
+
+            modelBuilder.Entity<PrislistaLogi>()
+            .HasKey(e => e.PrisId);
+
+            modelBuilder.Entity<Företagskund>()
+            .HasKey(e => e.FöretagsId);
+
+            modelBuilder.Entity<Privatkund>()
+            .HasKey(e => e.PrivatkundId);
 
 
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.
