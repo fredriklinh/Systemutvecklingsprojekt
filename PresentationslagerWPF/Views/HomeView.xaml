@@ -7,9 +7,17 @@
         mc:Ignorable="d"
         Height="450" Width="800">
 
-    <StackPanel>
-        <Label>Test test</Label>
+    <StackPanel Margin="20,20,20,20">
+
+        <Label>Användarnamn</Label>
+        <TextBox></TextBox>
+        <Label>Lösenord</Label>
+        <PasswordBox></PasswordBox>
+
+
 
         <Button>LOGGA IN</Button>
+        <Button>AVBRYT</Button>
+
     </StackPanel>
 </UserControl>
