@@ -26,7 +26,5 @@ namespace PresentationslagerWPF.Commands
         {
             _navigationStore.CurrentViewModel = new HuvudMenyViewModel(_navigationStore);
         }
-
-
     }
 }
