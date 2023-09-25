@@ -9,6 +9,11 @@ namespace Entiteter.Personer
 {
     public class Företagskund: Kund
     {
+        public Företagskund()
+        {
+
+        }
+
         [Key]
         public int FöretagsId { get; set; }
         public string OrgNr { get; set; }

@@ -11,6 +11,11 @@ namespace Entiteter.Tjänster
 {
     public class Logi
     {
+        public Logi()
+        {
+
+        }
+
         [Key]
         public int LogiId { get; set; }
         public int Kvadratmeter { get; set; }
@@ -18,9 +23,9 @@ namespace Entiteter.Tjänster
         public bool Kök { get; set; }
 
 
-        public List <PrislistaLogi> PrislistaLogi { get; set; }
-        public List<MasterBokning> MasterBokning { get; set;}
-        public List<LogiTyp> LogiTyp { get; set; }
+        public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
+        public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
+        public virtual IList<LogiTyp> LogiTyp { get; set; } = new List<LogiTyp>();
 
 
 

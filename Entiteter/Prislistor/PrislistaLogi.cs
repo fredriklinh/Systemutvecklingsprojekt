@@ -11,7 +11,12 @@ namespace Entiteter.Prislistor
     public class PrislistaLogi
 
     {
-        [Key]
+
+        public PrislistaLogi()
+        {
+
+        }
+
         public int PrisId { get; set; }
         public int Vecka { get; set; }
 
@@ -19,6 +24,6 @@ namespace Entiteter.Prislistor
         public int PrisHelg { get; set; }
         public int PrisVecka { get; set; }
 
-        public Logi Logi { get; set; }
+        public virtual Logi Logi { get; set; }
     }
 }
