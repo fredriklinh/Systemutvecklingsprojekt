@@ -17,6 +17,7 @@ namespace Datalager
 
 
             public Repository<Användare> AnvändareRepository { get; private set; }
+        
             public UnitOfWork()
             {
                 _dbContext = new dbContext();

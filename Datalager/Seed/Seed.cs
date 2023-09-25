@@ -14,7 +14,7 @@ namespace Datalager.Seed
         public static void Populate(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Användare>().HasData(
-                new Användare() { Behörighetsnivå = 1, Användarnamn = "Magnus", Lösenord = "a",}
+                new Användare() { Behörighetsnivå = 1, Användarnamn = "Henric", Lösenord = "b",}
                 );
         }
     }

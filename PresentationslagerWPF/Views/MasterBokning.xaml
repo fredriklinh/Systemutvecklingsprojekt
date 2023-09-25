@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="PresentationslagerWPF.Views.MasterBokning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationslagerWPF.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800">
+    <Grid Background="AliceBlue">
+        <StackPanel Orientation="Vertical" Margin="10,10,10,10">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="220" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel>
+                            <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Datum för bokning</Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <StackPanel Orientation="Vertical">
+                                <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Ankomst:</Label>
+                                <DatePicker></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Utcheckning:</Label>
+                                <DatePicker></DatePicker>
+                            </StackPanel>
+                        </StackPanel>
+                        <Button Margin="10,10,10,10" Content="Sök" Background="LightGreen" ></Button>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
+                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kundnummer:</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Height="25" Width="100">PersonNr/OrgNr</TextBox>
+                        <Button Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen"></Button>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Företag" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                    <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Privat" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                    
+                </StackPanel>
+            </StackPanel>
+            <Separator></Separator>
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Button x:Name="btnLogi" Margin="0,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Logi" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Click="btnLogi_Click"></Button>
+                    <Button x:Name="btnKonferens" Margin="100,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Konferens" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                    <Button x:Name="btnUtrustning" Margin="200,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                    <Button x:Name="btnLektion" Margin="300,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Lektion" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                    <Button x:Name="btnBokningTotal" Margin="400,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Bokning total" Height="30" Width="120" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                </Grid>
+                <Grid x:Name="bokningGrid" Margin="0,0,0,0">
+                    <local:MasterBokningLogi x:Name="logi"></local:MasterBokningLogi>
+                    <local:MasterBokningKonferens x:Name="konferens" Visibility="Collapsed"></local:MasterBokningKonferens>
+                    <local:MasterBokningUtrustning x:Name="utrustning" Visibility="Collapsed"></local:MasterBokningUtrustning>
+                    <local:MasterBokningLektion x:Name="lektion" Visibility="Collapsed"></local:MasterBokningLektion>
+                    <local:MasterBokningTotal x:Name="bokningTotal" Visibility="Collapsed"></local:MasterBokningTotal>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

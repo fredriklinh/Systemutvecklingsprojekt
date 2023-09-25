@@ -14,11 +14,10 @@ namespace PresentationslagerWPF
         protected override void OnStartup(StartupEventArgs e)
         { 
             
-            BokningsKontroller bokningsKontroller = new BokningsKontroller();
-
-            bokningsKontroller.LaddaData();
+            
             MainWindow = new MainWindow()
             {
+
             DataContext = new MainViewModel()
 
             };

@@ -30,6 +30,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             CurrentViewModel = new HomeViewModel();
             bokningsKontroller = new BokningsKontroller();
+            bokningsKontroller.LaddaData();
         }
 
     }

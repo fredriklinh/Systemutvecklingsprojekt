@@ -18,9 +18,6 @@ namespace PresentationslagerWPF.ViewModels
         private Användare inlogg;
         public Användare Inlogg { get => inlogg; set { inlogg = value; OnPropertyChanged(); } }
 
-        private Användare lösenordInlogg;
-        public Användare LösenordInlogg { get => lösenordInlogg; set { lösenordInlogg = value; OnPropertyChanged(); } }
-
         private string status = "Ready";
         public string Status { get { return status; } set { status = value; OnPropertyChanged(); } }
 
@@ -42,7 +39,7 @@ namespace PresentationslagerWPF.ViewModels
         {
 
             Inlogg = bokningsKontroller.Inloggning(användarnamn, lösenord);
-            if (Inlogg == null || LösenordInlogg == null)
+            if (Inlogg == null)
             {
                 Status = $"Du har skrivit in fel användarnamn eller lösenord";
             }
