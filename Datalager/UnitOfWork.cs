@@ -1,4 +1,6 @@
 ﻿using Datalager.Context;
+using Datalager.Repository;
+using Entiteter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +16,20 @@ namespace Datalager
             protected dbContext _dbContext { get; }
 
 
+            public Repository<Användare> AnvändareRepository { get; private set; }
+            public UnitOfWork()
+            {
+                _dbContext = new dbContext();
+                AnvändareRepository = new Repository<Användare>(_dbContext);
+            }
 
             private bool isDisposed = false;
             private readonly bool disposeContext = false;
            
-            public UnitOfWork() : this(new dbContext())
-            {
-                disposeContext = true;
-            }
+            //public UnitOfWork() : this(new dbContext())
+            //{
+            //    disposeContext = true;
+            //}
             public UnitOfWork(dbContext bokningDbContext)
             {
                 _dbContext = bokningDbContext;

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Affärslager;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -19,8 +20,8 @@ namespace PresentationslagerWPF.ViewModels
         public ObservableObject CurrentViewModel { get; }
 
 
-        //OBS. VÅR KONTROLLER HÄR
-        //private BokningKontroller bokningsKontroller;
+
+        private BokningsKontroller bokningsKontroller;
         private IWindowService windowService;
 
         //Konstruktor
@@ -28,8 +29,7 @@ namespace PresentationslagerWPF.ViewModels
         public MainViewModel()
         {
             CurrentViewModel = new HomeViewModel();
-            //OBS. VÅR KONTROLLER HÄR
-            //bokningsKontroller = new BokningKontroller();
+            bokningsKontroller = new BokningsKontroller();
         }
 
     }
