@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace PresentationslagerWPF.Views
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for LoggaInView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class LoggaInView : UserControl
     {
-        public HomeView()
+        public LoggaInView()
         {
             InitializeComponent();
         }
-
-
     }
 }

@@ -18,13 +18,7 @@ namespace Affärslager
 
         //public Kontroller() { }
 
-        public UnitOfWork UnitOfWork
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
 
         //public DataLayer.InterfaceRepository.Repository<object> Repository
         //{
@@ -34,6 +28,11 @@ namespace Affärslager
         //    }
         //}
 
+        public Användare Inloggning(string användarnamn, string lösenord)
+        {
+            Användare anv = unitOfWork.AnvändareRepository.FirstOrDefault(e => e.Användarnamn == användarnamn && e.Lösenord == lösenord);
+            return anv;
+        }
 
 
         public void LaddaData()

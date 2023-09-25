@@ -7,9 +7,18 @@
         mc:Ignorable="d"
         Height="450" Width="800">
 
-    <StackPanel>
-        <Label>Test test</Label>
+    <StackPanel Margin="20,20,20,20">
 
-        <Button>LOGGA IN</Button>
+        <Label>Användarnamn</Label>
+        <TextBox Text="{Binding Användarnamn, Mode=OneWayToSource}" ></TextBox>
+        <Label>Lösenord</Label>
+        <TextBox Text="{Binding Lösenord, Mode=OneWayToSource}"></TextBox>
+        <Button>AVBRYT</Button>
+        <ToggleButton x:Name="btnLogin" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding NavigateHuvudMenyCommand}" CommandParameter="HuvudMeny" Height="27"/>
+        <StatusBar DockPanel.Dock="Bottom" Background="Beige" Margin="10,10,10,10">
+            <StatusBarItem HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Status}" />
+            </StatusBarItem>
+        </StatusBar>
     </StackPanel>
 </UserControl>
