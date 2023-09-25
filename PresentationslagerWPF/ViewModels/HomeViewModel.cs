@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using PresentationslagerWPF.Stores;
+using Entiteter.Personer;
 
 namespace PresentationslagerWPF.ViewModels
 {

@@ -9,10 +9,15 @@ namespace Entiteter.Tjänster
 {
     public class LogiTyp
     {
+        public LogiTyp()
+        {
+
+        }
+
         [Key]
         public int LogiTypID { get; set; }
-        public MasterBokning MasterBokning { get; set; }
-        public Logi Logi { get; set; }
+        public virtual MasterBokning MasterBokning { get; set; }
+        public virtual Logi Logi { get; set; }
         public double TypPris { get; set; }
 
     }
