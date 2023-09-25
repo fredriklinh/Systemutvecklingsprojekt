@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Security.Authentication.ExtendedProtection;
+using Entiteter.Personer;
 
 namespace Datalager.Context
 {
