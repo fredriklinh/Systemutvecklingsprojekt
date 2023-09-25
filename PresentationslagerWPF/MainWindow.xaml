@@ -14,7 +14,7 @@
                 <views:HomeView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:HuvudMenyViewModel}">
-                <views:HomeView/>
+                <views:HuvudMeny/>
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

@@ -10,26 +10,31 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Affärslager;
+using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
 
+        private readonly NavigationStore _navigationStore;
+
         //****NAVIGATION*****//
-        public ObservableObject CurrentViewModel { get; }
-
-
+        public ObservableObject CurrentViewModel => _navigationStore.CurrentViewModel;
 
         private BokningsKontroller bokningsKontroller;
-        private IWindowService windowService;
+
 
         //Konstruktor
-
-        public MainViewModel()
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new HomeViewModel();
+            _navigationStore = navigationStore;
             bokningsKontroller = new BokningsKontroller();
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
 
     }
