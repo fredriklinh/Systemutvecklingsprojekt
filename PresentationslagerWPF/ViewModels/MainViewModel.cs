@@ -29,8 +29,9 @@ namespace PresentationslagerWPF.ViewModels
         public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            bokningsKontroller = new BokningsKontroller();
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
+            bokningsKontroller = new BokningsKontroller();
         }
         private void OnCurrentViewModelChanged()
         {

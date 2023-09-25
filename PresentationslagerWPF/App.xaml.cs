@@ -16,7 +16,7 @@ namespace PresentationslagerWPF
         { 
             NavigationStore navigationStore = new NavigationStore();
 
-            navigationStore.CurrentViewModel = new HomeViewModel();
+            navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
 
             BokningsKontroller bokningsKontroller = new BokningsKontroller();
 

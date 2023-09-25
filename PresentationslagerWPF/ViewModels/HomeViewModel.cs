@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -26,9 +27,10 @@ namespace PresentationslagerWPF.ViewModels
 
         public ICommand NavigateHuvudMenyCommand { get; }
 
-        public HomeViewModel(NavigateHuvudMenyCommand navigationStore)
+        public HomeViewModel(NavigationStore navigationStore)
         {
-            NavigateHuvudMenyCommand = new NavigateHuvudMenyCommand(navigationStore);
+            NavigateHuvudMenyCommand = new NavigateCommand<HuvudMenyViewModel>(new Services.NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore))) ;
+
         }
 
         //Användarnamn för ANVÄNDARE
@@ -52,7 +54,10 @@ namespace PresentationslagerWPF.ViewModels
             }
             else
             {
+
                 Status = $"Inloggning Lyckades";
+
+
             }
 
         });

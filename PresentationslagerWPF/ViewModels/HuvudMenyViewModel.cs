@@ -14,13 +14,11 @@ namespace PresentationslagerWPF.ViewModels
 {
     internal class HuvudMenyViewModel : ObservableObject
     {
-
         public ICommand NavigationHomeCommand { get; }
 
         public HuvudMenyViewModel(NavigationStore navigationStore)
         {
-            NavigationHomeCommand = new NavigateHomeCommand(navigationStore);
+            NavigationHomeCommand = new NavigateCommand<HuvudMenyViewModel>(new Services.NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
         }
-
     }
 }

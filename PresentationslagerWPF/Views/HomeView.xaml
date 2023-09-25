@@ -14,7 +14,7 @@
         <Label>Lösenord</Label>
         <TextBox Text="{Binding Lösenord, Mode=OneWayToSource}"></TextBox>
         <Button>AVBRYT</Button>
-        <ToggleButton x:Name="btnLogin" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding InloggCommand}" Height="27"/>
+        <ToggleButton x:Name="btnLogin" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding NavigateHuvudMenyCommand}" CommandParameter="HuvudMeny" Height="27"/>
         <StatusBar DockPanel.Dock="Bottom" Background="Beige" Margin="10,10,10,10">
             <StatusBarItem HorizontalAlignment="Center">
                 <TextBlock Text="{Binding Status}" />

@@ -21,9 +21,7 @@ namespace PresentationslagerWPF.Stores
             {
                 _currentViewModel = value;
                 OnCurrentViewModelChanged();
-            }
-        
-        
+            }      
         }
 
         private void OnCurrentViewModelChanged()
