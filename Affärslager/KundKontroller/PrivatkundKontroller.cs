@@ -14,17 +14,27 @@ namespace Affärslager.KundKontroller
 
         public void RegistreraPrivatKund(Privatkund pk)
         {
-            unitOfWork.privatKundRepository.Create(pk);
+            
         }
 
-        public ICollection<Privatkund> SökPrivatKunder (string input)
+        public ICollection<Privatkund> SökPrivatKunder (Privatkund input)
         {
-            return unitOfWork.privatKundRepository.SökPrivatKunder(input);
+            return unitOfWork.PrivatkundRepository.Find(input);
+        }
+        public Privatkund SökPrivatkund (Privatkund input)
+        {
+            return unitOfWork.PrivatkundRepository.FirstOrDefault(a => a.PrivatkundId.Equals(input));
         }
 
         public ICollection<Privatkund> LäsPrivatKunder()
         {
-            return unitOfWork.privatKundRepository.Read();
+            return unitOfWork.PrivatkundRepository.GetAll().ToList();
+        }
+
+        public void UppdateraPrivatkund(Privatkund privatkund)
+        {
+            unitOfWork.PrivatkundRepository.Update(privatkund);
+               
         }
 
 

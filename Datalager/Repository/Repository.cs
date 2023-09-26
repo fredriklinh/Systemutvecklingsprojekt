@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Castle.Components.DictionaryAdapter;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +30,37 @@ namespace Datalager.Repository
             ///  Add a new entity to the Table.
             /// </summary>
             /// <param name="entity"></param>
+            
             public void Add(T entity)
             {
                 dbSet.Add(entity);
-
+                
 
             }
+
+            /// <summary>
+            /// Uppdate the entity and save changes
+            /// </summary>
+            /// <param name="entity"></param>
+            public void Update(T entity)
+            {
+                dbSet.Update(entity);
+                
+            }
+            /// <summary>
+            /// Remove the given entity from the Table.
+            /// </summary>
+            /// <param name="entity"></param>
+            public void Delete(T entity)
+            {
+                dbSet.Remove(entity);
+                
+            }
+
+            public virtual IEnumerable<T> GetAll() => dbSet;
+
+           
+
             /// <summary>
             ///  Find a set of entities that match a predicate.
             /// </summary>

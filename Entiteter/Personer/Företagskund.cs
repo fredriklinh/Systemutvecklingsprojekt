@@ -19,6 +19,10 @@ namespace Entiteter.Personer
         public string OrgNr { get; set; }
         public string FöretagsNamn { get; set; }
 
+        public double RabattSats { get; set; }
+
+        
+
 
     }
 }
