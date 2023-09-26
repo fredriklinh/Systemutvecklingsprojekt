@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Datalager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Affärslager
 {
     internal class FakturaKontroller
     {
+
+        UnitOfWork unitOfWork = new UnitOfWork();
     }
 }
