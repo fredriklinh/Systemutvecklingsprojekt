@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Datalager;
 using Datalager.Context;
 using Entiteter;
+using Entiteter.Personer;
 
 namespace Affärslager
 {
@@ -15,7 +16,7 @@ namespace Affärslager
         UnitOfWork unitOfWork = new UnitOfWork();
 
 
-
+      
         //public Kontroller() { }
 
 
@@ -41,7 +42,5 @@ namespace Affärslager
             DbContext.Reset();
             DbContext.Database.EnsureCreated();
         }
-
-
     }
 }

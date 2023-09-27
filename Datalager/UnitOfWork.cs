@@ -1,6 +1,7 @@
 ﻿using Datalager.Context;
 using Datalager.Repository;
 using Entiteter;
+using Entiteter.Personer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

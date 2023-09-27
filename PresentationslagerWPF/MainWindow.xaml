@@ -10,11 +10,14 @@
         Title="Bokningssystem" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <ContentControl Content ="{Binding CurrentViewModel}">
         <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
-                <views:HomeView/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:HuvudMenyViewModel}">
-                <views:HomeView/>
+                <views:HuvudMeny/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LoggaInViewModel}">
+                <views:LoggaInView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:MasterBokningViewModel}">
+                <views:MasterBokningView/>
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

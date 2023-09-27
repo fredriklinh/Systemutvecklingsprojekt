@@ -3,6 +3,7 @@ using PresentationslagerWPF.Views;
 using PresentationslagerWPF.ViewModels;
 using System.Windows;
 using Affärslager;
+using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF
 {
@@ -13,12 +14,23 @@ namespace PresentationslagerWPF
     {
         protected override void OnStartup(StartupEventArgs e)
         { 
-            
-            
+            NavigationStore navigationStore = new NavigationStore();
+
+            HuvudMenyViewModel h = new HuvudMenyViewModel(navigationStore);
+            MasterBokningViewModel n = new MasterBokningViewModel(navigationStore);
+
+            //navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new LoggaInViewModel(navigationStore);
+
+
+            BokningsKontroller bokningsKontroller = new BokningsKontroller();
+
+            bokningsKontroller.LaddaData();
             MainWindow = new MainWindow()
             {
+                //DataContext = new MainViewModel(navigationStore)
+                DataContext = new MainViewModel(navigationStore)
 
-            DataContext = new MainViewModel()
 
             };
             MainWindow.Show();

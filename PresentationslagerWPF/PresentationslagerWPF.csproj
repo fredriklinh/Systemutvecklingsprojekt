@@ -8,12 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Affärslager\Affärslager.csproj" />
-    <ProjectReference Include="..\Entiteter\Entiteter.csproj" />
+    <Compile Remove="Converters\**" />
+    <EmbeddedResource Remove="Converters\**" />
+    <None Remove="Converters\**" />
+    <Page Remove="Converters\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
+    <ProjectReference Include="..\Affärslager\Affärslager.csproj" />
+    <ProjectReference Include="..\Entiteter\Entiteter.csproj" />
   </ItemGroup>
 
 </Project>

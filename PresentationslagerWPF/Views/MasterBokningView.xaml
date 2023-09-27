@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PresentationslagerWPF.Views.MasterBokning"
+﻿<UserControl x:Class="PresentationslagerWPF.Views.MasterBokningView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -95,7 +95,7 @@
                         <DataGrid Background="White" Width="550" Height="150" Margin="0,0,10,0"></DataGrid>
                         <StackPanel>
                             <Label HorizontalAlignment="Left" Content="Kostnad totalt för vistelse:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                            <TextBox TextChanged="TextBox_TextChanged">Kr</TextBox>
+                            <TextBox>Kr</TextBox>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
