@@ -32,9 +32,9 @@ namespace Entiteter.Tjänster
         public virtual Företagskund Företagskund { get; set;}
         public virtual Användare Användare { get; set; }
 
-        [ForeignKey("Faktura")]
-        public int? Fakturanummer { get; set; }
-        public virtual Faktura Faktura { get; set; }
+        //[ForeignKey("Faktura")]
+        //public int? Fakturanummer { get; set; }
+        //public virtual Faktura Faktura { get; set; }
 
 
 
