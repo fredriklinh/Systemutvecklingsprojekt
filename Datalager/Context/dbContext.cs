@@ -64,7 +64,7 @@ namespace Datalager.Context
             .HasKey(e => e.LogiId);
 
             modelBuilder.Entity<PrislistaLogi>()
-                .HasKey(e => e.PrisId);
+            .HasKey(e => e.PrisId);
 
             modelBuilder.Entity<LogiTyp>()
             .HasKey(e => e.LogiTypID);
