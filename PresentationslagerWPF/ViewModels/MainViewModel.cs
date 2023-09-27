@@ -16,9 +16,8 @@ namespace PresentationslagerWPF.ViewModels
     public class MainViewModel : ObservableObject
     {
 
-
-        // HUVUDFÖNSTER - UTIFRÅN DENNA ÄNDRAS KONTENT FRÅN DE OLIKA FÖNSTREN
         private readonly NavigationStore _navigationStore;
+
         public ObservableObject CurrentViewModel => _navigationStore.CurrentViewModel;
 
 
@@ -26,7 +25,6 @@ namespace PresentationslagerWPF.ViewModels
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
         }
 
         private void OnCurrentViewModelChanged()

@@ -3,6 +3,7 @@ using Datalager.Repository;
 using Entiteter;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
+using Entiteter.Tjänster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,19 @@ namespace Datalager
             public Repository<Privatkund> PrivatkundRepository { get; private set; }
             
             public Repository<PrislistaLogi> PrisLogiRepository { get; private set; }
+
+            public Repository<Logi> LogiRepository { get; private set; }
+
+            public Repository<MasterBokning> MasterBokningRepository { get; private set; }
             public UnitOfWork()
             {
                 _dbContext = new dbContext();
                 AnvändareRepository = new Repository<Användare>(_dbContext);
                 PrivatkundRepository = new Repository<Privatkund>(_dbContext);
                 PrisLogiRepository = new Repository<PrislistaLogi>(_dbContext);
+                LogiRepository = new Repository<Logi>(_dbContext);
+                MasterBokningRepository = new Repository<MasterBokning>(_dbContext);
+                
             }
 
 

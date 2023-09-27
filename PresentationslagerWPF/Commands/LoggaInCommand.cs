@@ -28,8 +28,11 @@ namespace PresentationslagerWPF.Commands
 
         AnvändarKontroller användarKontroller = new AnvändarKontroller();
 
+
+
         public readonly LoggaInViewModel _viewModel;
         private readonly NavigationService<HuvudMenyViewModel> _navigationService;
+
 
 
         public LoggaInCommand(LoggaInViewModel viewModel, NavigationService<HuvudMenyViewModel> navigationService)
