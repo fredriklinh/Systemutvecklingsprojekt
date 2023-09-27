@@ -36,7 +36,6 @@ namespace PresentationslagerWPF.ViewModels
         public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
 
         
-
         #endregion
         public MasterBokningViewModel(NavigationStore navigationStore)
         {

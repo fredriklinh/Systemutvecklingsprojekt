@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entiteter.Prislistor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace Entiteter.Tjänster
         public virtual Logi Logi { get; set; }
         public double TypPris { get; set; }
 
+        public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
+        
     }
 }

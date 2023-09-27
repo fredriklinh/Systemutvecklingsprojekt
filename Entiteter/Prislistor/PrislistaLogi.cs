@@ -25,6 +25,6 @@ namespace Entiteter.Prislistor
         public int PrisHelg { get; set; }
         public int PrisVecka { get; set; }
 
-        public virtual Logi Logi { get; set; }
+        
     }
 }
