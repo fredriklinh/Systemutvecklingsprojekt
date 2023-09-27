@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Affärslager;
 using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF.ViewModels
@@ -17,22 +16,19 @@ namespace PresentationslagerWPF.ViewModels
     public class MainViewModel : ObservableObject
     {
 
-        private readonly NavigationStore _navigationStore;
 
-        //****NAVIGATION*****//
+        // HUVUDFÖNSTER - UTIFRÅN DENNA ÄNDRAS KONTENT FRÅN DE OLIKA FÖNSTREN
+        private readonly NavigationStore _navigationStore;
         public ObservableObject CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        private BokningsKontroller bokningsKontroller;
 
-
-        //Konstruktor
         public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
-            bokningsKontroller = new BokningsKontroller();
         }
+
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));

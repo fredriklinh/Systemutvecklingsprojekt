@@ -15,15 +15,18 @@ using System.Windows.Shapes;
 namespace PresentationslagerWPF.Views
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for MasterBokning.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class MasterBokning : UserControl
     {
-        public HomeView()
+        public MasterBokning()
         {
             InitializeComponent();
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
+        }
     }
 }

@@ -12,40 +12,46 @@ using System.Runtime.CompilerServices;
 using PresentationslagerWPF.Services;
 using System.Windows.Input;
 using PresentationslagerWPF.Models;
+using Entiteter.Personer;
+using System.Windows.Navigation;
 
 namespace PresentationslagerWPF.Commands
 {
-    public class LoggaInCommand<TViewModel> : CommandBase
-       where TViewModel : ObservableObject
+    public class LoggaInCommand : CommandBase
     {
+        
+
+
+        /// <summary>
+        /// KOMMANDS ATT KONTROLLERA BOKNING 
+        /// </summary>
 
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
 
-        private readonly LoggaInViewModel _viewModel;
+        public readonly LoggaInViewModel _viewModel;
         private readonly NavigationService<HuvudMenyViewModel> _navigationService;
-        
 
-        //public ICommand NavigateLoggaInCommand { get; }
 
-         //NavigateLoggaInCommand = new NavigateCommand<LoggaInCommand>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
-        
-
-        public LoggaInCommand(NavigationService<TViewModel> navigationService)
+        public LoggaInCommand(LoggaInViewModel viewModel, NavigationService<HuvudMenyViewModel> navigationService)
         {
-            //_viewModel = viewModel;
-            //_navigationService = navigationService;
+            _viewModel = viewModel;
+            _navigationService = navigationService;
         }
 
         public override bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return true; 
+                
         }
-
         public override void Execute(object parameter)
         {
-            MessageBox.Show("Loggar in");
+            Användare anv = bokningsKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
+            if (anv != null)
+            {
+                _navigationService.Navigate();
 
-            _navigationService.Navigate();
+            }
+
 
         }
     }

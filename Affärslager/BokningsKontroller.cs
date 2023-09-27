@@ -16,7 +16,7 @@ namespace Affärslager
         UnitOfWork unitOfWork = new UnitOfWork();
 
 
-
+      
         //public Kontroller() { }
 
 
@@ -42,7 +42,5 @@ namespace Affärslager
             DbContext.Reset();
             DbContext.Database.EnsureCreated();
         }
-
-
     }
 }
