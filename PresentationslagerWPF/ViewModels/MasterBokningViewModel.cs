@@ -23,7 +23,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region On property change
-        private DateTime starttid;
+        private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
 
         private DateTime sluttid;
