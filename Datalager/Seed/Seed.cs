@@ -1403,18 +1403,17 @@ namespace Datalager.Seed
 
             for (int i = 1; i <= 50; i++)
             {
-                for (int x = 1; i <= 50; x++)
-                {
 
                     modelBuilder.Entity<Logi>().HasData(new Logi()
                     {
-                        LogiId = "Ll" + x,
+                        LogiId = "Ll" + i,
                         Kvadratmeter = 50,
                         Bäddar = 4,
-                        Kök = true
+                        Kök = true,
+                        ÄrTillgänglig = true
 
                     });
-                }
+                
             }
 
         }

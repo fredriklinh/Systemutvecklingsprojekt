@@ -9,6 +9,7 @@ using Entiteter;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 
+
 namespace Affärslager
 {
     public  class BokningsKontroller

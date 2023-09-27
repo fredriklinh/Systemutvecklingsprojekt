@@ -66,8 +66,8 @@ namespace Datalager.Context
             modelBuilder.Entity<PrislistaLogi>()
             .HasKey(e => e.PrisId);
 
-            //modelBuilder.Entity<LogiTyp>()
-            //.HasKey(e => e.LogiTypID);
+            modelBuilder.Entity<LogiTyp>()
+            .HasKey(e => e.testID);
 
             modelBuilder.Entity<Faktura>()
             .HasKey(e => e.FakturaId);
