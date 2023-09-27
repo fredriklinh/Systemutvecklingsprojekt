@@ -35,12 +35,11 @@ namespace Affärslager
             return anv;
         }
 
-
         public void LaddaData()
         {
             dbContext DbContext = new dbContext();
-            DbContext.Reset();
-            DbContext.Database.EnsureCreated();
+            //DbContext.Reset();
+            //DbContext.Database.EnsureCreated();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entiteter.Personer;
-
+using Microsoft.Identity.Client;
 
 namespace Datalager.Seed
 {
@@ -14,9 +14,15 @@ namespace Datalager.Seed
     {
         public static void Populate(this ModelBuilder modelBuilder)
         {
+
+
+
             modelBuilder.Entity<Användare>().HasData(
                 new Användare() {AnvändarID = 99, Behörighetsnivå = 1, Användarnamn = "Magnus", Lösenord = "a", Efternamn = "Otterberg", Förnamn = "Magnifike"}
                 );
+
+
+
         }
     }
 }

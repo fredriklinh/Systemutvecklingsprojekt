@@ -28,8 +28,11 @@ namespace PresentationslagerWPF.Commands
 
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
 
+
+
         public readonly LoggaInViewModel _viewModel;
         private readonly NavigationService<HuvudMenyViewModel> _navigationService;
+
 
 
         public LoggaInCommand(LoggaInViewModel viewModel, NavigationService<HuvudMenyViewModel> navigationService)

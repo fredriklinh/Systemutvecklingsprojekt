@@ -10,20 +10,35 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using PresentationslagerWPF.Commands;
- 
+using System.Threading.Channels;
 
 namespace PresentationslagerWPF.ViewModels
 {
     public class HuvudMenyViewModel : ObservableObject
     {
 
-        public ICommand NavigateMasterBokningCommand { get; }
-
         public HuvudMenyViewModel(NavigationStore navigationStore)
         {
+
             NavigateMasterBokningCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore)));
+            NavigateKundHanteringCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+
+            NavigateStatistikCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+
+
+
+
+
         }
         public HuvudMenyViewModel() { }
+
+        //**** NAVIGATION *******//
+        public ICommand NavigateMasterBokningCommand { get; }
+        public ICommand NavigateKundHanteringCommand { get; }
+        public ICommand NavigateStatistikCommand { get; }
+
+
+
 
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
