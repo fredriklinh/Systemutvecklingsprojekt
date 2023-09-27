@@ -28,14 +28,7 @@ namespace Affärslager
         //    {
         //    }
         //}
-
-        public Användare Inloggning(string användarnamn, string lösenord)
-        {
-            Användare anv = unitOfWork.AnvändareRepository.FirstOrDefault(e => e.Användarnamn == användarnamn && e.Lösenord == lösenord);
-            return anv;
-        }
-
-
+        
         public void LaddaData()
         {
             dbContext DbContext = new dbContext();
