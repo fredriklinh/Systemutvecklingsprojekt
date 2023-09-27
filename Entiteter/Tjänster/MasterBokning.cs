@@ -21,11 +21,12 @@ namespace Entiteter.Tjänster
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
         public int NyttjadKreditsumma { get; set; }
-        public DateTime Startdatum { get; set; }
+
+        public DateTime BokningsDatum { get; set; } // Attribut för när bokningen skapades i systemet. 
+        public DateTime StartDatum { get; set; }
         public DateTime SlutDatum { get; set; }
         public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
 
-        
         public virtual IList<LogiTyp> logiTyper { get; set; } = new List<LogiTyp>();
         public virtual Privatkund Privatkund { get; set; }
         public virtual Företagskund Företagskund { get; set;}

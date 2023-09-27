@@ -80,6 +80,9 @@ namespace Datalager.Context
 
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.
             modelBuilder.Populate();
+
+
         }
+        
     }
 }

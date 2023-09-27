@@ -19,14 +19,14 @@ namespace PresentationslagerWPF.Commands
 {
     public class LoggaInCommand : CommandBase
     {
-        
+
 
 
         /// <summary>
         /// KOMMANDS ATT KONTROLLERA BOKNING 
         /// </summary>
 
-        BokningsKontroller bokningsKontroller = new BokningsKontroller();
+        AnvändarKontroller användarKontroller = new AnvändarKontroller();
 
 
 
@@ -48,14 +48,12 @@ namespace PresentationslagerWPF.Commands
         }
         public override void Execute(object parameter)
         {
-            Användare anv = bokningsKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
+            Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
             if (anv != null)
             {
                 _navigationService.Navigate();
 
             }
-
-
         }
     }
 }
