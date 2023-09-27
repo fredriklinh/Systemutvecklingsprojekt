@@ -56,10 +56,10 @@ namespace Affärslager
                 {
                     DateTime date;
                     // USE REMAINDER 
-                    for (DateTime ii = startdatum; ii <= slutdatum; ii = ii.AddDays(1))
+                    for (DateTime ii = startdatum; ii < slutdatum; ii = ii.AddDays(1))
                     {
                         // Kolla om dagen är Lördag eller Söndag. Annar Läggs vardagspris till.
-                        if (ii.DayOfWeek == DayOfWeek.Saturday || ii.DayOfWeek == DayOfWeek.Sunday)
+                        if (ii.DayOfWeek == DayOfWeek.Saturday || ii.DayOfWeek == DayOfWeek.Friday)
                         {
                             totalpris += prisLogiVecka.PrisHelg;
                         }
