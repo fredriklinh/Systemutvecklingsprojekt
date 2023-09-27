@@ -3,7 +3,7 @@ using Entiteter.Prislistor;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System;
-
+using Entiteter.Tjänster;
 
 namespace Datalager.Seed
 {
@@ -577,7 +577,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
-                PrisId = 60,
+                PrisId = 156,
                 TypAvLogi = "LGH.II",
                 Vecka = 9,
                 PrisVardag = 555,
@@ -613,7 +613,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
-                PrisId = 103,
+                PrisId = 157,
                 TypAvLogi = "LGH.II",
                 Vecka = 13,
                 PrisVardag = 555,
@@ -971,7 +971,7 @@ namespace Datalager.Seed
                 PrisHelg = 495,
                 PrisVecka = 2295,
             });
-            //blir ett hopp mellan ID 102 och 104 pga tidigare miss med PK vid Kodrad 591.
+            //blir ett hopp mellan ID 102 och 104 pga tidigare miss med PK(sök 103).
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
                 PrisId = 104,
@@ -1143,7 +1143,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
-                PrisId = 124,
+                PrisId = 158,
                 TypAvLogi = "Camp",
                 Vecka = 22,
                 PrisVardag = 130,
@@ -1399,6 +1399,23 @@ namespace Datalager.Seed
                 PrisVecka = 815,
             });
 
+
+
+            for (int i = 1; i <= 50; i++)
+            {
+                for (int x = 1; i <= 50; x++)
+                {
+
+                    modelBuilder.Entity<Logi>().HasData(new Logi()
+                    {
+                        LogiId = "Ll" + x,
+                        Kvadratmeter = 50,
+                        Bäddar = 4,
+                        Kök = true
+
+                    });
+                }
+            }
 
         }
     }

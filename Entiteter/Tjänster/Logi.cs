@@ -19,14 +19,12 @@ namespace Entiteter.Tjänster
         }
 
         [Key]
-        public int LogiId { get; set; }
+        public string LogiId { get; set; }
         public int Kvadratmeter { get; set; }
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
 
         public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
-        public virtual IList<LogiTyp> LogiTyp { get; set; } = new List<LogiTyp>();
-
 
 
 
