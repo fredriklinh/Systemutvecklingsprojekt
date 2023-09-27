@@ -16,8 +16,6 @@ namespace Datalager
     {
 
             protected dbContext _dbContext { get; }
-
-
             public Repository<Användare> AnvändareRepository { get; private set; }
             public Repository<Privatkund> PrivatkundRepository { get; private set; }
             

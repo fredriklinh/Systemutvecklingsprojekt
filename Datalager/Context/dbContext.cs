@@ -50,6 +50,7 @@ namespace Datalager.Context
         public DbSet<Användare> Användare { get; set; } = null!;
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Användare>()
@@ -61,6 +62,9 @@ namespace Datalager.Context
 
             modelBuilder.Entity<Logi>()
             .HasKey(e => e.LogiId);
+
+            modelBuilder.Entity<PrislistaLogi>()
+                .HasKey(e => e.PrisId);
 
             modelBuilder.Entity<LogiTyp>()
             .HasKey(e => e.LogiTypID);
