@@ -24,13 +24,23 @@ namespace Entiteter.Tjänster
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
 
-
+        public bool ÄrTillgänglig { get; set; }
         public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
         public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
         public virtual IList<LogiTyp> LogiTyp { get; set; } = new List<LogiTyp>();
 
 
 
+
+
+        public void Tillgänlig()
+        {
+            ÄrTillgänglig = true;
+        }
+        public void Bokad()
+        {
+            ÄrTillgänglig = false;
+        }
 
     }
 }
