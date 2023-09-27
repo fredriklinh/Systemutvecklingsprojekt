@@ -34,7 +34,6 @@ namespace Datalager.Repository
             public void Add(T entity)
             {
                 dbSet.Add(entity);
-                
 
             }
 
