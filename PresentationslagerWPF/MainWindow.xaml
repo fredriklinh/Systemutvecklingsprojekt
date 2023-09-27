@@ -17,7 +17,7 @@
                 <views:LoggaInView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:MasterBokningViewModel}">
-                <views:MasterBokning/>
+                <views:MasterBokningView/>
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

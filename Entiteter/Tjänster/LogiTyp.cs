@@ -10,6 +10,12 @@ namespace Entiteter.Tjänster
 {
     public class LogiTyp
     {
+
+        //[Key]
+        //public int testID { get; set; }
+
+
+
         public LogiTyp()
         {
 

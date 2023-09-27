@@ -62,8 +62,8 @@ namespace Datalager.Context
             modelBuilder.Entity<Logi>()
             .HasKey(e => e.LogiId);
 
-            modelBuilder.Entity<LogiTyp>()
-            .HasKey(e => e.LogiTypID);
+            //modelBuilder.Entity<LogiTyp>()
+            //.HasKey(e => e.LogiTypID);
 
             modelBuilder.Entity<Faktura>()
             .HasKey(e => e.FakturaId);

@@ -15,7 +15,7 @@ namespace PresentationslagerWPF
         protected override void OnStartup(StartupEventArgs e)
         { 
             NavigationStore navigationStore = new NavigationStore();
-            BokningsKontroller bokningsKontroller = new BokningsKontroller();
+            AnvändarKontroller användarKontroller = new AnvändarKontroller();
 
 
 
@@ -29,7 +29,7 @@ namespace PresentationslagerWPF
             MasterBokningViewModel m = new MasterBokningViewModel(navigationStore);
 
 
-            bokningsKontroller.LaddaData();
+            användarKontroller.LaddaData();
             MainWindow = new MainWindow()
             {
                 //DataContext = new MainViewModel(navigationStore)
