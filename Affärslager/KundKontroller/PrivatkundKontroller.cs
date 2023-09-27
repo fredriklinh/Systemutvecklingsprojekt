@@ -17,10 +17,10 @@ namespace Affärslager.KundKontroller
             
         }
 
-        public ICollection<Privatkund> SökPrivatKunder (Privatkund input)
-        {
-            return unitOfWork.PrivatkundRepository.Find(input);
-        }
+        //public ICollection<Privatkund> SökPrivatKunder (Privatkund input)     Kan komma att användas senare i projektet.
+        //{
+            //return unitOfWork.PrivatkundRepository.Find(input);
+        //}
         public Privatkund SökPrivatkund (Privatkund input)
         {
             return unitOfWork.PrivatkundRepository.FirstOrDefault(a => a.PrivatkundId.Equals(input));
