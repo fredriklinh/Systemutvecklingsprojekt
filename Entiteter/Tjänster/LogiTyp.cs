@@ -13,8 +13,11 @@ namespace Entiteter.Tjänster
     public class LogiTyp
     {
 
-        [Key]
-        public int testID { get; set; }
+        public string LogiTypId { get; set; }
+
+        public List<Logi> LGHI { get; set; }
+        public List<Logi> LGHII { get; set; }
+        public List<Logi> Camp { get; set; }
 
 
 

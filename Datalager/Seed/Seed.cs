@@ -1415,6 +1415,81 @@ namespace Datalager.Seed
                     });
                 
             }
+            for (int i = 1; i <= 35; i++)
+            {
+
+                modelBuilder.Entity<Logi>().HasData(new Logi()
+                {
+                    LogiId = "Lll" + i,
+                    Kvadratmeter = 70,
+                    Bäddar = 4,
+                    Kök = true,
+                    ÄrTillgänglig = true,
+
+                    
+                });
+
+                
+
+            }
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "Camp"
+
+            });
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGHI"
+
+            });
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGHII"
+
+            });
+
+
+
+            #region Temporär testdata kund
+            for (int i = 1; i <= 5; i++)
+            {
+
+                modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+                {
+                    PrivatkundId = 0 + i,
+                    Personnummer = "19690714-2342",
+                    Förnamn = "Fiel",
+                    Efternamn = "Skogholm",
+                    Adress = "Tingstadsalé 24",
+                    Ort = "Stockholm",
+                    Telefonnummer = "07266555994",
+                    MailAdress = "Fiel.Skogholm@stocknäs.se"
+
+                });
+
+
+
+                modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
+                {
+                    FöretagsId = 999 + i,
+                    OrgNr = "4343-2321",
+                    FöretagsNamn = "Byggplockarna AB",
+                    Adress = "Karlatornsväg 23",
+                    Ort = "Utby",
+                    Telefonnummer = "07266555994",
+                    MailAdress = "ByggplockAB@foretagsadress.se",
+                    RabattSats = 12.5
+
+                });
+                #endregion
+
+            }
+
+
+
 
         }
     }

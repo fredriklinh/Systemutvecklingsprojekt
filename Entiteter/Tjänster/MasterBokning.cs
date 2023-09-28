@@ -17,7 +17,7 @@ namespace Entiteter.Tjänster
         {
 
         }
-        [Key]
+        
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
         public int NyttjadKreditsumma { get; set; }
