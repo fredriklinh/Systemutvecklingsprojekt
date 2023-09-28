@@ -15,10 +15,7 @@ namespace Entiteter.Tjänster
 
         public string LogiTypId { get; set; }
 
-        public List<Logi> LGHI { get; set; }
-        public List<Logi> LGHII { get; set; }
-        public List<Logi> Camp { get; set; }
-
+        public virtual IList<Logi> Logier { get; set; }
 
 
         public LogiTyp()

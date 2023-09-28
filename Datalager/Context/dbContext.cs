@@ -54,32 +54,34 @@ namespace Datalager.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Användare>()
-            .HasKey(e => e.Användarnamn);
+            .HasKey(a => a.Användarnamn);
 
 
             modelBuilder.Entity<MasterBokning>()
-            .HasKey(e => e.BokningsNr);
+            .HasKey(m => m.BokningsNr);
 
             modelBuilder.Entity<Logi>()
-            .HasKey(e => e.LogiId);
+            .HasKey(l => l.LogiId);
+            modelBuilder.Entity<Logi>().HasOne<LogiTyp>(l => l.LogiTyp);
 
             modelBuilder.Entity<PrislistaLogi>()
-            .HasKey(e => e.PrisId);
+            .HasKey(p => p.PrisId);
 
             modelBuilder.Entity<LogiTyp>()
-            .HasKey(e => e.testID);
+            .HasKey(t => t.LogiTypId);
+            modelBuilder.Entity<LogiTyp>().HasMany<Logi>(t => t.Logier);
 
             modelBuilder.Entity<Faktura>()
-            .HasKey(e => e.FakturaId);
+            .HasKey(f => f.FakturaId);
 
             modelBuilder.Entity<PrislistaLogi>()
-            .HasKey(e => e.PrisId);
+            .HasKey(p => p.PrisId);
 
             modelBuilder.Entity<Företagskund>()
-            .HasKey(e => e.FöretagsId);
+            .HasKey(fö => fö.FöretagsId);
 
             modelBuilder.Entity<Privatkund>()
-            .HasKey(e => e.PrivatkundId);
+            .HasKey(pk => pk.PrivatkundId);
 
 
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.
