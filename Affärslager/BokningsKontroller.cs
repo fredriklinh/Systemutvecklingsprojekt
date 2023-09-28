@@ -7,6 +7,8 @@ using Datalager;
 using Datalager.Context;
 using Entiteter;
 using Entiteter.Personer;
+using Entiteter.Tjänster;
+
 
 namespace Affärslager
 {
@@ -15,25 +17,30 @@ namespace Affärslager
 
         UnitOfWork unitOfWork = new UnitOfWork();
 
-
-      
-        //public Kontroller() { }
-
-
-
-        //public DataLayer.InterfaceRepository.Repository<object> Repository
-        //{
-        //    get => default;
-        //    set
-        //    {
-        //    }
-        //}
-        
-        public void LaddaData()
+        /// <summary>
+        /// Metoden kollar igenom alla logier mellan två angivna datum som har status tillgänglig true samt kollar igenom alla bokade logier som är utanför angivet datum f
+        /// </summary>
+        /// <param name="startdatum"></param>
+        /// <param name="slutdatum"></param>
+        /// <returns></returns>
+        public List<Logi> HämtaTillgängligLogi (DateTime startdatum, DateTime slutdatum)
         {
-            dbContext DbContext = new dbContext();
-            DbContext.Reset();
-            DbContext.Database.EnsureCreated();
+            List<Logi> logi = new List<Logi>();
+
+            foreach (Logi allLogi in unitOfWork.LogiRepository.Find(b => b.ÄrTillgänglig))
+            {
+                logi.Add(allLogi);
+            }
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
+            {
+                foreach (Logi ledigLogi in item.ValdLogi)
+                {
+                    logi.Add(ledigLogi);
+                }
+            }
+            return logi;
         }
+
+
     }
 }

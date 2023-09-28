@@ -20,14 +20,18 @@ namespace PresentationslagerWPF.ViewModels
     public class LoggaInViewModel : ObservableObject
     {
 
-        //Command för att navigera vidare
-        public ICommand LoggaInCommand { get;}
+        //**** NAVIGATION *******//
+        public ICommand LoggaInCommand { get; }
 
         public LoggaInViewModel(NavigationStore navigationStore)
         {
-            LoggaInCommand = new LoggaInCommand(this, new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel()));
+            LoggaInCommand = new LoggaInCommand(this, new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+
+
 
         }
+
+
         //STATUS
         private string status = "Ready";
         public string Status { get { return status; } set { status = value; OnPropertyChanged(); } }

@@ -27,15 +27,14 @@ namespace Entiteter.Tjänster
         public DateTime SlutDatum { get; set; }
         public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
 
-        
-        public virtual IList<LogiTyp> logiTyper { get; set; } = new List<LogiTyp>();
+        //public virtual IList<LogiTyp> logiTyper { get; set; } = new List<LogiTyp>();
         public virtual Privatkund Privatkund { get; set; }
         public virtual Företagskund Företagskund { get; set;}
         public virtual Användare Användare { get; set; }
 
-        [ForeignKey("Faktura")]
-        public int? Fakturanummer { get; set; }
-        public virtual Faktura Faktura { get; set; }
+        //[ForeignKey("Faktura")]
+        //public int? Fakturanummer { get; set; }
+        //public virtual Faktura Faktura { get; set; }
 
 
 

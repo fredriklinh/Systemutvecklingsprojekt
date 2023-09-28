@@ -17,14 +17,14 @@
                         <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                             <StackPanel Orientation="Vertical">
                                 <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Ankomst:</Label>
-                                <DatePicker></DatePicker>
+                                <DatePicker x:Name="Ankomst" SelectedDate="{Binding Starttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Utcheckning:</Label>
-                                <DatePicker></DatePicker>
+                                <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Slutttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <Button Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Background="LightGray" Width="2" Margin="0,0,3,0"></StackPanel>
@@ -92,7 +92,15 @@
                         <Label HorizontalAlignment="Left" Content="Pris" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                        <DataGrid Background="White" Width="550" Height="150" Margin="0,0,10,0"></DataGrid>
+                        <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
+                      SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding Tillgänliglogi}" Background="White" Width="550" Height="150" Margin="0,0,10,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
                         <StackPanel>
                             <Label HorizontalAlignment="Left" Content="Kostnad totalt för vistelse:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                             <TextBox>Kr</TextBox>
