@@ -30,10 +30,10 @@
                 <StackPanel Background="LightGray" Width="2" Margin="0,0,3,0"></StackPanel>
                 <StackPanel>
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
-                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kundnummer:</Label>
+                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Height="25" Width="100">PersonNr/OrgNr</TextBox>
-                        <Button Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen"></Button>
+                        <TextBox Text="{Binding Kundnummer, Mode=OneWayToSource}" Height="25" Width="100"></TextBox>
+                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Width="180">
@@ -43,11 +43,11 @@
                         <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Height="25" Width="80"></TextBox>
+                    <StackPanel DataContext="{Binding PrivatKund}" Orientation="Horizontal" Margin="5,0,0,0">
+                        <TextBox x:Name="KundFörnamn" Height="25" Width="80"></TextBox>
                         <TextBox Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel >
                         <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Personnummer:"></Label>
                         <TextBox Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>

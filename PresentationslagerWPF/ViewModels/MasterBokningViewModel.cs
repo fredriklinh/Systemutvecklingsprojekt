@@ -12,6 +12,8 @@ using Affärslager;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
+using Entiteter.Personer;
+using Affärslager.KundKontroller;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -19,6 +21,7 @@ namespace PresentationslagerWPF.ViewModels
     {
         #region Kontrollers
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
+        PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
 
         #endregion
 
@@ -28,6 +31,19 @@ namespace PresentationslagerWPF.ViewModels
 
         private DateTime sluttid;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
+        
+        private long kundnummer;
+        public long Kundnummer { get => kundnummer;  set { kundnummer = value; OnPropertyChanged(); } }
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
+
+
+
+
 
         #endregion
 
@@ -35,9 +51,13 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Logi> tillgänliglogi = null!;
         public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
 
-        
+        //private ObservableCollection<Privatkund> privatkund = null!;
+        //public ObservableCollection<Privatkund> Privatkund { get => privatkund; set { privatkund= value; OnPropertyChanged(); } }   
+
+
+
         #endregion
-        public MasterBokningViewModel(NavigationStore navigationStore)
+public MasterBokningViewModel(NavigationStore navigationStore)
         {
                 
         }
@@ -56,6 +76,14 @@ namespace PresentationslagerWPF.ViewModels
             
 
         });
+
+        private ICommand sökKund = null!;
+        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
+        {
+
+            Privatkund = new ObservableCollection<Privatkund>((IEnumerable<Privatkund>)privatkundKontroller.SökPrivatkund(Kundnummer));
+        });
+
         #endregion
 
     }
