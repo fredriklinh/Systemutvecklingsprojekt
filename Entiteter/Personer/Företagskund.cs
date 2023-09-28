@@ -16,7 +16,7 @@ namespace Entiteter.Personer
 
         }
 
-        [Key]
+
         public int FöretagsId { get; set; }
         public string OrgNr { get; set; }
         public string FöretagsNamn { get; set; }
