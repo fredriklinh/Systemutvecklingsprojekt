@@ -13,12 +13,12 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public void LaddaData()
-        {
-            dbContext DbContext = new dbContext();
-            DbContext.Reset();
-            DbContext.Database.EnsureCreated();
-        }
+        //public void LaddaData()
+        //{
+        //    dbContext DbContext = new dbContext();
+        //    DbContext.Reset();
+        //    DbContext.Database.EnsureCreated();
+        //}
 
         public Användare Inloggning(string användarnamn, string lösenord)
         {

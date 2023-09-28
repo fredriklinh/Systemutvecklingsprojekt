@@ -19,6 +19,9 @@
             <DataTemplate DataType="{x:Type viewmodels:MasterBokningViewModel}">
                 <views:MasterBokningView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KundhanteringViewModel}">
+                <views:KundhanteringView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

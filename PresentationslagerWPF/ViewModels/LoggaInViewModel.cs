@@ -46,6 +46,10 @@ namespace PresentationslagerWPF.ViewModels
         public string Lösenord { get => lösenord; set { lösenord = value; OnPropertyChanged(); } }
 
 
+        //AVBRYT
+        private ICommand exitCommand = null!;
+        public ICommand ExitCommand =>
+        exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
 
 
