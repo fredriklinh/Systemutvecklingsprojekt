@@ -1401,20 +1401,59 @@ namespace Datalager.Seed
 
 
 
-            for (int i = 1; i <= 50; i++)
+            //for (int i = 1; i <= 50; i++)
+            //{
+
+            //        modelBuilder.Entity<Logi>().HasData(new Logi()
+            //        {
+            //            LogiId = "Ll" + i,
+            //            Kvadratmeter = 50,
+            //            Bäddar = 4,
+            //            Kök = true,
+            //            ÄrTillgänglig = true
+
+            //        });
+
+            //}
+            modelBuilder.Entity<Logi>().HasData(new Logi()
             {
+                LogiId = "Ll1",
+                LogiName = "LGH.I",
+                Kvadratmeter = 50,
+                Bäddar = 4,
+                Kök = true,
+                ÄrTillgänglig = true
 
-                    modelBuilder.Entity<Logi>().HasData(new Logi()
-                    {
-                        LogiId = "Ll" + i,
-                        Kvadratmeter = 50,
-                        Bäddar = 4,
-                        Kök = true,
-                        ÄrTillgänglig = true
+            });
+            modelBuilder.Entity<Logi>().HasData(new Logi()
+            {
+                LogiId = "Ll2",
+                LogiName = "LGH.I",
+                Kvadratmeter = 50,
+                Bäddar = 4,
+                Kök = true,
+                ÄrTillgänglig = true
 
-                    });
-                
-            }
+            }); modelBuilder.Entity<Logi>().HasData(new Logi()
+            {
+                LogiId = "Lll1",
+                LogiName = "LGH.II",
+                Kvadratmeter = 50,
+                Bäddar = 4,
+                Kök = true,
+                ÄrTillgänglig = true
+
+            });
+            modelBuilder.Entity<Logi>().HasData(new Logi()
+            {
+                LogiId = "Camp1",
+                LogiName = "Camp",
+                Kvadratmeter = 50,
+                Bäddar = 4,
+                Kök = true,
+                ÄrTillgänglig = true
+
+            });
 
         }
     }

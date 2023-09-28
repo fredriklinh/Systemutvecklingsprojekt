@@ -12,6 +12,7 @@ using Affärslager;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
+using Entiteter.Prislistor;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -19,15 +20,31 @@ namespace PresentationslagerWPF.ViewModels
     {
         #region Kontrollers
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
-
+        PrisKontroller prisKontroller = new PrisKontroller();
         #endregion
 
         #region On property change
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
 
-        private DateTime sluttid;
+        private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
+        
+        private PrislistaLogi prislistaLogi = null!;
+        public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
+
+        private int totalPris;
+        public int TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+
+        private Logi tillgänliglogiSelectedItem = null!;
+        public Logi TillgänliglogiSelectedItem { 
+            get => tillgänliglogiSelectedItem; 
+            set { tillgänliglogiSelectedItem = value; OnPropertyChanged();
+                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänliglogiSelectedItem.LogiName, Starttid, Sluttid);
+            } }
+
+        private int tillgänliglogiSelectedIndex;
+        public int TillgänliglogiSelectedIndex { get => tillgänliglogiSelectedIndex; set { tillgänliglogiSelectedIndex = value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -56,6 +73,7 @@ namespace PresentationslagerWPF.ViewModels
             
 
         });
+        
         #endregion
 
     }
