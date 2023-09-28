@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PresentationslagerWPF.Services;
+using Affärslager;
+using Entiteter.Personer;
+using System.Windows;
+using Entiteter;
 
 namespace PresentationslagerWPF.Commands
 {
@@ -15,16 +19,16 @@ namespace PresentationslagerWPF.Commands
     {
         private readonly NavigationService<TViewModel> _navigationService;
 
-        private readonly Func<bool> _canExecute = null!;
-
         public NavigateCommand(NavigationService<TViewModel> navigationService)
         {
             _navigationService = navigationService;
         }
 
-        public override bool CanExecute(object parameter) =>
-                _canExecute == null || _canExecute();
+        public override bool CanExecute(object parameter)
+        {
+            return true;
 
+        }
         public override void Execute(object parameter)
         {
             _navigationService.Navigate();

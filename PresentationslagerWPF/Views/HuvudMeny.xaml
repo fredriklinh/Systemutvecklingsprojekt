@@ -7,15 +7,16 @@
         xmlns:vm="PresentationslagerWPF.ViewModels"
         mc:Ignorable="d"
         Height="450" Width="800">
-    <StackPanel Background="AliceBlue" HorizontalAlignment="Left">
+    <StackPanel Background="AliceBlue" Margin="0,0,530,0">
         <Label Margin="10,5,10,20" FontSize="30" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Huvudmeny</Label>
-        <Button x:Name="btnBokning" Content="Bokning" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+        <Button x:Name="btnBokning" Command="{Binding NavigateMasterBokningCommand}" CommandParameter ="Hej" Content="Bokning" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
         <Button x:Name="btnUthyrning" Content="Uthyrning/Skidshop" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
         <Button x:Name="btnKundhantering" Content="Kundhantering" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
         <Separator/>
         <Button x:Name="btnStatistik" Content="Statistik" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,20,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
         <Button x:Name="btnAdmin" Content="Admin" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
         <Separator/>
-        <Button x:Name="btnAvsluta" Content="Avsluta" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,20,10,0" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+        <Button x:Name="btnAvsluta" Command = "{Binding ExitCommand}" Content="Avsluta" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,20,10,0" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
     </StackPanel>
+
 </UserControl>

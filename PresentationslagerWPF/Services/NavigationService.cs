@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Models;
-using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF.Services
 {

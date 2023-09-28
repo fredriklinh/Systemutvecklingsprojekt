@@ -13,5 +13,9 @@ internal class Program
         BokningsKontroller kontroller = new BokningsKontroller();
         kontroller.LaddaData();
 
+        PrisKontroller prisKontroller= new PrisKontroller();
+
+        
+        prisKontroller.BeräknaPrisLogi();
     }
 }

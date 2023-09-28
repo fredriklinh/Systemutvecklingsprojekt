@@ -23,9 +23,9 @@ namespace Entiteter.Tjänster
         public bool Delbetalning { get; set; }
         public int TotalBelopp { get; set; }
 
-        [ForeignKey("MasterBokning")]
-        public int? Bokningsnummer { get; set; }
-        public virtual MasterBokning MasterBokning { get; set; }
+        //[ForeignKey("MasterBokning")]
+        //public int? Bokningsnummer { get; set; }
+        //public virtual MasterBokning MasterBokning { get; set; }
 
 
     }

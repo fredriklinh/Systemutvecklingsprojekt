@@ -18,20 +18,15 @@ namespace PresentationslagerWPF.ViewModels
 
         private readonly NavigationStore _navigationStore;
 
-        //****NAVIGATION*****//
         public ObservableObject CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        private BokningsKontroller bokningsKontroller;
 
-
-        //Konstruktor
         public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
-            bokningsKontroller = new BokningsKontroller();
         }
+
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
