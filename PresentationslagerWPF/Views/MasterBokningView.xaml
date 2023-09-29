@@ -96,9 +96,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                         <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
-                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding Tillgänliglogi}"
-                                  SelectedItem="{Binding TillgänliglogiSelectedItem, Mode=TwoWay}"
-                                  SelectedIndex="{Binding TillgänliglogiSelectedIndex, Mode=TwoWay}" 
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgänligLogi}"
+                                  SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
+                                  SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}" 
                                   Background="White" Width="550" Height="150" Margin="0,0,10,0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>

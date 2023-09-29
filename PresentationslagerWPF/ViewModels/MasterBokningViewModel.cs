@@ -80,8 +80,8 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region Obervible Collections 
-        private ObservableCollection<Logi> tillgänliglogi = null!;
-        public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
+        private ObservableCollection<Logi> tillgänligLogi = null!;
+        public ObservableCollection<Logi> TillgänligLogi { get => tillgänligLogi; set { tillgänligLogi = value; OnPropertyChanged(); } }
 
 
         #endregion
@@ -101,7 +101,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            Tillgänliglogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
+            TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             
 
         });
