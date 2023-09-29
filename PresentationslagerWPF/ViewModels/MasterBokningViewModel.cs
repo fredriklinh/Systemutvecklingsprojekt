@@ -117,11 +117,20 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+
             //if (Privatkund == null)
             //{
             //    företagskund = företagskundKontroller.SökFöretagskund(kundnummer);
             //}
             
+        });
+        private ICommand spara = null!;
+        public ICommand Spara => spara ??= spara = new RelayCommand(() =>
+        {
+            if (Privatkund == null)
+            {
+                //Privatkund = privatkundKontroller.
+            }
         });
         #endregion
 
