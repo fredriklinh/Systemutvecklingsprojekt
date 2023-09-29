@@ -12,6 +12,9 @@ using Affärslager;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
+using Entiteter.Prislistor;
+using Affärslager.KundKontroller;
+using Entiteter.Personer;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -19,6 +22,8 @@ namespace PresentationslagerWPF.ViewModels
     {
         #region Kontrollers
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
+        PrisKontroller prisKontroller = new PrisKontroller();
+        PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
 
         #endregion
 
@@ -28,6 +33,49 @@ namespace PresentationslagerWPF.ViewModels
 
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
+
+        private long kundnummer;
+        public long Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
+
+        private PrislistaLogi prislistaLogi = null!;
+        public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
+
+        private int totalPris;
+        public int TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+
+        private Logi tillgänligLogiSelectedItem = null!;
+        public Logi TillgänligLogiSelectedItem
+        {
+            get => tillgänligLogiSelectedItem;
+            set
+            {
+                tillgänligLogiSelectedItem = value; OnPropertyChanged();
+                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
+            }
+        }
+
+        private int tillgänligLogiSelectedIndex;
+        public int TillgänligLogiSelectedIndex { get => tillgänligLogiSelectedIndex; set { tillgänligLogiSelectedIndex = value; OnPropertyChanged(); } }
+
+        private Logi valdLogiSelectedItem = null!;
+        public Logi ValdLogiSelectedItem
+        {
+            get => valdLogiSelectedItem;
+            set
+            {
+                valdLogiSelectedItem = value; OnPropertyChanged();
+
+            }
+        }
+
+        private int valdLogiSelectedIndex;
+        public int ValdLogiSelectedIndex { get => valdLogiSelectedIndex; set { valdLogiSelectedIndex = value; OnPropertyChanged(); } }
 
         #endregion
 

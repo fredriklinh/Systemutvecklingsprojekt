@@ -18,7 +18,7 @@ namespace Entiteter.Tjänster
 
         }
         public string LogiId { get; set; }
-        public string LogiNamn { get; set; }
+        
         public int Kvadratmeter { get; set; }
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
