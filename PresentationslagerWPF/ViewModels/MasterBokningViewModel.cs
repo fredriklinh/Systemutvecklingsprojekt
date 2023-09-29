@@ -14,8 +14,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
 using Entiteter.Personer;
-
-
+using Entiteter.Prislistor;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -44,7 +43,25 @@ namespace PresentationslagerWPF.ViewModels
         private Företagskund företagskund = null!;
         public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
 
+        private PrislistaLogi prislistaLogi = null!;
+        public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
 
+        private int totalPris;
+        public int TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+
+        private Logi tillgänliglogiSelectedItem = null!;
+        public Logi TillgänliglogiSelectedItem
+        {
+            get => tillgänliglogiSelectedItem;
+            set
+            {
+                tillgänliglogiSelectedItem = value; OnPropertyChanged();
+                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänliglogiSelectedItem.LogiNamn, Starttid, Sluttid);
+            }
+        }
+
+        private int tillgänliglogiSelectedIndex;
+        public int TillgänliglogiSelectedIndex { get => tillgänliglogiSelectedIndex; set { tillgänliglogiSelectedIndex = value; OnPropertyChanged(); } }
 
 
 
