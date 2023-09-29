@@ -31,7 +31,7 @@ namespace PresentationslagerWPF.ViewModels
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
 
-        private DateTime sluttid;
+        private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
         
         private long kundnummer;
