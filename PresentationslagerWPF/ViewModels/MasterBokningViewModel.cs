@@ -67,7 +67,7 @@ namespace PresentationslagerWPF.ViewModels
             set { tillgänligLogiSelectedItem = value; OnPropertyChanged();
                 if (TillgänligLogiSelectedItem != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.LogiNamn, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
                 }
             } }
 
@@ -190,7 +190,7 @@ namespace PresentationslagerWPF.ViewModels
                 //Ta bort kostnad
                 if (tabortLogi != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.LogiNamn, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
                 }
                 TillgänligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
