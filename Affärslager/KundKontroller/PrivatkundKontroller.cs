@@ -12,7 +12,7 @@ namespace Affärslager.KundKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public void RegistreraPrivatKund(Privatkund pk)
+        public void RegistreraPrivatKund()
         {
             
         }

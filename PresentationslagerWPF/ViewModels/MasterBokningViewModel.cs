@@ -175,10 +175,33 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand spara = null!;
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
         {
-            if (Privatkund == null)
+            Användare användare = new Användare()
             {
-                //Privatkund = privatkundKontroller.
-            }
+                AnvändarID = 98,
+                Behörighetsnivå = 1,
+                Användarnamn = "Magnus",
+                Lösenord = "a",
+                Efternamn = "Otterberg",
+                Förnamn = "Magnifike"
+            };
+            //Privatkund Fiel = new Privatkund()
+            //{
+            //    Personnummer = "19680314-9999",
+            //    Förnamn = "Fiel",
+            //    Efternamn = "Skogholm",
+            //    Adress = "Tingstadsalé 24",
+            //    Postnummer = 78533,
+            //    Ort = "Stockholm",
+            //    Telefonnummer = "07266555994",
+            //    MailAdress = "Fiel.Skogholm@stocknäs.se"
+            //};
+            bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund/*, användare*/);
+            //if (Privatkund == null)
+            //{
+            //    //Privatkund = privatkundKontroller.RegistreraPrivatKund()
+            //    //bokningsKontroller.SkapaMasterbokningPrivatkund()
+            //}
+            
         });
 
         private ICommand taBortCommand = null!;

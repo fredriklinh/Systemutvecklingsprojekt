@@ -20,14 +20,14 @@ namespace Datalager.Context
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;"*/);
+                .UseSqlServer(/*@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"*/@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;");
             base.OnConfiguring(optionsBuilder);
 
         }
         public void Reset()
         {
             #region Remove Tables
-            using (SqlConnection conn = new SqlConnection(@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"))
+            using (SqlConnection conn = new SqlConnection(/*@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"*/ @"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"))
             using (SqlCommand cmd = new SqlCommand("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'; EXEC sp_msforeachtable 'DROP TABLE ?'", conn))
             {
                 conn.Open();
@@ -59,6 +59,9 @@ namespace Datalager.Context
 
             modelBuilder.Entity<MasterBokning>()
             .HasKey(m => m.BokningsNr);
+            modelBuilder.Entity<MasterBokning>().HasOne<Privatkund>(pk => pk.Privatkund);
+            modelBuilder.Entity<MasterBokning>().HasOne<Företagskund>(pk => pk.Företagskund);
+            modelBuilder.Entity<MasterBokning>().HasOne<Användare>(pk => pk.Användare);
 
             modelBuilder.Entity<Logi>()
             .HasKey(l => l.LogiId);
@@ -78,10 +81,13 @@ namespace Datalager.Context
             .HasKey(p => p.PrisId);
 
             modelBuilder.Entity<Företagskund>()
-            .HasKey(fö => fö.FöretagsId);
+            .HasKey(fö => fö.OrgNr);
+            modelBuilder.Entity<Företagskund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
 
             modelBuilder.Entity<Privatkund>()
-            .HasKey(pk => pk.PrivatkundId);
+            .HasKey(pk => pk.Personnummer);
+            modelBuilder.Entity<Privatkund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
+
 
 
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.

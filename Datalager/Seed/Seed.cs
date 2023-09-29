@@ -16,9 +16,9 @@ namespace Datalager.Seed
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
                 {
-                    AnvändarID = 99,
+                    AnvändarID = 55,
                     Behörighetsnivå = 1,
-                    Användarnamn = "Magnus",
+                    Användarnamn = "Anders",
                     Lösenord = "a",
                     Efternamn = "Otterberg",
                     Förnamn = "Magnifike"
@@ -1454,7 +1454,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
-                PrivatkundId = 1,
+                //PrivatkundId = 1,
                 Personnummer = "19680314-2322",
                 Förnamn = "Fiel",
                 Efternamn = "Skogholm",
@@ -1468,8 +1468,8 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
-                PrivatkundId = 2,
-                Personnummer = "19680314-2322",
+                //PrivatkundId = 2,
+                Personnummer = "19990523-2322",
                 Förnamn = "Fidde",
                 Efternamn = "Skoglund",
                 Adress = "Tingstadsgatan 24",
@@ -1479,42 +1479,27 @@ namespace Datalager.Seed
                 MailAdress = "Fiel.Skogholm@stocknäs.se"
 
             });
+            modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
+            {
+                //FöretagsId = 999,
+                OrgNr = "4343-2321",
+                FöretagsNamn = "Byggplockarna AB",
+                Adress = "Karlatornsväg 23",
+                Postnummer = 46941,
+                Ort = "Utby",
+                Telefonnummer = "07266555994",
+                MailAdress = "ByggplockAB@foretagsadress.se",
+                RabattSats = 12.5
+
+            });
+
+
 
             
 
 
-            //#region Temporär testdata kund
-            //for (int i = 1; i <= 5; i++)
-            //{
-
-            //    modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
-            //    {
-            //        PrivatkundId = 0 + i,
-            //        Personnummer = "19690714-2342",
-            //        Förnamn = "Fiel",
-            //        Efternamn = "Skogholm",
-            //        Adress = "Tingstadsalé 24",
-            //        Ort = "Stockholm",
-            //        Telefonnummer = "07266555994",
-            //        MailAdress = "Fiel.Skogholm@stocknäs.se"
-
-            //    });
 
 
-
-                modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
-                {
-                    FöretagsId = 999,
-                    OrgNr = "4343-2321",
-                    FöretagsNamn = "Byggplockarna AB",
-                    Adress = "Karlatornsväg 23",
-                    Postnummer = 46941,
-                    Ort = "Utby",
-                    Telefonnummer = "07266555994",
-                    MailAdress = "ByggplockAB@foretagsadress.se",
-                    RabattSats = 12.5
-
-                });
 
 
         }

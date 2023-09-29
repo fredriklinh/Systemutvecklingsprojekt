@@ -156,7 +156,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
+                <Button x:Name="btnSpara" Command="{Binding Spara}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
             </StackPanel>
         </StackPanel>
     </DockPanel>
