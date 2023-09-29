@@ -20,14 +20,14 @@ namespace Datalager.Context
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Grupp24MVVM;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;"*/);
+                .UseSqlServer(@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;");
             base.OnConfiguring(optionsBuilder);
 
         }
         public void Reset()
         {
             #region Remove Tables
-            using (SqlConnection conn = new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=Grupp24MVVM;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"*/))
+            using (SqlConnection conn = new SqlConnection(@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"))
             using (SqlCommand cmd = new SqlCommand("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'; EXEC sp_msforeachtable 'DROP TABLE ?'", conn))
             {
                 conn.Open();
