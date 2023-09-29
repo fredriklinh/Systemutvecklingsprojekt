@@ -12,7 +12,8 @@ using Affärslager;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
-using Entiteter.Prislistor;
+using Entiteter.Personer;
+using Affärslager.KundKontroller;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -20,31 +21,29 @@ namespace PresentationslagerWPF.ViewModels
     {
         #region Kontrollers
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
-        PrisKontroller prisKontroller = new PrisKontroller();
+        PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
+
         #endregion
 
         #region On property change
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
 
-        private DateTime sluttid = DateTime.Now;
+        private DateTime sluttid;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
         
-        private PrislistaLogi prislistaLogi = null!;
-        public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
+        private long kundnummer;
+        public long Kundnummer { get => kundnummer;  set { kundnummer = value; OnPropertyChanged(); } }
 
-        private int totalPris;
-        public int TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
 
-        private Logi tillgänliglogiSelectedItem = null!;
-        public Logi TillgänliglogiSelectedItem { 
-            get => tillgänliglogiSelectedItem; 
-            set { tillgänliglogiSelectedItem = value; OnPropertyChanged();
-                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänliglogiSelectedItem.LogiNamn, Starttid, Sluttid);
-            } }
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
 
-        private int tillgänliglogiSelectedIndex;
-        public int TillgänliglogiSelectedIndex { get => tillgänliglogiSelectedIndex; set { tillgänliglogiSelectedIndex = value; OnPropertyChanged(); } }
+
+
+
 
         #endregion
 
@@ -52,16 +51,15 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Logi> tillgänliglogi = null!;
         public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
 
+        //private ObservableCollection<Privatkund> privatkund = null!;
+        //public ObservableCollection<Privatkund> Privatkund { get => privatkund; set { privatkund= value; OnPropertyChanged(); } }   
+
+
 
         #endregion
-
-
-
-        public ICommand Tillbaka { get; }
-        public MasterBokningViewModel(NavigationStore navigationStore)
+public MasterBokningViewModel(NavigationStore navigationStore)
         {
-            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
-
+                
         }
         public MasterBokningViewModel()
         {
@@ -78,7 +76,14 @@ namespace PresentationslagerWPF.ViewModels
             
 
         });
-        
+
+        private ICommand sökKund = null!;
+        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
+        {
+
+            Privatkund = new ObservableCollection<Privatkund>(privatkundKontroller.SökPrivatkund(Kundnummer));
+        });
+
         #endregion
 
     }

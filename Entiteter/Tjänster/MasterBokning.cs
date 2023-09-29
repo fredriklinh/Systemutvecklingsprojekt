@@ -17,7 +17,7 @@ namespace Entiteter.Tjänster
         {
 
         }
-        [Key]
+        
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
         public int NyttjadKreditsumma { get; set; }
@@ -28,9 +28,9 @@ namespace Entiteter.Tjänster
         public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
 
         //public virtual IList<LogiTyp> logiTyper { get; set; } = new List<LogiTyp>();
-        public virtual Privatkund Privatkund { get; set; }
-        public virtual Företagskund Företagskund { get; set;}
-        public virtual Användare Användare { get; set; }
+        //public virtual Privatkund Privatkund { get; set; }
+        //public virtual Företagskund Företagskund { get; set;}
+        //public virtual Användare Användare { get; set; }
 
         //[ForeignKey("Faktura")]
         //public int? Fakturanummer { get; set; }

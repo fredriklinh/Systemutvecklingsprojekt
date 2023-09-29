@@ -12,18 +12,18 @@ namespace Datalager.Seed
         public static void Populate(this ModelBuilder modelBuilder)
         {
 
-            
-                modelBuilder.Entity<Användare>().HasData(
-                    new Användare() 
-                    { 
-                        AnvändarID = 99, 
-                        Behörighetsnivå = 1, 
-                        Användarnamn = "Magnus", 
-                        Lösenord = "a", 
-                        Efternamn = "Otterberg", 
-                        Förnamn = "Magnifike" 
-                    }
-                    );
+
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    AnvändarID = 99,
+                    Behörighetsnivå = 1,
+                    Användarnamn = "Magnus",
+                    Lösenord = "a",
+                    Efternamn = "Otterberg",
+                    Förnamn = "Magnifike"
+                }
+                );
 
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
@@ -32,7 +32,7 @@ namespace Datalager.Seed
                 Vecka = 1,
                 PrisVardag = 415,
                 PrisHelg = 725,
-                PrisVecka = 2895, 
+                PrisVecka = 2895,
             });
 
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
@@ -1401,67 +1401,127 @@ namespace Datalager.Seed
 
 
 
-            //for (int i = 1; i <= 50; i++)
+            for (int i = 1; i <= 50; i++)
+            {
+
+                modelBuilder.Entity<Logi>().HasData(new Logi()
+                {
+                    LogiId = "Ll" + i,
+                    Kvadratmeter = 50,
+                    Bäddar = 4,
+                    Kök = true,
+                    ÄrTillgänglig = true
+
+                });
+
+            }
+            for (int i = 1; i <= 35; i++)
+            {
+
+                modelBuilder.Entity<Logi>().HasData(new Logi()
+                {
+                    LogiId = "Lll" + i,
+                    Kvadratmeter = 70,
+                    Bäddar = 4,
+                    Kök = true,
+                    ÄrTillgänglig = true,
+
+
+                });
+
+
+
+            }
+
+            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+            {
+                PrivatkundId = 1,
+                Personnummer = 196907142342,
+                Förnamn = "Fiel",
+                Efternamn = "Skogholm",
+                Adress = "Tingstadsalé 24",
+                Ort = "Stockholm",
+                Telefonnummer = "07266555994",
+                MailAdress = "Fiel.Skogholm@stocknäs.se"
+
+            });
+
+            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+            {
+                PrivatkundId = 2,
+                Personnummer = 196803142322,
+                Förnamn = "Fidde",
+                Efternamn = "Skoglund",
+                Adress = "Tingstadsgatan 24",
+                Ort = "Stockholm",
+                Telefonnummer = "07366555994",
+                MailAdress = "Fiel.Skogholm@stocknäs.se"
+
+            });
+            //modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            //{
+            //    LogiTypId = "Camp"
+
+            //});
+
+            //modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            //{
+            //    LogiTypId = "LGHI"
+
+            //});
+
+            //modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            //{
+            //    LogiTypId = "LGHII"
+
+            //});
+
+
+
+            //#region Temporär testdata kund
+            //for (int i = 1; i <= 5; i++)
             //{
 
-            //        modelBuilder.Entity<Logi>().HasData(new Logi()
-            //        {
-            //            LogiId = "Ll" + i,
-            //            Kvadratmeter = 50,
-            //            Bäddar = 4,
-            //            Kök = true,
-            //            ÄrTillgänglig = true
+            //    modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+            //    {
+            //        PrivatkundId = 0 + i,
+            //        Personnummer = "19690714-2342",
+            //        Förnamn = "Fiel",
+            //        Efternamn = "Skogholm",
+            //        Adress = "Tingstadsalé 24",
+            //        Ort = "Stockholm",
+            //        Telefonnummer = "07266555994",
+            //        MailAdress = "Fiel.Skogholm@stocknäs.se"
 
-            //        });
+            //    });
 
-            //}
-            modelBuilder.Entity<Logi>().HasData(new Logi()
-            {
-                LogiId = "Ll1",
-                LogiNamn = "LGH.I",
-                Kvadratmeter = 50,
-                Bäddar = 4,
-                Kök = true,
-                ÄrTillgänglig = true
 
-            });
-            modelBuilder.Entity<Logi>().HasData(new Logi()
-            {
-                LogiId = "Ll2",
-                LogiNamn = "LGH.I",
-                Kvadratmeter = 50,
-                Bäddar = 4,
-                Kök = true,
-                ÄrTillgänglig = true
 
-            }); modelBuilder.Entity<Logi>().HasData(new Logi()
-            {
-                LogiId = "Lll1",
-                LogiNamn = "LGH.II",
-                Kvadratmeter = 50,
-                Bäddar = 4,
-                Kök = true,
-                ÄrTillgänglig = true
+            //    modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
+            //    {
+            //        FöretagsId = 999 + i,
+            //        OrgNr = "4343-2321",
+            //        FöretagsNamn = "Byggplockarna AB",
+            //        Adress = "Karlatornsväg 23",
+            //        Ort = "Utby",
+            //        Telefonnummer = "07266555994",
+            //        MailAdress = "ByggplockAB@foretagsadress.se",
+            //        RabattSats = 12.5
 
-            });
-            modelBuilder.Entity<Logi>().HasData(new Logi()
-            {
-                LogiId = "Camp1",
-                LogiNamn = "Camp",
-                Kvadratmeter = 50,
-                Bäddar = 4,
-                Kök = true,
-                ÄrTillgänglig = true
-
-            });
+            //    });
+            //    #endregion
 
         }
     }
 
 
 
+        }
+    
 
 
 
 
-}
+
+
+
