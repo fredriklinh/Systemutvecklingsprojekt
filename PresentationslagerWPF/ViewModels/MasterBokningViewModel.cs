@@ -40,7 +40,7 @@ namespace PresentationslagerWPF.ViewModels
         public Logi TillgänliglogiSelectedItem { 
             get => tillgänliglogiSelectedItem; 
             set { tillgänliglogiSelectedItem = value; OnPropertyChanged();
-                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänliglogiSelectedItem.LogiName, Starttid, Sluttid);
+                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänliglogiSelectedItem.LogiNamn, Starttid, Sluttid);
             } }
 
         private int tillgänliglogiSelectedIndex;

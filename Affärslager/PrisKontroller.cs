@@ -25,9 +25,9 @@ namespace Affärslager
 
             return datumsVecka;
         }
-        public int BeräknaPrisLogi(string LogiName, DateTime startdatum, DateTime slutdatum)
+        public int BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
         {
-            string TypAvLogi = LogiName;
+            
 
             // Kolla resterande dagar, Kolla veckor
             if (startdatum > slutdatum)
@@ -51,7 +51,7 @@ namespace Affärslager
             {
                 //Tillfällig prisLogi
                 
-                PrislistaLogi prisLogiVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == TypAvLogi && a.Vecka == VeckaStart);
+                PrislistaLogi prisLogiVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == VeckaStart);
                 int antalVeckorKvar = antalVeckor - i;
                 if (antalVeckorKvar == 0)
                 {

@@ -1418,7 +1418,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Logi>().HasData(new Logi()
             {
                 LogiId = "Ll1",
-                LogiName = "LGH.I",
+                LogiNamn = "LGH.I",
                 Kvadratmeter = 50,
                 Bäddar = 4,
                 Kök = true,
@@ -1428,7 +1428,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Logi>().HasData(new Logi()
             {
                 LogiId = "Ll2",
-                LogiName = "LGH.I",
+                LogiNamn = "LGH.I",
                 Kvadratmeter = 50,
                 Bäddar = 4,
                 Kök = true,
@@ -1437,7 +1437,7 @@ namespace Datalager.Seed
             }); modelBuilder.Entity<Logi>().HasData(new Logi()
             {
                 LogiId = "Lll1",
-                LogiName = "LGH.II",
+                LogiNamn = "LGH.II",
                 Kvadratmeter = 50,
                 Bäddar = 4,
                 Kök = true,
@@ -1447,7 +1447,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Logi>().HasData(new Logi()
             {
                 LogiId = "Camp1",
-                LogiName = "Camp",
+                LogiNamn = "Camp",
                 Kvadratmeter = 50,
                 Bäddar = 4,
                 Kök = true,
