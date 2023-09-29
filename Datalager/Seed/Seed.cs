@@ -1455,10 +1455,11 @@ namespace Datalager.Seed
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
                 PrivatkundId = 1,
-                Personnummer = 196907142342,
+                Personnummer = "19680314-2322",
                 Förnamn = "Fiel",
                 Efternamn = "Skogholm",
                 Adress = "Tingstadsalé 24",
+                Postnummer = 78533,
                 Ort = "Stockholm",
                 Telefonnummer = "07266555994",
                 MailAdress = "Fiel.Skogholm@stocknäs.se"
@@ -1468,16 +1469,19 @@ namespace Datalager.Seed
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
                 PrivatkundId = 2,
-                Personnummer = 196803142322,
+                Personnummer = "19680314-2322",
                 Förnamn = "Fidde",
                 Efternamn = "Skoglund",
                 Adress = "Tingstadsgatan 24",
+                Postnummer = 45839,
                 Ort = "Stockholm",
                 Telefonnummer = "07366555994",
                 MailAdress = "Fiel.Skogholm@stocknäs.se"
 
             });
+
             
+
 
             //#region Temporär testdata kund
             //for (int i = 1; i <= 5; i++)
@@ -1498,19 +1502,20 @@ namespace Datalager.Seed
 
 
 
-            //    modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
-            //    {
-            //        FöretagsId = 999 + i,
-            //        OrgNr = "4343-2321",
-            //        FöretagsNamn = "Byggplockarna AB",
-            //        Adress = "Karlatornsväg 23",
-            //        Ort = "Utby",
-            //        Telefonnummer = "07266555994",
-            //        MailAdress = "ByggplockAB@foretagsadress.se",
-            //        RabattSats = 12.5
+                modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
+                {
+                    FöretagsId = 999,
+                    OrgNr = "4343-2321",
+                    FöretagsNamn = "Byggplockarna AB",
+                    Adress = "Karlatornsväg 23",
+                    Postnummer = 46941,
+                    Ort = "Utby",
+                    Telefonnummer = "07266555994",
+                    MailAdress = "ByggplockAB@foretagsadress.se",
+                    RabattSats = 12.5
 
-            //    });
-            //    #endregion
+                });
+
 
         }
     }

@@ -24,6 +24,7 @@ namespace PresentationslagerWPF.ViewModels
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
         PrisKontroller prisKontroller = new PrisKontroller();
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
+        FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
 
         #endregion
 
@@ -34,8 +35,12 @@ namespace PresentationslagerWPF.ViewModels
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
 
-        private long kundnummer;
-        public long Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+        //private Kund kund = null!;
+
+        //public Kund Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
 
         private Privatkund privatkund = null!;
         public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
@@ -83,6 +88,8 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Logi> tillgänligLogi = null!;
         public ObservableCollection<Logi> TillgänligLogi { get => tillgänligLogi; set { tillgänligLogi = value; OnPropertyChanged(); } }
 
+        private ObservableCollection<Kund> kund = null!;
+        public ObservableCollection<Kund> Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
 
         #endregion
         public MasterBokningViewModel(NavigationStore navigationStore)
@@ -109,8 +116,12 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-
-            //Privatkund = new ObservableCollection<Privatkund>(privatkundKontroller.SökPrivatkund(Kundnummer));
+            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            //if (Privatkund == null)
+            //{
+            //    företagskund = företagskundKontroller.SökFöretagskund(kundnummer);
+            //}
+            
         });
         #endregion
 

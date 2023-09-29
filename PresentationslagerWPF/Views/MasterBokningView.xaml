@@ -32,7 +32,7 @@
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding Kundnummer, Mode=OneWayToSource}" Height="25" Width="100"></TextBox>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
                         <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
                     </StackPanel>
                 </StackPanel>
@@ -44,12 +44,12 @@
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
                     </StackPanel>
                     <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox x:Name="KundFörnamn" Height="25" Width="80" Text="{Binding PrivatKund, Mode=OneWayToSource}"></TextBox>
-                        <TextBox Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                        <TextBox x:Name="KundFörnamn" Text="{Binding Förnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                        <TextBox x:Name="EfterNamn" Text="{Binding Efternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
-                    <StackPanel >
+                    <StackPanel DataContext="{Binding Path=Privatkund}">
                         <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Personnummer:"></Label>
-                        <TextBox Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <TextBox x:Name="PersonnumerOrgNr" Text="{Binding Personnummer, Mode=TwoWay}" Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>
 
                 </StackPanel>
@@ -58,13 +58,13 @@
                         <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Adress:"></Label>
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Postnummer:"></Label>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Height="25" Width="90"></TextBox>
-                        <TextBox Height="25" Width="90" Margin="8,0,0,0"></TextBox>
+                    <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
+                        <TextBox Text="{Binding Adress, Mode=TwoWay}" Height="25" Width="90"></TextBox> 
+                        <TextBox Text="{Binding Postnummer, Mode=TwoWay}" Height="25" Width="90" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel DataContext="{Binding Path=Privatkund}">
                         <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
-                        <TextBox Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <TextBox Text="{Binding MailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>
                 </StackPanel>
                 <Button Margin="10 50" Command="{Binding LäggTillKund}">Add Kund</Button>

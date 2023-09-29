@@ -21,7 +21,7 @@ namespace Affärslager.KundKontroller
         //{
             //return unitOfWork.PrivatkundRepository.Find(input);
         //}
-        public Privatkund SökPrivatkund (long input)
+        public Privatkund SökPrivatkund (string input)
         {
             return unitOfWork.PrivatkundRepository.FirstOrDefault(a => a.Personnummer.Equals(input));
         }
