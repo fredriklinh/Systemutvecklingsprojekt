@@ -9,12 +9,9 @@ using PresentationslagerWPF.Views;
 using PresentationslagerWPF.Stores;
 using PresentationslagerWPF.Models;
 using Affärslager;
-using Affärslager.KundKontroller;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
-using Entiteter.Personer;
-using Entiteter.Prislistor;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -22,8 +19,6 @@ namespace PresentationslagerWPF.ViewModels
     {
         #region Kontrollers
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
-        PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
-        PrisKontroller prisKontroller = new PrisKontroller();
 
         #endregion
 
@@ -33,37 +28,6 @@ namespace PresentationslagerWPF.ViewModels
 
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
-        
-        private long kundnummer;
-        public long Kundnummer { get => kundnummer;  set { kundnummer = value; OnPropertyChanged(); } }
-
-        private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
-
-        private Företagskund företagskund = null!;
-        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
-
-        private PrislistaLogi prislistaLogi = null!;
-        public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
-
-        private int totalPris;
-        public int TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
-
-        private Logi tillgänliglogiSelectedItem = null!;
-        public Logi TillgänliglogiSelectedItem
-        {
-            get => tillgänliglogiSelectedItem;
-            set
-            {
-                tillgänliglogiSelectedItem = value; OnPropertyChanged();
-                TotalPris = prisKontroller.BeräknaPrisLogi(TillgänliglogiSelectedItem.LogiNamn, Starttid, Sluttid);
-            }
-        }
-
-        private int tillgänliglogiSelectedIndex;
-        public int TillgänliglogiSelectedIndex { get => tillgänliglogiSelectedIndex; set { tillgänliglogiSelectedIndex = value; OnPropertyChanged(); } }
-
-
 
         #endregion
 
@@ -71,15 +35,12 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Logi> tillgänliglogi = null!;
         public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
 
-        //private ObservableCollection<Privatkund> privatkund = null!;
-        //public ObservableCollection<Privatkund> Privatkund { get => privatkund; set { privatkund= value; OnPropertyChanged(); } }   
-
-
-
+        
         #endregion
         public MasterBokningViewModel(NavigationStore navigationStore)
         {
-                
+            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+
         }
         public MasterBokningViewModel()
         {
@@ -103,7 +64,6 @@ namespace PresentationslagerWPF.ViewModels
 
             Privatkund = new ObservableCollection<Privatkund>(privatkundKontroller.SökPrivatkund(Kundnummer));
         });
-
         #endregion
 
     }

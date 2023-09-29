@@ -48,9 +48,9 @@ namespace PresentationslagerWPF.Commands
         }
         public override void Execute(object parameter)
         {
-            //Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
-            //if (anv != null)
-            //{
+            Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
+            if (anv != null)
+            {
                 _navigationService.Navigate();
 
             //}

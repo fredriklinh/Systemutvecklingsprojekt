@@ -1399,6 +1399,23 @@ namespace Datalager.Seed
                 PrisVecka = 815,
             });
 
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGH.I"
+
+            });
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGH.II"
+
+            });
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "Camp"
+
+            });
 
 
             for (int i = 1; i <= 50; i++)
@@ -1410,10 +1427,11 @@ namespace Datalager.Seed
                     Kvadratmeter = 50,
                     Bäddar = 4,
                     Kök = true,
-                    ÄrTillgänglig = true
+                    ÄrTillgänglig = true,
+                    Typen = "LGH.I"
 
-                });
-
+                }) ;
+                
             }
             for (int i = 1; i <= 35; i++)
             {
@@ -1425,6 +1443,7 @@ namespace Datalager.Seed
                     Bäddar = 4,
                     Kök = true,
                     ÄrTillgänglig = true,
+                    Typen = "LGH.II"
 
 
                 });

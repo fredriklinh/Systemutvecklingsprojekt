@@ -17,7 +17,6 @@ namespace Entiteter.Tjänster
         {
 
         }
-
         public string LogiId { get; set; }
         public string LogiNamn { get; set; }
         public int Kvadratmeter { get; set; }
@@ -31,7 +30,9 @@ namespace Entiteter.Tjänster
         public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
         public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
-        //public LogiTyp Typ { get; set; }
+        [ForeignKey("LogiTyp")]
+        public string Typen {  get; set; }
+        public virtual LogiTyp? LogiTyp { get; set; }
 
 
 
