@@ -83,11 +83,11 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Logi> tillgänliglogi = null!;
         public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
 
-        
+
         #endregion
         public MasterBokningViewModel(NavigationStore navigationStore)
         {
-            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+            //Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
 
         }
         public MasterBokningViewModel()
@@ -110,7 +110,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
 
-            Privatkund = new ObservableCollection<Privatkund>(privatkundKontroller.SökPrivatkund(Kundnummer));
+            //Privatkund = new ObservableCollection<Privatkund>(privatkundKontroller.SökPrivatkund(Kundnummer));
         });
         #endregion
 

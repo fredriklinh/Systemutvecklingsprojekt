@@ -53,7 +53,7 @@ namespace PresentationslagerWPF.Commands
             {
                 _navigationService.Navigate();
 
-            //}
+            }
         }
     }
 }
