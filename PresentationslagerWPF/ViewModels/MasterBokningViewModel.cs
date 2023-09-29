@@ -81,7 +81,7 @@ public MasterBokningViewModel(NavigationStore navigationStore)
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
 
-            Privatkund = new ObservableCollection<Privatkund>((IEnumerable<Privatkund>)privatkundKontroller.SökPrivatkund(Kundnummer));
+            Privatkund = new ObservableCollection<Privatkund>(privatkundKontroller.SökPrivatkund(Kundnummer));
         });
 
         #endregion

@@ -43,8 +43,8 @@
                         <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
                     </StackPanel>
-                    <StackPanel DataContext="{Binding PrivatKund}" Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox x:Name="KundFörnamn" Height="25" Width="80"></TextBox>
+                    <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
+                        <TextBox x:Name="KundFörnamn" Height="25" Width="80" Text="{Binding PrivatKund, Mode=OneWayToSource}"></TextBox>
                         <TextBox Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
                     <StackPanel >
