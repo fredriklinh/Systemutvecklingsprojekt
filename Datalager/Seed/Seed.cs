@@ -1440,7 +1440,7 @@ namespace Datalager.Seed
                 {
                     LogiId = "Lll" + i,
                     Kvadratmeter = 70,
-                    Bäddar = 4,
+                    Bäddar = 6,
                     Kök = true,
                     ÄrTillgänglig = true,
                     Typen = "LGH.II"
@@ -1477,25 +1477,7 @@ namespace Datalager.Seed
                 MailAdress = "Fiel.Skogholm@stocknäs.se"
 
             });
-            //modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
-            //{
-            //    LogiTypId = "Camp"
-
-            //});
-
-            //modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
-            //{
-            //    LogiTypId = "LGHI"
-
-            //});
-
-            //modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
-            //{
-            //    LogiTypId = "LGHII"
-
-            //});
-
-
+            
 
             //#region Temporär testdata kund
             //for (int i = 1; i <= 5; i++)
