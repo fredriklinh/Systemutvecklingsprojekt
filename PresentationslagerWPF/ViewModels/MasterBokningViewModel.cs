@@ -9,11 +9,13 @@ using PresentationslagerWPF.Views;
 using PresentationslagerWPF.Stores;
 using PresentationslagerWPF.Models;
 using Affärslager;
+using Affärslager.KundKontroller;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
 using Entiteter.Personer;
-using Affärslager.KundKontroller;
+
+
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -22,6 +24,7 @@ namespace PresentationslagerWPF.ViewModels
         #region Kontrollers
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
+        PrisKontroller prisKontroller = new PrisKontroller();
 
         #endregion
 
@@ -57,7 +60,7 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #endregion
-public MasterBokningViewModel(NavigationStore navigationStore)
+        public MasterBokningViewModel(NavigationStore navigationStore)
         {
                 
         }
