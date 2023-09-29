@@ -129,7 +129,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (Privatkund == null)
             {
-                Privatkund = privatkundKontroller.
+                //Privatkund = privatkundKontroller.
             }
         });
         #endregion
