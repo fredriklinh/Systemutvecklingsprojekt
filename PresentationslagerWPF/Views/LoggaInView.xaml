@@ -7,17 +7,31 @@
         mc:Ignorable="d"
         Height="450" Width="800">
     <StackPanel Margin="20,20,20,20">
+        <DockPanel LastChildFill="True" Margin="0,0,10,0">
+            <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
+                <DockPanel>
+                    <StackPanel Margin= "10,10,10,10" Width="530">
+                        <DockPanel  Margin= "10,10,10,10">
+                            <Label  HorizontalAlignment="Left">Användarnamn</Label>
+                            <TextBox HorizontalAlignment="Right" Text="{Binding Användarnamn, Mode=OneWayToSource}" Width="400" ></TextBox>
+                        </DockPanel>
+                        <DockPanel Margin="10,10,10,10">
+                            <Label HorizontalAlignment="Left">Lösenord</Label>
+                            <TextBox HorizontalAlignment="Right" Text="{Binding Lösenord, Mode=OneWayToSource}" Width="400" RenderTransformOrigin="0.557,0.541"/>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel LastChildFill="True" HorizontalAlignment="Center" Width="312">
+                    <ToggleButton x:Name="LoggaIn" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding LoggaInCommand}" CommandParameter ="{Binding LoggaInCommand}" Height="27"/>
+                    <Button FontSize="14" Width="100" Margin="0,5,10,5" HorizontalAlignment="Left" Command="{Binding ExitCommand}">AVBRYT</Button>
 
-        <Label>Användarnamn</Label>
-        <TextBox Text="{Binding Användarnamn, Mode=OneWayToSource}" ></TextBox>
-        <Label>Lösenord</Label>
-        <TextBox Text="{Binding Lösenord, Mode=OneWayToSource}"></TextBox>
-        <Button>AVBRYT</Button>
-        <ToggleButton x:Name="LoggaIn" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding LoggaInCommand}" CommandParameter ="{Binding LoggaInCommand}" Height="27"/>
-        <StatusBar DockPanel.Dock="Bottom" Background="Beige" Margin="10,10,10,10">
-            <StatusBarItem HorizontalAlignment="Center">
-                <TextBlock Text="{Binding Status}" />
-            </StatusBarItem>
-        </StatusBar>
+                </DockPanel>
+                <StatusBar DockPanel.Dock="Bottom" Background="White" Margin="10,10,10,10">
+                    <StatusBarItem HorizontalAlignment="Center" >
+                        <TextBlock Text="{Binding Status}" Width="100" />
+                    </StatusBarItem>
+                </StatusBar>
+            </StackPanel>
+        </DockPanel>
     </StackPanel>
 </UserControl>
