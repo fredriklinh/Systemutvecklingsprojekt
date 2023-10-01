@@ -11,7 +11,7 @@ namespace Entiteter.Personer
         
         public double MaxBeloppsKreditGräns { get; set; }
         public string Adress { get; set; }
-        public int PostNummer { get; set; }
+        public int Postnummer { get; set; }
         public string Ort { get; set; }
         public string Telefonnummer { get; set; }
         public string MailAdress { get; set; }

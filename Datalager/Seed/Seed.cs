@@ -12,18 +12,18 @@ namespace Datalager.Seed
         public static void Populate(this ModelBuilder modelBuilder)
         {
 
-            
-                modelBuilder.Entity<Användare>().HasData(
-                    new Användare() 
-                    { 
-                        AnvändarID = 99, 
-                        Behörighetsnivå = 1, 
-                        Användarnamn = "Magnus", 
-                        Lösenord = "a", 
-                        Efternamn = "Otterberg", 
-                        Förnamn = "Magnifike" 
-                    }
-                    );
+
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    AnvändarID = 55,
+                    Behörighetsnivå = 1,
+                    Användarnamn = "Anders",
+                    Lösenord = "a",
+                    Efternamn = "Otterberg",
+                    Förnamn = "Magnifike"
+                }
+                );
 
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
@@ -32,7 +32,7 @@ namespace Datalager.Seed
                 Vecka = 1,
                 PrisVardag = 415,
                 PrisHelg = 725,
-                PrisVecka = 2895, 
+                PrisVecka = 2895,
             });
 
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
@@ -1399,30 +1399,120 @@ namespace Datalager.Seed
                 PrisVecka = 815,
             });
 
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGH.I"
+
+            });
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGH.II"
+
+            });
+
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "Camp"
+
+            });
 
 
             for (int i = 1; i <= 50; i++)
             {
 
-                    modelBuilder.Entity<Logi>().HasData(new Logi()
-                    {
-                        LogiId = "Ll" + i,
-                        Kvadratmeter = 50,
-                        Bäddar = 4,
-                        Kök = true,
-                        ÄrTillgänglig = true
+                modelBuilder.Entity<Logi>().HasData(new Logi()
+                {
+                    LogiId = "Ll" + i,
+                    Kvadratmeter = 50,
+                    Bäddar = 4,
+                    Kök = true,
+                    ÄrTillgänglig = true,
+                    Typen = "LGH.I"
 
-                    });
+                }) ;
                 
             }
+            for (int i = 1; i <= 35; i++)
+            {
+
+                modelBuilder.Entity<Logi>().HasData(new Logi()
+                {
+                    LogiId = "Lll" + i,
+                    Kvadratmeter = 70,
+                    Bäddar = 6,
+                    Kök = true,
+                    ÄrTillgänglig = true,
+                    Typen = "LGH.II"
+
+
+                });
+
+
+
+            }
+
+            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+            {
+                //PrivatkundId = 1,
+                Personnummer = "19680314-2322",
+                Förnamn = "Fiel",
+                Efternamn = "Skogholm",
+                Adress = "Tingstadsalé 24",
+                Postnummer = 78533,
+                Ort = "Stockholm",
+                Telefonnummer = "07266555994",
+                MailAdress = "Fiel.Skogholm@stocknäs.se"
+
+            });
+
+            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+            {
+                //PrivatkundId = 2,
+                Personnummer = "19990523-2322",
+                Förnamn = "Fidde",
+                Efternamn = "Skoglund",
+                Adress = "Tingstadsgatan 24",
+                Postnummer = 45839,
+                Ort = "Stockholm",
+                Telefonnummer = "07366555994",
+                MailAdress = "Fiel.Skogholm@stocknäs.se"
+
+            });
+            modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
+            {
+                //FöretagsId = 999,
+                OrgNr = "4343-2321",
+                FöretagsNamn = "Byggplockarna AB",
+                Adress = "Karlatornsväg 23",
+                Postnummer = 46941,
+                Ort = "Utby",
+                Telefonnummer = "07266555994",
+                MailAdress = "ByggplockAB@foretagsadress.se",
+                RabattSats = 12.5
+
+            });
+
+
+
+            
+
+
+
+
+
 
         }
     }
 
 
 
+        }
+    
 
 
 
 
-}
+
+
+

@@ -17,22 +17,26 @@ namespace Entiteter.Tjänster
         {
 
         }
-
-        [Key]
         public string LogiId { get; set; }
+        
         public int Kvadratmeter { get; set; }
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
 
+        
+
         public bool ÄrTillgänglig { get; set; }
+        
         public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
         public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
-        public virtual IList<LogiTyp> LogiTyp { get; set; } = new List<LogiTyp>();
+
+        [ForeignKey("LogiTyp")]
+        public string Typen {  get; set; }
+        public virtual LogiTyp? LogiTyp { get; set; } 
 
 
 
-
-
+        //Ska vara enum istället, tre olika metoder, för att definiera "pågående", tillgänglig och bokad"
         public void Tillgänlig()
         {
             ÄrTillgänglig = true;
@@ -41,6 +45,8 @@ namespace Entiteter.Tjänster
         {
             ÄrTillgänglig = false;
         }
+
+    
 
     }
 }

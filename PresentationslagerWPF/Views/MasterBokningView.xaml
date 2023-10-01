@@ -21,7 +21,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Utcheckning:</Label>
-                                <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Slutttid, Mode=TwoWay}"></DatePicker>
+                                <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Sluttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
                         <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
@@ -30,10 +30,10 @@
                 <StackPanel Background="LightGray" Width="2" Margin="2,0,10,0"></StackPanel>
                 <StackPanel>
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
-                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kundnummer:</Label>
+                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Height="25" Width="100">PersonNr/OrgNr</TextBox>
-                        <Button Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen"></Button>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
+                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Width="180">
@@ -43,13 +43,13 @@
                         <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Height="25" Width="80"></TextBox>
-                        <TextBox Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                    <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
+                        <TextBox x:Name="KundFörnamn" Text="{Binding Förnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                        <TextBox x:Name="EfterNamn" Text="{Binding Efternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel DataContext="{Binding Path=Privatkund}">
                         <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Personnummer:"></Label>
-                        <TextBox Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <TextBox x:Name="PersonnumerOrgNr" Text="{Binding Personnummer, Mode=TwoWay}" Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>
 
                 </StackPanel>
@@ -58,13 +58,13 @@
                         <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Adress:"></Label>
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Postnummer:"></Label>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Height="25" Width="90"></TextBox>
-                        <TextBox Height="25" Width="90" Margin="8,0,0,0"></TextBox>
+                    <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
+                        <TextBox Text="{Binding Adress, Mode=TwoWay}" Height="25" Width="90"></TextBox> 
+                        <TextBox Text="{Binding Postnummer, Mode=TwoWay}" Height="25" Width="90" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel DataContext="{Binding Path=Privatkund}">
                         <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
-                        <TextBox Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <TextBox Text="{Binding MailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>
                 </StackPanel>
                 <Button Margin="10 50" Command="{Binding LäggTillKund}">Add Kund</Button>
@@ -96,7 +96,10 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                         <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
-                      SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding Tillgänliglogi}" Background="White" Width="550" Height="150" Margin="0,0,10,0">
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgänligLogi}"
+                                  SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
+                                  SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}" 
+                                  Background="White" Width="550" Height="150" Margin="0,0,10,0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
@@ -106,11 +109,11 @@
                         </DataGrid>
                         <StackPanel>
                             <Label HorizontalAlignment="Left" Content="Kostnad totalt för vistelse:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                            <TextBox>Kr</TextBox>
+                            <TextBox Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <Button Height="25" Width="70" Margin="270,20,10,10" Content="Lägg till" Background="LightGreen"></Button>
+                <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70" Margin="270,20,10,10" Content="Lägg till" Background="LightGreen"></Button>
             </StackPanel>
             <StackPanel>
                 <Border Margin=" 10,10,10,10" Background="LightGray">
@@ -128,8 +131,8 @@
                                     <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Width="100" Margin="0,0,5,0">
-                                        <TextBox Width="100" Margin="0,0,5,0"></TextBox>
+                                    <TextBox Width="100" Margin="0,0,5,0"></TextBox>
+                                    <TextBox Width="100" Margin="0,0,5,0"></TextBox>
                                     <TextBox Width="100" Margin="0,0,5,0"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -152,7 +155,6 @@
 
 
             </StackPanel>
-
         </StackPanel>
     </DockPanel>
 </UserControl>

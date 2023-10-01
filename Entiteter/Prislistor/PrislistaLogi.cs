@@ -20,7 +20,7 @@ namespace Entiteter.Prislistor
         }
         
         
-        [Key]public int PrisId { get; set; }
+        public int PrisId { get; set; }
         public string TypAvLogi { get; set; }
         public int Vecka { get; set; }
 

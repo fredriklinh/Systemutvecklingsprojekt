@@ -25,8 +25,9 @@ namespace Affärslager
 
             return datumsVecka;
         }
-        public int BeräknaPrisLogi(string typAvLogi, DateTime startdatum, DateTime slutdatum)
+        public int BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
         {
+            
 
             // Kolla resterande dagar, Kolla veckor
             if (startdatum > slutdatum)
@@ -50,16 +51,16 @@ namespace Affärslager
             {
                 //Tillfällig prisLogi
                 
-                PrislistaLogi prisLogiVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == typAvLogi && a.Vecka == VeckaStart);
+                PrislistaLogi prisLogiVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == VeckaStart);
                 int antalVeckorKvar = antalVeckor - i;
                 if (antalVeckorKvar == 0)
                 {
                     DateTime date;
                     // USE REMAINDER 
-                    for (DateTime ii = startdatum; ii <= slutdatum; ii = ii.AddDays(1))
+                    for (DateTime ii = startdatum; ii < slutdatum; ii = ii.AddDays(1))
                     {
                         // Kolla om dagen är Lördag eller Söndag. Annar Läggs vardagspris till.
-                        if (ii.DayOfWeek == DayOfWeek.Saturday || ii.DayOfWeek == DayOfWeek.Sunday)
+                        if (ii.DayOfWeek == DayOfWeek.Saturday || ii.DayOfWeek == DayOfWeek.Friday)
                         {
                             totalpris += prisLogiVecka.PrisHelg;
                         }

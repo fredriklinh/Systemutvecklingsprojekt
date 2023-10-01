@@ -41,6 +41,16 @@ namespace Affärslager
             return logi;
         }
 
+        public void SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund/*, Användare användare*/)
+        {
+            
+            MasterBokning masterBokning = new MasterBokning(avbeställningsskydd, startDatum, slutDatum, valdLogi, privatkund /*användare*/);
+            unitOfWork.MasterBokningRepository.Add(masterBokning);
+            unitOfWork.Complete();
+        }
+
+
+
 
     }
 }

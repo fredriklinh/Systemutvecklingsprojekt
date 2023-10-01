@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,9 @@ namespace Entiteter.Tjänster
         {
 
         }
-        [Key]
+
+        
+
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
         public int NyttjadKreditsumma { get; set; }
@@ -27,10 +30,51 @@ namespace Entiteter.Tjänster
         public DateTime SlutDatum { get; set; }
         public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
 
-        //public virtual IList<LogiTyp> logiTyper { get; set; } = new List<LogiTyp>();
-        public virtual Privatkund Privatkund { get; set; }
-        public virtual Företagskund Företagskund { get; set;}
-        public virtual Användare Användare { get; set; }
+        [ForeignKey("Företagskund")]
+        public string? OrgaNr { get; set; }
+        public virtual Företagskund? Företagskund { get; set; } = null!; 
+
+        [ForeignKey("Privatkund")]
+        public string? PersonNr { get; set; }
+        public virtual Privatkund? Privatkund { get; set; } = null!;
+
+
+        [ForeignKey("Användare")]
+        public string? SkapadAv { get; set; }
+        public virtual Användare? Användare { get; set; }
+
+        //Construktor Privatkund
+        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund/*Användare användare*/)
+        {
+            
+            Avbeställningsskydd = avbeställningsskydd;
+            NyttjadKreditsumma = 0;
+            BokningsDatum = DateTime.Now;
+            StartDatum = startDatum;
+            SlutDatum = slutDatum;
+            ValdLogi = valdLogi;
+            Privatkund = privatkund;
+            //Användare = användare;
+        }
+
+        //Construktor Företagskund
+        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund/* Användare användare*/)
+        {
+
+            Avbeställningsskydd = avbeställningsskydd;
+            NyttjadKreditsumma = 0;
+            BokningsDatum = DateTime.Now;
+            StartDatum = startDatum;
+            SlutDatum = slutDatum;
+            ValdLogi = valdLogi;
+            Företagskund = företagskund;
+            
+            //Användare = användare;
+        }
+
+
+
+
 
         //[ForeignKey("Faktura")]
         //public int? Fakturanummer { get; set; }

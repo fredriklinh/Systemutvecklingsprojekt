@@ -20,7 +20,7 @@ namespace PresentationslagerWPF
 
 
             //navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
-            navigationStore.CurrentViewModel = new LoggaInViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new MasterBokningViewModel(navigationStore);
 
             
        
@@ -29,7 +29,7 @@ namespace PresentationslagerWPF
             MasterBokningViewModel m = new MasterBokningViewModel(navigationStore);
 
 
-            //användarKontroller.LaddaData();
+            användarKontroller.LaddaData();
             MainWindow = new MainWindow()
             {
                 //DataContext = new MainViewModel(navigationStore)
