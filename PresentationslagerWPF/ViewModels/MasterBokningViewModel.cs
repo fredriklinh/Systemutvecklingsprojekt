@@ -12,6 +12,7 @@ using Affärslager;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Entiteter.Tjänster;
+using System.ComponentModel;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -32,15 +33,37 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region Obervible Collections 
-        private ObservableCollection<Logi> tillgänliglogi = null!;
-        public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set { tillgänliglogi = value; OnPropertyChanged(); } }
+        //private ObservableCollection<Logi> tillgänliglogi = null!;
+        //public ObservableCollection<Logi> Tillgänliglogi { get => tillgänliglogi; set {
+
+        //        OnPropertyChanged(nameof(Tillgänliglogi));
+        //        tillgänliglogi = value; OnPropertyChanged(); } }
 
 
         #endregion
 
 
+        private ObservableCollection<Logi> tillgänliglogi;
 
-        public ICommand Tillbaka { get; }
+        public ObservableCollection<Logi> Tillgänliglogi
+        {
+            get { return tillgänliglogi; }
+            set
+            {
+                
+                tillgänliglogi = value;
+                OnPropertyChanged(nameof(tillgänliglogi));
+            }
+        }
+        // This is a property that returns the count of items in YourProperty
+        public int ItemCount
+        {
+            get { return Tillgänliglogi.Count; }
+        }
+
+
+
+    public ICommand Tillbaka { get; }
         public MasterBokningViewModel(NavigationStore navigationStore)
         {
             Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));

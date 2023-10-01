@@ -6,15 +6,22 @@
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d"
         Height="450" Width="800">
-    <StackPanel Margin="10,10,10,10">
-        <StackPanel VerticalAlignment="Top">
+    <StackPanel Margin="10,10,10,10" Background="Gray">
+        <StackPanel VerticalAlignment="Top" Background="Gray">
             <Label>KUNDHANTERING</Label>
             <Label>Sök</Label>
             <DockPanel>
                 <TextBlock></TextBlock>
             </DockPanel>
         </StackPanel>
-        <DockPanel></DockPanel>
-        
+        <DockPanel Margin="10,10,10,10" Background="Gray">
+            <DataGrid>
+
+            </DataGrid>
+        </DockPanel>
+        <StackPanel></StackPanel>
+        <Button>Add</Button>
+        <Button>Ändra</Button>
+        <Button>TaBort</Button>
     </StackPanel>
 </UserControl>

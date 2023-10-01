@@ -128,8 +128,8 @@
                                     <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Width="100" Margin="0,0,5,0"></TextBox>
-                                    <TextBox Width="100" Margin="0,0,5,0"></TextBox>
+                                    <TextBox Width="100" Margin="0,0,5,0">
+                                        <TextBox Width="100" Margin="0,0,5,0"></TextBox>
                                     <TextBox Width="100" Margin="0,0,5,0"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
