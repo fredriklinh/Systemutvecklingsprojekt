@@ -270,7 +270,7 @@ namespace PresentationslagerWPF.ViewModels
             if (Privatkund == null)
             {
 
-                Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn); ;
+                Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
                 bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 valdLogi.Clear();
             }
