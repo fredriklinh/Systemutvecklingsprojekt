@@ -31,14 +31,21 @@ namespace Entiteter.Personer
 
         }
 
-        public Privatkund(string personnummer, string förnamn, string efternamn, IList<Faktura> fakturor, IList<MasterBokning> masterBokningar)
+        public Privatkund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
         {
-            
+            //Från kund
+            MaxBeloppsKreditGräns = 12000;
+            Adress = adress;
+            Postnummer = postnummer;
+            Ort = ort;
+            Telefonnummer = telefonnummer;
+            MailAdress = mailAdress;
+            //Från privatkund
             Personnummer = personnummer;
             Förnamn = förnamn;
             Efternamn = efternamn;
-            Fakturor = fakturor;
-            MasterBokningar = masterBokningar;
+            
+            
         }
     }
     
