@@ -150,7 +150,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="10,0,0,0" IsChecked="{Binding Path=Avbeställningsskydd, Mode=TwoWay}"></CheckBox>
-                        <TextBox Width="100" Margin="110,0,0,0"></TextBox>
+                        <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

@@ -40,7 +40,9 @@ namespace PresentationslagerWPF.ViewModels
 
         //Användarnamn för ANVÄNDARE
         private string användarnamn = null!;
-        public string Användarnamn { get => användarnamn; set { användarnamn = value; OnPropertyChanged(); } }
+        public string Användarnamn { get => användarnamn; set { användarnamn = value; OnPropertyChanged();
+                Användare = användarKontroller.Inloggning(Användarnamn, Lösenord);
+            } }
 
         //Lösenord för ANVÄNDARE
         private string lösenord = null!;

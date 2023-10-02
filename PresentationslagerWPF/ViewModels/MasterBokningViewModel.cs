@@ -58,8 +58,14 @@ namespace PresentationslagerWPF.ViewModels
         private PrislistaLogi prislistaLogi = null!;
         public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
 
-        private double? totalPris;
-        public double? TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        private double totalPris;
+        public double TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        
+        private double totalPrisRabatt;
+        public double TotalPrisRabatt { get => totalPrisRabatt; set { totalPrisRabatt = value; OnPropertyChanged(); } }
+
+        private double totalPrisRabatt2;
+        public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
         private Logi tillgänligLogiSelectedItem = null!;
         public Logi TillgänligLogiSelectedItem { 
@@ -67,7 +73,7 @@ namespace PresentationslagerWPF.ViewModels
             set { tillgänligLogiSelectedItem = value; OnPropertyChanged();
                 if (TillgänligLogiSelectedItem != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid, Privatkund);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
                 }
             } }
 
@@ -125,7 +131,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
         public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
         {
-            //Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             Användare = användare;
         }
         public MasterBokningViewModel()
@@ -149,7 +155,17 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (tillgänligLogiSelectedItem != null)
             {
+                double resKostnad = 0;
                 Logi logi = tillgänligLogiSelectedItem;
+                TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                if (TotalPrisRabatt == 0)
+                {
+                    TotalPrisRabatt = resKostnad + TotalPrisRabatt2;
+                }
+                else
+                {
+                    TotalPrisRabatt = TotalPrisRabatt + TotalPrisRabatt2;
+                }
                 ValdLogi.Add(logi);
                 TillgänligLogi.Remove(logi);
                 //Bäddar totalt
@@ -161,8 +177,9 @@ namespace PresentationslagerWPF.ViewModels
                         resBädd += ValdLogi[i].Bäddar;
                     }
                 }
+
                 //Kostnad totalt
-                double resKostnad = 0;
+                
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
@@ -216,7 +233,16 @@ namespace PresentationslagerWPF.ViewModels
             //    //Privatkund = privatkundKontroller.RegistreraPrivatKund()
             //    //bokningsKontroller.SkapaMasterbokningPrivatkund()
             //}
-            
+            AntalSovplatser = null;
+            TotalKostnad = null;
+            ValdLogi = null;
+            TotalPris = 0;
+            Kundnummer = null;
+            Privatkund = null;
+            TillgänligLogi = null;
+            Starttid = DateTime.Now;
+            Sluttid = DateTime.Now;
+            TotalPrisRabatt = 0;
         });
 
         private ICommand taBortCommand = null!;
@@ -228,7 +254,8 @@ namespace PresentationslagerWPF.ViewModels
                 //Ta bort kostnad
                 if (tabortLogi != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid, Privatkund);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
                 }
                 TillgänligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
@@ -236,16 +263,23 @@ namespace PresentationslagerWPF.ViewModels
                 int res = 0;
                 if (ValdLogi != null)
                 {
-                    for (var i = 0; i < ValdLogi.Count; i++)
-                    {
-                        res = ValdLogi[i].Bäddar;
-                    }
+                    //for (var i = 0; i < ValdLogi.Count; i++)
+                    //{
+                    //    res = ValdLogi[i].Bäddar;
+                    //}
+                    res = tabortLogi.Bäddar;
+                }
+                if (TotalPrisRabatt != 0)
+                {
+                    TotalPrisRabatt = TotalPrisRabatt - TotalPrisRabatt2;
                 }
                 
                 TotalKostnad = TotalKostnad - TotalPris;
                 AntalSovplatser = AntalSovplatser - res;
             }
         });
+
+        public ICommand Tillbaka { get; }
         #endregion
 
     }
