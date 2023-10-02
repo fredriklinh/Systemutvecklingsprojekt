@@ -90,6 +90,9 @@ namespace PresentationslagerWPF.ViewModels
 
         private bool isNotModified = true;
         public bool IsNotModified { get { return isNotModified; } set { isNotModified = value; OnPropertyChanged(); } }
+
+        private bool avbeställningsskydd = true;
+        public bool Avbeställningsskydd { get { return avbeställningsskydd; } set { avbeställningsskydd = value; OnPropertyChanged(); } }
         #endregion
 
         #region Obervible Collections 
@@ -107,11 +110,23 @@ namespace PresentationslagerWPF.ViewModels
 
             } }
 
+
+        //Användarnamn för ANVÄNDARE
+        private Användare användare = null!;
+        public Användare Användare
+        {
+            get => användare;
+            set
+            {
+                användare = value; OnPropertyChanged();
+                
+            }
+        }
         #endregion
-        public MasterBokningViewModel(NavigationStore navigationStore)
+        public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
         {
             //Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
-
+            Användare = användare;
         }
         public MasterBokningViewModel()
         {
@@ -195,7 +210,7 @@ namespace PresentationslagerWPF.ViewModels
             //    Telefonnummer = "07266555994",
             //    MailAdress = "Fiel.Skogholm@stocknäs.se"
             //};
-            bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund/*, användare*/);
+            bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
             //if (Privatkund == null)
             //{
             //    //Privatkund = privatkundKontroller.RegistreraPrivatKund()

@@ -149,7 +149,7 @@
                         <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Kostnad inkl. rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="10,0,0,0"></CheckBox>
+                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Path=Avbeställningsskydd, Mode=TwoWay}"></CheckBox>
                         <TextBox Width="100" Margin="110,0,0,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
