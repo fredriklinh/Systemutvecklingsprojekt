@@ -16,5 +16,10 @@ namespace Affärslager.KundKontroller
         {
             return unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(input));
         }
+
+        public ICollection<Företagskund> LäsPrivatKunder()
+        {
+            return unitOfWork.FöretagskundRepository.GetAll().ToList();
+        }
     }
 }

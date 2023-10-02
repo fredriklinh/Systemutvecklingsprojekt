@@ -13,8 +13,8 @@ namespace Entiteter.Personer
         public string Adress { get; set; }
         public int Postnummer { get; set; }
         public string Ort { get; set; }
-        public string Telefonnummer { get; set; }
-        public string MailAdress { get; set; }
+        public string? Telefonnummer { get; set; }
+        public string? MailAdress { get; set; }
 
 
                 

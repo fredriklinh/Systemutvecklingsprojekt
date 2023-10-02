@@ -41,13 +41,29 @@ namespace PresentationslagerWPF.ViewModels
         private int? totalKostnad;
         public int? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
 
+        private string? adress;
+        public string? Adress { get => adress; set { adress = value; OnPropertyChanged(); } }
+
+        private string? postnummer;
+        public string? Postnummer { get => postnummer; set { postnummer = value; OnPropertyChanged(); } }
+
+        private string? ort;
+        public string? Ort { get => ort; set { ort = value; OnPropertyChanged(); } }
+
+        private string? telefonnummer;
+        public string? Telefonnummer { get => telefonnummer; set { telefonnummer = value; OnPropertyChanged(); } }
+
+        private string? mailAdress;
+        public string? MailAdress { get => mailAdress; set { mailAdress = value; OnPropertyChanged(); } }
+
+        private string? förnamn;
+        public string? Förnamn { get => förnamn; set { förnamn = value; OnPropertyChanged(); } }
+
+        private string? efternamn;
+        public string? Efternamn { get => efternamn; set { efternamn = value; OnPropertyChanged(); } }
 
         private string kundnummer;
         public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
-
-        //private Kund kund = null!;
-
-        //public Kund Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
 
         private Privatkund privatkund = null!;
         public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
@@ -166,6 +182,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
 
+            // Om privatkund inte hittas söker vi efter företagskund
             //if (Privatkund == null)
             //{
             //    företagskund = företagskundKontroller.SökFöretagskund(kundnummer);
@@ -175,33 +192,17 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand spara = null!;
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
         {
-            Användare användare = new Användare()
-            {
-                AnvändarID = 98,
-                Behörighetsnivå = 1,
-                Användarnamn = "Magnus",
-                Lösenord = "a",
-                Efternamn = "Otterberg",
-                Förnamn = "Magnifike"
-            };
-            //Privatkund Fiel = new Privatkund()
-            //{
-            //    Personnummer = "19680314-9999",
-            //    Förnamn = "Fiel",
-            //    Efternamn = "Skogholm",
-            //    Adress = "Tingstadsalé 24",
-            //    Postnummer = 78533,
-            //    Ort = "Stockholm",
-            //    Telefonnummer = "07266555994",
-            //    MailAdress = "Fiel.Skogholm@stocknäs.se"
-            //};
-            bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund/*, användare*/);
-            //if (Privatkund == null)
-            //{
-            //    //Privatkund = privatkundKontroller.RegistreraPrivatKund()
-            //    //bokningsKontroller.SkapaMasterbokningPrivatkund()
-            //}
             
+            if (Privatkund == null)
+            {
+                Privatkund = privatkundKontroller.RegistreraPrivatKund(adress, postnummer, ort, telefonnummer, mailAdress, personnummer, förnamn, efternamn);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, användare);
+            }
+            else
+            {
+                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, användare);
+            }
+
         });
 
         private ICommand taBortCommand = null!;

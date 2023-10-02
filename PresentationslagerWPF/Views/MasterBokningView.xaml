@@ -59,12 +59,12 @@
                         <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Postnummer:"></Label>
                     </StackPanel>
                     <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Text="{Binding Adress, Mode=TwoWay}" Height="25" Width="90"></TextBox> 
-                        <TextBox Text="{Binding Postnummer, Mode=TwoWay}" Height="25" Width="90" Margin="8,0,0,0"></TextBox>
+                        <TextBox x:Name="Adress" Text="{Binding Adress, Mode=TwoWay}" Height="25" Width="90"></TextBox>
+                        <TextBox x:Name="Postnummer" Text="{Binding Postnummer, Mode=TwoWay}" Height="25" Width="90" Margin="8,0,0,0"></TextBox>
                     </StackPanel>
                     <StackPanel DataContext="{Binding Path=Privatkund}">
                         <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
-                        <TextBox Text="{Binding MailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <TextBox x:Name="Mailadress" Text="{Binding MailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>
                 </StackPanel>
                 <Button Margin="10 50" Command="{Binding LäggTillKund}">Add Kund</Button>

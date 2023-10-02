@@ -44,7 +44,7 @@ namespace Entiteter.Tjänster
         public virtual Användare? Användare { get; set; }
 
         //Construktor Privatkund
-        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund/*Användare användare*/)
+        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
         {
             
             Avbeställningsskydd = avbeställningsskydd;
@@ -54,11 +54,11 @@ namespace Entiteter.Tjänster
             SlutDatum = slutDatum;
             ValdLogi = valdLogi;
             Privatkund = privatkund;
-            //Användare = användare;
+            Användare = användare;
         }
 
         //Construktor Företagskund
-        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund/* Användare användare*/)
+        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund,Användare användare)
         {
 
             Avbeställningsskydd = avbeställningsskydd;
@@ -68,8 +68,7 @@ namespace Entiteter.Tjänster
             SlutDatum = slutDatum;
             ValdLogi = valdLogi;
             Företagskund = företagskund;
-            
-            //Användare = användare;
+            Användare = användare;
         }
 
 
