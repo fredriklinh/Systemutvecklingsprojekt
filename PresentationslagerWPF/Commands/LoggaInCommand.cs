@@ -48,11 +48,15 @@ namespace PresentationslagerWPF.Commands
         }
         public override void Execute(object parameter)
         {
-            Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
+            Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Password);
             if (anv != null)
             {
                 _navigationService.Navigate();
+            }
+            else
+            {
 
+                MessageBox.Show("Felaktig inloggningsinformation. Försök igen", "Inlogg", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

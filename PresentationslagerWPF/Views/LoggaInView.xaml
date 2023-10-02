@@ -3,10 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PresentationslagerWPF.Views"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:PresentationslagerWPF.Views" 
+        xmlns:viewmodels="clr-namespace:PresentationslagerWPF.ViewModels"
+             mc:Ignorable="d"
         Height="450" Width="800">
-    <StackPanel Margin="20,20,20,20">
+    <GroupBox Margin="20,20,20,89" Padding="20,20,20,20">
+        <GroupBox.Header>
+            <StackPanel Orientation="Horizontal">
+                <Image Source= "/Bilder/TriBookingLogga.png" Margin="3,0" />
+                <TextBlock VerticalAlignment="Center">  TriBooking - Inloggning</TextBlock>
+                
+            </StackPanel>
+        </GroupBox.Header>
         <DockPanel LastChildFill="True" Margin="0,0,10,0">
             <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
                 <DockPanel>
@@ -17,7 +25,7 @@
                         </DockPanel>
                         <DockPanel Margin="10,10,10,10">
                             <Label HorizontalAlignment="Left">Lösenord</Label>
-                            <TextBox HorizontalAlignment="Right" Text="{Binding Lösenord, Mode=OneWayToSource}" Width="400" RenderTransformOrigin="0.557,0.541"/>
+                            <PasswordBox PasswordChanged="passwordBox_PasswordChanged" x:Name="passwordBox" HorizontalAlignment="Right" Width="400" RenderTransformOrigin="0.557,0.541"/>
                         </DockPanel>
                     </StackPanel>
                 </DockPanel>
@@ -33,5 +41,5 @@
                 </StatusBar>
             </StackPanel>
         </DockPanel>
-    </StackPanel>
+    </GroupBox>
 </UserControl>
