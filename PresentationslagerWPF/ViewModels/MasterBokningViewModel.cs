@@ -28,7 +28,10 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
+
+
         #region On property change
+
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
 
@@ -128,7 +131,7 @@ namespace PresentationslagerWPF.ViewModels
 
         private double totalPris;
         public double TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
-        
+
         private double totalPrisRabatt;
         public double TotalPrisRabatt { get => totalPrisRabatt; set { totalPrisRabatt = value; OnPropertyChanged(); } }
 
@@ -136,8 +139,8 @@ namespace PresentationslagerWPF.ViewModels
         public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
         private Logi tillgänligLogiSelectedItem = null!;
-        public Logi TillgänligLogiSelectedItem { 
-            get => tillgänligLogiSelectedItem; 
+        public Logi TillgänligLogiSelectedItem {
+            get => tillgänligLogiSelectedItem;
             set { tillgänligLogiSelectedItem = value; OnPropertyChanged();
                 if (TillgänligLogiSelectedItem != null)
                 {
@@ -155,7 +158,7 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 valdLogiSelectedItem = value; OnPropertyChanged();
-                
+
             }
         }
 
@@ -169,6 +172,71 @@ namespace PresentationslagerWPF.ViewModels
         public bool Avbeställningsskydd { get { return avbeställningsskydd; } set { avbeställningsskydd = value; OnPropertyChanged(); } }
         #endregion
 
+
+        #region FöretagsKund + DisplayKundPanel
+
+        //**** FÖRETAGSKUND *******//
+        private string orgNummer;
+        public string OrgNummer
+        {
+            get { return orgNummer; }
+            set { orgNummer = value; OnPropertyChanged(); }
+        }
+
+        private string företagsNamn;
+        public string FöretagsNamn
+        {
+            get { return företagsNamn; }
+            set { företagsNamn = value; OnPropertyChanged(); }
+        }
+        private string rabatstatts;
+        public string Rabatstatts
+        {
+            get { return rabatstatts; }
+            set { rabatstatts = value; OnPropertyChanged(); }
+        }
+        private string maxBeloppKredit;
+        public string MaxBeloppKredit
+        {
+            get { return maxBeloppKredit; }
+            set { maxBeloppKredit = value; OnPropertyChanged(); }
+        }
+        private string företagAdress;
+        public string FöretagAdress
+        {
+            get { return företagAdress; }
+            set { företagAdress = value; OnPropertyChanged(); }
+        }
+
+        private string företagPostnummer;
+        public string FöretagPostnummer
+        {
+            get { return företagPostnummer; }
+            set { företagPostnummer = value; OnPropertyChanged(); }
+        }
+
+        private string företagOrt;
+        public string FöretagOrt
+        {
+            get { return företagOrt; }
+            set { företagOrt = value; OnPropertyChanged(); }
+        }
+
+        private string företagTelefonummer;
+        public string FöretagTelefonummer
+        {
+            get { return företagTelefonummer; }
+            set { företagTelefonummer = value; OnPropertyChanged(); }
+        }
+        private string företagMailadress;
+        public string FöretagMailadress
+        {
+            get { return företagMailadress; }
+            set { företagMailadress = value; OnPropertyChanged(); }
+        }
+        #endregion
+
+
         #region Obervible Collections 
         private ObservableCollection<Logi> tillgänligLogi = null!;
         public ObservableCollection<Logi> TillgänligLogi { get => tillgänligLogi; set { tillgänligLogi = value; OnPropertyChanged(); } }
@@ -177,9 +245,9 @@ namespace PresentationslagerWPF.ViewModels
         public ObservableCollection<Kund> Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Logi> valdLogi = null!;
-        public ObservableCollection<Logi> ValdLogi { 
-            get => valdLogi; 
-            set { 
+        public ObservableCollection<Logi> ValdLogi {
+            get => valdLogi;
+            set {
                 valdLogi = value; OnPropertyChanged();
 
             } }
@@ -193,21 +261,34 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 användare = value; OnPropertyChanged();
-                
+
             }
         }
         #endregion
+
+
+        public MasterBokningViewModel() { }
+
+
+        #region Navigation
+        //**** NAVIGATION *******//
         public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
         {
+            NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             Användare = användare;
         }
-        public MasterBokningViewModel()
-        {
-            
-        }
 
-        
+        private ICommand exitCommand = null!;
+        public ICommand ExitCommand =>
+        exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
+
+        public ICommand NavigateLoggaUtCommand { get; }
+        public ICommand Tillbaka { get; }
+
+        #endregion
+
+
 
         #region Icommands
         private ICommand hämtaBokningCommand = null!;
@@ -355,8 +436,9 @@ namespace PresentationslagerWPF.ViewModels
             }
         });
 
-        public ICommand Tillbaka { get; }
+
         #endregion
+
 
     }
 }
