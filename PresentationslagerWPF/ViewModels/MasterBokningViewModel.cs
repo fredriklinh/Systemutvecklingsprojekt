@@ -45,10 +45,10 @@ namespace PresentationslagerWPF.ViewModels
         private string kundnummer;
         public string Kundnummer { get => kundnummer; set { kundnummer = value; 
                 OnPropertyChanged();
-                if (value.Length == 13)
-                {
-                    ///DISPLAY PRIVAT
-                }
+                //if (value.Length == 13)
+                //{
+                //    ///DISPLAY PRIVAT
+                //}
             
                 } }
 

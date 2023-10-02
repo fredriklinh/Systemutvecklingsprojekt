@@ -28,7 +28,7 @@ namespace PresentationslagerWPF.ViewModels
 
         public LoggaInViewModel(NavigationStore navigationStore)
         {
-            LoggaInCommand = new LoggaInCommand(this, new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, Användare)));
+            LoggaInCommand = new LoggaInCommand(this, new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, Användare = användarKontroller.Inloggning(Användarnamn, Password))));
 
         }
 
@@ -40,16 +40,14 @@ namespace PresentationslagerWPF.ViewModels
         //Användarnamn för ANVÄNDARE
         private string användarnamn = null!;
         public string Användarnamn { get => användarnamn; set { användarnamn = value; OnPropertyChanged();
-                Användare = användarKontroller.Inloggning(Användarnamn, Lösenord);
             } }
 
         //Lösenord för ANVÄNDARE
-        private string lösenord = null!;
-        public string Lösenord { 
-            get => lösenord; 
-            set { lösenord = value; OnPropertyChanged();
-            Användare = användarKontroller.Inloggning(Användarnamn, Lösenord);
-            } }
+        //private string lösenord = null!;
+        //public string Lösenord { 
+        //    get => lösenord; 
+        //    set { lösenord = value; OnPropertyChanged();
+        //    } }
 
         //Observable object användare
         

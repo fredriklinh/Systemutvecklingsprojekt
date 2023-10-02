@@ -35,7 +35,7 @@
                         <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
                     </StackPanel>
                 </StackPanel>
-                <WrapPanel DataContext="{Binding TestKund}" Visibility="{Binding IsEditable, Converter={StaticResource VisibilityOfBool}}">
+                <WrapPanel>
                     <StackPanel Margin="0,10,0,10">
                         <!--<Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Företag" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Privat" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
