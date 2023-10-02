@@ -21,6 +21,7 @@ namespace PresentationslagerWPF
 
             navigationStore.CurrentViewModel = new LoggaInViewModel(navigationStore);
 
+
             användarKontroller.LaddaData();
             MainWindow = new MainWindow()
             {

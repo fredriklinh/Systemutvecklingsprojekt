@@ -1492,10 +1492,21 @@ namespace Datalager.Seed
                 RabattSats = 12.5
 
             });
-
-
-
+            // Test för att se rabatterat pris
             
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    Avbeställningsskydd = true,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = new DateTime(2022, 12, 20),
+            //    StartDatum = new DateTime(2022, 12, 25),
+            //    SlutDatum = new DateTime(2022, 12, 30),
+            //    Privatkund = 
+            //});
+
+
+
+
 
 
 

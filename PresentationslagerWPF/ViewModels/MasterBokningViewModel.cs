@@ -35,11 +35,11 @@ namespace PresentationslagerWPF.ViewModels
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
 
-        private int? antalSovplatser;
-        public int? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
+        private double? antalSovplatser;
+        public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
 
-        private int? totalKostnad;
-        public int? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
+        private double? totalKostnad;
+        public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
 
 
         private string kundnummer;
@@ -68,8 +68,14 @@ namespace PresentationslagerWPF.ViewModels
         private PrislistaLogi prislistaLogi = null!;
         public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
 
-        private int? totalPris;
-        public int? TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        private double totalPris;
+        public double TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        
+        private double totalPrisRabatt;
+        public double TotalPrisRabatt { get => totalPrisRabatt; set { totalPrisRabatt = value; OnPropertyChanged(); } }
+
+        private double totalPrisRabatt2;
+        public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
         private Logi tillgänligLogiSelectedItem = null!;
         public Logi TillgänligLogiSelectedItem { 
@@ -105,6 +111,9 @@ namespace PresentationslagerWPF.ViewModels
 
         private bool isNotModified = true;
         public bool IsNotModified { get { return isNotModified; } set { isNotModified = value; OnPropertyChanged(); } }
+
+        private bool avbeställningsskydd = true;
+        public bool Avbeställningsskydd { get { return avbeställningsskydd; } set { avbeställningsskydd = value; OnPropertyChanged(); } }
         #endregion
 
         #region Obervible Collections 
@@ -122,11 +131,23 @@ namespace PresentationslagerWPF.ViewModels
 
             } }
 
-        #endregion
-        public MasterBokningViewModel(NavigationStore navigationStore)
-        {
-            //Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
 
+        //Användarnamn för ANVÄNDARE
+        private Användare användare = null!;
+        public Användare Användare
+        {
+            get => användare;
+            set
+            {
+                användare = value; OnPropertyChanged();
+                
+            }
+        }
+        #endregion
+        public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
+        {
+            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            Användare = användare;
         }
         public MasterBokningViewModel()
         {
@@ -149,7 +170,17 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (tillgänligLogiSelectedItem != null)
             {
+                double resKostnad = 0;
                 Logi logi = tillgänligLogiSelectedItem;
+                TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                if (TotalPrisRabatt == 0)
+                {
+                    TotalPrisRabatt = resKostnad + TotalPrisRabatt2;
+                }
+                else
+                {
+                    TotalPrisRabatt = TotalPrisRabatt + TotalPrisRabatt2;
+                }
                 ValdLogi.Add(logi);
                 TillgänligLogi.Remove(logi);
                 //Bäddar totalt
@@ -161,8 +192,9 @@ namespace PresentationslagerWPF.ViewModels
                         resBädd += ValdLogi[i].Bäddar;
                     }
                 }
+
                 //Kostnad totalt
-                int resKostnad = 0;
+                
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
@@ -210,13 +242,22 @@ namespace PresentationslagerWPF.ViewModels
             //    Telefonnummer = "07266555994",
             //    MailAdress = "Fiel.Skogholm@stocknäs.se"
             //};
-            bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund/*, användare*/);
+            bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
             //if (Privatkund == null)
             //{
             //    //Privatkund = privatkundKontroller.RegistreraPrivatKund()
             //    //bokningsKontroller.SkapaMasterbokningPrivatkund()
             //}
-            
+            AntalSovplatser = null;
+            TotalKostnad = null;
+            ValdLogi = null;
+            TotalPris = 0;
+            Kundnummer = null;
+            Privatkund = null;
+            TillgänligLogi = null;
+            Starttid = DateTime.Now;
+            Sluttid = DateTime.Now;
+            TotalPrisRabatt = 0;
         });
 
         private ICommand taBortCommand = null!;
@@ -229,6 +270,7 @@ namespace PresentationslagerWPF.ViewModels
                 if (tabortLogi != null)
                 {
                     TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
                 }
                 TillgänligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
@@ -236,16 +278,23 @@ namespace PresentationslagerWPF.ViewModels
                 int res = 0;
                 if (ValdLogi != null)
                 {
-                    for (var i = 0; i < ValdLogi.Count; i++)
-                    {
-                        res = ValdLogi[i].Bäddar;
-                    }
+                    //for (var i = 0; i < ValdLogi.Count; i++)
+                    //{
+                    //    res = ValdLogi[i].Bäddar;
+                    //}
+                    res = tabortLogi.Bäddar;
+                }
+                if (TotalPrisRabatt != 0)
+                {
+                    TotalPrisRabatt = TotalPrisRabatt - TotalPrisRabatt2;
                 }
                 
                 TotalKostnad = TotalKostnad - TotalPris;
                 AntalSovplatser = AntalSovplatser - res;
             }
         });
+
+        public ICommand Tillbaka { get; }
         #endregion
 
     }
