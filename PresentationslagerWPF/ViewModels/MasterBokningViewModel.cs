@@ -283,6 +283,20 @@ namespace PresentationslagerWPF.ViewModels
                 InputEfternamn = Privatkund.Efternamn;
             }
 
+            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+            if (företagskund != null)
+            {
+                InputAdress = Företagskund.Adress;
+                InputPostnummer = Företagskund.Postnummer;
+                InputOrt = Företagskund.Ort;
+                InputTelefonnummer = Företagskund.Telefonnummer;
+                InputMailAdress = Företagskund.MailAdress;
+                Kundnummer = Företagskund.OrgNr;
+                InputFörnamn = Företagskund.FöretagsNamn;
+            }
+
+
+
         });
         private ICommand spara = null!;
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
