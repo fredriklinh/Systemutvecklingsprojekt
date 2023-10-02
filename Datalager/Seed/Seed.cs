@@ -1493,17 +1493,15 @@ namespace Datalager.Seed
 
             });
             // Test för att se rabatterat pris
+            
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             //{
             //    Avbeställningsskydd = true,
             //    NyttjadKreditsumma = 0,
-            //    BokningsDatum = 20230510,
-            //    StartDatum = startDatum,
-            //    SlutDatum = slutDatum,
-            //    ValdLogi = valdLogi,
-            //    Privatkund = privatkund,
-            //    Användare = användare
-
+            //    BokningsDatum = new DateTime(2022, 12, 20),
+            //    StartDatum = new DateTime(2022, 12, 25),
+            //    SlutDatum = new DateTime(2022, 12, 30),
+            //    Privatkund = 
             //});
 
 

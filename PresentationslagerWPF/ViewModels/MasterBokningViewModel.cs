@@ -35,11 +35,11 @@ namespace PresentationslagerWPF.ViewModels
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
 
-        private int? antalSovplatser;
-        public int? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
+        private double? antalSovplatser;
+        public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
 
-        private int? totalKostnad;
-        public int? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
+        private double? totalKostnad;
+        public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
 
 
         private string kundnummer;
@@ -58,8 +58,8 @@ namespace PresentationslagerWPF.ViewModels
         private PrislistaLogi prislistaLogi = null!;
         public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
 
-        private int? totalPris;
-        public int? TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        private double? totalPris;
+        public double? TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
 
         private Logi tillgänligLogiSelectedItem = null!;
         public Logi TillgänligLogiSelectedItem { 
@@ -67,7 +67,7 @@ namespace PresentationslagerWPF.ViewModels
             set { tillgänligLogiSelectedItem = value; OnPropertyChanged();
                 if (TillgänligLogiSelectedItem != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid, Privatkund);
                 }
             } }
 
@@ -162,7 +162,7 @@ namespace PresentationslagerWPF.ViewModels
                     }
                 }
                 //Kostnad totalt
-                int resKostnad = 0;
+                double resKostnad = 0;
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
@@ -228,7 +228,7 @@ namespace PresentationslagerWPF.ViewModels
                 //Ta bort kostnad
                 if (tabortLogi != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid, Privatkund);
                 }
                 TillgänligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);

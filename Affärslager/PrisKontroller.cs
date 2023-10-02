@@ -1,5 +1,7 @@
 ﻿using Datalager;
+using Entiteter.Personer;
 using Entiteter.Prislistor;
+using Entiteter.Tjänster;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,7 +27,7 @@ namespace Affärslager
 
             return datumsVecka;
         }
-        public int BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
+        public double BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum, Privatkund privatkund)
         {
             
 
@@ -46,7 +48,7 @@ namespace Affärslager
             //Kollar Vecka på stardatum
             int VeckaStart = CheckWeek(startdatum);
             Console.WriteLine("Vecka för stardatum: {0}", VeckaStart);
-            int totalpris = 0;
+            double totalpris = 0;
             for (int i = antalVeckor; i <= VeckaStart + antalVeckor; i++)
             {
                 //Tillfällig prisLogi
@@ -77,7 +79,18 @@ namespace Affärslager
                 }
                 return totalpris;
             }
-            return totalpris;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.Privatkund == privatkund && m.BokningsDatum >= DateTime.Now.AddYears(-1));
+            if (masterBokning != null)
+            {
+                double rabatt = 0.92;
+                totalpris = totalpris * rabatt;
+                return totalpris;
+            }
+            else
+            {
+                return totalpris;
+            }
+            
         }
     }
 }
