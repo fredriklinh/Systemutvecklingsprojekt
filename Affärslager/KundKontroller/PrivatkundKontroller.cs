@@ -14,7 +14,7 @@ namespace Affärslager.KundKontroller
 
         public Privatkund RegistreraPrivatKund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
         {
-            Privatkund privatkund= new Privatkund(adress,postnummer,ort,telefonnummer,mailAdress,personnummer,förnamn,efternamn);
+            Privatkund privatkund = new Privatkund(adress, postnummer,ort,telefonnummer,mailAdress,personnummer,förnamn,efternamn);
             unitOfWork.PrivatkundRepository.Add(privatkund);
             unitOfWork.Complete();
             return privatkund;

@@ -41,32 +41,84 @@ namespace PresentationslagerWPF.ViewModels
         private double? totalKostnad;
         public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
 
-        private string adress;
-        public string Adress { get => adress; set { adress = value; OnPropertyChanged(); } }
+        private string inputAdress;
+        public string InputAdress
+        {
+            get { return inputAdress; }
+            set { inputAdress = value; OnPropertyChanged(); }
+        }
 
-        private string postnummer;
-        public string Postnummer { get => postnummer; set { postnummer = value; OnPropertyChanged(); } }
+        private string inputPostnummer;
+        public string InputPostnummer
+        {
+            get { return inputPostnummer; }
+            set { inputPostnummer = value; OnPropertyChanged(); }
+        }
 
-        private string ort;
-        public string Ort { get => ort; set { ort = value; OnPropertyChanged(); } }
 
-        private string telefonnummer;
-        public string Telefonnummer { get => telefonnummer; set { telefonnummer = value; OnPropertyChanged(); } }
+        private string inputOrt;
+        public string InputOrt
+        {
+            get { return inputOrt; }
+            set { inputOrt = value; OnPropertyChanged(); }
 
-        private string? mailAdress;
-        public string? MailAdress { get => mailAdress; set { mailAdress = value; OnPropertyChanged(); } }
+        }
 
-        private string förnamn;
-        public string Förnamn { get => förnamn; set { förnamn = value; OnPropertyChanged(); } }
+        private string inputTelefonnummer;
+        public string InputTelefonnummer
+        {
+            get { return inputTelefonnummer; }
+            set { inputTelefonnummer = value; OnPropertyChanged(); }
+        }
 
-        private string efternamn;
-        public string Efternamn { get => efternamn; set { efternamn = value; OnPropertyChanged(); } }
+
+        private string inputMailAdress;
+        public string InputMailAdress
+        {
+            get { return inputMailAdress; }
+            set { inputMailAdress = value; OnPropertyChanged(); }
+        }
+
+        private string inputFörnamn;
+        public string InputFörnamn
+        {
+            get { return inputFörnamn; }
+            set { inputFörnamn = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputEfternamn;
+        public string InputEfternamn
+        {
+            get { return inputEfternamn; }
+            set { inputEfternamn = value; OnPropertyChanged(); }
+        }
 
         private string kundnummer;
         public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
 
         private Privatkund privatkund = null!;
         public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+
+
+        //private Privatkund bajs = null!;
+        //public Privatkund Bajs
+        //{
+        //    get { return bajs; }
+        //    set
+        //    {
+        //        bajs = value; OnPropertyChanged();
+
+        //        if (bajs == null)
+        //        {
+
+        //        }
+        //    }
+        //}
+
+
+
+
 
         private Företagskund företagskund = null!;
         public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
@@ -163,6 +215,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
+            
             if (tillgänligLogiSelectedItem != null)
             {
                 Logi logi = tillgänligLogiSelectedItem;
@@ -195,14 +248,20 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
 
-            // Om privatkund inte hittas söker vi efter företagskund
-            //if (Privatkund == null)
-            //{
-            //    företagskund = företagskundKontroller.SökFöretagskund(kundnummer);
-            //}
-            
+            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            if (Privatkund != null)
+            {
+                InputAdress = Privatkund.Adress;
+                InputPostnummer = Privatkund.Postnummer;
+                InputOrt = Privatkund.Ort;
+                InputTelefonnummer = Privatkund.Telefonnummer;
+                InputMailAdress = Privatkund.MailAdress;
+                Kundnummer = Privatkund.Personnummer;
+                InputFörnamn = Privatkund.Förnamn;
+                InputEfternamn = Privatkund.Efternamn;
+            }
+
         });
         private ICommand spara = null!;
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
@@ -210,13 +269,14 @@ namespace PresentationslagerWPF.ViewModels
             
             if (Privatkund == null)
             {
-                
-                privatkundKontroller.RegistreraPrivatKund(Adress, Postnummer, Ort, Telefonnummer, MailAdress, Kundnummer, Förnamn, Efternamn);
+
+                Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn); ;
                 bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 valdLogi.Clear();
             }
             else
             {
+
                 bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
             }
 
