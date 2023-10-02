@@ -97,5 +97,21 @@ namespace Affärslager
             }
             return TotalPris;
         }
+
+        public double HämtaRabattFöretagskund(double TotalPris, Företagskund företagskund)
+        {
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.OrgaNr == företagskund.OrgNr);
+
+            if (masterBokning != null)
+            {
+                double rabatt = företagskund.RabattSats;
+                TotalPris = TotalPris * rabatt;
+            }
+            else
+            {
+                TotalPris = default;
+            }
+            return TotalPris;
+        }
     }
 }
