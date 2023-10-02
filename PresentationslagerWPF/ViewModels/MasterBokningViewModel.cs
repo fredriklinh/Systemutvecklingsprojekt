@@ -226,7 +226,11 @@ namespace PresentationslagerWPF.ViewModels
             {
                 double resKostnad = 0;
                 Logi logi = tillgänligLogiSelectedItem;
-                TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                if (Privatkund != null)
+                {
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                }
+
                 if (TotalPrisRabatt == 0)
                 {
                     TotalPrisRabatt = resKostnad + TotalPrisRabatt2;
@@ -289,13 +293,14 @@ namespace PresentationslagerWPF.ViewModels
 
                 Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
                 bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                valdLogi.Clear();
             }
             else
             {
                 bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                
             }
-            
+            valdLogi.Clear();
+
 
         });
 
