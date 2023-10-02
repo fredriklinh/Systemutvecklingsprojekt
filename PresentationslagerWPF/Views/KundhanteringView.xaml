@@ -4,24 +4,72 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
-        mc:Ignorable="d"
-        Height="450" Width="800">
-    <StackPanel Margin="10,10,10,10" Background="Gray">
-        <StackPanel VerticalAlignment="Top" Background="Gray">
-            <Label>KUNDHANTERING</Label>
-            <Label>Sök</Label>
-            <DockPanel>
-                <TextBlock></TextBlock>
-            </DockPanel>
+        mc:Ignorable="d">
+    <!-- Put things in Grid.Column="0" for left, and "1' for right -->
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Margin="10,10,10,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <Label Margin="0,0,10,0">Kundnummer</Label>
+            <TextBox Width="200"></TextBox>
+            <Button Background="Green" Width="53">Sök</Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            </StackPanel>
         </StackPanel>
-        <DockPanel Margin="10,10,10,10" Background="Gray">
-            <DataGrid>
-
-            </DataGrid>
-        </DockPanel>
-        <StackPanel></StackPanel>
-        <Button>Add</Button>
-        <Button>Ändra</Button>
-        <Button>TaBort</Button>
-    </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center">
+            <Button Background="DarkSeaGreen" Margin="1,0,10,0">Lägg till PrivatKund</Button>
+            <Button Background="DarkSeaGreen" Margin="1,0,10,0">Lägg till Företagskund</Button>
+        </StackPanel>
+        <Label Grid.Row="1" Background="LightGray">Privatkund</Label>
+        <WrapPanel Grid.Row="2" Margin="0,10,0,59" Background="LightGray" HorizontalAlignment="Center" Width="380">
+            <StackPanel Margin="10,10,10,10" Background="LightGray">
+                <Label>Kundnummer</Label>
+                <TextBox></TextBox>
+                <Label>Förnamn</Label>
+                <TextBox Text="{Binding PrivatFörnamn}"></TextBox>
+                <Label>Efternamn</Label>
+                <TextBox  Text="{Binding PrivatEfternamn}"></TextBox>
+            </StackPanel>
+            <StackPanel  Margin="10,10,10,10">
+                <Label>Personummer</Label>
+                <TextBox  Text="{Binding PrivatPostnummer}"></TextBox>
+                <Label>Adress</Label>
+                <TextBox  Text="{Binding PrivatAdress}"></TextBox>
+                <Label>Postnummer</Label>
+                <TextBox  Text="{Binding PrivatPostnummer}" ></TextBox>
+                <Label>Mail</Label>
+                <TextBox Text="{Binding PrivatMail}"></TextBox>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center">
+                <Button Margin="10,10,10,10" Background="Green">Spara</Button>
+                <Button Margin="10,10,10,10" Background="DarkRed">Ta bort Kund</Button>
+                <Button Margin="10,10,10,10" Background="DarkRed" >Ändra Kund</Button>
+            </StackPanel>
+        </WrapPanel>
+        <Label Grid.Row="1" Grid.Column="1" Background="LightGray">Företagskund</Label>
+        <WrapPanel Grid.Column='1' Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,59" Background="LightGray" Width="380">
+            <StackPanel  Margin="10,10,10,10">
+                <StackPanel>
+                    <Label>Orgnummer</Label>
+                    <TextBox></TextBox>
+                    <Label>Företagsnamn</Label>
+                    <TextBox></TextBox>
+                    <Label>Rabatsatts</Label>
+                    <TextBox></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center">
+                <Button Margin="10,10,10,10" Background="Green">Spara</Button>
+                <Button Margin="10,10,10,10" Background="DarkRed">Ta bort Kund</Button>
+                <Button Margin="10,10,10,10" Background="DarkRed" >Ändra Kund</Button>
+            </StackPanel>
+        </WrapPanel>
+    </Grid>
 </UserControl>

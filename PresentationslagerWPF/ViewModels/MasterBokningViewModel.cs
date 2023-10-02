@@ -43,7 +43,17 @@ namespace PresentationslagerWPF.ViewModels
 
 
         private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; 
+                OnPropertyChanged();
+                if (value.Length == 13)
+                {
+                    ///DISPLAY PRIVAT
+                }
+            
+                } }
+
+
+
 
         //private Kund kund = null!;
 
@@ -84,6 +94,11 @@ namespace PresentationslagerWPF.ViewModels
                 
             }
         }
+
+        private bool testKund = true;
+        public bool TestKund { get { return testKund; } set { testKund = value; OnPropertyChanged(); } }
+
+
 
         private int valdLogiSelectedIndex;
         public int ValdLogiSelectedIndex { get => valdLogiSelectedIndex; set { valdLogiSelectedIndex = value; OnPropertyChanged(); } }

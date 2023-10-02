@@ -17,8 +17,6 @@ namespace Entiteter.Personer
         {
 
         }
-
-
         public int AnvändarID { get; set; }
         public int Behörighetsnivå { get; set; }
 

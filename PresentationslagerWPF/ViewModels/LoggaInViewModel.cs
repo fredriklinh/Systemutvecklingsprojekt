@@ -14,6 +14,8 @@ using Microsoft.Identity.Client;
 using System.Diagnostics.Eventing.Reader;
 using System.Windows;
 using System.CodeDom.Compiler;
+using System.Windows.Controls;
+using System.Security;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -27,10 +29,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             LoggaInCommand = new LoggaInCommand(this, new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
 
-
-
         }
-
 
         //STATUS
         private string status = "Ready";
@@ -46,12 +45,14 @@ namespace PresentationslagerWPF.ViewModels
         public string Lösenord { get => lösenord; set { lösenord = value; OnPropertyChanged(); } }
 
 
+        //OBS DENNA SKA VARA PRIVAT FÖR ATT VARA 100% KORREKT MVVM
+        public string Password { get; set; }
+        public SecureString SecurePassword { get; set; }
+
         //AVBRYT
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
-
-
 
 
     }
