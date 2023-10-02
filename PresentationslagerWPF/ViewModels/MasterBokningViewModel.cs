@@ -301,6 +301,23 @@ namespace PresentationslagerWPF.ViewModels
             }
             valdLogi.Clear();
 
+            InputAdress = null;
+            InputPostnummer = null;
+            InputOrt = null;
+            InputTelefonnummer = null;
+            InputMailAdress = null;
+            Kundnummer = null;
+            InputFörnamn = null;
+            InputEfternamn = null;
+            AntalSovplatser = null;
+            TotalKostnad = null;
+            ValdLogi = null;
+            TotalPris = 0;
+            Privatkund = null;
+            TillgänligLogi = null;
+            Starttid = DateTime.Now;
+            Sluttid = DateTime.Now;
+            TotalPrisRabatt = 0;
 
         });
 
