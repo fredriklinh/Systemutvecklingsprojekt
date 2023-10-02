@@ -27,9 +27,9 @@ namespace Affärslager
 
             return datumsVecka;
         }
-        public double BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum, Privatkund privatkund)
+        public double BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
         {
-            
+
 
             // Kolla resterande dagar, Kolla veckor
             if (startdatum > slutdatum)
@@ -52,7 +52,7 @@ namespace Affärslager
             for (int i = antalVeckor; i <= VeckaStart + antalVeckor; i++)
             {
                 //Tillfällig prisLogi
-                
+
                 PrislistaLogi prisLogiVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == VeckaStart);
                 int antalVeckorKvar = antalVeckor - i;
                 if (antalVeckorKvar == 0)
@@ -79,18 +79,23 @@ namespace Affärslager
                 }
                 return totalpris;
             }
-            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.Privatkund == privatkund && m.BokningsDatum >= DateTime.Now.AddYears(-1));
+            return totalpris;
+        }
+    
+        public double HämtaRabatt(double TotalPris, Privatkund privatkund)
+        {
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.PersonNr == privatkund.Personnummer && m.BokningsDatum >= DateTime.Now.AddYears(-1));
+            
             if (masterBokning != null)
             {
                 double rabatt = 0.92;
-                totalpris = totalpris * rabatt;
-                return totalpris;
+                TotalPris = TotalPris * rabatt;
             }
             else
             {
-                return totalpris;
+                TotalPris = default;
             }
-            
+            return TotalPris;
         }
     }
 }
