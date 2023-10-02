@@ -229,6 +229,7 @@ namespace PresentationslagerWPF.ViewModels
                 if (Privatkund != null)
                 {
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                    //TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
                 }
 
                 if (TotalPrisRabatt == 0)
@@ -282,7 +283,7 @@ namespace PresentationslagerWPF.ViewModels
                 InputFörnamn = Privatkund.Förnamn;
                 InputEfternamn = Privatkund.Efternamn;
             }
-
+            
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
             if (företagskund != null)
             {
@@ -346,6 +347,7 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
                 }
                 TillgänligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
