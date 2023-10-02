@@ -31,14 +31,16 @@ namespace Entiteter.Personer
 
         }
 
-        public Privatkund(string adress, int postnummer, string ort, string telefonnummer, string mailAdress,string personnummer, string förnamn, string efternamn)
+        public Privatkund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
         {
+            //Från kund
             MaxBeloppsKreditGräns = 12000;
             Adress = adress;
             Postnummer = postnummer;
             Ort = ort;
             Telefonnummer = telefonnummer;
             MailAdress = mailAdress;
+            //Från privatkund
             Personnummer = personnummer;
             Förnamn = förnamn;
             Efternamn = efternamn;

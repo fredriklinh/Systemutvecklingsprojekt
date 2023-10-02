@@ -1459,7 +1459,7 @@ namespace Datalager.Seed
                 Förnamn = "Fiel",
                 Efternamn = "Skogholm",
                 Adress = "Tingstadsalé 24",
-                Postnummer = 78533,
+                Postnummer = "78533",
                 Ort = "Stockholm",
                 Telefonnummer = "07266555994",
                 MailAdress = "Fiel.Skogholm@stocknäs.se"
@@ -1473,7 +1473,7 @@ namespace Datalager.Seed
                 Förnamn = "Fidde",
                 Efternamn = "Skoglund",
                 Adress = "Tingstadsgatan 24",
-                Postnummer = 45839,
+                Postnummer = "45839",
                 Ort = "Stockholm",
                 Telefonnummer = "07366555994",
                 MailAdress = "Fiel.Skogholm@stocknäs.se"
@@ -1485,7 +1485,7 @@ namespace Datalager.Seed
                 OrgNr = "4343-2321",
                 FöretagsNamn = "Byggplockarna AB",
                 Adress = "Karlatornsväg 23",
-                Postnummer = 46941,
+                Postnummer = "46941",
                 Ort = "Utby",
                 Telefonnummer = "07266555994",
                 MailAdress = "ByggplockAB@foretagsadress.se",

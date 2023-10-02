@@ -41,26 +41,26 @@ namespace PresentationslagerWPF.ViewModels
         private int? totalKostnad;
         public int? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
 
-        private string? adress;
-        public string? Adress { get => adress; set { adress = value; OnPropertyChanged(); } }
+        private string adress;
+        public string Adress { get => adress; set { adress = value; OnPropertyChanged(); } }
 
-        private string? postnummer;
-        public string? Postnummer { get => postnummer; set { postnummer = value; OnPropertyChanged(); } }
+        private string postnummer;
+        public string Postnummer { get => postnummer; set { postnummer = value; OnPropertyChanged(); } }
 
-        private string? ort;
-        public string? Ort { get => ort; set { ort = value; OnPropertyChanged(); } }
+        private string ort;
+        public string Ort { get => ort; set { ort = value; OnPropertyChanged(); } }
 
-        private string? telefonnummer;
-        public string? Telefonnummer { get => telefonnummer; set { telefonnummer = value; OnPropertyChanged(); } }
+        private string telefonnummer;
+        public string Telefonnummer { get => telefonnummer; set { telefonnummer = value; OnPropertyChanged(); } }
 
         private string? mailAdress;
         public string? MailAdress { get => mailAdress; set { mailAdress = value; OnPropertyChanged(); } }
 
-        private string? förnamn;
-        public string? Förnamn { get => förnamn; set { förnamn = value; OnPropertyChanged(); } }
+        private string förnamn;
+        public string Förnamn { get => förnamn; set { förnamn = value; OnPropertyChanged(); } }
 
-        private string? efternamn;
-        public string? Efternamn { get => efternamn; set { efternamn = value; OnPropertyChanged(); } }
+        private string efternamn;
+        public string Efternamn { get => efternamn; set { efternamn = value; OnPropertyChanged(); } }
 
         private string kundnummer;
         public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
@@ -210,12 +210,14 @@ namespace PresentationslagerWPF.ViewModels
             
             if (Privatkund == null)
             {
-                Privatkund = privatkundKontroller.RegistreraPrivatKund(adress, postnummer, ort, telefonnummer, mailAdress, personnummer, förnamn, efternamn);
-                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, användare);
+                
+                privatkundKontroller.RegistreraPrivatKund(Adress, Postnummer, Ort, Telefonnummer, MailAdress, Kundnummer, Förnamn, Efternamn);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                valdLogi.Clear();
             }
             else
             {
-                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, användare);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
             }
 
         });
