@@ -288,45 +288,15 @@ namespace PresentationslagerWPF.ViewModels
             {
 
                 Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
-                bokningsKontroller.SkapaMasterbokningPrivatkund(true, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 valdLogi.Clear();
             }
             else
             {
-                AnvändarID = 98,
-                Behörighetsnivå = 1,
-                Användarnamn = "Magnus",
-                Lösenord = "a",
-                Efternamn = "Otterberg",
-                Förnamn = "Magnifike"
-            };
-            //Privatkund Fiel = new Privatkund()
-            //{
-            //    Personnummer = "19680314-9999",
-            //    Förnamn = "Fiel",
-            //    Efternamn = "Skogholm",
-            //    Adress = "Tingstadsalé 24",
-            //    Postnummer = 78533,
-            //    Ort = "Stockholm",
-            //    Telefonnummer = "07266555994",
-            //    MailAdress = "Fiel.Skogholm@stocknäs.se"
-            //};
-            bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-            //if (Privatkund == null)
-            //{
-            //    //Privatkund = privatkundKontroller.RegistreraPrivatKund()
-            //    //bokningsKontroller.SkapaMasterbokningPrivatkund()
-            //}
-            AntalSovplatser = null;
-            TotalKostnad = null;
-            ValdLogi = null;
-            TotalPris = 0;
-            Kundnummer = null;
-            Privatkund = null;
-            TillgänligLogi = null;
-            Starttid = DateTime.Now;
-            Sluttid = DateTime.Now;
-            TotalPrisRabatt = 0;
+                bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+            }
+            
+
         });
 
         private ICommand taBortCommand = null!;
