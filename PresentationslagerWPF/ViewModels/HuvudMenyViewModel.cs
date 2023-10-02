@@ -11,18 +11,19 @@ using System.Windows;
 
 using PresentationslagerWPF.Commands;
 using System.Threading.Channels;
+using Entiteter.Personer;
 
 namespace PresentationslagerWPF.ViewModels
 {
     public class HuvudMenyViewModel : ObservableObject
     {
 
-        public HuvudMenyViewModel(NavigationStore navigationStore)
+        public HuvudMenyViewModel(NavigationStore navigationStore, Användare användare)
         {
 
-            NavigateMasterBokningCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore)));
+            NavigateMasterBokningCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             NavigateKundHanteringCommand = new NavigateCommand<KundhanteringViewModel>(new NavigationService<KundhanteringViewModel>(navigationStore, () => new KundhanteringViewModel(navigationStore)));
-            NavigateStatistikCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
+            NavigateStatistikCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
 
         }
         public HuvudMenyViewModel() { }
