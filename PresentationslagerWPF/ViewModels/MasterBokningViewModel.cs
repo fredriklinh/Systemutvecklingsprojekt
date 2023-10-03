@@ -434,7 +434,6 @@ namespace PresentationslagerWPF.ViewModels
             Starttid = DateTime.Now;
             Sluttid = DateTime.Now;
             TotalPrisRabatt = 0;
-
         });
 
         private ICommand taBortCommand = null!;
