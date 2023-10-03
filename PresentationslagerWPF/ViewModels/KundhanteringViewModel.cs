@@ -306,28 +306,21 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand SparaFöretagCommand => sparaFöretagCommand ??= sparaFöretagCommand = new RelayCommand(() =>
         {
             IsEnabledFöretag = false;
-            if (!OrgNummer.IsNullOrEmpty())
+            //bool FinnsKund = företagskundKontroller.KontrollFKund(OrgNummer);
+            if (!OrgNummer.IsNullOrEmpty() /*&& FinnsKund == false*/)
             {
                 Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
-            }
-
-
-
-            else (OrgNummer.IsNullOrEmpty())
-            {
-                MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            
-            if (Företagskund == null && OrgNummer != OrgNummer.IsNullOrEmpty)
-            {
-
-                MessageBox.Show($"Kunden finns redan i systemet", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-
+                MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+                
+
+
+               
+
 
         });
         //private ICommand ändraFöretagCommand = null!;
