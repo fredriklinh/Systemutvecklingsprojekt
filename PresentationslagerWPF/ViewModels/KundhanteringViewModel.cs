@@ -1,5 +1,7 @@
 ﻿using Affärslager.KundKontroller;
+using Datalager;
 using Entiteter.Personer;
+using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
@@ -99,7 +101,17 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sparaPrivatCommand = null!;
         public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
         {
-            //SPARA
+            IsEnabledPrivat = false;
+            Privatkund = privatkundKontroller.RegistreraPrivatKund(PrivatAdress, PrivatPostnummer, PrivatOrt, PrivatTelefonummer, PrivatMail, PrivatPersonummer, PrivatFörnamn, PrivatEfternamn);
+            if (Privatkund == null)
+            {
+                MessageBox.Show($"Sparande Misslyckades", "Privatkund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show($"{PrivatPersonummer} har lagts till", "Privatkund", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
         });
         private ICommand ändraPrivatCommand = null!;
         public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>
@@ -126,6 +138,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand IsEnabledFöretagCommand => isEnabledFöretagCommand ??= isEnabledFöretagCommand = new RelayCommand(() =>
         {
             IsEnabledFöretag = true;
+            IsEnabledPrivat = false;
         });
 
         private bool isEnabledPrivat = false!;
@@ -136,6 +149,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand IsEnabledPrivatCommand => isEnabledPrivatCommand ??= isEnabledPrivatCommand = new RelayCommand(() =>
         {
             IsEnabledPrivat = true;
+            IsEnabledFöretag = false;
         });
         #endregion
 
@@ -291,15 +305,21 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sparaFöretagCommand = null!;
         public ICommand SparaFöretagCommand => sparaFöretagCommand ??= sparaFöretagCommand = new RelayCommand(() =>
         {
-            Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
-            if (Företagskund == null)
+            IsEnabledFöretag = false;
+            
+            if (OrgNummer.IsNullOrEmpty())
             {
                 MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            
+            if (Företagskund == null && OrgNummer != OrgNummer.IsNullOrEmpty)
+            {
+                MessageBox.Show($"Kunden finns redan i systemet", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
             }
             else
             {
                 MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
-
             }
 
         });
