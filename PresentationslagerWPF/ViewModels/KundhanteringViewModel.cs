@@ -164,15 +164,7 @@ namespace PresentationslagerWPF.ViewModels
                 PrivatFörnamn = Privatkund.Förnamn;
                 PrivatEfternamn = Privatkund.Efternamn;
 
-                FöretagAdress = null;
-                FöretagPostnummer = null;
-                FöretagOrt = null;
-                FöretagTelefonummer = null;
-                FöretagMailadress = null;
-                OrgNummer = null;
-                FöretagsNamn = null;
-                Rabatstatts = 0;
-                MaxBeloppKredit = 0;
+                NollaFöretagsKundInformation();
 
             }
             //Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
@@ -188,41 +180,48 @@ namespace PresentationslagerWPF.ViewModels
                 Rabatstatts = Företagskund.RabattSats;
                 MaxBeloppKredit = Företagskund.MaxBeloppsKreditGräns;
 
-                PrivatPersonummer = null;
-                PrivatAdress = null;
-                PrivatPostnummer = null;
-                PrivatOrt = null;
-                PrivatTelefonummer = null;
-                PrivatMail = null;
-                PrivatFörnamn = null;
-                PrivatEfternamn = null;
+                NollaPrivatkundInformation();
             }
             else
             {
-                FöretagAdress = null;
-                FöretagPostnummer = null;
-                FöretagOrt = null;
-                FöretagTelefonummer = null;
-                FöretagMailadress = null;
-                OrgNummer = null;
-                FöretagsNamn = null;
-                Rabatstatts = 0;
-                MaxBeloppKredit = 0;
 
-                PrivatPersonummer = null;
-                PrivatAdress = null;
-                PrivatPostnummer = null;
-                PrivatOrt = null;
-                PrivatTelefonummer = null;
-                PrivatMail = null;
-                PrivatFörnamn = null;
-                PrivatEfternamn = null;
+                NollaFöretagsKundInformation();
+                NollaPrivatkundInformation();
                 MessageBox.Show("Kund finns ej i register. Kontrollera Orgnummer/Personummer", "Kund", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
         });
 
+
+        public void NollaFöretagsKundInformation()
+        {
+
+            FöretagAdress = null;
+            FöretagPostnummer = null;
+            FöretagOrt = null;
+            FöretagTelefonummer = null;
+            FöretagMailadress = null;
+            OrgNummer = null;
+            FöretagsNamn = null;
+            Rabatstatts = 0;
+            MaxBeloppKredit = 0;
+
+        }
+        public void NollaPrivatkundInformation()
+        {
+
+            PrivatPersonummer = null;
+            PrivatAdress = null;
+            PrivatPostnummer = null;
+            PrivatOrt = null;
+            PrivatTelefonummer = null;
+            PrivatMail = null;
+            PrivatFörnamn = null;
+            PrivatEfternamn = null;
+        }
+
         #region FÖRETAGSKUND
+
 
 
         //**** FÖRETAGSKUND *******//
