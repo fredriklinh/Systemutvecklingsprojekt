@@ -1,18 +1,11 @@
-﻿using PresentationslagerWPF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using PresentationslagerWPF.Stores;
-using PresentationslagerWPF.Commands;
-using Affärslager;
-using Affärslager.KundKontroller;
+﻿using PresentationslagerWPF.Commands;
+using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
+using PresentationslagerWPF.Stores;
+using System.Windows.Input;
 namespace PresentationslagerWPF.ViewModels
 {
-    public  class KundhanteringViewModel: ObservableObject
+    public class KundhanteringViewModel : ObservableObject
     {
 
         #region NAVIGATION

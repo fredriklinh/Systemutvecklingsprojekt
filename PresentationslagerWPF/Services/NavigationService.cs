@@ -1,11 +1,6 @@
-﻿using PresentationslagerWPF.Stores;
+﻿using PresentationslagerWPF.Models;
+using PresentationslagerWPF.Stores;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PresentationslagerWPF.Services;
-using PresentationslagerWPF.Models;
 
 namespace PresentationslagerWPF.Services
 {

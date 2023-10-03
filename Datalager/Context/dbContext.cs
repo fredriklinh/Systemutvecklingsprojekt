@@ -1,14 +1,9 @@
-﻿using Entiteter;
-using Datalager.Seed;
+﻿using Datalager.Seed;
+using Entiteter.Personer;
+using Entiteter.Prislistor;
+using Entiteter.Tjänster;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Security.Authentication.ExtendedProtection;
-using Entiteter.Personer;
-using Entiteter.Tjänster;
-using Entiteter.Prislistor;
 
 namespace Datalager.Context
 {
@@ -20,14 +15,14 @@ namespace Datalager.Context
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;"*/);
+                .UseSqlServer(@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;");
             base.OnConfiguring(optionsBuilder);
 
         }
         public void Reset()
         {
             #region Remove Tables
-            using (SqlConnection conn = new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"*/))
+            using (SqlConnection conn = new SqlConnection(@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"))
             using (SqlCommand cmd = new SqlCommand("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'; EXEC sp_msforeachtable 'DROP TABLE ?'", conn))
             {
                 conn.Open();
@@ -95,6 +90,6 @@ namespace Datalager.Context
 
 
         }
-        
+
     }
 }

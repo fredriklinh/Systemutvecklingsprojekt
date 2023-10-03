@@ -1,10 +1,5 @@
 ﻿using Datalager;
 using Entiteter.Personer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Affärslager.KundKontroller
 {
@@ -14,7 +9,7 @@ namespace Affärslager.KundKontroller
 
         public Privatkund RegistreraPrivatKund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
         {
-            Privatkund privatkund = new Privatkund(adress, postnummer,ort,telefonnummer,mailAdress,personnummer,förnamn,efternamn);
+            Privatkund privatkund = new Privatkund(adress, postnummer, ort, telefonnummer, mailAdress, personnummer, förnamn, efternamn);
             unitOfWork.PrivatkundRepository.Add(privatkund);
             unitOfWork.Complete();
             return privatkund;
@@ -22,9 +17,9 @@ namespace Affärslager.KundKontroller
 
         //public ICollection<Privatkund> SökPrivatKunder (Privatkund input)     Kan komma att användas senare i projektet.
         //{
-            //return unitOfWork.PrivatkundRepository.Find(input);
+        //return unitOfWork.PrivatkundRepository.Find(input);
         //}
-        public Privatkund SökPrivatkund (string input)
+        public Privatkund SökPrivatkund(string input)
         {
             return unitOfWork.PrivatkundRepository.FirstOrDefault(a => a.Personnummer.Equals(input));
         }
@@ -37,7 +32,7 @@ namespace Affärslager.KundKontroller
         public void UppdateraPrivatkund(Privatkund privatkund)
         {
             unitOfWork.PrivatkundRepository.Update(privatkund);
-               
+
         }
 
 

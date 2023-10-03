@@ -1,14 +1,4 @@
-﻿using Affärslager;
-using PresentationslagerWPF.Commands;
-using PresentationslagerWPF.Models;
-using PresentationslagerWPF.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Stores;
 
 namespace PresentationslagerWPF.ViewModels
