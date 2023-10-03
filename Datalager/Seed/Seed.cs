@@ -1487,7 +1487,8 @@ namespace Datalager.Seed
                 Ort = "Utby",
                 Telefonnummer = "07266555994",
                 MailAdress = "ByggplockAB@foretagsadress.se",
-                RabattSats = 12.5
+                RabattSats = 12.5,
+                MaxBeloppsKreditGräns = 60000
 
             });
             // Test för att se rabatterat pris
