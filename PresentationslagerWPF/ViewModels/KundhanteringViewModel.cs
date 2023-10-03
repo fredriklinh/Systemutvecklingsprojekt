@@ -306,14 +306,21 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand SparaFöretagCommand => sparaFöretagCommand ??= sparaFöretagCommand = new RelayCommand(() =>
         {
             IsEnabledFöretag = false;
-            
-            if (OrgNummer.IsNullOrEmpty())
+            if (!OrgNummer.IsNullOrEmpty())
+            {
+                Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
+            }
+
+
+
+            else (OrgNummer.IsNullOrEmpty())
             {
                 MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             
             if (Företagskund == null && OrgNummer != OrgNummer.IsNullOrEmpty)
             {
+
                 MessageBox.Show($"Kunden finns redan i systemet", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
             }
