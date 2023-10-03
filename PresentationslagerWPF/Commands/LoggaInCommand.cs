@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PresentationslagerWPF.Views;
+﻿using Affärslager;
+using Entiteter.Personer;
+using PresentationslagerWPF.Services;
 using PresentationslagerWPF.ViewModels;
 using System.Windows;
-using PresentationslagerWPF.Stores;
-using Affärslager;
-using System.Runtime.CompilerServices;
-using PresentationslagerWPF.Services;
-using System.Windows.Input;
-using PresentationslagerWPF.Models;
-using Entiteter.Personer;
-using System.Windows.Navigation;
 
 namespace PresentationslagerWPF.Commands
 {
@@ -43,8 +32,8 @@ namespace PresentationslagerWPF.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return true; 
-                
+            return true;
+
         }
         public override void Execute(object parameter)
         {

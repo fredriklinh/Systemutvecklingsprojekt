@@ -1,17 +1,9 @@
-﻿using PresentationslagerWPF.Models;
-using PresentationslagerWPF.Stores;
-using PresentationslagerWPF.Services;
-using System.Windows.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
+﻿using Entiteter.Personer;
 using PresentationslagerWPF.Commands;
-using System.Threading.Channels;
-using Entiteter.Personer;
+using PresentationslagerWPF.Models;
+using PresentationslagerWPF.Services;
+using PresentationslagerWPF.Stores;
+using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -34,8 +26,8 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand NavigateKundHanteringCommand { get; }
         public ICommand NavigateStatistikCommand { get; }
 
-        
-        
+
+
         //**** NAVBAR *******//
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>

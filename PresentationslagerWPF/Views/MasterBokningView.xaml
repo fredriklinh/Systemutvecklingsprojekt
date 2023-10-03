@@ -150,7 +150,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel HorizontalAlignment="Left" Margin="10,10,10,10">
-                                <Label  Content="Kostnad totalt för vistelse:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                                <Label  Content="Kostnad Logi:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                                 <TextBox Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
                                 <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
 

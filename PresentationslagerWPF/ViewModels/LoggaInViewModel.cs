@@ -1,21 +1,11 @@
-﻿using PresentationslagerWPF.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using PresentationslagerWPF.Stores;
-using PresentationslagerWPF.Services;
-using PresentationslagerWPF.Models;
-using Affärslager;
+﻿using Affärslager;
 using Entiteter.Personer;
-using Microsoft.Identity.Client;
-using System.Diagnostics.Eventing.Reader;
-using System.Windows;
-using System.CodeDom.Compiler;
-using System.Windows.Controls;
+using PresentationslagerWPF.Commands;
+using PresentationslagerWPF.Models;
+using PresentationslagerWPF.Services;
+using PresentationslagerWPF.Stores;
 using System.Security;
+using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -39,8 +29,13 @@ namespace PresentationslagerWPF.ViewModels
 
         //Användarnamn för ANVÄNDARE
         private string användarnamn = null!;
-        public string Användarnamn { get => användarnamn; set { användarnamn = value; OnPropertyChanged();
-            } }
+        public string Användarnamn
+        {
+            get => användarnamn; set
+            {
+                användarnamn = value; OnPropertyChanged();
+            }
+        }
 
         //Lösenord för ANVÄNDARE
         //private string lösenord = null!;
@@ -50,10 +45,10 @@ namespace PresentationslagerWPF.ViewModels
         //    } }
 
         //Observable object användare
-        
-        
+
+
         private Användare användare = null!;
-        public Användare Användare { get => användare; set { användare = value; OnPropertyChanged();} }
+        public Användare Användare { get => användare; set { användare = value; OnPropertyChanged(); } }
 
         //OBS DENNA SKA VARA PRIVAT FÖR ATT VARA 100% KORREKT MVVM
         public string Password { get; set; }

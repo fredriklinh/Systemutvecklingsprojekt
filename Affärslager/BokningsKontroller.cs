@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Datalager;
-using Datalager.Context;
-using Entiteter;
+﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 
 
 namespace Affärslager
 {
-    public  class BokningsKontroller
+    public class BokningsKontroller
     {
 
         UnitOfWork unitOfWork = new UnitOfWork();
@@ -23,7 +16,7 @@ namespace Affärslager
         /// <param name="startdatum"></param>
         /// <param name="slutdatum"></param>
         /// <returns></returns>
-        public List<Logi> HämtaTillgängligLogi (DateTime startdatum, DateTime slutdatum)
+        public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
             List<Logi> logi = new List<Logi>();
 

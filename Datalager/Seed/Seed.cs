@@ -1,9 +1,7 @@
 ﻿using Entiteter.Personer;
 using Entiteter.Prislistor;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System;
 using Entiteter.Tjänster;
+using Microsoft.EntityFrameworkCore;
 
 namespace Datalager.Seed
 {
@@ -1430,8 +1428,8 @@ namespace Datalager.Seed
                     ÄrTillgänglig = true,
                     Typen = "LGH.I"
 
-                }) ;
-                
+                });
+
             }
             for (int i = 1; i <= 35; i++)
             {
@@ -1493,7 +1491,7 @@ namespace Datalager.Seed
 
             });
             // Test för att se rabatterat pris
-            
+
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             //{
             //    Avbeställningsskydd = true,
@@ -1518,8 +1516,8 @@ namespace Datalager.Seed
 
 
 
-        }
-    
+}
+
 
 
 

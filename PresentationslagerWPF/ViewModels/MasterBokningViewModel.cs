@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PresentationslagerWPF.Services;
-using PresentationslagerWPF.Commands;
-using PresentationslagerWPF.Views;
-using PresentationslagerWPF.Stores;
-using PresentationslagerWPF.Models;
-using Affärslager;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
-using Entiteter.Tjänster;
-using Entiteter.Prislistor;
+﻿using Affärslager;
 using Affärslager.KundKontroller;
 using Entiteter.Personer;
+using Entiteter.Prislistor;
+using Entiteter.Tjänster;
+using PresentationslagerWPF.Commands;
+using PresentationslagerWPF.Models;
+using PresentationslagerWPF.Services;
+using PresentationslagerWPF.Stores;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -139,14 +134,18 @@ namespace PresentationslagerWPF.ViewModels
         public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
         private Logi tillgänligLogiSelectedItem = null!;
-        public Logi TillgänligLogiSelectedItem {
+        public Logi TillgänligLogiSelectedItem
+        {
             get => tillgänligLogiSelectedItem;
-            set { tillgänligLogiSelectedItem = value; OnPropertyChanged();
+            set
+            {
+                tillgänligLogiSelectedItem = value; OnPropertyChanged();
                 if (TillgänligLogiSelectedItem != null)
                 {
                     TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
                 }
-            } }
+            }
+        }
 
         private int tillgänligLogiSelectedIndex;
         public int TillgänligLogiSelectedIndex { get => tillgänligLogiSelectedIndex; set { tillgänligLogiSelectedIndex = value; OnPropertyChanged(); } }
@@ -245,12 +244,15 @@ namespace PresentationslagerWPF.ViewModels
         public ObservableCollection<Kund> Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Logi> valdLogi = null!;
-        public ObservableCollection<Logi> ValdLogi {
+        public ObservableCollection<Logi> ValdLogi
+        {
             get => valdLogi;
-            set {
+            set
+            {
                 valdLogi = value; OnPropertyChanged();
 
-            } }
+            }
+        }
 
 
         //Användarnamn för ANVÄNDARE
@@ -302,7 +304,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-            
+
             if (tillgänligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
@@ -334,7 +336,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
 
                 //Kostnad totalt
-                
+
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
@@ -343,7 +345,7 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     TotalKostnad = TotalKostnad + TotalPris;
                 }
-                
+
                 AntalSovplatser = resBädd;
             }
         });
@@ -364,7 +366,7 @@ namespace PresentationslagerWPF.ViewModels
                 InputFörnamn = Privatkund.Förnamn;
                 InputEfternamn = Privatkund.Efternamn;
             }
-            
+
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
             if (företagskund != null)
             {
@@ -383,7 +385,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand spara = null!;
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
         {
-            
+
             if (Privatkund == null)
             {
 
@@ -393,7 +395,7 @@ namespace PresentationslagerWPF.ViewModels
             else
             {
                 bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                
+
             }
             valdLogi.Clear();
 
@@ -414,7 +416,6 @@ namespace PresentationslagerWPF.ViewModels
             Starttid = DateTime.Now;
             Sluttid = DateTime.Now;
             TotalPrisRabatt = 0;
-
         });
 
         private ICommand taBortCommand = null!;
@@ -446,7 +447,7 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     TotalPrisRabatt = TotalPrisRabatt - TotalPrisRabatt2;
                 }
-                
+
                 TotalKostnad = TotalKostnad - TotalPris;
                 AntalSovplatser = AntalSovplatser - res;
             }
