@@ -5,9 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d"
+        FontFamily="Calibri" Foreground="DarkSlateGray" FontWeight="DemiBold" FontSize="12"
         >
     <DockPanel Margin="20,20,20,20" LastChildFill="True">
-        <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+        <Menu DockPanel.Dock="Top" Background="LightGray" Margin="10,10,10,10">
+            <MenuItem Header="_Arkiv">
+                <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
+                <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Width="215" HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical">
@@ -27,7 +34,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel></StackPanel>
-                <StackPanel Margin="10,0,10,0">
+                <StackPanel Margin="10,10,10,10">
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
@@ -35,10 +42,11 @@
                         <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
                     </StackPanel>
                 </StackPanel>
+                <!--PANEL FÖR PRIVATKUND-->
                 <WrapPanel>
-                    <StackPanel Margin="0,10,0,10">
+                    <StackPanel Margin="10,10,10,10">
                         <!--<Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Företag" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
-                    <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Privat" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
+                        <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Privat" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
                         <StackPanel Orientation="Horizontal">
                             <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
                             <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
@@ -54,15 +62,14 @@
                     </StackPanel>
                     <StackPanel Margin="0,10,0,10">
                         <StackPanel Orientation="Horizontal">
-                            <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Adress:"></Label>
-                            <Label Margin="0,0,25,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Postnummer:"></Label>
-                            <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Ort:"></Label>
+                            <Label Margin="0,0,50,0" Content="Adress:"></Label>
+                            <Label Margin="0,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
+                            <Label FontSize="12" FontWeight="DemiBold"  Content="Ort:"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                            <TextBox Text="{Binding InputAdress, Mode=TwoWay}" Height="25" Width="90"></TextBox>
+                            <TextBox Text="{Binding InputAdress, Mode=TwoWay}" Height="25" Width="94"></TextBox>
                             <TextBox Margin="10,0,10,0" Text="{Binding InputPostnummer, Mode=TwoWay}" Height="25" Width="90"></TextBox>
                             <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay}" Height="25" Width="90"></TextBox>
-
                         </StackPanel>
                         <StackPanel>
                             <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
@@ -71,7 +78,38 @@
                         </StackPanel>
                     </StackPanel>
                 </WrapPanel>
-
+                <!--PANEL FÖR FÖRETAGSKUND-->
+                <WrapPanel>
+                    <StackPanel>
+                        <StackPanel Margin="10,10,10,10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="OrgNummer:"></Label>
+                                <Label Content="FöretagsNamn:"></Label>
+                                <Label Content="Rabatsatts:"></Label>
+                                <Label Content="MaxBeloppKredit:"></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBox x:Name="Orgnummer" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Företagsnamn" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                                <TextBox x:Name="Rabatsatts" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Adress:"></Label>
+                                <Label Content="Postnummer:"></Label>
+                                <Label Content="Ort:"></Label>
+                                <Label Content="Telefonummer:"></Label>
+                                <Label Content="Mailadress:"></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBox x:Name="Adress" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Postnummer" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                                <TextBox x:Name="Ort" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Telefonummer" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </WrapPanel>
             </StackPanel>
             <Separator></Separator>
             <StackPanel Orientation="Vertical" Background="LightGray" Margin="10,10,10,10">
