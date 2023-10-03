@@ -10,10 +10,15 @@ using PresentationslagerWPF.Commands;
 using Affärslager;
 using Affärslager.KundKontroller;
 using PresentationslagerWPF.Services;
+using Entiteter.Personer;
+
 namespace PresentationslagerWPF.ViewModels
 {
     public  class KundhanteringViewModel: ObservableObject
     {
+
+        PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
+        FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
 
         #region NAVIGATION
         public KundhanteringViewModel(NavigationStore navigationStore)
@@ -66,8 +71,46 @@ namespace PresentationslagerWPF.ViewModels
             //TABORT
 
         });
-        #endregion
 
+        #endregion
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
+
+        private ICommand sökKund = null!;
+        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
+        {
+
+            //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            //if (Privatkund != null)
+            //{
+            //    InputAdress = Privatkund.Adress;
+            //    InputPostnummer = Privatkund.Postnummer;
+            //    InputOrt = Privatkund.Ort;
+            //    InputTelefonnummer = Privatkund.Telefonnummer;
+            //    InputMailAdress = Privatkund.MailAdress;
+            //    Kundnummer = Privatkund.Personnummer;
+            //    InputFörnamn = Privatkund.Förnamn;
+            //    InputEfternamn = Privatkund.Efternamn;
+            //}
+
+            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+            if (företagskund != null)
+            {
+                FöretagAdress = Företagskund.Adress;
+                FöretagPostnummer = Företagskund.Postnummer;
+                FöretagOrt = Företagskund.Ort;
+                FöretagTelefonummer = Företagskund.Telefonnummer;
+                FöretagMailadress = Företagskund.MailAdress;
+                OrgNummer = Företagskund.OrgNr;
+                FöretagsNamn = Företagskund.FöretagsNamn;
+                Rabatstatts = Företagskund.RabattSats;
+                MaxBeloppKredit = Företagskund.MaxBeloppsKreditGräns;
+            }
+        });
 
         #region FÖRETAGSKUND
 
@@ -87,14 +130,14 @@ namespace PresentationslagerWPF.ViewModels
             get { return företagsNamn; }
             set { företagsNamn = value; OnPropertyChanged(); }
         }
-        private string rabatstatts;
-        public string Rabatstatts
+        private double rabatstatts;
+        public double Rabatstatts
         {
             get { return rabatstatts; }
             set { rabatstatts = value; OnPropertyChanged(); }
         }
-        private string maxBeloppKredit;
-        public string MaxBeloppKredit
+        private double maxBeloppKredit;
+        public double MaxBeloppKredit
         {
             get { return maxBeloppKredit; }
             set { maxBeloppKredit = value; OnPropertyChanged(); }
