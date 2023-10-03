@@ -32,7 +32,13 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #region PRIVATKUND
+
         //**** PRIVATKUND *******//
+
+
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
 
         private string privatFörnamn;
         public string PrivatFörnamn
@@ -110,6 +116,7 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
+        #region ISENABLEd
 
         private bool isEnabledFöretag = false!;
         public bool IsEnabledFöretag { get => isEnabledFöretag; set { isEnabledFöretag = value; OnPropertyChanged(); } }
@@ -130,18 +137,12 @@ namespace PresentationslagerWPF.ViewModels
         {
             IsEnabledPrivat = true;
         });
+        #endregion
+
 
 
         private string kundnummer;
         public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
-
-
-        private Företagskund företagskund = null!;
-        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
-
-
-        private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
 
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
@@ -195,7 +196,6 @@ namespace PresentationslagerWPF.ViewModels
 
         public void NollaFöretagsKundInformation()
         {
-
             FöretagAdress = null;
             FöretagPostnummer = null;
             FöretagOrt = null;
@@ -225,6 +225,9 @@ namespace PresentationslagerWPF.ViewModels
 
 
         //**** FÖRETAGSKUND *******//
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
 
         private string orgNummer;
         public string OrgNummer
