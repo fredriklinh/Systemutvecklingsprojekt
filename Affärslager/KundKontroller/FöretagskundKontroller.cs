@@ -12,12 +12,12 @@ namespace Affärslager.KundKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public Privatkund RegistreraFöretagskund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
+        public Företagskund RegistreraFöretagskund(double maxBeloppsKreditGränds, string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string orgNr, string företagsNamn, double rabattSats)
         {
-            Privatkund privatkund = new Privatkund(adress, postnummer, ort, telefonnummer, mailAdress, personnummer, förnamn, efternamn);
-            unitOfWork.PrivatkundRepository.Add(privatkund);
+            Företagskund företagskund = new Företagskund(maxBeloppsKreditGränds, adress, postnummer, ort, telefonnummer, mailAdress, orgNr, företagsNamn,rabattSats);
+            unitOfWork.FöretagskundRepository.Add(företagskund);
             unitOfWork.Complete();
-            return privatkund;
+            return företagskund;
         }
         public Företagskund SökFöretagskund(string input)
         {
