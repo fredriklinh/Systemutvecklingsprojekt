@@ -105,7 +105,7 @@
                             <StackPanel Orientation="Horizontal" >
                                 <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Ort" Text="{Binding Ort}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                         </StackPanel>
