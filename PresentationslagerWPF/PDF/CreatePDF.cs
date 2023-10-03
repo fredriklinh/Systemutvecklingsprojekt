@@ -15,8 +15,9 @@ namespace PDF
             Page page = new Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
             document.Pages.Add(page);
 
-            string labelText = 
-                $"Bokningsnummer: {masterbokning.BokningsNr}" +
+            string labelText =
+                $"\nBokningsbekräftelse" +
+                $"\nBokningsnummer: {masterbokning.BokningsNr}" +
                 $"\nPersonnummer: {privatkund.Personnummer}" +
                 $"\nIncheckningsdatum: {masterbokning.StartDatum}" +
                 $"\nUtcheckningsdatum: {masterbokning.SlutDatum}" +
