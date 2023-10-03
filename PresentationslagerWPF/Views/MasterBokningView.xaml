@@ -91,8 +91,8 @@
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal" >
                                 <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" ></TextBox>
-                                <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.Företagsnamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.Rabattsats}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.FöretagsNamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding Företagskund.MaxBeloppsKreditGräns}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
