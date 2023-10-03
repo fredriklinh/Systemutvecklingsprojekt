@@ -12,16 +12,19 @@ namespace Affärslager.KundKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public void RegistreraPrivatKund(Privatkund pk)
+        public Privatkund RegistreraPrivatKund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
         {
-            
+            Privatkund privatkund = new Privatkund(adress, postnummer,ort,telefonnummer,mailAdress,personnummer,förnamn,efternamn);
+            unitOfWork.PrivatkundRepository.Add(privatkund);
+            unitOfWork.Complete();
+            return privatkund;
         }
 
         //public ICollection<Privatkund> SökPrivatKunder (Privatkund input)     Kan komma att användas senare i projektet.
         //{
             //return unitOfWork.PrivatkundRepository.Find(input);
         //}
-        public Privatkund SökPrivatkund (long input)
+        public Privatkund SökPrivatkund (string input)
         {
             return unitOfWork.PrivatkundRepository.FirstOrDefault(a => a.Personnummer.Equals(input));
         }

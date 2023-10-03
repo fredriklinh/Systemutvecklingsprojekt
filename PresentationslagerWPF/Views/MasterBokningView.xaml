@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d"
+        FontFamily="Calibri" Foreground="DarkSlateGray" FontWeight="DemiBold" FontSize="12"
         >
     <DockPanel Margin="20,20,20,20" LastChildFill="True">
+        <Menu DockPanel.Dock="Top" Background="LightGray" Margin="10,10,10,10">
+            <MenuItem Header="_Arkiv">
+                <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
+                <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+        </Menu>
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Width="215" HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel>
                             <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Datum för bokning</Label>
-                        </StackPanel>
+
                         <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                             <StackPanel Orientation="Vertical">
                                 <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Ankomst:</Label>
@@ -27,48 +33,83 @@
                         <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Background="LightGray" Width="2" Margin="2,0,10,0"></StackPanel>
-                <StackPanel>
+                <StackPanel></StackPanel>
+                <StackPanel Margin="10,10,10,10">
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding Kundnummer, Mode=OneWayToSource}" Height="25" Width="100"></TextBox>
-                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
+                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Width="180">
-                    <!--<Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Företag" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
-                    <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Privat" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
-                        <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
+                <!--PANEL FÖR PRIVATKUND-->
+                <WrapPanel>
+                    <StackPanel Margin="10,10,10,10">
+                        <!--<Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Företag" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                        <Button Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Privat" Height="17" Width="60" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
+                        <StackPanel Orientation="Horizontal">
+                            <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
+                            <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <TextBox x:Name="KundFörnamn" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                            <TextBox x:Name="EfterNamn" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Telefonnummer:"></Label>
+                            <TextBox x:Name="Telefonnummer" Text="{Binding InputTelefonnummer, Mode=TwoWay}" Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel DataContext="{Binding Path=Privatkund}" Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox x:Name="KundFörnamn" Height="25" Width="80" Text="{Binding PrivatKund, Mode=OneWayToSource}"></TextBox>
-                        <TextBox Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                    </StackPanel>
-                    <StackPanel >
-                        <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Personnummer:"></Label>
-                        <TextBox Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
-                    </StackPanel>
+                    <StackPanel Margin="0,10,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Margin="0,0,50,0" Content="Adress:"></Label>
+                            <Label Margin="0,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
+                            <Label FontSize="12" FontWeight="DemiBold"  Content="Ort:"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <TextBox Text="{Binding InputAdress, Mode=TwoWay}" Height="25" Width="94"></TextBox>
+                            <TextBox Margin="10,0,10,0" Text="{Binding InputPostnummer, Mode=TwoWay}" Height="25" Width="90"></TextBox>
+                            <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay}" Height="25" Width="90"></TextBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
+                            <TextBox Text="{Binding InputMailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
 
-                </StackPanel>
-                <StackPanel Width="200" Margin="10,0,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Adress:"></Label>
-                        <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Postnummer:"></Label>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Height="25" Width="90"></TextBox>
-                        <TextBox Height="25" Width="90" Margin="8,0,0,0"></TextBox>
-                    </StackPanel>
+                </WrapPanel>
+                <!--PANEL FÖR FÖRETAGSKUND-->
+                <WrapPanel>
                     <StackPanel>
-                        <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
-                        <TextBox Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <StackPanel Margin="10,10,10,10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="OrgNummer:"></Label>
+                                <Label Content="FöretagsNamn:"></Label>
+                                <Label Content="Rabatsatts:"></Label>
+                                <Label Content="MaxBeloppKredit:"></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBox x:Name="Orgnummer" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Företagsnamn" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                                <TextBox x:Name="Rabatsatts" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Adress:"></Label>
+                                <Label Content="Postnummer:"></Label>
+                                <Label Content="Ort:"></Label>
+                                <Label Content="Telefonummer:"></Label>
+                                <Label Content="Mailadress:"></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBox x:Name="Adress" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Postnummer" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                                <TextBox x:Name="Ort" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Telefonummer" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <Button Margin="10 50" Command="{Binding LäggTillKund}">Add Kund</Button>
-
+                </WrapPanel>
             </StackPanel>
             <Separator></Separator>
             <StackPanel Orientation="Vertical" Background="LightGray" Margin="10,10,10,10">
@@ -87,33 +128,38 @@
                     <local:MasterBokningLektion x:Name="lektion" Visibility="Collapsed"></local:MasterBokningLektion>
                     <local:MasterBokningTotal x:Name="bokningTotal" Visibility="Collapsed"></local:MasterBokningTotal>-->
                 </Grid>
-                <StackPanel Margin="10,10,10,10" Height="220" Background="LightGray">
-                    <Label HorizontalAlignment="Left" Content="TYP AV LOGI" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                    <ComboBox HorizontalAlignment="Left" Width="100" ></ComboBox>
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" Width="560" Content="Logialternativ:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                        <Label HorizontalAlignment="Left" Content="Pris" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                        <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
+                <DockPanel HorizontalAlignment="Left" LastChildFill="True">
+                    <StackPanel Margin="10,10,10,10" Height="220" Background="LightGray" HorizontalAlignment="Left">
+                        <Label HorizontalAlignment="Left" Content="TYP AV LOGI" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                        <ComboBox HorizontalAlignment="Left" Width="100" ></ComboBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Width="284" Content="Logialternativ:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>
+                            <Label Content="Pris" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgänligLogi}"
                                   SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
                                   SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}" 
-                                  Background="White" Width="550" Height="150" Margin="0,0,10,0">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <StackPanel>
-                            <Label HorizontalAlignment="Left" Content="Kostnad totalt för vistelse:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                            <TextBox Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
+                                  Background="White" Width="273" Height="150" Margin="0,0,10,0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel HorizontalAlignment="Left" Margin="10,10,10,10">
+                                <Label  Content="Kostnad totalt för vistelse:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                                <TextBox Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
+                                <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
+
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70" Margin="270,20,10,10" Content="Lägg till" Background="LightGreen"></Button>
+
+                </DockPanel>
+
             </StackPanel>
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Label HorizontalAlignment="Left" Width="450" Content="VALD" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
@@ -149,14 +195,15 @@
                         <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Kostnad inkl. rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="10,0,0,0"></CheckBox>
-                        <TextBox Width="100" Margin="110,0,0,0"></TextBox>
+                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Path=Avbeställningsskydd, Mode=TwoWay}"></CheckBox>
+                        <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
                 <Button Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
+>>>>>>>>> Temporary merge branch 2
             </StackPanel>
         </StackPanel>
     </DockPanel>

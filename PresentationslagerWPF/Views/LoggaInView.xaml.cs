@@ -1,6 +1,8 @@
-﻿using System;
+﻿using PresentationslagerWPF.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +24,16 @@ namespace PresentationslagerWPF.Views
         public LoggaInView()
         {
             InitializeComponent();
+        }
+
+
+        //SKA VARA PRIVATE GET
+        public SecureString SecurePassword {  get; set; }
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            { ((dynamic)this.DataContext).Password = ((PasswordBox)sender).Password; }
         }
     }
 }

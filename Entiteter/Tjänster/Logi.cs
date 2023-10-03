@@ -32,7 +32,7 @@ namespace Entiteter.Tjänster
 
         [ForeignKey("LogiTyp")]
         public string Typen {  get; set; }
-        public virtual LogiTyp? LogiTyp { get; set; }
+        public virtual LogiTyp? LogiTyp { get; set; } 
 
 
 

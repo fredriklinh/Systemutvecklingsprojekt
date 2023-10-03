@@ -24,35 +24,127 @@ namespace PresentationslagerWPF.ViewModels
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
         PrisKontroller prisKontroller = new PrisKontroller();
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
+        FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
 
         #endregion
 
+
+
         #region On property change
+
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
 
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
 
-        private int? antalSovplatser;
-        public int? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
+        private double? antalSovplatser;
+        public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
 
-        private int? totalKostnad;
-        public int? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
+        private double? totalKostnad;
+        public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
+
+        private string inputAdress;
+        public string InputAdress
+        {
+            get { return inputAdress; }
+            set { inputAdress = value; OnPropertyChanged(); }
+        }
+
+        private string inputPostnummer;
+        public string InputPostnummer
+        {
+            get { return inputPostnummer; }
+            set { inputPostnummer = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputOrt;
+        public string InputOrt
+        {
+            get { return inputOrt; }
+            set { inputOrt = value; OnPropertyChanged(); }
+
+        }
+
+        private string inputTelefonnummer;
+        public string InputTelefonnummer
+        {
+            get { return inputTelefonnummer; }
+            set { inputTelefonnummer = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputMailAdress;
+        public string InputMailAdress
+        {
+            get { return inputMailAdress; }
+            set { inputMailAdress = value; OnPropertyChanged(); }
+        }
+
+        private string inputFörnamn;
+        public string InputFörnamn
+        {
+            get { return inputFörnamn; }
+            set { inputFörnamn = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputEfternamn;
+        public string InputEfternamn
+        {
+            get { return inputEfternamn; }
+            set { inputEfternamn = value; OnPropertyChanged(); }
+        }
+
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+
+
+        //private Privatkund bajs = null!;
+        //public Privatkund Bajs
+        //{
+        //    get { return bajs; }
+        //    set
+        //    {
+        //        bajs = value; OnPropertyChanged();
+
+        //        if (bajs == null)
+        //        {
+
+        //        }
+        //    }
+        //}
+
+
+
+
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
 
         private PrislistaLogi prislistaLogi = null!;
         public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
 
-        private int? totalPris;
-        public int? TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+        private double totalPris;
+        public double TotalPris { get => totalPris; set { totalPris = value; OnPropertyChanged(); } }
+
+        private double totalPrisRabatt;
+        public double TotalPrisRabatt { get => totalPrisRabatt; set { totalPrisRabatt = value; OnPropertyChanged(); } }
+
+        private double totalPrisRabatt2;
+        public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
         private Logi tillgänligLogiSelectedItem = null!;
-        public Logi TillgänligLogiSelectedItem { 
-            get => tillgänligLogiSelectedItem; 
+        public Logi TillgänligLogiSelectedItem {
+            get => tillgänligLogiSelectedItem;
             set { tillgänligLogiSelectedItem = value; OnPropertyChanged();
                 if (TillgänligLogiSelectedItem != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.LogiNamn, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
                 }
             } }
 
@@ -66,7 +158,7 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 valdLogiSelectedItem = value; OnPropertyChanged();
-                
+
             }
         }
 
@@ -75,32 +167,128 @@ namespace PresentationslagerWPF.ViewModels
 
         private bool isNotModified = true;
         public bool IsNotModified { get { return isNotModified; } set { isNotModified = value; OnPropertyChanged(); } }
+
+        private bool avbeställningsskydd = true;
+        public bool Avbeställningsskydd { get { return avbeställningsskydd; } set { avbeställningsskydd = value; OnPropertyChanged(); } }
         #endregion
+
+
+        #region FöretagsKund + DisplayKundPanel
+
+        //**** FÖRETAGSKUND *******//
+        private string orgNummer;
+        public string OrgNummer
+        {
+            get { return orgNummer; }
+            set { orgNummer = value; OnPropertyChanged(); }
+        }
+
+        private string företagsNamn;
+        public string FöretagsNamn
+        {
+            get { return företagsNamn; }
+            set { företagsNamn = value; OnPropertyChanged(); }
+        }
+        private string rabatstatts;
+        public string Rabatstatts
+        {
+            get { return rabatstatts; }
+            set { rabatstatts = value; OnPropertyChanged(); }
+        }
+        private string maxBeloppKredit;
+        public string MaxBeloppKredit
+        {
+            get { return maxBeloppKredit; }
+            set { maxBeloppKredit = value; OnPropertyChanged(); }
+        }
+        private string företagAdress;
+        public string FöretagAdress
+        {
+            get { return företagAdress; }
+            set { företagAdress = value; OnPropertyChanged(); }
+        }
+
+        private string företagPostnummer;
+        public string FöretagPostnummer
+        {
+            get { return företagPostnummer; }
+            set { företagPostnummer = value; OnPropertyChanged(); }
+        }
+
+        private string företagOrt;
+        public string FöretagOrt
+        {
+            get { return företagOrt; }
+            set { företagOrt = value; OnPropertyChanged(); }
+        }
+
+        private string företagTelefonummer;
+        public string FöretagTelefonummer
+        {
+            get { return företagTelefonummer; }
+            set { företagTelefonummer = value; OnPropertyChanged(); }
+        }
+        private string företagMailadress;
+        public string FöretagMailadress
+        {
+            get { return företagMailadress; }
+            set { företagMailadress = value; OnPropertyChanged(); }
+        }
+        #endregion
+
 
         #region Obervible Collections 
         private ObservableCollection<Logi> tillgänligLogi = null!;
         public ObservableCollection<Logi> TillgänligLogi { get => tillgänligLogi; set { tillgänligLogi = value; OnPropertyChanged(); } }
 
+        private ObservableCollection<Kund> kund = null!;
+        public ObservableCollection<Kund> Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
+
         private ObservableCollection<Logi> valdLogi = null!;
-        public ObservableCollection<Logi> ValdLogi { 
-            get => valdLogi; 
-            set { 
+        public ObservableCollection<Logi> ValdLogi {
+            get => valdLogi;
+            set {
                 valdLogi = value; OnPropertyChanged();
 
             } }
 
+
+        //Användarnamn för ANVÄNDARE
+        private Användare användare = null!;
+        public Användare Användare
+        {
+            get => användare;
+            set
+            {
+                användare = value; OnPropertyChanged();
+
+            }
+        }
         #endregion
-        public MasterBokningViewModel(NavigationStore navigationStore)
-        {
-            //Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore)));
 
-        }
-        public MasterBokningViewModel()
+
+        public MasterBokningViewModel() { }
+
+
+        #region Navigation
+        //**** NAVIGATION *******//
+        public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
         {
-            
+            NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
+            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            Användare = användare;
         }
 
-        
+        private ICommand exitCommand = null!;
+        public ICommand ExitCommand =>
+        exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
+
+        public ICommand NavigateLoggaUtCommand { get; }
+        public ICommand Tillbaka { get; }
+
+        #endregion
+
+
 
         #region Icommands
         private ICommand hämtaBokningCommand = null!;
@@ -114,9 +302,25 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
+            
             if (tillgänligLogiSelectedItem != null)
             {
+                double resKostnad = 0;
                 Logi logi = tillgänligLogiSelectedItem;
+                if (Privatkund != null)
+                {
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                    //TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
+                }
+
+                if (TotalPrisRabatt == 0)
+                {
+                    TotalPrisRabatt = resKostnad + TotalPrisRabatt2;
+                }
+                else
+                {
+                    TotalPrisRabatt = TotalPrisRabatt + TotalPrisRabatt2;
+                }
                 ValdLogi.Add(logi);
                 TillgänligLogi.Remove(logi);
                 //Bäddar totalt
@@ -128,8 +332,9 @@ namespace PresentationslagerWPF.ViewModels
                         resBädd += ValdLogi[i].Bäddar;
                     }
                 }
+
                 //Kostnad totalt
-                int resKostnad = 0;
+                
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
@@ -143,6 +348,75 @@ namespace PresentationslagerWPF.ViewModels
             }
         });
 
+        private ICommand sökKund = null!;
+        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
+        {
+
+            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            if (Privatkund != null)
+            {
+                InputAdress = Privatkund.Adress;
+                InputPostnummer = Privatkund.Postnummer;
+                InputOrt = Privatkund.Ort;
+                InputTelefonnummer = Privatkund.Telefonnummer;
+                InputMailAdress = Privatkund.MailAdress;
+                Kundnummer = Privatkund.Personnummer;
+                InputFörnamn = Privatkund.Förnamn;
+                InputEfternamn = Privatkund.Efternamn;
+            }
+            
+            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+            if (företagskund != null)
+            {
+                InputAdress = Företagskund.Adress;
+                InputPostnummer = Företagskund.Postnummer;
+                InputOrt = Företagskund.Ort;
+                InputTelefonnummer = Företagskund.Telefonnummer;
+                InputMailAdress = Företagskund.MailAdress;
+                Kundnummer = Företagskund.OrgNr;
+                InputFörnamn = Företagskund.FöretagsNamn;
+            }
+
+
+
+        });
+        private ICommand spara = null!;
+        public ICommand Spara => spara ??= spara = new RelayCommand(() =>
+        {
+            
+            if (Privatkund == null)
+            {
+
+                Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+            }
+            else
+            {
+                bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                
+            }
+            valdLogi.Clear();
+
+            InputAdress = null;
+            InputPostnummer = null;
+            InputOrt = null;
+            InputTelefonnummer = null;
+            InputMailAdress = null;
+            Kundnummer = null;
+            InputFörnamn = null;
+            InputEfternamn = null;
+            AntalSovplatser = null;
+            TotalKostnad = null;
+            ValdLogi = null;
+            TotalPris = 0;
+            Privatkund = null;
+            TillgänligLogi = null;
+            Starttid = DateTime.Now;
+            Sluttid = DateTime.Now;
+            TotalPrisRabatt = 0;
+
+        });
+
         private ICommand taBortCommand = null!;
         public ICommand TaBortCommand => taBortCommand ??= taBortCommand = new RelayCommand(() =>
         {
@@ -152,7 +426,9 @@ namespace PresentationslagerWPF.ViewModels
                 //Ta bort kostnad
                 if (tabortLogi != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.LogiNamn, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
                 }
                 TillgänligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
@@ -160,17 +436,25 @@ namespace PresentationslagerWPF.ViewModels
                 int res = 0;
                 if (ValdLogi != null)
                 {
-                    for (var i = 0; i < ValdLogi.Count; i++)
-                    {
-                        res = ValdLogi[i].Bäddar;
-                    }
+                    //for (var i = 0; i < ValdLogi.Count; i++)
+                    //{
+                    //    res = ValdLogi[i].Bäddar;
+                    //}
+                    res = tabortLogi.Bäddar;
+                }
+                if (TotalPrisRabatt != 0)
+                {
+                    TotalPrisRabatt = TotalPrisRabatt - TotalPrisRabatt2;
                 }
                 
                 TotalKostnad = TotalKostnad - TotalPris;
                 AntalSovplatser = AntalSovplatser - res;
             }
         });
+
+
         #endregion
+
 
     }
 }

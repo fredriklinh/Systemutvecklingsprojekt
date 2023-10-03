@@ -28,5 +28,10 @@ namespace PresentationslagerWPF.Views
         {
 
         }
+
+        private void TextBox_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }
