@@ -1,14 +1,9 @@
-﻿using Entiteter;
-using Datalager.Seed;
+﻿using Datalager.Seed;
+using Entiteter.Personer;
+using Entiteter.Prislistor;
+using Entiteter.Tjänster;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Security.Authentication.ExtendedProtection;
-using Entiteter.Personer;
-using Entiteter.Tjänster;
-using Entiteter.Prislistor;
 
 namespace Datalager.Context
 {
@@ -95,6 +90,6 @@ namespace Datalager.Context
 
 
         }
-        
+
     }
 }

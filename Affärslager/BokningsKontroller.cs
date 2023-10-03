@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Datalager;
-using Datalager.Context;
-using Entiteter;
+﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 
 
 namespace Affärslager
 {
-    public  class BokningsKontroller
+    public class BokningsKontroller
     {
 
         UnitOfWork unitOfWork = new UnitOfWork();
@@ -23,7 +16,7 @@ namespace Affärslager
         /// <param name="startdatum"></param>
         /// <param name="slutdatum"></param>
         /// <returns></returns>
-        public List<Logi> HämtaTillgängligLogi (DateTime startdatum, DateTime slutdatum)
+        public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
             List<Logi> logi = new List<Logi>();
 
@@ -49,6 +42,15 @@ namespace Affärslager
             unitOfWork.MasterBokningRepository.Add(masterBokning);
             unitOfWork.Complete();
             return masterBokning;
+        }
+
+        public void SkapaMasterbokningFöretagskund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund, Användare användare)
+        {
+            Företagskund företagskund1 = unitOfWork.FöretagskundRepository.FirstOrDefault(fk => fk.OrgNr.Equals(företagskund.OrgNr));
+            Användare användare1 = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
+            MasterBokning masterBokning = new MasterBokning(avbeställningsskydd, startDatum, slutDatum, valdLogi, företagskund1, användare1);
+            unitOfWork.MasterBokningRepository.Add(masterBokning);
+            unitOfWork.Complete();
         }
 
 

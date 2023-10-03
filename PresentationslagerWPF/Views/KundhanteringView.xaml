@@ -29,73 +29,77 @@
         </Menu>
         <StackPanel Grid.Row="1" Margin="10,0,10,0" Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Label Margin="0,0,10,0">Kundnummer</Label>
-            <TextBox Width="200"></TextBox>
-            <Button Background="Green" Width="53">Sök</Button>
+            <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
+            <Button Command="{Binding SökKund}" Background="Green" Width="53">Sök</Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal"  VerticalAlignment="Center">
-            <Button Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till PrivatKund</Button>
-            <Button Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Företagskund</Button>
+            <Button Command ="{Binding IsEnabledPrivatCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till PrivatKund</Button>
+            <Button Command ="{Binding IsEnabledFöretagCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Företagskund</Button>
         </StackPanel>
         <Label Grid.Row="2" Background="LightGray" Grid.ColumnSpan="2">Privatkund</Label>
         <WrapPanel Grid.Row="3" Margin="10,10,0,59" Background="LightGray" HorizontalAlignment="Left" Width="380" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <StackPanel Margin="10,10,10,10" Background="LightGray">
-                <Label>Kundnummer</Label>
-                <TextBox></TextBox>
-                <Label>Förnamn</Label>
-                <TextBox Text="{Binding PrivatFörnamn}"></TextBox>
-                <Label>Efternamn</Label>
-                <TextBox  Text="{Binding PrivatEfternamn}"></TextBox>
-            </StackPanel>
-            <StackPanel  Margin="10,10,10,10">
-                <Label>Personummer</Label>
-                <TextBox  Text="{Binding PrivatPostnummer}"></TextBox>
-                <Label>Adress</Label>
-                <TextBox  Text="{Binding PrivatAdress}"></TextBox>
-                <Label>Postnummer</Label>
-                <TextBox  Text="{Binding PrivatPostnummer}" ></TextBox>
-                <Label>Mail</Label>
-                <TextBox Text="{Binding PrivatMail}"></TextBox>
-            </StackPanel>
-            <StackPanel Margin="10,10,10,10">
-                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaFöretagCommand}">Spara</Button>
-                <Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding TaBortFöretagCommand}">Ta bort Kund</Button>
-                <Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraFöretagCommand}">Ändra Kund</Button>
-            </StackPanel>
-        </WrapPanel>
-        <Label Grid.Row="2" Grid.Column="2" Background="LightGray">Företagskund</Label>
-        <WrapPanel Grid.Column='2' Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,59" Background="LightGray" Width="380" Grid.RowSpan="2">
-            <StackPanel  Margin="10,10,10,10">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="10,10,10,10">
-                        <Label>Orgnummer</Label>
-                        <TextBox Text="{Binding OrgNummer}"></TextBox>
-                        <Label>Företagsnamn</Label>
-                        <TextBox Text="{Binding FöretagsNamn}"></TextBox>
-                        <Label>Rabatsatts</Label>
-                        <TextBox Text="{Binding Rabattsatts}"></TextBox>
-                        <Label>Maxbelop Kredit</Label>
-                        <TextBox Text="{Binding MaxBeloppKredit}"></TextBox>
-                    </StackPanel>
-                    <StackPanel Margin="10,10,10,10">
-                        <Label>Adress</Label>
-                        <TextBox Text="{Binding FöretagsAdress}"></TextBox>
-                        <Label>Postnummer</Label>
-                        <TextBox Text="{Binding FöretagPostnummer}"></TextBox>
-                        <Label>Ort</Label>
-                        <TextBox Text="{Binding FöretagOrt}"></TextBox>
-                        <Label>Telefonummer</Label>
-                        <TextBox Text="{Binding FöretagTelefonummer}"> </TextBox>
-                        <Label>Mailadress</Label>
-                        <TextBox Text="{Binding FöretagMailadress}"></TextBox>
-                    </StackPanel>
+
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path= IsEnabledPrivat}">
+                <StackPanel Margin="10,10,10,10" Background="LightGray">
+                    <Label>Personummer</Label>
+                    <TextBox  Text="{Binding PrivatPersonummer}"></TextBox>
+                    <Label>Förnamn</Label>
+                    <TextBox Text="{Binding PrivatFörnamn}"></TextBox>
+                    <Label>Efternamn</Label>
+                    <TextBox  Text="{Binding PrivatEfternamn}"></TextBox>
+                </StackPanel>
+                <StackPanel  Margin="10,10,10,10">
+                    <Label>Adress</Label>
+                    <TextBox  Text="{Binding PrivatAdress}"></TextBox>
+                    <Label>Postnummer</Label>
+                    <TextBox  Text="{Binding PrivatPostnummer}" ></TextBox>
+                    <Label>Ort</Label>
+                    <TextBox Text="{Binding PrivatOrt}"></TextBox>
+                    <Label>Telefonummer</Label>
+                    <TextBox Text="{Binding PrivatTelefonummer}"></TextBox>
+                    <Label>Mail</Label>
+                    <TextBox Text="{Binding PrivatMail}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10,10,10,10">
                 <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaPrivatCommand}">Spara</Button>
-                <Button Margin="10,10,10,10" Background="DarkRed" Command ="{Binding TaBortPrivatCommand}">Ta bort Kund</Button>
-                <Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraKundPrivat}">Ändra Kund</Button>
+                <!--TILL FÖR ADMIN<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding TaBortFöretagCommand}">Ta bort Kund</Button>-->
+                <!--SPRINT 3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraFöretagCommand}">Ändra Kund</Button>-->
+            </StackPanel>
+        </WrapPanel>
+        <Label Grid.Row="2" Grid.Column="2" Background="LightGray">Företagskund</Label>
+        <WrapPanel Grid.Column='2' Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,59" Background="LightGray" Width="400" Grid.RowSpan="2">
+
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path= IsEnabledFöretag}">
+                <StackPanel Margin="10,10,10,10">
+                    <Label>Orgnummer</Label>
+                    <TextBox Text="{Binding OrgNummer}"></TextBox>
+                    <Label>Företagsnamn</Label>
+                    <TextBox Text="{Binding FöretagsNamn}"></TextBox>
+                    <Label>Rabatsatts</Label>
+                    <TextBox Text="{Binding Rabatstatts}"></TextBox>
+                    <Label>Maxbelop Kredit</Label>
+                    <TextBox Text="{Binding MaxBeloppKredit}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="10,10,10,10" HorizontalAlignment="Left">
+                    <Label>Adress</Label>
+                    <TextBox Text="{Binding FöretagAdress}"></TextBox>
+                    <Label>Postnummer</Label>
+                    <TextBox Text="{Binding FöretagPostnummer}"></TextBox>
+                    <Label>Ort</Label>
+                    <TextBox Text="{Binding FöretagOrt}"></TextBox>
+                    <Label>Telefonummer</Label>
+                    <TextBox Text="{Binding FöretagTelefonummer}"></TextBox>
+                    <Label>Mail</Label>
+                    <TextBox Text="{Binding FöretagMailadress}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="10,10,10,10">
+                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaFöretagCommand}">Spara</Button>
+                <!--KRÄVS ADMIN FÖR DETTA<Button Margin="10,10,10,10" Background="DarkRed" Command ="{Binding TaBortPrivatCommand}">Ta bort Kund</Button>-->
+                <!--SPRINT 2/3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraKundPrivat}">Ändra Kund</Button>-->
             </StackPanel>
         </WrapPanel>
     </Grid>
