@@ -105,7 +105,7 @@ namespace PresentationslagerWPF.ViewModels
         {
 
             get { return fsynlighet; }
-            set {  fsynlighet = value; OnPropertyChanged(); }
+            set { fsynlighet = value; OnPropertyChanged(); }
 
         }
         private Visibility ksynlighet;
@@ -404,17 +404,20 @@ namespace PresentationslagerWPF.ViewModels
 
             if (Privatkund == null && Företagskund == null)
             {
-
                 Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
                 bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                MessageBox.Show("PrivatKund och Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
             if (Privatkund != null)
             {
                 bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                MessageBox.Show("Bokning Skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
                 bokningsKontroller.SkapaMasterbokningFöretagskund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Företagskund, Användare);
+                MessageBox.Show("Bokning Skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             valdLogi.Clear();
             InputAdress = null;

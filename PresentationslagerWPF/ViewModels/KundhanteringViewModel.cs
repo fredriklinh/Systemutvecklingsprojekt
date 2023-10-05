@@ -99,7 +99,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sparaPrivatCommand = null!;
         public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
         {
-            //SPARA
+
         });
         private ICommand ändraPrivatCommand = null!;
         public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>

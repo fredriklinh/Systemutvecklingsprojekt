@@ -23,6 +23,9 @@
             <DataTemplate DataType="{x:Type viewmodels:KundhanteringViewModel}">
                 <views:KundhanteringView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SkidshopViewModel}">
+                <views:SkidshopView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>
