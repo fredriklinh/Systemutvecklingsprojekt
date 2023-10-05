@@ -315,6 +315,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
+            bokningsKontroller.BaraKör();
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
 
