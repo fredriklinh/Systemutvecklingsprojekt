@@ -302,19 +302,25 @@ namespace PresentationslagerWPF.ViewModels
             set { företagMailadress = value; OnPropertyChanged(); }
         }
 
+        public bool enBool;
         private ICommand sparaFöretagCommand = null!;
         public ICommand SparaFöretagCommand => sparaFöretagCommand ??= sparaFöretagCommand = new RelayCommand(() =>
         {
             IsEnabledFöretag = false;
-            //bool FinnsKund = företagskundKontroller.KontrollFKund(OrgNummer);
-            if (!OrgNummer.IsNullOrEmpty() /*&& FinnsKund == false*/)
+
+        företagskundKontroller.KontrollFKund(OrgNummer, enBool);
+        if (!OrgNummer.IsNullOrEmpty() && !FöretagTelefonummer.IsNullOrEmpty() && !FöretagAdress.IsNullOrEmpty() && !FöretagPostnummer.IsNullOrEmpty() && !FöretagMailadress.IsNullOrEmpty() && !FöretagsNamn.IsNullOrEmpty() && Rabatstatts != null && enBool == false)
             {
                 Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
                 MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+        if (OrgNummer.IsNullOrEmpty() || FöretagTelefonummer.IsNullOrEmpty() || FöretagAdress.IsNullOrEmpty() || FöretagPostnummer.IsNullOrEmpty() || FöretagMailadress.IsNullOrEmpty() || FöretagsNamn.IsNullOrEmpty() || Rabatstatts == 0 || MaxBeloppKredit == 0)
             {
-                MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show($"Information saknas, fyll i och försök igen!", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        if (enBool == true)
+            {
+                MessageBox.Show($"Företagskund med {OrgNummer} finns redan registrerad", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
                 
 

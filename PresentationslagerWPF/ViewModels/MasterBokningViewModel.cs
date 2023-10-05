@@ -409,19 +409,19 @@ namespace PresentationslagerWPF.ViewModels
 
                 Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("PrivatKund och Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             if (Privatkund != null)
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                 
                 PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
             else
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningFöretagskund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Företagskund, Användare);
-                MessageBox.Show("Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                 
                 PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
