@@ -20,10 +20,6 @@ namespace Affärslager
         {
             List<Logi> AllaLogi = new List<Logi>();
 
-            //foreach (Logi allLogi in unitOfWork.LogiRepository.Find(b => b.ÄrTillgänglig))
-            //{
-            //    logi.Add(allLogi);
-            //}
 
             foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum || slutdatum <= f.StartDatum && startdatum >= f.SlutDatum))
             {
@@ -42,7 +38,7 @@ namespace Affärslager
         public void BaraKör()
         {
 
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.GetAll().ToList())
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.GetAll())
             {
                 foreach(Logi logit in item.ValdLogi)
                 logit.Tillgänlig();
