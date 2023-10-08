@@ -280,15 +280,20 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBlock Margin="0,0,0,10">ListBox selection</TextBlock>
-                    <Button Name="btnShowSelectedItem">Show selected</Button>
-                    <Button Name="btnSelectLast">Select last</Button>
-                    <Button Name="btnSelectNext">Select next</Button>
-                    <Button Name="btnSelectCSharp">Select C#</Button>
-                    <Button Name="btnSelectAll">Select all</Button>
+                    <Button Name="btnShowSelectedItem">1</Button>
+                    <Button Name="btnSelectLast">2</Button>
+                    <Button Name="btnSelectNext">3</Button>
+                    <Button Name="btnSelectCSharp">4</Button>
+                    <Button Name="btnSelectAll">5</Button>
                 </StackPanel>
-                <ListBox Name="lbTodoList" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
-
-                </ListBox>
+                <ListView ItemsSource="{Binding ValdUtrustning}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding TEST}" Width="150" Header="Typ" ></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding TEST}" Width="150" Header="Kostnad" ></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </DockPanel>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
@@ -297,7 +302,6 @@
             <StackPanel>
 
             </StackPanel>
-
         </StackPanel>
     </Grid>
 </UserControl>
