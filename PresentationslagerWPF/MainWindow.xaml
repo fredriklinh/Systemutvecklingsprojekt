@@ -7,8 +7,11 @@
         xmlns:viewmodels="clr-namespace:PresentationslagerWPF.ViewModels"
         xmlns:views="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d"
-        Title="Bokningssystem" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
-
+        Title="Bokningssystem" 
+        Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized" 
+        >
     <ContentControl Content ="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HuvudMenyViewModel}">
@@ -28,4 +31,7 @@
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
+    <Window.Resources>
+        
+    </Window.Resources>
 </Window>

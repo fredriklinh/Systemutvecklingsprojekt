@@ -18,17 +18,41 @@ namespace Affärslager
         /// <returns></returns>
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
-            List<Logi> logi = new List<Logi>();
+            //List<Logi> logi = new List<Logi>();
 
-            foreach (Logi allLogi in unitOfWork.LogiRepository.Find(b => b.ÄrTillgänglig))
+
+            //foreach (Logi  allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
+            //{
+            //    logi.Add(allLogi);
+            //}
+            ////Hämtar Logi som finns i bokningar och inte matchar angivet datum
+            //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
+            //{
+            //    foreach (Logi ledigLogi in item.ValdLogi)
+            //    {
+            //            if (!logi.Contains(ledigLogi))
+            //            {
+            //               logi.Add(ledigLogi);
+            //            }
+
+            //        logi.Add(ledigLogi);
+            //    }
+            //}
+
+            List<Logi> logi = new List<Logi>();
+            foreach (Logi allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
             {
                 logi.Add(allLogi);
             }
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
+            //Hämtar Logi som finns i bokningar och inte matchar angivet datum
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum <= f.SlutDatum || slutdatum >= f.StartDatum))
             {
                 foreach (Logi ledigLogi in item.ValdLogi)
                 {
-                    logi.Add(ledigLogi);
+                    if (logi.Contains(ledigLogi))
+                    {
+                        logi.Remove(ledigLogi);
+                    }
                 }
             }
             return logi;

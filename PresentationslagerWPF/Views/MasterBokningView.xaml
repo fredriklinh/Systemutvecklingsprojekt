@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d"
-        FontFamily="Calibri" Foreground="DarkSlateGray" FontWeight="DemiBold" FontSize="12">
+        FontFamily="Calibri" Foreground="DarkSlateGray" FontWeight="DemiBold" FontSize="12"
+       
+             >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
