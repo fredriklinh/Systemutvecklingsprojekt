@@ -8,7 +8,7 @@
              d:DesignHeight="800" d:DesignWidth="1200"
               FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
              >
-    <Grid IsSharedSizeScope="True">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <!--Row 0-->
@@ -54,6 +54,7 @@
                     <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
                     <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
                 </MenuItem>
+                <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
             </Menu>
         </StackPanel>
         <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="8" Grid.RowSpan="1">
@@ -280,17 +281,18 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBlock Margin="0,0,0,10">ListBox selection</TextBlock>
-                    <Button Name="btnShowSelectedItem">1</Button>
-                    <Button Name="btnSelectLast">2</Button>
-                    <Button Name="btnSelectNext">3</Button>
-                    <Button Name="btnSelectCSharp">4</Button>
-                    <Button Name="btnSelectAll">5</Button>
+                    <Button Name="btnShowSelectedItem">Add</Button>
+                    <Button Name="btnSelectLast">Remove</Button>
+                    <Button Name="btnSelectNext">Select all</Button>
+                    <Button Name="btnSelectCSharp">Remove all</Button>
+                    <Button Name="btnSelectAll">Clear</Button>
                 </StackPanel>
-                <ListView ItemsSource="{Binding ValdUtrustning}">
+                <ListView ItemsSource="{Binding ValdUtrustning}" VerticalAlignment="Stretch">
                     <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding TEST}" Width="150" Header="Typ" ></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding TEST}" Width="150" Header="Kostnad" ></GridViewColumn>
+                        <GridView >
+                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.Typ}" Width="150" Header="Typ" ></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.Count}" Width="150" Header="Antal" ></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.TotalSumma}" Width="150" Header="Kostnad" ></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -300,6 +302,20 @@
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5,5,5,5"  Background="LightPink">
             <Label>Lektions Bokning</Label>
             <StackPanel>
+                <ListBox Name="lbTodoList" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Title}" />
+                                <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
             </StackPanel>
         </StackPanel>
