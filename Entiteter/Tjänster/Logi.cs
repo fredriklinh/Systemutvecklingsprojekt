@@ -1,13 +1,6 @@
 ﻿using Entiteter.Prislistor;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entiteter.Tjänster
 {
@@ -18,21 +11,21 @@ namespace Entiteter.Tjänster
 
         }
         public string LogiId { get; set; }
-        
+
         public int Kvadratmeter { get; set; }
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
 
-        
+
 
         public bool ÄrTillgänglig { get; set; }
-        
+
         public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
         public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
         [ForeignKey("LogiTyp")]
-        public string Typen {  get; set; }
-        public virtual LogiTyp? LogiTyp { get; set; } 
+        public string Typen { get; set; }
+        public virtual LogiTyp? LogiTyp { get; set; }
 
 
 
@@ -46,7 +39,7 @@ namespace Entiteter.Tjänster
             ÄrTillgänglig = false;
         }
 
-    
+
 
     }
 }

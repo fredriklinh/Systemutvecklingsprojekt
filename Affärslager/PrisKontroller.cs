@@ -2,19 +2,14 @@
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Affärslager
 {
     public class PrisKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
-        
+
         public static int CheckWeek(DateTime datum)
         {
             CultureInfo myCI = new CultureInfo("en-US");
@@ -81,11 +76,11 @@ namespace Affärslager
             }
             return totalpris;
         }
-    
+
         public double HämtaRabatt(double TotalPris, Privatkund privatkund)
         {
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.PersonNr == privatkund.Personnummer && m.BokningsDatum >= DateTime.Now.AddYears(-1));
-            
+
             if (masterBokning != null)
             {
                 double rabatt = 0.92;

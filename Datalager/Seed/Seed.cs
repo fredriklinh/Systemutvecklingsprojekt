@@ -1,9 +1,7 @@
 ﻿using Entiteter.Personer;
 using Entiteter.Prislistor;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System;
 using Entiteter.Tjänster;
+using Microsoft.EntityFrameworkCore;
 
 namespace Datalager.Seed
 {
@@ -1430,8 +1428,8 @@ namespace Datalager.Seed
                     ÄrTillgänglig = true,
                     Typen = "LGH.I"
 
-                }) ;
-                
+                });
+
             }
             for (int i = 1; i <= 35; i++)
             {
@@ -1489,11 +1487,12 @@ namespace Datalager.Seed
                 Ort = "Utby",
                 Telefonnummer = "07266555994",
                 MailAdress = "ByggplockAB@foretagsadress.se",
-                RabattSats = 12.5
+                RabattSats = 12.5,
+                MaxBeloppsKreditGräns = 60000
 
             });
             // Test för att se rabatterat pris
-            
+
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             //{
             //    Avbeställningsskydd = true,
@@ -1518,8 +1517,8 @@ namespace Datalager.Seed
 
 
 
-        }
-    
+}
+
 
 
 

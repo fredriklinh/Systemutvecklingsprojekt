@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entiteter.Tjänster;
-using System.Net.Mail;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Entiteter.Tjänster;
 
 namespace Entiteter.Personer
 {
-    public class Företagskund: Kund
+    public class Företagskund : Kund
     {
         public Företagskund()
         {

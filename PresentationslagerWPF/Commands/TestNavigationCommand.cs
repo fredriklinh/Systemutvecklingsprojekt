@@ -1,12 +1,6 @@
 ﻿using Affärslager;
-using Entiteter.Personer;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PresentationslagerWPF.Commands
 {

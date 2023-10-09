@@ -1,9 +1,5 @@
 ﻿using PresentationslagerWPF.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PresentationslagerWPF.Stores
 {
@@ -14,14 +10,14 @@ namespace PresentationslagerWPF.Stores
 
         private ObservableObject _currentViewModel;
 
-        public ObservableObject CurrentViewModel 
-        { 
+        public ObservableObject CurrentViewModel
+        {
             get => _currentViewModel;
             set
             {
                 _currentViewModel = value;
                 OnCurrentViewModelChanged();
-            }      
+            }
         }
 
         private void OnCurrentViewModelChanged()

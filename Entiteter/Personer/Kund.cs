@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entiteter.Personer
+﻿namespace Entiteter.Personer
 {
     public abstract class Kund
     {
-        
+
         public double MaxBeloppsKreditGräns { get; set; }
         public string Adress { get; set; }
         public string Postnummer { get; set; }
@@ -17,7 +11,7 @@ namespace Entiteter.Personer
         public string? MailAdress { get; set; }
 
 
-                
-        
+
+
     }
 }

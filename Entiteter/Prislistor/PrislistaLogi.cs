@@ -1,14 +1,4 @@
-﻿using Entiteter.Tjänster;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entiteter.Prislistor
+﻿namespace Entiteter.Prislistor
 {
     public class PrislistaLogi
 
@@ -18,8 +8,8 @@ namespace Entiteter.Prislistor
         {
 
         }
-        
-        
+
+
         public int PrisId { get; set; }
         public string TypAvLogi { get; set; }
         public int Vecka { get; set; }

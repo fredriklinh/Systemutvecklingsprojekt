@@ -1,19 +1,21 @@
-﻿using PresentationslagerWPF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using PresentationslagerWPF.Stores;
+﻿using Affärslager.KundKontroller;
+using Datalager;
+using Entiteter.Personer;
+using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
-using Affärslager;
-using Affärslager.KundKontroller;
+using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
+using PresentationslagerWPF.Stores;
+using System.Windows;
+using System.Windows.Input;
+
 namespace PresentationslagerWPF.ViewModels
 {
-    public  class KundhanteringViewModel: ObservableObject
+    public class KundhanteringViewModel : ObservableObject
     {
+
+        PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
+        FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
 
         #region NAVIGATION
         public KundhanteringViewModel(NavigationStore navigationStore)
@@ -32,27 +34,84 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #region PRIVATKUND
+
         //**** PRIVATKUND *******//
 
+
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+
         private string privatFörnamn;
-        public string PrivatFörnamn { get => privatFörnamn; set { privatFörnamn = value; OnPropertyChanged(); } }
+        public string PrivatFörnamn
+        {
+            get { return privatFörnamn; }
+            set { privatFörnamn = value; OnPropertyChanged(); }
+        }
 
         private string privatEfternamn;
-        public string PrivatEfternamn { get => privatEfternamn; set { privatEfternamn = value; OnPropertyChanged(); } }
+        public string PrivatEfternamn
+        {
+            get { return privatEfternamn; }
+            set { privatEfternamn = value; OnPropertyChanged(); }
+        }
+
 
         private string privatPersonummer;
-        public string PrivatPersonummer { get => privatPersonummer; set { privatPersonummer = value; OnPropertyChanged(); } }
+        public string PrivatPersonummer
+        {
+            get { return privatPersonummer; }
+            set { privatPersonummer = value; OnPropertyChanged(); }
+        }
 
-        private int postnummer;
-        public int Postnummer { get => postnummer; set { postnummer = value; OnPropertyChanged(); } }
+        private string privatAdress;
+        public string PrivatAdress
+        {
+            get { return privatAdress; }
+            set { privatAdress = value; OnPropertyChanged(); }
+        }
 
-        private string mail;
-        public string Mail { get => mail; set { mail = value; OnPropertyChanged(); } }
+        private string privatPostnummer;
+        public string PrivatPostnummer
+        {
+            get { return privatPostnummer; }
+            set { privatPostnummer = value; OnPropertyChanged(); }
+        }
+        private string privatMail;
+        public string PrivatMail
+        {
+            get { return privatMail; }
+            set { privatMail = value; OnPropertyChanged(); }
+        }
+
+        private string privatOrt;
+        public string PrivatOrt
+        {
+            get { return privatOrt; }
+            set { privatOrt = value; OnPropertyChanged(); }
+        }
+        private string privatTelefonummer;
+        public string PrivatTelefonummer
+        {
+            get { return privatTelefonummer; }
+            set { privatTelefonummer = value; OnPropertyChanged(); }
+        }
+
 
         private ICommand sparaPrivatCommand = null!;
         public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
         {
-            //SPARA
+            IsEnabledPrivat = false;
+            Privatkund = privatkundKontroller.RegistreraPrivatKund(PrivatAdress, PrivatPostnummer, PrivatOrt, PrivatTelefonummer, PrivatMail, PrivatPersonummer, PrivatFörnamn, PrivatEfternamn);
+            if (Privatkund == null)
+            {
+                MessageBox.Show($"Sparande Misslyckades", "Privatkund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show($"{PrivatPersonummer} har lagts till", "Privatkund", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
         });
         private ICommand ändraPrivatCommand = null!;
         public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>
@@ -66,13 +125,123 @@ namespace PresentationslagerWPF.ViewModels
             //TABORT
 
         });
+
         #endregion
 
+        #region ISENABLEd
+
+        private bool isEnabledFöretag = false!;
+        public bool IsEnabledFöretag { get => isEnabledFöretag; set { isEnabledFöretag = value; OnPropertyChanged(); } }
+
+
+        private ICommand isEnabledFöretagCommand = null!;
+        public ICommand IsEnabledFöretagCommand => isEnabledFöretagCommand ??= isEnabledFöretagCommand = new RelayCommand(() =>
+        {
+            IsEnabledFöretag = true;
+            IsEnabledPrivat = false;
+        });
+
+        private bool isEnabledPrivat = false!;
+        public bool IsEnabledPrivat { get => isEnabledPrivat; set { isEnabledPrivat = value; OnPropertyChanged(); } }
+
+
+        private ICommand isEnabledPrivatCommand = null!;
+        public ICommand IsEnabledPrivatCommand => isEnabledPrivatCommand ??= isEnabledPrivatCommand = new RelayCommand(() =>
+        {
+            IsEnabledPrivat = true;
+            IsEnabledFöretag = false;
+        });
+        #endregion
+
+
+
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+        private ICommand sökKund = null!;
+        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
+        {
+            IsEnabledFöretag = false;
+            IsEnabledPrivat = false;
+
+            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+
+            //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            if (Privatkund != null)
+            {
+                PrivatPersonummer = Privatkund.Personnummer;
+                PrivatAdress = Privatkund.Adress;
+                PrivatPostnummer = Privatkund.Postnummer;
+                PrivatOrt = Privatkund.Ort;
+                PrivatTelefonummer = Privatkund.Telefonnummer;
+                PrivatMail = Privatkund.MailAdress;
+                PrivatFörnamn = Privatkund.Förnamn;
+                PrivatEfternamn = Privatkund.Efternamn;
+
+                NollaFöretagsKundInformation();
+
+            }
+            //Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+            else if (Företagskund != null)
+            {
+                FöretagAdress = Företagskund.Adress;
+                FöretagPostnummer = Företagskund.Postnummer;
+                FöretagOrt = Företagskund.Ort;
+                FöretagTelefonummer = Företagskund.Telefonnummer;
+                FöretagMailadress = Företagskund.MailAdress;
+                OrgNummer = Företagskund.OrgNr;
+                FöretagsNamn = Företagskund.FöretagsNamn;
+                Rabatstatts = Företagskund.RabattSats;
+                MaxBeloppKredit = Företagskund.MaxBeloppsKreditGräns;
+
+                NollaPrivatkundInformation();
+            }
+            else
+            {
+
+                NollaFöretagsKundInformation();
+                NollaPrivatkundInformation();
+                MessageBox.Show("Kund finns ej i register. Kontrollera Orgnummer/Personummer", "Kund", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+        });
+
+
+        public void NollaFöretagsKundInformation()
+        {
+            FöretagAdress = null;
+            FöretagPostnummer = null;
+            FöretagOrt = null;
+            FöretagTelefonummer = null;
+            FöretagMailadress = null;
+            OrgNummer = null;
+            FöretagsNamn = null;
+            Rabatstatts = 0;
+            MaxBeloppKredit = 0;
+
+        }
+        public void NollaPrivatkundInformation()
+        {
+
+            PrivatPersonummer = null;
+            PrivatAdress = null;
+            PrivatPostnummer = null;
+            PrivatOrt = null;
+            PrivatTelefonummer = null;
+            PrivatMail = null;
+            PrivatFörnamn = null;
+            PrivatEfternamn = null;
+        }
 
         #region FÖRETAGSKUND
 
 
+
         //**** FÖRETAGSKUND *******//
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
 
         private string orgNummer;
         public string OrgNummer
@@ -87,14 +256,14 @@ namespace PresentationslagerWPF.ViewModels
             get { return företagsNamn; }
             set { företagsNamn = value; OnPropertyChanged(); }
         }
-        private string rabatstatts;
-        public string Rabatstatts
+        private double rabatstatts;
+        public double Rabatstatts
         {
             get { return rabatstatts; }
             set { rabatstatts = value; OnPropertyChanged(); }
         }
-        private string maxBeloppKredit;
-        public string MaxBeloppKredit
+        private double maxBeloppKredit;
+        public double MaxBeloppKredit
         {
             get { return maxBeloppKredit; }
             set { maxBeloppKredit = value; OnPropertyChanged(); }
@@ -136,18 +305,34 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sparaFöretagCommand = null!;
         public ICommand SparaFöretagCommand => sparaFöretagCommand ??= sparaFöretagCommand = new RelayCommand(() =>
         {
-            //Företagskontroller . SparaFöretag
-        });
-        private ICommand ändraFöretagCommand = null!;
-        public ICommand ÄndraFöretagCommand => ändraFöretagCommand ??= ändraFöretagCommand = new RelayCommand(() =>
-        {
-            //Företagskontroller . Ändra
+            IsEnabledFöretag = false;
+            //bool FinnsKund = företagskundKontroller.KontrollFKund(OrgNummer);
+            if (!OrgNummer.IsNullOrEmpty() /*&& FinnsKund == false*/)
+            {
+                Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
+                MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+                
+
+
+               
+
 
         });
+        //private ICommand ändraFöretagCommand = null!;
+        //public ICommand ÄndraFöretagCommand => ändraFöretagCommand ??= ändraFöretagCommand = new RelayCommand(() =>
+        //{
+
+
+        //});
         private ICommand taBortFöretagCommand = null!;
         public ICommand TaBortFöretagCommand => taBortFöretagCommand ??= taBortFöretagCommand = new RelayCommand(() =>
         {
-            //Företagskontroller . TaBort
+
 
         });
 

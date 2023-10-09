@@ -1,10 +1,5 @@
 ﻿using Datalager;
 using Entiteter.Personer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Affärslager.KundKontroller
 {
@@ -12,13 +7,41 @@ namespace Affärslager.KundKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public Privatkund RegistreraFöretagskund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
+        public Företagskund RegistreraFöretagskund(double maxBeloppsKreditGränds, string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string orgNr, string företagsNamn, double rabattSats)
         {
-            Privatkund privatkund = new Privatkund(adress, postnummer, ort, telefonnummer, mailAdress, personnummer, förnamn, efternamn);
-            unitOfWork.PrivatkundRepository.Add(privatkund);
+
+            Företagskund företagskund = new Företagskund(maxBeloppsKreditGränds, adress, postnummer, ort, telefonnummer, mailAdress, orgNr, företagsNamn, rabattSats);
+            unitOfWork.FöretagskundRepository.Add(företagskund);
             unitOfWork.Complete();
-            return privatkund;
+            return företagskund;
         }
+
+        //public bool KontrollFKund(string orgnr)
+        //{
+        //    Företagskund k = unitOfWork.FöretagskundRepository.FirstOrDefault(f => f.OrgNr == orgnr);
+        //    bool x;
+        //    if (k != null)
+        //    {
+        //        x = false;
+        //    }
+        //    else
+        //    {
+        //        x = true;
+        //    }
+        //    return x;
+        //}
+
+        //OBS. FUNKTION ENDAST FÖR ADMIN
+        public Företagskund TaBortFöretagskund(string OrgNummer)
+        {
+            Företagskund företag = unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(OrgNummer));
+            unitOfWork.FöretagskundRepository.Delete(företag);
+            unitOfWork.Complete();
+            //Dena return är för att visa presentationslager att bortttagning lyckades
+            return företag;
+
+        }
+
         public Företagskund SökFöretagskund(string input)
         {
             return unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(input));

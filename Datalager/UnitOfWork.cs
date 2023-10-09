@@ -1,14 +1,8 @@
 ﻿using Datalager.Context;
 using Datalager.Repository;
-using Entiteter;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Datalager
@@ -16,67 +10,67 @@ namespace Datalager
     public class UnitOfWork
     {
 
-            protected dbContext _dbContext { get; }
-            public Repository<Användare> AnvändareRepository { get; private set; }
-            public Repository<Privatkund> PrivatkundRepository { get; private set; }
-            public Repository<Företagskund> FöretagskundRepository { get; private set; }
+        protected dbContext _dbContext { get; }
+        public Repository<Användare> AnvändareRepository { get; private set; }
+        public Repository<Privatkund> PrivatkundRepository { get; private set; }
+        public Repository<Företagskund> FöretagskundRepository { get; private set; }
 
-            public Repository<PrislistaLogi> PrisLogiRepository { get; private set; }
+        public Repository<PrislistaLogi> PrisLogiRepository { get; private set; }
 
-            public Repository<Logi> LogiRepository { get; private set; }
+        public Repository<Logi> LogiRepository { get; private set; }
 
-            public Repository<MasterBokning> MasterBokningRepository { get; private set; }
-            public UnitOfWork()
+        public Repository<MasterBokning> MasterBokningRepository { get; private set; }
+        public UnitOfWork()
+        {
+            _dbContext = new dbContext();
+            AnvändareRepository = new Repository<Användare>(_dbContext);
+            PrivatkundRepository = new Repository<Privatkund>(_dbContext);
+            FöretagskundRepository = new Repository<Företagskund>(_dbContext);
+            PrisLogiRepository = new Repository<PrislistaLogi>(_dbContext);
+            LogiRepository = new Repository<Logi>(_dbContext);
+            MasterBokningRepository = new Repository<MasterBokning>(_dbContext);
+
+        }
+
+
+        private bool isDisposed = false;
+        private readonly bool disposeContext = false;
+
+        //public UnitOfWork() : this(new dbContext())
+        //{
+        //    disposeContext = true;
+        //}
+        public UnitOfWork(dbContext bokningDbContext)
+        {
+            _dbContext = bokningDbContext;
+        }
+        public int Complete()
+        {
+            return _dbContext.SaveChanges();
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (isDisposed)
             {
-                _dbContext = new dbContext();
-                AnvändareRepository = new Repository<Användare>(_dbContext);
-                PrivatkundRepository = new Repository<Privatkund>(_dbContext);
-                FöretagskundRepository = new Repository<Företagskund>(_dbContext);
-                PrisLogiRepository = new Repository<PrislistaLogi>(_dbContext);
-                LogiRepository = new Repository<Logi>(_dbContext);
-                MasterBokningRepository = new Repository<MasterBokning>(_dbContext);
-                
+                return;
             }
-
-
-            private bool isDisposed = false;
-            private readonly bool disposeContext = false;
-           
-            //public UnitOfWork() : this(new dbContext())
-            //{
-            //    disposeContext = true;
-            //}
-            public UnitOfWork(dbContext bokningDbContext)
+            if (disposing)
             {
-                _dbContext = bokningDbContext;
-            }
-            public int Complete()
-            {
-                return _dbContext.SaveChanges();
-            }
-            public void Dispose()
-            {
-                Dispose(true);
-            }
-            protected virtual void Dispose(bool disposing)
-            {
-                if (isDisposed)
+                if (disposeContext)
                 {
-                    return;
+                    _dbContext.Dispose();
                 }
-                if (disposing)
-                {
-                    if (disposeContext)
-                    {
-                        _dbContext.Dispose();
-                    }
-                }
-                isDisposed = true;
             }
-            ~UnitOfWork()
-            {
-                Dispose(false);
-            }
-        
+            isDisposed = true;
+        }
+        ~UnitOfWork()
+        {
+            Dispose(false);
+        }
+
     }
 }

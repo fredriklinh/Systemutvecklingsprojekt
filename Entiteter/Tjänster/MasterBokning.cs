@@ -1,14 +1,6 @@
 ﻿using Entiteter.Personer;
-using Entiteter.Prislistor;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entiteter.Tjänster
 {
@@ -19,7 +11,7 @@ namespace Entiteter.Tjänster
 
         }
 
-        
+
 
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
@@ -32,7 +24,7 @@ namespace Entiteter.Tjänster
 
         [ForeignKey("Företagskund")]
         public string? OrgaNr { get; set; }
-        public virtual Företagskund? Företagskund { get; set; } = null!; 
+        public virtual Företagskund? Företagskund { get; set; } = null!;
 
         [ForeignKey("Privatkund")]
         public string? PersonNr { get; set; }
@@ -46,7 +38,7 @@ namespace Entiteter.Tjänster
         //Construktor Privatkund
         public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
         {
-            
+
             Avbeställningsskydd = avbeställningsskydd;
             NyttjadKreditsumma = 0;
             BokningsDatum = DateTime.Now;
@@ -58,7 +50,7 @@ namespace Entiteter.Tjänster
         }
 
         //Construktor Företagskund
-        
+
         public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund, Användare användare)
         {
 
