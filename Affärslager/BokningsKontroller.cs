@@ -97,5 +97,20 @@ namespace Affärslager
             unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
         }
+        public void TaBortMasterBokning(MasterBokning masterBokning)
+        {
+            unitOfWork.MasterBokningRepository.Delete(masterBokning);
+            unitOfWork.Complete();
+        }
+
+        //Metoden ska plocka bort vald Logi från masterbekoningen och spara detta 
+        //public void TaBortLogiFrånBokning(MasterBokning masterBokning, Logi logi)
+        //{
+            
+                
+
+        //    unitOfWork.MasterBokningRepository.Update(masterBokning);
+        //    unitOfWork.Complete();
+        //}
     }
 }

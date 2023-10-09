@@ -306,18 +306,26 @@ namespace PresentationslagerWPF.ViewModels
                
             
         });
-        //private ICommand taBortBokningCommand = null!;
-        //public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
-        //{
-        //    // TODO lägg till kontroll för affärsregeln " avbokningsskyddet kan väljas fram tills 8 dagar inpå vistelsedatum."           
-        //    if (valdBokningSelectedItem.Avbeställningsskydd == true)
-        //    {
-        //        bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
-        //        MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-        //    }
+        private ICommand taBortBokningCommand = null!;
+        public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
+        {
+            if (ValdBokningSelectedItem != null)
+            {
+                bokningsKontroller.
+            }
+            else if (ValdLogiSelectedItem != null)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show($"Selectera bokning eller logi för att ta bort", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            
+            
 
 
-        //});
+        });
 
 
 

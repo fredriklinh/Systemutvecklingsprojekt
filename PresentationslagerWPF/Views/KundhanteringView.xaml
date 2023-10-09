@@ -145,8 +145,8 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel Orientation="Horizontal" Margin="10,10">
-                            <Button Margin="5,0" Background="Red" Command="{Binding X}">Ta bort</Button>
-                            <Button Margin="5,0" Background="Green" Command="{Binding SparaBokningCommand}">Spara</Button>
+                            <Button Background="Green" Command="{Binding SparaBokningCommand}" Content="Spara"/>
+                            <Button Margin="5,0" Background="Red" Command="{Binding X}" Content="Ta bort"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
