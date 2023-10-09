@@ -62,8 +62,6 @@ namespace Entiteter.Tjänster
             ValdLogi = valdLogi;
             Företagskund = företagskund;
             Användare = användare;
-
-            Användare = användare;
         }
 
 

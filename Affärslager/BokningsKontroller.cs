@@ -21,16 +21,13 @@ namespace Affärslager
             List<Logi> AllaLogi = new List<Logi>();
 
 
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum || slutdatum <= f.StartDatum && startdatum >= f.SlutDatum))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum/* || slutdatum <= f.StartDatum && startdatum >= f.SlutDatum*/))
             {
                 foreach (Logi logit in item.ValdLogi)
                 {
-                    logit.Bokad();
-                    unitOfWork.Complete();
-                }
-                foreach (Logi ledigLogi in AllaLogi)
-                {
-                    AllaLogi.Add(ledigLogi);
+                    //logit.Tillgänlig();
+                    //unitOfWork.Complete();
+                    AllaLogi.Add(logit);
                 }
             }
             return AllaLogi;
@@ -41,9 +38,10 @@ namespace Affärslager
             foreach (MasterBokning item in unitOfWork.MasterBokningRepository.GetAll())
             {
                 foreach(Logi logit in item.ValdLogi)
-                logit.Tillgänlig();
+                logit.Bokad();
                 unitOfWork.Complete();
             }
+            
         }
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
