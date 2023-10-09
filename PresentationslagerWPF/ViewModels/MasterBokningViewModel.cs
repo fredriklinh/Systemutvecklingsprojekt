@@ -107,7 +107,7 @@ namespace PresentationslagerWPF.ViewModels
         {
 
             get { return fsynlighet; }
-            set {  fsynlighet = value; OnPropertyChanged(); }
+            set { fsynlighet = value; OnPropertyChanged(); }
 
         }
         private Visibility ksynlighet;
@@ -315,7 +315,6 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            bokningsKontroller.BaraKör();
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
 
@@ -407,24 +406,20 @@ namespace PresentationslagerWPF.ViewModels
 
             if (Privatkund == null && Företagskund == null)
             {
-
                 Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
-                MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                MessageBox.Show("PrivatKund och Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
             if (Privatkund != null)
             {
-                MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-                PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                MessageBox.Show("Bokning Skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MasterBokning = bokningsKontroller.SkapaMasterbokningFöretagskund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Företagskund, Användare);
-                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-                PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                bokningsKontroller.SkapaMasterbokningFöretagskund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Företagskund, Användare);
+                MessageBox.Show("Bokning Skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             valdLogi.Clear();
             InputAdress = null;

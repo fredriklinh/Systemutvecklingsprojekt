@@ -101,17 +101,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sparaPrivatCommand = null!;
         public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
         {
-            IsEnabledPrivat = false;
-            Privatkund = privatkundKontroller.RegistreraPrivatKund(PrivatAdress, PrivatPostnummer, PrivatOrt, PrivatTelefonummer, PrivatMail, PrivatPersonummer, PrivatFörnamn, PrivatEfternamn);
-            if (Privatkund == null)
-            {
-                MessageBox.Show($"Sparande Misslyckades", "Privatkund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else
-            {
-                MessageBox.Show($"{PrivatPersonummer} har lagts till", "Privatkund", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            }
         });
         private ICommand ändraPrivatCommand = null!;
         public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>

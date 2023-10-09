@@ -14,14 +14,6 @@ namespace PresentationslagerWPF.Views
             InitializeComponent();
         }
 
-        private void btnSökKund_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-
-        }
+        
     }
 }
