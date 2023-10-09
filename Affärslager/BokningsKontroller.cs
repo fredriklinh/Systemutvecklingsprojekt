@@ -54,17 +54,48 @@ namespace Affärslager
             return masterBokning;
         }
 
-        public List<MasterBokning> HämtaMasterbokningar(string personnummer)
+        //Söker först igenom bokningar på privatkunder om inget hittas söker vi på företagskunder och returnerar
+        public List<MasterBokning> HämtaMasterbokningar(string kundnummer)
         {
-            List<MasterBokning> masterbokning = new List<MasterBokning>();
+            List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(kl => kl.PersonNr.Equals(personnummer)))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(pmb => pmb.PersonNr.Equals(kundnummer)))
             {
-                masterbokning.Add(item);
+                masterbokningar.Add(item);
             }
-            return masterbokning;
+            if (masterbokningar == null)
+            {
+                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(fmb => fmb.OrgaNr.Equals(kundnummer)))
+                {
+                    masterbokningar.Add(item);
+                }
+            }
+            // TODO ? VIll vi söka på bokningsnummer också?
+            //if (masterbokningar == null)
+            //{
+            //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(bNr => bNr.BokningsNr.Equals(kundnummer)))
+            //    {
+            //        masterbokningar.Add(item);
+            //    }
+            //}
+            return masterbokningar;
         }
 
+        public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)
+        {
+            List<MasterBokning> företagMasterbokning = new List<MasterBokning>();
 
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(kl => kl.OrgaNr.Equals(OrgNr)))
+            {
+                företagMasterbokning.Add(item);
+            }
+            return företagMasterbokning;
+        }
+
+        public void SparaÄndring(MasterBokning masterBokning)
+        {
+            unitOfWork.MasterBokningRepository.Update(masterBokning);
+            unitOfWork.Complete();
+        }
     }
 }

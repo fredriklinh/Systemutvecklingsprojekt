@@ -1,11 +1,14 @@
-﻿using Affärslager.KundKontroller;
+﻿using Affärslager;
+using Affärslager.KundKontroller;
 using Datalager;
 using Entiteter.Personer;
+using Entiteter.Tjänster;
 using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,11 +19,14 @@ namespace PresentationslagerWPF.ViewModels
 
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
+        BokningsKontroller bokningsKontroller = new BokningsKontroller();
 
         #region NAVIGATION
-        public KundhanteringViewModel(NavigationStore navigationStore)
+        public KundhanteringViewModel(NavigationStore navigationStore, Användare användare)
         {
+            
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
+            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore,användare)));
 
         }
         //**** NAVIGATION *******//
@@ -30,8 +36,44 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
+        public ICommand TillbakaCommand { get; }
+
         #endregion
 
+        #region ISENABLEd
+
+        private bool isEnabledFöretag = false!;
+        public bool IsEnabledFöretag { get => isEnabledFöretag; set { isEnabledFöretag = value; OnPropertyChanged(); } }
+
+
+        private ICommand isEnabledFöretagCommand = null!;
+        public ICommand IsEnabledFöretagCommand => isEnabledFöretagCommand ??= isEnabledFöretagCommand = new RelayCommand(() =>
+        {
+            IsEnabledFöretag = true;
+            IsEnabledPrivat = false;
+        });
+
+        private bool isEnabledPrivat = false!;
+        public bool IsEnabledPrivat { get => isEnabledPrivat; set { isEnabledPrivat = value; OnPropertyChanged(); } }
+
+
+        private ICommand isEnabledPrivatCommand = null!;
+        public ICommand IsEnabledPrivatCommand => isEnabledPrivatCommand ??= isEnabledPrivatCommand = new RelayCommand(() =>
+        {
+            IsEnabledPrivat = true;
+            IsEnabledFöretag = false;
+        });
+
+        private bool isEnabledBokning = false!;
+        public bool IsEnabledBokning { get => isEnabledBokning; set { isEnabledBokning = value; OnPropertyChanged(); } }
+
+
+        private ICommand isEnabledBokningCommand = null!;
+        public ICommand IsEnabledBokningCommand => isEnabledBokningCommand ??= isEnabledBokningCommand = new RelayCommand(() =>
+        {
+            isEnabledBokning = true;
+        });
+        #endregion
 
         #region PRIVATKUND
 
@@ -128,122 +170,6 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-        #region ISENABLEd
-
-        private bool isEnabledFöretag = false!;
-        public bool IsEnabledFöretag { get => isEnabledFöretag; set { isEnabledFöretag = value; OnPropertyChanged(); } }
-
-
-        private ICommand isEnabledFöretagCommand = null!;
-        public ICommand IsEnabledFöretagCommand => isEnabledFöretagCommand ??= isEnabledFöretagCommand = new RelayCommand(() =>
-        {
-            IsEnabledFöretag = true;
-            IsEnabledPrivat = false;
-        });
-
-        private bool isEnabledPrivat = false!;
-        public bool IsEnabledPrivat { get => isEnabledPrivat; set { isEnabledPrivat = value; OnPropertyChanged(); } }
-
-
-        private ICommand isEnabledPrivatCommand = null!;
-        public ICommand IsEnabledPrivatCommand => isEnabledPrivatCommand ??= isEnabledPrivatCommand = new RelayCommand(() =>
-        {
-            IsEnabledPrivat = true;
-            IsEnabledFöretag = false;
-        });
-
-        private bool isEnabledBokning = false!;
-        public bool IsEnabledBokning { get => isEnabledBokning; set { isEnabledBokning = value; OnPropertyChanged(); } }
-
-
-        private ICommand isEnabledBokningCommand = null!;
-        public ICommand IsEnabledBokningCommand => isEnabledBokningCommand ??= isEnabledBokningCommand = new RelayCommand(() =>
-        {
-            isEnabledBokning = true;
-        });
-        #endregion
-
-
-
-        private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
-
-        private ICommand sökKund = null!;
-        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
-        {
-            IsEnabledFöretag = false;
-            IsEnabledPrivat = false;
-
-            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
-            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-
-            //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
-            if (Privatkund != null)
-            {
-                PrivatPersonummer = Privatkund.Personnummer;
-                PrivatAdress = Privatkund.Adress;
-                PrivatPostnummer = Privatkund.Postnummer;
-                PrivatOrt = Privatkund.Ort;
-                PrivatTelefonummer = Privatkund.Telefonnummer;
-                PrivatMail = Privatkund.MailAdress;
-                PrivatFörnamn = Privatkund.Förnamn;
-                PrivatEfternamn = Privatkund.Efternamn;
-
-                NollaFöretagsKundInformation();
-
-            }
-            //Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-            else if (Företagskund != null)
-            {
-                FöretagAdress = Företagskund.Adress;
-                FöretagPostnummer = Företagskund.Postnummer;
-                FöretagOrt = Företagskund.Ort;
-                FöretagTelefonummer = Företagskund.Telefonnummer;
-                FöretagMailadress = Företagskund.MailAdress;
-                OrgNummer = Företagskund.OrgNr;
-                FöretagsNamn = Företagskund.FöretagsNamn;
-                Rabatstatts = Företagskund.RabattSats;
-                MaxBeloppKredit = Företagskund.MaxBeloppsKreditGräns;
-
-                NollaPrivatkundInformation();
-            }
-            else
-            {
-
-                NollaFöretagsKundInformation();
-                NollaPrivatkundInformation();
-                MessageBox.Show("Kund finns ej i register. Kontrollera Orgnummer/Personummer", "Kund", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            }
-        });
-
-
-        public void NollaFöretagsKundInformation()
-        {
-            FöretagAdress = null;
-            FöretagPostnummer = null;
-            FöretagOrt = null;
-            FöretagTelefonummer = null;
-            FöretagMailadress = null;
-            OrgNummer = null;
-            FöretagsNamn = null;
-            Rabatstatts = 0;
-            MaxBeloppKredit = 0;
-
-        }
-        public void NollaPrivatkundInformation()
-        {
-
-            PrivatPersonummer = null;
-            PrivatAdress = null;
-            PrivatPostnummer = null;
-            PrivatOrt = null;
-            PrivatTelefonummer = null;
-            PrivatMail = null;
-            PrivatFörnamn = null;
-            PrivatEfternamn = null;
-        }
-
         #region FÖRETAGSKUND
 
 
@@ -332,10 +258,10 @@ namespace PresentationslagerWPF.ViewModels
             {
                 MessageBox.Show($"Företagskund med {OrgNummer} finns redan registrerad", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-                
 
 
-               
+
+
 
 
         });
@@ -353,6 +279,142 @@ namespace PresentationslagerWPF.ViewModels
         });
 
         #endregion
+
+        #region BOKNING
+
+        private ObservableCollection<MasterBokning> masterbokningar = null!;
+        public ObservableCollection<MasterBokning> Masterbokningar { get => masterbokningar; set { masterbokningar = value; OnPropertyChanged(); } }
+
+        #endregion
+
+        private MasterBokning valdBokningSelectedItem = null!;
+        public MasterBokning ValdBokningSelectedItem
+        {
+            get => valdBokningSelectedItem;
+            set
+            {
+                valdBokningSelectedItem = value; OnPropertyChanged();
+
+            }
+        }
+        private int valdBokningSelectedIndex;
+        public int ValdBokningSelectedIndex { get => valdBokningSelectedIndex; set { valdBokningSelectedIndex = value; OnPropertyChanged(); } }
+
+        private ICommand sparaBokningCommand = null!;
+        public ICommand SparaBokningCommand => sparaBokningCommand ??= sparaBokningCommand = new RelayCommand(() =>
+        {
+            // TODO lägg till kontroll för affärsregeln " avbokningsskyddet kan väljas fram tills 8 dagar inpå vistelsedatum."           
+            if (valdBokningSelectedItem.Avbeställningsskydd == true)
+            {
+                bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
+                MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+               
+            
+        });
+        //private ICommand taBortBokningCommand = null!;
+        //public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
+        //{
+        //    // TODO lägg till kontroll för affärsregeln " avbokningsskyddet kan väljas fram tills 8 dagar inpå vistelsedatum."           
+        //    if (valdBokningSelectedItem.Avbeställningsskydd == true)
+        //    {
+        //        bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
+        //        MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //    }
+
+
+        //});
+
+
+
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+        private ICommand sökKund = null!;
+        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
+        {
+            IsEnabledFöretag = false;
+            IsEnabledPrivat = false;
+
+            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaMasterbokningar(Kundnummer));
+
+
+            //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+            if (Privatkund != null)
+            {
+                PrivatPersonummer = Privatkund.Personnummer;
+                PrivatAdress = Privatkund.Adress;
+                PrivatPostnummer = Privatkund.Postnummer;
+                PrivatOrt = Privatkund.Ort;
+                PrivatTelefonummer = Privatkund.Telefonnummer;
+                PrivatMail = Privatkund.MailAdress;
+                PrivatFörnamn = Privatkund.Förnamn;
+                PrivatEfternamn = Privatkund.Efternamn;
+
+                NollaFöretagsKundInformation();
+
+            }
+            //Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+            else if (Företagskund != null)
+            {
+                FöretagAdress = Företagskund.Adress;
+                FöretagPostnummer = Företagskund.Postnummer;
+                FöretagOrt = Företagskund.Ort;
+                FöretagTelefonummer = Företagskund.Telefonnummer;
+                FöretagMailadress = Företagskund.MailAdress;
+                OrgNummer = Företagskund.OrgNr;
+                FöretagsNamn = Företagskund.FöretagsNamn;
+                Rabatstatts = Företagskund.RabattSats;
+                MaxBeloppKredit = Företagskund.MaxBeloppsKreditGräns;
+
+                NollaPrivatkundInformation();
+            }
+            else
+            {
+
+                NollaFöretagsKundInformation();
+                NollaPrivatkundInformation();
+                NollaBokningInformation();
+                MessageBox.Show("Kund finns ej i register. Kontrollera Orgnummer/Personummer", "Kund", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+        });
+
+        
+
+        public void NollaFöretagsKundInformation()
+        {
+            FöretagAdress = null;
+            FöretagPostnummer = null;
+            FöretagOrt = null;
+            FöretagTelefonummer = null;
+            FöretagMailadress = null;
+            OrgNummer = null;
+            FöretagsNamn = null;
+            Rabatstatts = 0;
+            MaxBeloppKredit = 0;
+
+        }
+        public void NollaPrivatkundInformation()
+        {
+
+            PrivatPersonummer = null;
+            PrivatAdress = null;
+            PrivatPostnummer = null;
+            PrivatOrt = null;
+            PrivatTelefonummer = null;
+            PrivatMail = null;
+            PrivatFörnamn = null;
+            PrivatEfternamn = null;
+        }
+        public void NollaBokningInformation()
+        {
+            Masterbokningar = null;
+        }
+
+        
 
 
 
