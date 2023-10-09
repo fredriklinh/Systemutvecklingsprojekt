@@ -42,7 +42,7 @@
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
-                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
+                        <!--<Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>-->
                     </StackPanel>
                 </StackPanel>
                 <!--PANEL FÖR PRIVATKUND-->
