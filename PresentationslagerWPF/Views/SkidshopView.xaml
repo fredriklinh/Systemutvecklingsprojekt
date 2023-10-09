@@ -188,7 +188,7 @@
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox Width="40" ></ComboBox>
+                            <ComboBox ItemsSource="{Binding AllaUtrustningar}" DisplayMemberPath="Benämning"   Width="40" ></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             <Label >Pjäxor</Label>
                         </StackPanel>

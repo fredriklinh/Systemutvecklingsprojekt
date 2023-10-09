@@ -30,6 +30,7 @@ namespace Datalager
             PrisLogiRepository = new Repository<PrislistaLogi>(_dbContext);
             LogiRepository = new Repository<Logi>(_dbContext);
             MasterBokningRepository = new Repository<MasterBokning>(_dbContext);
+            UtrustningRepository = new Repository<Utrustning>(_dbContext);
 
         }
 
