@@ -10,7 +10,7 @@ namespace Datalager.Seed
         public static void Populate(this ModelBuilder modelBuilder)
         {
 
-
+            #region Ladda användare
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
                 {
@@ -22,7 +22,10 @@ namespace Datalager.Seed
                     Förnamn = "Magnifike"
                 }
                 );
+            #endregion Ladda användare
 
+
+            #region Ladda Logi
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
                 PrisId = 1,
@@ -1449,7 +1452,10 @@ namespace Datalager.Seed
 
 
             }
+            #endregion Ladda Logi
 
+
+            #region Ladda Kund
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
                 //PrivatkundId = 1,
@@ -1491,6 +1497,157 @@ namespace Datalager.Seed
                 MaxBeloppsKreditGräns = 60000
 
             });
+
+            #endregion Ladda Kund
+
+
+            #region Ladda utrustning            
+            //Ladda in Alpinskidor
+            for (int i = 1; i <= 350; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "AS" + i,
+                    Tillgängling = true,
+                    Typ = "Alpint",
+                    Benämning = "Skidor"
+                });              
+            }
+            //Ladda in Alpinpjäxor
+            for (int i = 1; i <= 500; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "AP" + i,
+                    Tillgängling = true,
+                    Typ = "Alpint",
+                    Benämning = "Pjäxor"
+                });
+            }
+            //Ladda in Alpinstavar
+            for (int i = 1; i <= 425; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "ASS" + i,
+                    Tillgängling = true,
+                    Typ = "Alpint",
+                    Benämning = "Stavar"
+                });
+            }
+            //Ladda in Längdskidor
+            for (int i = 1; i <= 150; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "LS" + i,
+                    Tillgängling = true,
+                    Typ = "Längd",
+                    Benämning = "Skidor"
+                });
+            }
+            //Ladda in Längdpjäxor
+            for (int i = 1; i <= 200; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "LP" + i,
+                    Tillgängling = true,
+                    Typ = "Längd",
+                    Benämning = "Pjäxor"
+                });
+            }
+            //Ladda in Längdstavar
+            for (int i = 1; i <= 175; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "LSS" + i,
+                    Tillgängling = true,
+                    Typ = "Längd",
+                    Benämning = "Stavar"
+                });
+            }
+            //Ladda in Snowboard
+            for (int i = 1; i <= 85; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "SB" + i,
+                    Tillgängling = true,
+                    Typ = "Snowboard",
+                    Benämning = "Snowboard"
+                });
+            }
+            //Ladda in Snowboardskor
+            for (int i = 1; i <= 90; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "SS" + i,
+                    Tillgängling = true,
+                    Typ = "Snowboard",
+                    Benämning = "Snowboardskor"
+                });
+            }
+            //Ladda in Snöskoter av märket Lynx
+            for (int i = 1; i <= 8; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "S" + i,
+                    Tillgängling = true,
+                    Typ = "Skoter",
+                    Benämning = "Lynx 50"
+                });
+            }
+            //Ladda in Snöskoter av märket Yamaha
+            for (int i = 9; i <= 15; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "S" + i,
+                    Tillgängling = true,
+                    Typ = "Snöskoter",
+                    Benämning = "Yamaha Vikning"
+                });
+            }
+            //Ladda in Skoterpulka
+            for (int i = 1; i <= 15; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "NP" + i,
+                    Tillgängling = true,
+                    Typ = "Snöskoter",
+                    Benämning = "Nilapulka"
+                });
+            }
+            //Ladda in Hjälmar
+            for (int i = 1; i <= 600; i++)
+            {
+                modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+                {
+                    ID = "H" + i,
+                    Tillgängling = true,
+                    Typ = "Hjälm",
+                    Benämning = "Hjälm"
+                });
+            }
+
+
+            modelBuilder.Entity<UtrustningsTyp>().HasData(new UtrustningsTyp()
+            {
+                LogiTypId = "LGH.I"
+
+            });
+            modelBuilder.Entity<LogiTyp>().HasData(new LogiTyp()
+            {
+                LogiTypId = "LGH.I"
+
+            });
+            #endregion Ladda utrustning
+
             // Test för att se rabatterat pris
 
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()

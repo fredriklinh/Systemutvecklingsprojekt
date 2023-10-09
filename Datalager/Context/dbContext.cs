@@ -72,8 +72,8 @@ namespace Datalager.Context
             modelBuilder.Entity<Faktura>()
             .HasKey(f => f.FakturaId);
 
-            modelBuilder.Entity<PrislistaLogi>()
-            .HasKey(p => p.PrisId);
+            //modelBuilder.Entity<PrislistaLogi>()
+            //.HasKey(p => p.PrisId); UPPREPAS, finns på rad 65.
 
             modelBuilder.Entity<Företagskund>()
             .HasKey(fö => fö.OrgNr);
@@ -82,6 +82,18 @@ namespace Datalager.Context
             modelBuilder.Entity<Privatkund>()
             .HasKey(pk => pk.Personnummer);
             modelBuilder.Entity<Privatkund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
+
+            modelBuilder.Entity<Utrustning>()
+                .HasKey(u => u.UtrustningsId);
+            modelBuilder.Entity<Utrustning>().HasOne<UtrustningsTyp>(u => u.UtrustningsTyp);
+
+            modelBuilder.Entity<PrisListaUtrustning>()
+                .HasKey(plu => plu.PrisId);
+
+            modelBuilder.Entity<UtrustningsTyp>()
+           .HasKey(ut => ut.UtrustningsTypId);
+            modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
+
 
 
 
