@@ -83,7 +83,16 @@ namespace Affärslager
             return masterBokning;
         }
 
+        public List<MasterBokning> HämtaMasterbokningar(string personnummer)
+        {
+            List<MasterBokning> masterbokning = new List<MasterBokning>();
 
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(kl => kl.PersonNr.Equals(personnummer)))
+            {
+                masterbokning.Add(item);
+            }
+            return masterbokning;
+        }
 
 
 
