@@ -10,18 +10,26 @@ namespace Affärslager.KundKontroller
         public Företagskund RegistreraFöretagskund(double maxBeloppsKreditGränds, string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string orgNr, string företagsNamn, double rabattSats)
         {
 
-            Företagskund Check = unitOfWork.FöretagskundRepository.FirstOrDefault(f => f.OrgNr == orgNr);
-            //Kontrollerar om Existeradne Orgnummer redan finns i databasen. 
-            if (Check != null)
-            {
-                Check = null;
-                return Check;
-            }
             Företagskund företagskund = new Företagskund(maxBeloppsKreditGränds, adress, postnummer, ort, telefonnummer, mailAdress, orgNr, företagsNamn, rabattSats);
             unitOfWork.FöretagskundRepository.Add(företagskund);
             unitOfWork.Complete();
             return företagskund;
         }
+
+        //public bool KontrollFKund(string orgnr)
+        //{
+        //    Företagskund k = unitOfWork.FöretagskundRepository.FirstOrDefault(f => f.OrgNr == orgnr);
+        //    bool x;
+        //    if (k != null)
+        //    {
+        //        x = false;
+        //    }
+        //    else
+        //    {
+        //        x = true;
+        //    }
+        //    return x;
+        //}
 
         //OBS. FUNKTION ENDAST FÖR ADMIN
         public Företagskund TaBortFöretagskund(string OrgNummer)

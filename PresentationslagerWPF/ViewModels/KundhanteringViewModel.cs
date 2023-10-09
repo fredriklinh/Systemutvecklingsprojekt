@@ -1,5 +1,7 @@
 ﻿using Affärslager.KundKontroller;
+using Datalager;
 using Entiteter.Personer;
+using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
@@ -126,6 +128,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand IsEnabledFöretagCommand => isEnabledFöretagCommand ??= isEnabledFöretagCommand = new RelayCommand(() =>
         {
             IsEnabledFöretag = true;
+            IsEnabledPrivat = false;
         });
 
         private bool isEnabledPrivat = false!;
@@ -136,6 +139,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand IsEnabledPrivatCommand => isEnabledPrivatCommand ??= isEnabledPrivatCommand = new RelayCommand(() =>
         {
             IsEnabledPrivat = true;
+            IsEnabledFöretag = false;
         });
         #endregion
 
@@ -291,16 +295,22 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sparaFöretagCommand = null!;
         public ICommand SparaFöretagCommand => sparaFöretagCommand ??= sparaFöretagCommand = new RelayCommand(() =>
         {
-            Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
-            if (Företagskund == null)
+            IsEnabledFöretag = false;
+            //bool FinnsKund = företagskundKontroller.KontrollFKund(OrgNummer);
+            if (!OrgNummer.IsNullOrEmpty() /*&& FinnsKund == false*/)
             {
-                MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
+                MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+                
+
+
+               
+
 
         });
         //private ICommand ändraFöretagCommand = null!;

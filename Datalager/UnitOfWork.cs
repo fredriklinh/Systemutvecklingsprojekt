@@ -20,6 +20,7 @@ namespace Datalager
         public Repository<Logi> LogiRepository { get; private set; }
 
         public Repository<MasterBokning> MasterBokningRepository { get; private set; }
+        public Repository<Utrustning> UtrustningRepository { get; private set; }    
         public UnitOfWork()
         {
             _dbContext = new dbContext();

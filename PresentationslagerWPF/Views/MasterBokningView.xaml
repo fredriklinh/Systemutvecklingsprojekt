@@ -44,7 +44,7 @@
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
-                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>
+                        <!--<Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen" Click="btnSökKund_Click"></Button>-->
                     </StackPanel>
                 </StackPanel>
                 <!--PANEL FÖR PRIVATKUND-->
@@ -93,8 +93,8 @@
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal" >
                                 <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" ></TextBox>
-                                <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.Företagsnamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.Rabattsats}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.FöretagsNamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding Företagskund.MaxBeloppsKreditGräns}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
@@ -107,7 +107,7 @@
                             <StackPanel Orientation="Horizontal" >
                                 <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Ort" Text="{Binding Ort}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                         </StackPanel>
@@ -210,7 +210,8 @@
 
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button x:Name="btnSpara" Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
+                <Button Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
+>>>>>>>>> Temporary merge branch 2
             </StackPanel>
         </StackPanel>
     </DockPanel>

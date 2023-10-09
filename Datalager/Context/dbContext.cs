@@ -15,14 +15,14 @@ namespace Datalager.Context
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;"*/);
+                .UseSqlServer(@"Server=(localdb)\Local;Database=SkiCLocal;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99; MultipleActiveResultSets=true;"*/);
             base.OnConfiguring(optionsBuilder);
 
         }
         public void Reset()
         {
             #region Remove Tables
-            using (SqlConnection conn = new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=Systemutvecklingsprojekt;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"*/))
+            using (SqlConnection conn = new SqlConnection(@"Server=(localdb)\Local;Database=SkiCLocal;Integrated Security=True;MultipleActiveResultSets=true;"/*@"Server=sqlutb2-db.hb.se, 56077;Database=suht2303; TrustServerCertificate=True; user id = suht2303 ;Password=lagg99;MultipleActiveResultSets=true;"*/))
             using (SqlCommand cmd = new SqlCommand("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'; EXEC sp_msforeachtable 'DROP TABLE ?'", conn))
             {
                 conn.Open();
@@ -72,8 +72,8 @@ namespace Datalager.Context
             modelBuilder.Entity<Faktura>()
             .HasKey(f => f.FakturaId);
 
-            modelBuilder.Entity<PrislistaLogi>()
-            .HasKey(p => p.PrisId);
+            //modelBuilder.Entity<PrislistaLogi>()
+            //.HasKey(p => p.PrisId); UPPREPAS, finns på rad 65.
 
             modelBuilder.Entity<Företagskund>()
             .HasKey(fö => fö.OrgNr);
@@ -82,6 +82,18 @@ namespace Datalager.Context
             modelBuilder.Entity<Privatkund>()
             .HasKey(pk => pk.Personnummer);
             modelBuilder.Entity<Privatkund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
+
+            modelBuilder.Entity<Utrustning>()
+                .HasKey(u => u.UtrustningsId);
+            modelBuilder.Entity<Utrustning>().HasOne<UtrustningsTyp>(u => u.UtrustningsTyp);
+
+            modelBuilder.Entity<PrisListaUtrustning>()
+                .HasKey(plu => plu.PrisId);
+
+            modelBuilder.Entity<UtrustningsTyp>()
+           .HasKey(ut => ut.Typ);
+            modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
+
 
 
 

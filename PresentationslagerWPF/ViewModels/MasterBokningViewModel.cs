@@ -99,6 +99,8 @@ namespace PresentationslagerWPF.ViewModels
         private Privatkund privatkund = null!;
         public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
 
+        private MasterBokning masterbokning = null!;
+        public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
 
         private Visibility fsynlighet = Visibility.Collapsed;
         public Visibility FSynlighet
