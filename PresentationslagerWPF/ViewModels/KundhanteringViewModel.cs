@@ -18,9 +18,11 @@ namespace PresentationslagerWPF.ViewModels
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
 
         #region NAVIGATION
-        public KundhanteringViewModel(NavigationStore navigationStore)
+        public KundhanteringViewModel(NavigationStore navigationStore, Användare användare)
         {
+            
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
+            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore,användare)));
 
         }
         //**** NAVIGATION *******//
@@ -29,6 +31,8 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
+
+        public ICommand TillbakaCommand { get; }
 
         #endregion
 

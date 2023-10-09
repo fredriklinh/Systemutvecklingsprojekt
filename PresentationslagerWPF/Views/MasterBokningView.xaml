@@ -16,6 +16,7 @@
                 <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
                 <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </MenuItem>
+            <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
         </Menu>
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal">
@@ -120,7 +121,7 @@
                     <Button x:Name="btnUtrustning" Margin="200,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button x:Name="btnLektion" Margin="300,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Lektion" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
                     <!--<Button x:Name="btnBokningTotal" Margin="100,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Bokning total" Height="30" Width="120" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
-                    <Button Command="{Binding Tillbaka}" Height="25" Width="100" Margin="736,0,0,10" Content="AVBRYT/Tillbaka" Background="red" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Button>
+                    
                 </Grid>
                 <Grid x:Name="bokningGrid" Margin="0,0,0,0">
                     <!--<local:MasterBokningLogi x:Name="logi"></local:MasterBokningLogi>

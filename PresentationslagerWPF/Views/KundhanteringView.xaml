@@ -26,6 +26,7 @@
                 <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
                 <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </MenuItem>
+            <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
         </Menu>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0" VerticalAlignment="Center">
             <StackPanel>

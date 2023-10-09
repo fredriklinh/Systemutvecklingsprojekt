@@ -296,7 +296,7 @@ namespace PresentationslagerWPF.ViewModels
         public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
-            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             Användare = användare;
         }
 
@@ -305,7 +305,7 @@ namespace PresentationslagerWPF.ViewModels
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         public ICommand NavigateLoggaUtCommand { get; }
-        public ICommand Tillbaka { get; }
+        public ICommand TillbakaCommand { get; }
 
         #endregion
 
