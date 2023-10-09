@@ -151,6 +151,16 @@ namespace PresentationslagerWPF.ViewModels
             IsEnabledPrivat = true;
             IsEnabledFöretag = false;
         });
+
+        private bool isEnabledBokning = false!;
+        public bool IsEnabledBokning { get => isEnabledBokning; set { isEnabledBokning = value; OnPropertyChanged(); } }
+
+
+        private ICommand isEnabledBokningCommand = null!;
+        public ICommand IsEnabledBokningCommand => isEnabledBokningCommand ??= isEnabledBokningCommand = new RelayCommand(() =>
+        {
+            isEnabledBokning = true;
+        });
         #endregion
 
 
