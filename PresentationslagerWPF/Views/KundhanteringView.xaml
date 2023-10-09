@@ -6,19 +6,19 @@
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d">
     <!-- Put things in Grid.Column="0" for left, and "1' for right -->
-    <Grid HorizontalAlignment="Center">
+    <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="320"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100.5"/>
-            <ColumnDefinition Width="299.5"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--MENU NAVBAR-->
         <Menu Grid.Row="0" Background="LightGray" Margin="10,10,10,10" Grid.ColumnSpan="3">
@@ -27,19 +27,21 @@
                 <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </MenuItem>
         </Menu>
-        <StackPanel Grid.Row="1" Margin="10,0,10,0" Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2">
-            <Label Margin="0,0,10,0">Kundnummer</Label>
-            <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
-            <Button Command="{Binding SökKund}" Background="Green" Width="53">Sök</Button>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0" VerticalAlignment="Center">
+            <StackPanel>
+                <Label Margin="0,0,10,0">Kundnummer</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
+                <Button Command="{Binding SökKund}" Background="Green" Width="53">Sök</Button>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal"  VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center">
             <Button Command ="{Binding IsEnabledPrivatCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till PrivatKund</Button>
             <Button Command ="{Binding IsEnabledFöretagCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Företagskund</Button>
         </StackPanel>
-        <Label Grid.Row="2" Background="LightGray" Grid.ColumnSpan="2">Privatkund</Label>
-        <WrapPanel Grid.Row="3" Margin="10,10,0,59" Background="LightGray" HorizontalAlignment="Left" Width="380" Grid.RowSpan="2" Grid.ColumnSpan="2">
+        <Label Grid.Row="2" Grid.Column="0" Margin="10,0,5,0" Background="LightGray">Privatkund</Label>
+        <WrapPanel Grid.Row="3" Grid.Column="0" Margin="10,10,5,10" Background="LightGray" HorizontalAlignment="Left">
 
             <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path= IsEnabledPrivat}">
                 <StackPanel Margin="10,10,10,10" Background="LightGray">
@@ -69,9 +71,8 @@
                 <!--SPRINT 3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraFöretagCommand}">Ändra Kund</Button>-->
             </StackPanel>
         </WrapPanel>
-        <Label Grid.Row="2" Grid.Column="2" Background="LightGray">Företagskund</Label>
-        <WrapPanel Grid.Column='2' Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,59" Background="LightGray" Width="400" Grid.RowSpan="2">
-
+        <Label Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" Background="LightGray">Företagskund</Label>
+        <WrapPanel Grid.Column='1' Grid.Row="3" HorizontalAlignment="Left" Margin="5,10,5,10" Background="LightGray">
             <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path= IsEnabledFöretag}">
                 <StackPanel Margin="10,10,10,10">
                     <Label>Orgnummer</Label>
@@ -100,6 +101,53 @@
                 <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaFöretagCommand}">Spara</Button>
                 <!--KRÄVS ADMIN FÖR DETTA<Button Margin="10,10,10,10" Background="DarkRed" Command ="{Binding TaBortPrivatCommand}">Ta bort Kund</Button>-->
                 <!--SPRINT 2/3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraKundPrivat}">Ändra Kund</Button>-->
+            </StackPanel>
+        </WrapPanel>
+        <Label Grid.Row="2" Grid.Column="2" Margin="5,0,10,0" Background="LightGray">Bokningar</Label>
+        <WrapPanel Grid.Row="3" Grid.Column="2" Margin="5,10,10,10" Background="LightGray" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <DataGrid x:Name="Bokningar" AutoGenerateColumns="False" SelectionMode="Single"
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding X}"
+                                  SelectedItem="{Binding X, Mode=TwoWay}"
+                                  SelectedIndex="{Binding X, Mode=TwoWay}" 
+                                  Background="White" Height="120">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="BokningsNr" Binding="{Binding X}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Startdatum" Binding="{Binding X}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Slutdatum" Binding="{Binding X}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                    <StackPanel Margin="10,10,0,10" Orientation="Vertical" Width="154">
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Avbeställningsskydd</Label>
+                            <CheckBox VerticalAlignment="Center" Margin="20,0" Content="{Binding X}"></CheckBox>
+                        </StackPanel>
+                        <StackPanel IsEnabled="{Binding Path= IsEnabledBokning}">
+                            <Label>Bokningsdatum:</Label>
+                            <TextBox Text="{Binding X}"></TextBox>
+                            <Label>Nyttjad Kredit:</Label>
+                            <TextBox Text="{Binding X, Mode=TwoWay}"></TextBox>
+                            <Label>Skapad av:</Label>
+                            <TextBox Text="{Binding X, Mode=TwoWay}"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="5,10,10,10" Orientation="Vertical">
+                        <DataGrid x:Name="Logi" Margin="0,10,0,0" AutoGenerateColumns="False"
+                                      IsReadOnly="True" ItemsSource="{Binding X}"
+                                      Background="White" Height="105" IsEnabled="{Binding Path= IsEnabledBokning}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="LogiNr" Binding="{Binding X}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Logityp" Binding="{Binding X}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" Margin="10,10">
+                            <Button Margin="5,0" Background="Red" Command="{Binding X}">Ta bort</Button>
+                            <Button Margin="5,0" Background="Green" Command="{Binding X}">Spara</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </WrapPanel>
     </Grid>
