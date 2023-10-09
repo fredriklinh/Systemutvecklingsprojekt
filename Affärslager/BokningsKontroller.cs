@@ -20,17 +20,18 @@ namespace Affärslager
         {
             List<Logi> logi = new List<Logi>();
 
-            foreach (Logi allLogi in unitOfWork.LogiRepository.Find(b => b.ÄrTillgänglig))
+            foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
             {
                 logi.Add(allLogi);
             }
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
             {
                 foreach (Logi ledigLogi in item.ValdLogi)
                 {
-                    logi.Add(ledigLogi);
+                    logi.Remove(ledigLogi);
                 }
             }
+            
             return logi;
         }
 

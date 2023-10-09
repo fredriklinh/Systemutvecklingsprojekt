@@ -297,15 +297,17 @@ namespace PresentationslagerWPF.ViewModels
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            UppdateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             Användare = användare;
         }
-
+        
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         public ICommand NavigateLoggaUtCommand { get; }
         public ICommand TillbakaCommand { get; }
+        public ICommand UppdateraCommand { get; }
 
         #endregion
 
@@ -316,14 +318,14 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
-            ValdLogi = new ObservableCollection<Logi>();
+            
 
         });
 
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-
+            ValdLogi = new ObservableCollection<Logi>();
             if (tillgänligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
@@ -425,6 +427,9 @@ namespace PresentationslagerWPF.ViewModels
                 
                 PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
+
+            bokningsKontroller.SparaÄndring(MasterBokning);
+
             valdLogi.Clear();
             InputAdress = null;
             InputPostnummer = null;
@@ -443,6 +448,7 @@ namespace PresentationslagerWPF.ViewModels
             Starttid = DateTime.Now;
             Sluttid = DateTime.Now;
             TotalPrisRabatt = 0;
+            
         });
 
         private ICommand taBortCommand = null!;
