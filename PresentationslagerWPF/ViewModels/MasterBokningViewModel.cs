@@ -436,29 +436,29 @@ namespace PresentationslagerWPF.ViewModels
             
 
             bokningsKontroller.SparaÄndring(MasterBokning);
-            //if (ValdLogi != null)
-            //{
-            //    valdLogi.Clear();
-            //}
+            if (ValdLogi != null)
+            {
+                valdLogi.Clear();
+            }
 
-            //InputAdress = null;
-            //InputPostnummer = null;
-            //InputOrt = null;
-            //InputTelefonnummer = null;
-            //InputMailAdress = null;
-            //Kundnummer = null;
-            //InputFörnamn = null;
-            //InputEfternamn = null;
-            //AntalSovplatser = null;
-            //TotalKostnad = null;
-            //ValdLogi = null;
-            //TotalPris = 0;
-            //Privatkund = null;
-            //TillgänligLogi = null;
-            //Starttid = DateTime.Now;
-            //Sluttid = DateTime.Now;
-            //TotalPrisRabatt = 0;
-
+            InputAdress = null;
+            InputPostnummer = null;
+            InputOrt = null;
+            InputTelefonnummer = null;
+            InputMailAdress = null;
+            Kundnummer = null;
+            InputFörnamn = null;
+            InputEfternamn = null;
+            AntalSovplatser = null;
+            TotalKostnad = null;
+            ValdLogi = null;
+            TotalPris = 0;
+            Privatkund = null;
+            TillgänligLogi = null;
+            Starttid = DateTime.Now;
+            Sluttid = DateTime.Now;
+            TotalPrisRabatt = 0;
+            TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
         });
 
         private ICommand taBortCommand = null!;
