@@ -121,6 +121,22 @@ namespace PresentationslagerWPF.ViewModels
             set { antal = value; OnPropertyChanged(); }
         }
 
+        private List<string> stringTyp;
+        public List<string> StringTyp
+        {
+
+
+            get { return stringTyp; }
+            set { stringTyp = value; OnPropertyChanged();
+
+
+
+
+            }
+        }
+
+
+
 
 
 
