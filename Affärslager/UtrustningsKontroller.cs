@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entiteter.Prislistor;
+﻿using Datalager;
 using Entiteter.Tjänster;
-using Entiteter.Personer;
-using Datalager;
 
 namespace Affärslager
 {
@@ -14,24 +7,15 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public List<Utrustning> HämtaTillgängligUtrustning()
+        public IList<Utrustning> HämtaTillgängligUtrustning()
         {
-            List<Utrustning> utrustning = new List<Utrustning>();
+            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-            foreach (Utrustning allUtrustning in unitOfWork.UtrustningRepository.Find(b => b.Tillgänglig))
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
             {
-                utrustning.Add(allUtrustning);
+                AllaUtrustningar.Add(Hej);
             }
-            //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
-            //{
-            //    foreach (Logi ledigLogi in item.ValdLogi)
-            //    {
-            //        logi.Add(ledigLogi);
-            //    }
-            //}
-            return utrustning;
+            return AllaUtrustningar;
         }
-
-
     }
 }

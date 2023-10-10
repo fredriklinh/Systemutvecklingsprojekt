@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows.Controls;
 
 namespace PresentationslagerWPF.Views
 {
@@ -14,6 +12,6 @@ namespace PresentationslagerWPF.Views
             InitializeComponent();
         }
 
-        
+
     }
 }

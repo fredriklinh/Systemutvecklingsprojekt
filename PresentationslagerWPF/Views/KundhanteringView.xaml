@@ -26,6 +26,7 @@
                 <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
                 <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </MenuItem>
+            <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
         </Menu>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0" VerticalAlignment="Center">
             <StackPanel>
@@ -33,7 +34,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
-                <Button Command="{Binding SökKund}" Background="Green" Width="53">Sök</Button>
+                <Button Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Background="Green" Width="53">Sök</Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center">
@@ -66,7 +67,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10,10,10,10">
-                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaPrivatCommand}">Spara</Button>
+                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaPrivatCommand, UpdateSourceTrigger=PropertyChanged}">Spara</Button>
                 <!--TILL FÖR ADMIN<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding TaBortFöretagCommand}">Ta bort Kund</Button>-->
                 <!--SPRINT 3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraFöretagCommand}">Ändra Kund</Button>-->
             </StackPanel>
@@ -98,7 +99,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10,10,10,10">
-                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaFöretagCommand}">Spara</Button>
+                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaFöretagCommand, UpdateSourceTrigger=PropertyChanged}">Spara</Button>
                 <!--KRÄVS ADMIN FÖR DETTA<Button Margin="10,10,10,10" Background="DarkRed" Command ="{Binding TaBortPrivatCommand}">Ta bort Kund</Button>-->
                 <!--SPRINT 2/3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraKundPrivat}">Ändra Kund</Button>-->
             </StackPanel>
@@ -106,45 +107,48 @@
         <Label Grid.Row="2" Grid.Column="2" Margin="5,0,10,0" Background="LightGray">Bokningar</Label>
         <WrapPanel Grid.Row="3" Grid.Column="2" Margin="5,10,10,10" Background="LightGray" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical">
-                <DataGrid x:Name="Bokningar" AutoGenerateColumns="False" SelectionMode="Single"
-                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding X}"
-                                  SelectedItem="{Binding X, Mode=TwoWay}"
-                                  SelectedIndex="{Binding X, Mode=TwoWay}" 
+                <DataGrid x:Name="Masterbokningar" ItemsSource="{Binding Masterbokningar, UpdateSourceTrigger=PropertyChanged}" 
+                                AutoGenerateColumns="False" SelectionMode="Single"
+                                  SelectionUnit="FullRow" IsReadOnly="True"
+                                  SelectedItem="{Binding ValdBokningSelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                  SelectedIndex="{Binding ValdBokningSelectedIndex,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                   Background="White" Height="120">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="BokningsNr" Binding="{Binding X}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Startdatum" Binding="{Binding X}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Slutdatum" Binding="{Binding X}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="BokningsNr" Binding="{Binding BokningsNr }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Startdatum" Binding="{Binding StartDatum}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Slutdatum" Binding="{Binding SlutDatum}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                     <StackPanel Margin="10,10,0,10" Orientation="Vertical" Width="154">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path= IsEnabledBokning}">
                             <Label>Avbeställningsskydd</Label>
-                            <CheckBox VerticalAlignment="Center" Margin="20,0" Content="{Binding X}"></CheckBox>
+                            <CheckBox VerticalAlignment="Center" Margin="20,0" IsChecked="{Binding ValdBokningSelectedItem.Avbeställningsskydd}"></CheckBox>
                         </StackPanel>
                         <StackPanel IsEnabled="{Binding Path= IsEnabledBokning}">
                             <Label>Bokningsdatum:</Label>
-                            <TextBox Text="{Binding X}"></TextBox>
+                            <TextBox Text="{Binding ValdBokningSelectedItem.BokningsDatum}"></TextBox>
                             <Label>Nyttjad Kredit:</Label>
-                            <TextBox Text="{Binding X, Mode=TwoWay}"></TextBox>
+                            <TextBox Text="{Binding ValdBokningSelectedItem.NyttjadKreditsumma}"></TextBox>
                             <Label>Skapad av:</Label>
-                            <TextBox Text="{Binding X, Mode=TwoWay}"></TextBox>
+                            <TextBox Text="{Binding ValdBokningSelectedItem.SkapadAv}"></TextBox>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="5,10,10,10" Orientation="Vertical">
                         <DataGrid x:Name="Logi" Margin="0,10,0,0" AutoGenerateColumns="False"
-                                      IsReadOnly="True" ItemsSource="{Binding X}"
-                                      Background="White" Height="105" IsEnabled="{Binding Path= IsEnabledBokning}">
+                                      IsReadOnly="True" ItemsSource="{Binding ValdBokningSelectedItem.ValdLogi}"
+                                      SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
+                                      SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}"
+                                      Background="White" Height="105">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="LogiNr" Binding="{Binding X}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Logityp" Binding="{Binding X}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Logityp" Binding="{Binding Typen}"></DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel Orientation="Horizontal" Margin="10,10">
-                            <Button Margin="5,0" Background="Red" Command="{Binding X}">Ta bort</Button>
-                            <Button Margin="5,0" Background="Green" Command="{Binding X}">Spara</Button>
+                            <Button Background="Green" Command="{Binding SparaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Content="Spara"/>
+                            <Button Margin="5,0" Background="Red" Command="{Binding TaBortBokningCommand}" Content="Ta bort"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

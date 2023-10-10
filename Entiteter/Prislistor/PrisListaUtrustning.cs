@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entiteter.Prislistor
+﻿namespace Entiteter.Prislistor
 {
     public class PrisListaUtrustning
     {
@@ -19,7 +13,7 @@ namespace Entiteter.Prislistor
 
         public PrisListaUtrustning()
         {
-               
+
         }
     }
 }

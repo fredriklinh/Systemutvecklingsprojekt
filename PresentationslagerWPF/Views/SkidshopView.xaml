@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
+             xmlns:vm="clr-namespace:PresentationslagerWPF.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
               FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
@@ -183,27 +184,27 @@
             <StackPanel Background="LightGray">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10,5,0,5" HorizontalAlignment="Right">
-                        <Label Margin="0,0,0,5" >Skidor</Label>
+                        <Button Height="28" Margin="0,0,0,5" Command="{Binding UtrustningCommandSkidor}" CommandParameter="SkidorAlpint">Skidor</Button>
                         <Label>Snowboard</Label>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox Width="40" ></ComboBox>
+                            <ComboBox x:Name="CbSkidorAlpint" SelectedValue="tempValue"  FontSize="12" ItemsSource="{Binding IndexedItems}" DisplayMemberPath="Index" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             <Label >Pjäxor</Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
+                            <ComboBox x:Name="CbSnowboard" FontSize="12" ItemsSource="{Binding Snowboard}" DisplayMemberPath="B" Margin="0,0,0,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             <Label>SnowboardSkor</Label>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
+                            <ComboBox  FontSize="12" ItemsSource="{Binding IndexedItemsAlpint}" DisplayMemberPath="Index" Margin="0,0,0,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             <Label>Stavar</Label>
-                            <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
+                            <ComboBox FontSize="12" ItemsSource="{Binding Antal}" Margin="0,0,0,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             
                         </StackPanel>
@@ -211,7 +212,7 @@
                             <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             <Label>Hjälm</Label>
-                            <ComboBox Margin="0,0,10,0" Width="40"></ComboBox>
+                            <ComboBox FontSize="12" ItemsSource="{Binding Antal}" Margin="0,0,10,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
 
                         </StackPanel>
@@ -300,22 +301,23 @@
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5,5,5,5"  Background="LightPink">
-            <Label>Lektions Bokning</Label>
-            <StackPanel>
-                <ListBox Name="lbTodoList" HorizontalContentAlignment="Stretch">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="100" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Title}" />
-                                <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+            <Label>Alpint</Label>
+            <Label>Skidor</Label>
+            <StackPanel  Background="lightBlue" Height="50">
+                
+
+
+            </StackPanel>
+            <Label>Stavar</Label>
+            <StackPanel  Background="lightBlue" Height="50">
+
+
+
+            </StackPanel>
+            <Label>Pjäxor</Label>
+            <StackPanel  Background="lightBlue" Height="50">
+
+
 
             </StackPanel>
         </StackPanel>
