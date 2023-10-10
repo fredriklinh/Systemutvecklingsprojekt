@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         FontFamily="Calibri" Foreground="DarkSlateGray" FontWeight="DemiBold" FontSize="12">
     <UserControl.Resources>
@@ -204,8 +205,14 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button x:Name="btnSpara" Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
-                <Button x:Name="btnUppdatera" Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70" Margin="300,10,10,10" Content="Uppdatera" Background="Blue"></Button>
+                <Button x:Name="btnSpara" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
+                            <i:InvokeCommandAction Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
     </DockPanel>
