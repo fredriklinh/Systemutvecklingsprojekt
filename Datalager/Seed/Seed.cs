@@ -1782,8 +1782,12 @@ namespace Datalager.Seed
             #endregion
 
             #region --------------------------------------------Ladda Konferens Prislistor
-            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+
+
+                modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            
+           {
+                PrisId = 1,
                 Vecka = 1,
                 VeckoPris = 7500,
                 DygnsPris = 1500,
@@ -1793,6 +1797,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 2,
                 Vecka = 2,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1802,6 +1807,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 3,
                 Vecka = 3,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1811,6 +1817,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 4,
                 Vecka = 4,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1819,6 +1826,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 5,
                 Vecka = 5,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1826,7 +1834,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 6,
                 Vecka = 6,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1835,7 +1843,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 7,
                 Vecka = 7,
                 VeckoPris = 7500,
                 DygnsPris = 1500,
@@ -1843,7 +1851,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 8,
                 Vecka = 8,
                 VeckoPris = 7500,
                 DygnsPris = 1500,
@@ -1852,7 +1860,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 9,
                 Vecka = 9,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1861,7 +1869,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 10,
                 Vecka = 10,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1869,7 +1877,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 11,
                 Vecka = 11,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1877,7 +1885,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 12,
                 Vecka = 12,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1886,7 +1894,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 13,
                 Vecka = 13,
                 VeckoPris = 7500,
                 DygnsPris = 1500,
@@ -1895,7 +1903,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 14,
                 Vecka = 14,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1903,7 +1911,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 15,
                 Vecka = 15,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1911,7 +1919,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 16,
                 Vecka = 16,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1927,7 +1935,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 18,
                 Vecka = 18,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1935,7 +1943,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 19,   
                 Vecka = 19,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1943,7 +1951,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 20,
                 Vecka = 20,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1951,7 +1959,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 21,
                 Vecka = 21,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1959,7 +1967,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 22,
                 Vecka = 22,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -1968,7 +1976,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 23,
                 Vecka = 23,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -1977,7 +1985,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 24,
                 Vecka = 24,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -1985,7 +1993,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 25,
                 Vecka = 25,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -1993,7 +2001,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId= 26,
                 Vecka = 26,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2001,7 +2009,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 27,
                 Vecka = 27,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2009,7 +2017,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 28,
                 Vecka = 28,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2017,7 +2025,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId=29,
                 Vecka = 29,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2025,7 +2033,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId =30,
                 Vecka = 30,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2033,7 +2041,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 31,
                 Vecka = 31,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2041,7 +2049,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 32,   
                 Vecka = 32,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2049,7 +2057,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 33,
                 Vecka = 33,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2057,7 +2065,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 34,
                 Vecka = 34,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2065,7 +2073,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 35,
                 Vecka = 35,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2073,7 +2081,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 36,
                 Vecka = 36,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2081,7 +2089,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 37,
                 Vecka = 37,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2089,7 +2097,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 38,
                 Vecka = 38,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2097,7 +2105,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 39,
                 Vecka = 39,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2105,7 +2113,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 40,
                 Vecka = 40,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2113,7 +2121,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 41,
                 Vecka = 41,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2121,7 +2129,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 42,
                 Vecka = 42,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2129,7 +2137,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 43,
                 Vecka = 43,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2138,7 +2146,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 44,
                 Vecka = 44,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2146,7 +2154,7 @@ namespace Datalager.Seed
                 Storlek = "Stor",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 45,
                 Vecka = 45,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2155,7 +2163,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 46,
                 Vecka = 46,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2164,7 +2172,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 47,
                 Vecka = 47,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2173,7 +2181,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 48,
                 Vecka = 48,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2182,7 +2190,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId =49,
                 Vecka = 49,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2191,7 +2199,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 50,
                 Vecka = 50,
                 VeckoPris = 3500,
                 DygnsPris = 800,
@@ -2200,7 +2208,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId=51,
                 Vecka = 51,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -2209,7 +2217,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 52,
                 Vecka = 52,
                 VeckoPris = 4500,
                 DygnsPris = 1200,
@@ -2219,7 +2227,7 @@ namespace Datalager.Seed
             //Börjar små
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 53,
                 Vecka = 1,
                 VeckoPris = 6000,
                 DygnsPris = 1150,
@@ -2228,7 +2236,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {   PrisId = 54,
                 Vecka = 2,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2237,7 +2245,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 55,
                 Vecka = 3,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2247,6 +2255,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 56,
                 Vecka = 4,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2255,6 +2264,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 57,
                 Vecka = 5,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2263,6 +2273,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 58,
                 Vecka = 6,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2272,6 +2283,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 59,
                 Vecka = 7,
                 VeckoPris = 6000,
                 DygnsPris = 1150,
@@ -2280,6 +2292,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 60,
                 Vecka = 8,
                 VeckoPris = 6000,
                 DygnsPris = 1150,
@@ -2288,7 +2301,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 61,
                 Vecka = 9,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2297,7 +2310,7 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 62,
                 Vecka = 10,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2305,7 +2318,7 @@ namespace Datalager.Seed
                 Storlek = "Liten",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 63,
                 Vecka = 11,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2313,7 +2326,7 @@ namespace Datalager.Seed
                 Storlek = "Liten",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 64,
                 Vecka = 12,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2322,7 +2335,8 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {   
+                PrisId = 65,
                 Vecka = 13,
                 VeckoPris = 6000,
                 DygnsPris = 1150,
@@ -2332,6 +2346,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 66,
                 Vecka = 14,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2340,6 +2355,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 67,
                 Vecka = 15,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2348,6 +2364,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 68,
                 Vecka = 16,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2356,6 +2373,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 69,
                 Vecka = 17,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2364,6 +2382,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 70,
                 Vecka = 18,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2372,6 +2391,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 71,
                 Vecka = 19,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2380,6 +2400,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 72,
                 Vecka = 20,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2388,6 +2409,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 73,
                 Vecka = 21,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2396,6 +2418,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 74,
                 Vecka = 22,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2405,6 +2428,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 75,
                 Vecka = 23,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2414,6 +2438,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 76,
                 Vecka = 24,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2422,6 +2447,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 77,
                 Vecka = 25,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2430,6 +2456,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 104,
                 Vecka = 26,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2438,6 +2465,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 78,
                 Vecka = 27,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2446,6 +2474,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 79,
                 Vecka = 28,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2454,6 +2483,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 80,
                 Vecka = 29,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2462,6 +2492,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 81,
                 Vecka = 30,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2470,6 +2501,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 82,
                 Vecka = 31,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2477,7 +2509,7 @@ namespace Datalager.Seed
                 Storlek = "Liten",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {PrisId = 83,
                 Vecka = 32,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2486,6 +2518,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 84,
                 Vecka = 33,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2494,6 +2527,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 85,
                 Vecka = 34,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2502,6 +2536,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 86,
                 Vecka = 35,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2510,6 +2545,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 87,
                 Vecka = 36,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2517,7 +2553,8 @@ namespace Datalager.Seed
                 Storlek = "Liten",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {   
+                PrisId = 88,
                 Vecka = 37,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2526,6 +2563,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 89,
                 Vecka = 38,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2533,7 +2571,8 @@ namespace Datalager.Seed
                 Storlek = "Liten",
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {   
+                PrisId = 90,
                 Vecka = 39,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2542,6 +2581,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 91,
                 Vecka = 40,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2550,6 +2590,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 92,
                 Vecka = 41,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2558,6 +2599,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 93,
                 Vecka = 42,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2566,7 +2608,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
-                Vecka = 43,
+                Vecka = 94,
                 VeckoPris = 2500,
                 DygnsPris = 650,
                 TimPris = 115,
@@ -2574,7 +2616,8 @@ namespace Datalager.Seed
             });
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
-            {
+            {   
+                PrisId = 95,
                 Vecka = 44,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2583,6 +2626,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 96,
                 Vecka = 45,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2592,6 +2636,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 97,
                 Vecka = 46,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2601,6 +2646,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 98,
                 Vecka = 47,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2610,6 +2656,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 99,
                 Vecka = 48,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2619,6 +2666,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 100,
                 Vecka = 49,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2628,6 +2676,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 101,
                 Vecka = 50,
                 VeckoPris = 2500,
                 DygnsPris = 650,
@@ -2637,6 +2686,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 102,
                 Vecka = 51,
                 VeckoPris = 3500,
                 DygnsPris = 850,
@@ -2646,6 +2696,7 @@ namespace Datalager.Seed
 
             modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
             {
+                PrisId = 103,
                 Vecka = 52,
                 VeckoPris = 3500,
                 DygnsPris = 850,

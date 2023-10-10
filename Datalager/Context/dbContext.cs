@@ -96,8 +96,13 @@ namespace Datalager.Context
            .HasKey(ut => ut.Typ);
             modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
 
+            modelBuilder.Entity<Konferenslokal>()
+            .HasKey(kl => kl.KonferensBenämningsId);
 
 
+
+            modelBuilder.Entity<PrisListaKonferens>()
+            .HasKey(plk => plk.PrisId);
 
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.
             modelBuilder.Populate();
