@@ -189,11 +189,9 @@ namespace PresentationslagerWPF.ViewModels
 
             if (Antal != null)
             {
-                
-            }
+                //AllaUtrustningar.Add(Test);
 
-            
-            //AllaUtrustningar.Add(Test);
+            }
 
         });
     }
