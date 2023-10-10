@@ -36,14 +36,14 @@ namespace Affärslager
             {
                 intRest.Add(CheckWeek(item));
             }
-            //for (var i = intRest.Count - 1; i >= 0; i--)
-            //{
-            //    if (intRest.Contains(VeckaStart))
-            //    {
-            //        datum.RemoveAt(i);
-            //    }
-            //}
-
+            for (int i = datum.Count - 1; i >= 0; i--)
+            {
+                if (intRest[i] == VeckaStart)
+                {
+                    datum.RemoveAt(i);
+                    intRest.RemoveAt(i);
+                }
+            }
             //Ta fram variablar som krävs för uträkning
             TimeSpan AntalDagarBokade = slutdatum.Subtract(startdatum.AddDays(-1));
             int antalVeckor = (int)Math.Floor((slutdatum - startdatum.AddDays(-1)).TotalDays / 7);
