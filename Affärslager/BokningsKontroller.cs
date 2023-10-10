@@ -18,43 +18,20 @@ namespace Affärslager
         /// <returns></returns>
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
-            //List<Logi> logi = new List<Logi>();
-
-
-            //foreach (Logi  allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
-            //{
-            //    logi.Add(allLogi);
-            //}
-            ////Hämtar Logi som finns i bokningar och inte matchar angivet datum
-            //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
-            //{
-            //    foreach (Logi ledigLogi in item.ValdLogi)
-            //    {
-            //            if (!logi.Contains(ledigLogi))
-            //            {
-            //               logi.Add(ledigLogi);
-            //            }
-
-            //        logi.Add(ledigLogi);
-            //    }
-            //}
-
             List<Logi> logi = new List<Logi>();
-            foreach (Logi allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
+
+            foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
             {
                 logi.Add(allLogi);
             }
-            //Hämtar Logi som finns i bokningar och inte matchar angivet datum
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum <= f.SlutDatum || slutdatum >= f.StartDatum))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
             {
                 foreach (Logi ledigLogi in item.ValdLogi)
                 {
-                    if (logi.Contains(ledigLogi))
-                    {
-                        logi.Remove(ledigLogi);
-                    }
+                    logi.Remove(ledigLogi);
                 }
             }
+            
             return logi;
         }
 
@@ -78,17 +55,63 @@ namespace Affärslager
             return masterBokning;
         }
 
-        public List<MasterBokning> HämtaMasterbokningar(string personnummer)
+        //Söker först igenom bokningar på privatkunder om inget hittas söker vi på företagskunder och returnerar
+        public List<MasterBokning> HämtaMasterbokningar(string kundnummer)
         {
-            List<MasterBokning> masterbokning = new List<MasterBokning>();
+            List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(kl => kl.PersonNr.Equals(personnummer)))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(pmb => pmb.PersonNr.Equals(kundnummer)))
             {
-                masterbokning.Add(item);
+                masterbokningar.Add(item);
             }
-            return masterbokning;
+            if (masterbokningar == null)
+            {
+                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(fmb => fmb.OrgaNr.Equals(kundnummer)))
+                {
+                    masterbokningar.Add(item);
+                }
+            }
+            // TODO ? VIll vi söka på bokningsnummer också?
+            //if (masterbokningar == null)
+            //{
+            //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(bNr => bNr.BokningsNr.Equals(kundnummer)))
+            //    {
+            //        masterbokningar.Add(item);
+            //    }
+            //}
+            return masterbokningar;
         }
 
+        public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)
+        {
+            List<MasterBokning> företagMasterbokning = new List<MasterBokning>();
 
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(kl => kl.OrgaNr.Equals(OrgNr)))
+            {
+                företagMasterbokning.Add(item);
+            }
+            return företagMasterbokning;
+        }
+
+        public void SparaÄndring(MasterBokning masterBokning)
+        {
+            unitOfWork.MasterBokningRepository.Update(masterBokning);
+            unitOfWork.Complete();
+        }
+        public void TaBortMasterBokning(MasterBokning masterBokning)
+        {
+            unitOfWork.MasterBokningRepository.Delete(masterBokning);
+            unitOfWork.Complete();
+        }
+        
+
+        //Metoden ska plocka bort vald Logi från masterbekoningen och spara detta 
+        public void TaBortLogiFrånBokning(MasterBokning masterBokning, Logi logi)
+        {
+            // Behöver lösa logiken att ta bort vald logi
+            logi.MasterBokning.Remove(masterBokning);
+            unitOfWork.MasterBokningRepository.Update(masterBokning);
+            unitOfWork.Complete();
+        }
     }
 }

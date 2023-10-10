@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         FontFamily="Calibri" Foreground="DarkSlateGray" FontWeight="DemiBold" FontSize="12"
        
@@ -18,6 +19,7 @@
                 <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
                 <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </MenuItem>
+            <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
         </Menu>
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal">
@@ -121,7 +123,7 @@
                     <Button x:Name="btnUtrustning" Margin="200,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button x:Name="btnLektion" Margin="300,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Lektion" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
                     <!--<Button x:Name="btnBokningTotal" Margin="100,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Bokning total" Height="30" Width="120" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
-                    <Button Command="{Binding Tillbaka}" Height="26" Width="100" Margin="283,0,0,2" Content="Tillbaka" Background="red" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Button>
+                    
                 </Grid>
                 <Grid x:Name="bokningGrid" Margin="0,0,0,0">
                     <!--<local:MasterBokningLogi x:Name="logi"></local:MasterBokningLogi>
@@ -144,7 +146,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
-                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgänligLogi}"
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgänligLogi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
                                   SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}" 
                                   Background="White" Width="273" Height="141" Margin="0,0,10,0">
@@ -209,7 +211,14 @@
 
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen"></Button>
+                <Button x:Name="btnSpara" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
+                            <i:InvokeCommandAction Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
     </DockPanel>

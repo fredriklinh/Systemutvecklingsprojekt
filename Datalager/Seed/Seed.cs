@@ -1473,7 +1473,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
                 //PrivatkundId = 2,
-                Personnummer = "19990523-2322",
+                Personnummer = "1",
                 Förnamn = "Fidde",
                 Efternamn = "Skoglund",
                 Adress = "Tingstadsgatan 24",
