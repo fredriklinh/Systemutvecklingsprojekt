@@ -16,47 +16,70 @@ namespace Affärslager
         /// <param name="startdatum"></param>
         /// <param name="slutdatum"></param>
         /// <returns></returns>
+        /// 
+
+
+
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
-            //List<Logi> logi = new List<Logi>();
-
-
-            //foreach (Logi  allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
-            //{
-            //    logi.Add(allLogi);
-            //}
-            ////Hämtar Logi som finns i bokningar och inte matchar angivet datum
-            //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
-            //{
-            //    foreach (Logi ledigLogi in item.ValdLogi)
-            //    {
-            //            if (!logi.Contains(ledigLogi))
-            //            {
-            //               logi.Add(ledigLogi);
-            //            }
-
-            //        logi.Add(ledigLogi);
-            //    }
-            //}
-
             List<Logi> logi = new List<Logi>();
-            foreach (Logi allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
+            int test = 1;
+            foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
             {
                 logi.Add(allLogi);
             }
-            //Hämtar Logi som finns i bokningar och inte matchar angivet datum
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum <= f.SlutDatum || slutdatum >= f.StartDatum))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(pmb => pmb.BokningsNr.Equals(test)))
             {
                 foreach (Logi ledigLogi in item.ValdLogi)
                 {
-                    if (logi.Contains(ledigLogi))
-                    {
-                        logi.Remove(ledigLogi);
-                    }
+                    logi.Remove(ledigLogi);
                 }
             }
-            
+
+            return logi;
         }
+
+        //public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
+        //{
+        //List<Logi> logi = new List<Logi>();
+
+
+        //foreach (Logi  allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
+        //{
+        //    logi.Add(allLogi);
+        //}
+        ////Hämtar Logi som finns i bokningar och inte matchar angivet datum
+        //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
+        //{
+        //    foreach (Logi ledigLogi in item.ValdLogi)
+        //    {
+        //            if (!logi.Contains(ledigLogi))
+        //            {
+        //               logi.Add(ledigLogi);
+        //            }
+
+        //        logi.Add(ledigLogi);
+        //    }
+        //}
+
+        //    List<Logi> logi = new List<Logi>();
+        //    foreach (Logi allLogi in unitOfWork.LogiRepository.Find(a => a.Kök))
+        //    {
+        //        logi.Add(allLogi);
+        //    }
+        //    //Hämtar Logi som finns i bokningar och inte matchar angivet datum
+        //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum <= f.SlutDatum || slutdatum >= f.StartDatum))
+        //    {
+        //        foreach (Logi ledigLogi in item.ValdLogi)
+        //        {
+        //            if (logi.Contains(ledigLogi))
+        //            {
+        //                logi.Remove(ledigLogi);
+        //            }
+        //        }
+        //    }
+
+        //}
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
         {

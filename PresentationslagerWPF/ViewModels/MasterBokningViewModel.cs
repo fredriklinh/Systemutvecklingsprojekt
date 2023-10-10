@@ -9,7 +9,9 @@ using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -101,6 +103,9 @@ namespace PresentationslagerWPF.ViewModels
 
         private MasterBokning masterbokning = null!;
         public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
+
+        private MasterBokning masterbokningar = null!;
+        public MasterBokning MasterBokningar { get => masterbokningar; set { masterbokningar = value; OnPropertyChanged(); } }
 
         private Visibility fsynlighet = Visibility.Collapsed;
         public Visibility FSynlighet
@@ -273,6 +278,8 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+        private ObservableCollection<MasterBokning> masterbokningar = null!;
+        public ObservableCollection<MasterBokning> MasterBokningar { get => masterbokningar; set { masterbokningar = value; OnPropertyChanged(); } }
 
         //Användarnamn för ANVÄNDARE
         private Användare användare = null!;
@@ -317,6 +324,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
+            UpdateSourceTrigger.PropertyChanged;
 
         });
 
@@ -424,6 +432,8 @@ namespace PresentationslagerWPF.ViewModels
                 MessageBox.Show("Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                
+        
             }
             valdLogi.Clear();
             InputAdress = null;
@@ -443,6 +453,7 @@ namespace PresentationslagerWPF.ViewModels
             Starttid = DateTime.Now;
             Sluttid = DateTime.Now;
             TotalPrisRabatt = 0;
+            MasterBokningar = null;
         });
 
         private ICommand taBortCommand = null!;
