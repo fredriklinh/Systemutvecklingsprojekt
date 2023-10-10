@@ -10,9 +10,9 @@ namespace Entiteter.Tjänster
 
         public int AntalPlatser { get; set; }
 
-        public virtual MasterBokning? Masterbokning { get; set;}
+        public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
-        
+
 
     }
 }

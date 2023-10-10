@@ -12,6 +12,9 @@ namespace Entiteter.Prislistor
         public int DygnsPris { get; set; }
         public int TimPris { get; set; }
         public int VeckoPris { get; set; }
+        public PrisListaKonferens()
+        {
 
+        }
     }
 }

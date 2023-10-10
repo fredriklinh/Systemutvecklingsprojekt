@@ -10,10 +10,10 @@ namespace Entiteter.Tjänster
         public string Benämning { get; set; }
 
         [ForeignKey("UtrustningsTyp")]
-
         public string? Typ { get; set; }
         public virtual UtrustningsTyp UtrustningsTyp { get; set; }
 
+        public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
         public Utrustning()
         {
