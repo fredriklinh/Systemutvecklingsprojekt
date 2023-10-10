@@ -64,14 +64,22 @@ namespace PresentationslagerWPF.ViewModels
             IsEnabledFöretag = false;
         });
 
-        private bool isEnabledBokning = false!;
+        private bool isEnabledBokning = false;
         public bool IsEnabledBokning { get => isEnabledBokning; set { isEnabledBokning = value; OnPropertyChanged(); } }
 
 
         private ICommand isEnabledBokningCommand = null!;
         public ICommand IsEnabledBokningCommand => isEnabledBokningCommand ??= isEnabledBokningCommand = new RelayCommand(() =>
         {
-            isEnabledBokning = true;
+            if (valdBokningSelectedItem.Avbeställningsskydd.Equals(true))
+            {
+                isEnabledBokning = false;
+            }
+            else
+            {
+                isEnabledBokning = true;
+            }
+            
         });
         #endregion
 
@@ -285,8 +293,6 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<MasterBokning> masterbokningar = null!;
         public ObservableCollection<MasterBokning> Masterbokningar { get => masterbokningar; set { masterbokningar = value; OnPropertyChanged(); } }
 
-        #endregion
-
         private MasterBokning valdBokningSelectedItem = null!;
         public MasterBokning ValdBokningSelectedItem
         {
@@ -294,36 +300,63 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 valdBokningSelectedItem = value; OnPropertyChanged();
-
             }
         }
         private int valdBokningSelectedIndex;
         public int ValdBokningSelectedIndex { get => valdBokningSelectedIndex; set { valdBokningSelectedIndex = value; OnPropertyChanged(); } }
 
+        private Logi valdLogiSelectedItem = null!;
+        public Logi ValdLogiSelectedItem
+        {
+            get => valdLogiSelectedItem;
+            set
+            {
+                valdLogiSelectedItem = value; OnPropertyChanged();
+
+            }
+        }
+
+        private int valdLogiSelectedIndex;
+        public int ValdLogiSelectedIndex { get => valdLogiSelectedIndex; set { valdLogiSelectedIndex = value; OnPropertyChanged(); } }
+
         private ICommand sparaBokningCommand = null!;
         public ICommand SparaBokningCommand => sparaBokningCommand ??= sparaBokningCommand = new RelayCommand(() =>
         {
-            // TODO lägg till kontroll för affärsregeln " avbokningsskyddet kan väljas fram tills 8 dagar inpå vistelsedatum."           
-            if (valdBokningSelectedItem.Avbeställningsskydd == true)
-            {
-                bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
-                MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-               
-            
+
+            bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
+            MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
         });
-        //private ICommand taBortBokningCommand = null!;
-        //public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
-        //{
-        //    // TODO lägg till kontroll för affärsregeln " avbokningsskyddet kan väljas fram tills 8 dagar inpå vistelsedatum."           
-        //    if (valdBokningSelectedItem.Avbeställningsskydd == true)
-        //    {
-        //        bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
-        //        MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-        //    }
+        private ICommand taBortBokningCommand = null!;
+        public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
+        {
+            if (ValdBokningSelectedItem != null && valdLogiSelectedItem == null)
+            {
+                bokningsKontroller.TaBortMasterBokning(ValdBokningSelectedItem);
+                MessageBox.Show($"Bokning med bokningsNr: {valdBokningSelectedItem.BokningsNr} är borttagen", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                //möjlig fullösning
+                Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaMasterbokningar(Kundnummer));
 
 
-        //});
+            }
+            else if (ValdBokningSelectedItem != null && ValdLogiSelectedItem != null)
+            {
+                
+                bokningsKontroller.TaBortLogiFrånBokning(ValdBokningSelectedItem, ValdLogiSelectedItem);
+                MessageBox.Show($"Logi: {valdLogiSelectedItem.LogiTyp} är borttagen", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Selectera bokning eller logi för att kunna ta bort", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+
+
+
+        });
+        #endregion
+
+
 
 
 
