@@ -209,7 +209,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
-                            <!--<i:InvokeCommandAction Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" />-->
+                            <i:InvokeCommandAction Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
