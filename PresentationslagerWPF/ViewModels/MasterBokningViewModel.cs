@@ -318,14 +318,14 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
-            
+            ValdLogi = new ObservableCollection<Logi>();
+
 
         });
 
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-            ValdLogi = new ObservableCollection<Logi>();
             if (tillgänligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
@@ -357,7 +357,6 @@ namespace PresentationslagerWPF.ViewModels
                 }
 
                 //Kostnad totalt
-
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
