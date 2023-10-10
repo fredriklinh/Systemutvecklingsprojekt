@@ -22,6 +22,8 @@ namespace Entiteter.Tjänster
         public DateTime SlutDatum { get; set; }
         public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
 
+        public virtual IList<Konferenslokal> ValdaKonferenser { get; set; } = new List<Konferenslokal>();
+
         [ForeignKey("Företagskund")]
         public string? OrgaNr { get; set; }
         public virtual Företagskund? Företagskund { get; set; } = null!;
@@ -34,10 +36,6 @@ namespace Entiteter.Tjänster
         [ForeignKey("Användare")]
         public string? SkapadAv { get; set; }
         public virtual Användare? Användare { get; set; }
-
-        [ForeignKey("Konferenslokal")]
-        public string? KonferenslokalsID { get; set; }
-        public virtual Konferenslokal? Konferenslokal { get; set; } = null!;
 
         //Construktor Privatkund
         public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
