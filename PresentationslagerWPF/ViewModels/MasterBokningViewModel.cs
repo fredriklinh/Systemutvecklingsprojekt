@@ -436,10 +436,10 @@ namespace PresentationslagerWPF.ViewModels
             
 
             bokningsKontroller.SparaÄndring(MasterBokning);
-            if (ValdLogi != null)
-            {
-                valdLogi.Clear();
-            }
+            //if (ValdLogi != null)
+            //{
+            //    valdLogi.Clear();
+            //}
 
             //InputAdress = null;
             //InputPostnummer = null;
