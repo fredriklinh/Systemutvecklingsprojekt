@@ -2,6 +2,7 @@
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Datalager.Seed
 {
@@ -10,7 +11,7 @@ namespace Datalager.Seed
         public static void Populate(this ModelBuilder modelBuilder)
         {
 
-            #region Ladda användare
+            #region --------------------------------------------Ladda användare
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
                 {
@@ -25,7 +26,7 @@ namespace Datalager.Seed
             #endregion Ladda användare
 
 
-            #region Ladda Logi
+            #region --------------------------------------------Ladda Logi
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
                 PrisId = 1,
@@ -1455,7 +1456,7 @@ namespace Datalager.Seed
             #endregion Ladda Logi
 
 
-            #region Ladda Kund
+            #region  --------------------------------------------Ladda Kund
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
             {
                 //PrivatkundId = 1,
@@ -1501,7 +1502,7 @@ namespace Datalager.Seed
             #endregion Ladda Kund
 
 
-            #region Ladda utrustning            
+            #region --------------------------------------------Ladda utrustning            
             //Ladda in Alpinskidor
             for (int i = 1; i <= 350; i++)
             {
@@ -1721,17 +1722,936 @@ namespace Datalager.Seed
 
             #endregion Ladda utrustning
 
-            // Test för att se rabatterat pris
 
-            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            //{
-            //    Avbeställningsskydd = true,
-            //    NyttjadKreditsumma = 0,
-            //    BokningsDatum = new DateTime(2022, 12, 20),
-            //    StartDatum = new DateTime(2022, 12, 25),
-            //    SlutDatum = new DateTime(2022, 12, 30),
-            //    Privatkund = 
-            //});
+            #region --------------------------------------------Ladda konferenslokal
+
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLS1",
+                AntalPlatser = 50,
+                Storlek = "Stor"
+            });
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLS2",
+                AntalPlatser = 50,
+                Storlek = "Stor"
+            });
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLS3",
+                AntalPlatser = 50,
+                Storlek = "Stor"
+            });
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLL1",
+                AntalPlatser = 20,
+                Storlek = "Liten"
+            });
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLL2",
+                AntalPlatser = 20,
+                Storlek = "Liten"
+            });
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLL3",
+                AntalPlatser = 20,
+                Storlek = "Liten"
+            });
+
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLL4",
+                AntalPlatser = 20,
+                Storlek = "Liten"
+            });
+            modelBuilder.Entity<Konferenslokal>().HasData(new Konferenslokal()
+            {
+                KonferensBenämningsId = "KLL5",
+                AntalPlatser = 20,
+                Storlek = "Liten"
+            });
+
+
+
+
+
+            #endregion
+
+            #region --------------------------------------------Ladda Konferens Prislistor
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 1,
+                VeckoPris = 7500,
+                DygnsPris = 1500,
+                TimPris = 300,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 2,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 3,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 4,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 5,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 6,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 7,
+                VeckoPris = 7500,
+                DygnsPris = 1500,
+                TimPris = 300,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 8,
+                VeckoPris = 7500,
+                DygnsPris = 1500,
+                TimPris = 300,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 9,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 10,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 11,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 12,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 13,
+                VeckoPris = 7500,
+                DygnsPris = 1500,
+                TimPris = 300,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 14,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 15,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 16,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 17,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 18,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 19,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 20,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 21,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 22,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 23,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 24,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 25,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 26,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 27,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 28,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 29,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 30,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 31,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 32,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 33,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 34,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 35,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 36,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 37,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 38,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 39,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 40,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 41,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 42,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 43,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 44,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 45,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 46,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 47,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 48,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 49,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 50,
+                VeckoPris = 3500,
+                DygnsPris = 800,
+                TimPris = 200,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 51,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 52,
+                VeckoPris = 4500,
+                DygnsPris = 1200,
+                TimPris = 250,
+                Storlek = "Stor",
+            });
+            //Börjar små
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 1,
+                VeckoPris = 6000,
+                DygnsPris = 1150,
+                TimPris = 200,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 2,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 3,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 4,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 5,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 6,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 7,
+                VeckoPris = 6000,
+                DygnsPris = 1150,
+                TimPris = 200,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 8,
+                VeckoPris = 6000,
+                DygnsPris = 1150,
+                TimPris = 200,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 9,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 10,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 11,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 12,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 13,
+                VeckoPris = 6000,
+                DygnsPris = 1150,
+                TimPris = 200,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 14,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 15,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 16,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 17,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 18,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 19,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 20,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 21,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 22,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 23,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 24,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 25,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 26,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 27,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 28,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 29,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 30,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 31,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 32,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 33,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 34,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 35,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 36,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 37,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 38,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 39,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 40,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 41,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 42,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 43,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 44,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 45,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 46,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 47,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 48,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 49,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 50,
+                VeckoPris = 2500,
+                DygnsPris = 650,
+                TimPris = 115,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 51,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
+
+            modelBuilder.Entity<PrisListaKonferens>().HasData(new PrisListaKonferens()
+            {
+                Vecka = 52,
+                VeckoPris = 3500,
+                DygnsPris = 850,
+                TimPris = 155,
+                Storlek = "Liten",
+            });
 
 
 
@@ -1739,6 +2659,7 @@ namespace Datalager.Seed
 
 
 
+            #endregion
 
 
 

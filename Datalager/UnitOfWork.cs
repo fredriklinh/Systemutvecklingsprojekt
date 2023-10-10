@@ -21,6 +21,9 @@ namespace Datalager
 
         public Repository<MasterBokning> MasterBokningRepository { get; private set; }
         public Repository<Utrustning> UtrustningRepository { get; private set; }
+
+        public Repository<Konferenslokal> KonferensLokalRepository { get; private set; }
+        public Repository<PrisListaKonferens> KonferensPrisRepository { get; private set; }
         public UnitOfWork()
         {
             _dbContext = new dbContext();
@@ -31,7 +34,8 @@ namespace Datalager
             LogiRepository = new Repository<Logi>(_dbContext);
             MasterBokningRepository = new Repository<MasterBokning>(_dbContext);
             UtrustningRepository = new Repository<Utrustning>(_dbContext);
-
+            KonferensLokalRepository = new Repository<Konferenslokal>(_dbContext);
+            KonferensPrisRepository = new Repository<PrisListaKonferens>(_dbContext);
         }
 
 

@@ -1,4 +1,7 @@
-﻿namespace Entiteter.Tjänster
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Entiteter.Tjänster
 {
     public class LogiTyp
     {
