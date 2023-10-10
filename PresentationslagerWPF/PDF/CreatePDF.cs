@@ -23,7 +23,7 @@ namespace PDF
                 $"\nUtcheckningsdatum: {masterbokning.SlutDatum}" +
                 $"\nTotalpris: {totalpris}" +
                 $"\nTotalpris inklusive rabatt: {totalprisrabatt}";
-            
+
             //foreach (Logi logi in logis)
             //{
             //    Label label2 = new Label(logi.Typen, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);

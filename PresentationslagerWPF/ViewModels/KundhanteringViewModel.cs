@@ -1,5 +1,4 @@
 ﻿using Affärslager.KundKontroller;
-using Datalager;
 using Entiteter.Personer;
 using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
@@ -316,10 +315,10 @@ namespace PresentationslagerWPF.ViewModels
             {
                 MessageBox.Show($"Sparande Misslyckades", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-                
 
 
-               
+
+
 
 
         });

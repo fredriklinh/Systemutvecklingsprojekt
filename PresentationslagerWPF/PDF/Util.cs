@@ -1,10 +1,9 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace PDF
 {
     class Util
-    {   
+    {
         // This is a helper function to get the full path to a file from the root of the project.
         internal static string GetPath(string filePath)
         {

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entiteter.Prislistor;
+﻿using Datalager;
 using Entiteter.Tjänster;
-using Entiteter.Personer;
-using Datalager;
 
 namespace Affärslager
 {
@@ -18,7 +11,7 @@ namespace Affärslager
         {
             List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-            foreach(Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
             {
                 AllaUtrustningar.Add(Hej);
             }

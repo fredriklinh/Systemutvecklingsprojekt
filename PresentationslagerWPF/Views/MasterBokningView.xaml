@@ -77,7 +77,6 @@
                         <StackPanel>
                             <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
                             <TextBox Text="{Binding InputMailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
-
                         </StackPanel>
                     </StackPanel>
                 </WrapPanel>
@@ -91,7 +90,7 @@
                                 <Label Content="Rabatsatts:"></Label>
                                 <Label Content="MaxBeloppKredit:"></Label>
                             </StackPanel>
-                            <StackPanel  Orientation="Horizontal" >
+                            <StackPanel  Orientation="Horizontal">
                                 <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.FöretagsNamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                                 <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" ></TextBox>
