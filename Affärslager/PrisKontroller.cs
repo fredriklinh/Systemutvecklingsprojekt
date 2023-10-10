@@ -22,35 +22,45 @@ namespace Affärslager
 
             return datumsVecka;
         }
+
         public double BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
         {
-
-
-            // Kolla resterande dagar, Kolla veckor
-            if (startdatum > slutdatum)
+            var datum = new List<DateTime>();
+            int VeckaStart = CheckWeek(startdatum);
+            for (var dt = startdatum; dt <= slutdatum; dt = dt.AddDays(1))
             {
-                Console.WriteLine("Ange korrekt nummer");
+                datum.Add(dt);
             }
+            List<int> intRest = new List<int>();
+            foreach (var item in datum)
+            {
+                intRest.Add(CheckWeek(item));
+            }
+            //for (var i = intRest.Count - 1; i >= 0; i--)
+            //{
+            //    if (intRest.Contains(VeckaStart))
+            //    {
+            //        datum.RemoveAt(i);
+            //    }
+            //}
 
             //Ta fram variablar som krävs för uträkning
-            TimeSpan AntalDagarBokade = slutdatum.Subtract(startdatum);
-            int antalVeckor = (int)Math.Floor((slutdatum - startdatum).TotalDays / 7);
+            TimeSpan AntalDagarBokade = slutdatum.Subtract(startdatum.AddDays(-1));
+            int antalVeckor = (int)Math.Floor((slutdatum - startdatum.AddDays(-1)).TotalDays / 7);
+            
             double restDagar = AntalDagarBokade.TotalDays - (antalVeckor * 7);
-            Console.WriteLine("Total vara bokningen i: {0} dagar,", AntalDagarBokade.TotalDays);
-            Console.WriteLine("Antal Veckor: {0} ", antalVeckor);
-            Console.WriteLine("Övriga dagar: {0} ", restDagar);
-
+            
             //Kollar Vecka på stardatum
-            int VeckaStart = CheckWeek(startdatum);
-            Console.WriteLine("Vecka för stardatum: {0}", VeckaStart);
+            
+            
             double totalpris = 0;
             for (int i = antalVeckor; i <= VeckaStart + antalVeckor; i++)
             {
                 //Tillfällig prisLogi
 
                 PrislistaLogi prisLogiVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == VeckaStart);
-                int antalVeckorKvar = antalVeckor - i;
-                if (antalVeckorKvar == 0)
+                
+                if (antalVeckor == 0)
                 {
                     DateTime date;
                     // USE REMAINDER 
