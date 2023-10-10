@@ -23,9 +23,9 @@ namespace PresentationslagerWPF.ViewModels
         #region NAVIGATION
         public KundhanteringViewModel(NavigationStore navigationStore, Användare användare)
         {
-            
+
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
-            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore,användare)));
+            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
 
         }
         //**** NAVIGATION *******//
@@ -78,7 +78,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 isEnabledBokning = true;
             }
-            
+
         });
         #endregion
 
@@ -241,17 +241,17 @@ namespace PresentationslagerWPF.ViewModels
         {
             IsEnabledFöretag = false;
 
-        företagskundKontroller.KontrollFKund(OrgNummer, enBool);
-        if (!OrgNummer.IsNullOrEmpty() && !FöretagTelefonummer.IsNullOrEmpty() && !FöretagAdress.IsNullOrEmpty() && !FöretagPostnummer.IsNullOrEmpty() && !FöretagMailadress.IsNullOrEmpty() && !FöretagsNamn.IsNullOrEmpty() && Rabatstatts != null && enBool == false)
+            företagskundKontroller.KontrollFKund(OrgNummer, enBool);
+            if (!OrgNummer.IsNullOrEmpty() && !FöretagTelefonummer.IsNullOrEmpty() && !FöretagAdress.IsNullOrEmpty() && !FöretagPostnummer.IsNullOrEmpty() && !FöretagMailadress.IsNullOrEmpty() && !FöretagsNamn.IsNullOrEmpty() && Rabatstatts != null && enBool == false)
             {
                 Företagskund = företagskundKontroller.RegistreraFöretagskund(MaxBeloppKredit, FöretagAdress, FöretagPostnummer, FöretagOrt, FöretagTelefonummer, FöretagMailadress, OrgNummer, FöretagsNamn, Rabatstatts);
                 MessageBox.Show($"{Företagskund.FöretagsNamn} har lagts till", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-        if (OrgNummer.IsNullOrEmpty() || FöretagTelefonummer.IsNullOrEmpty() || FöretagAdress.IsNullOrEmpty() || FöretagPostnummer.IsNullOrEmpty() || FöretagMailadress.IsNullOrEmpty() || FöretagsNamn.IsNullOrEmpty() || Rabatstatts == 0 || MaxBeloppKredit == 0)
+            if (OrgNummer.IsNullOrEmpty() || FöretagTelefonummer.IsNullOrEmpty() || FöretagAdress.IsNullOrEmpty() || FöretagPostnummer.IsNullOrEmpty() || FöretagMailadress.IsNullOrEmpty() || FöretagsNamn.IsNullOrEmpty() || Rabatstatts == 0 || MaxBeloppKredit == 0)
             {
                 MessageBox.Show($"Information saknas, fyll i och försök igen!", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-        if (enBool == true)
+            if (enBool == true)
             {
                 MessageBox.Show($"Företagskund med {OrgNummer} finns redan registrerad", "Företagskund", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -330,7 +330,7 @@ namespace PresentationslagerWPF.ViewModels
             }
             else if (ValdBokningSelectedItem != null && ValdLogiSelectedItem != null)
             {
-                
+
                 bokningsKontroller.TaBortLogiFrånBokning(ValdBokningSelectedItem, ValdLogiSelectedItem);
                 MessageBox.Show($"Logi: {valdLogiSelectedItem.LogiTyp} är borttagen", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -404,7 +404,7 @@ namespace PresentationslagerWPF.ViewModels
             }
         });
 
-        
+
 
         public void NollaFöretagsKundInformation()
         {
@@ -436,7 +436,7 @@ namespace PresentationslagerWPF.ViewModels
             Masterbokningar = null;
         }
 
-        
+
 
 
 

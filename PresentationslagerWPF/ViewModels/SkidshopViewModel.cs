@@ -1,5 +1,4 @@
 ﻿using Affärslager;
-using Affärslager.KundKontroller;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 using PresentationslagerWPF.Commands;
@@ -9,7 +8,6 @@ using PresentationslagerWPF.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -20,6 +18,8 @@ namespace PresentationslagerWPF.ViewModels
 
 
         UtrustningsKontroller utrustningsKontroller = new UtrustningsKontroller();
+
+
 
 
         #region ObservableColletion Utrustning
@@ -49,7 +49,6 @@ namespace PresentationslagerWPF.ViewModels
             get => längd; set
             {
                 längd = value; OnPropertyChanged();
-                Antal = RäknaAntal(längd);
             }
         }
         private ObservableCollection<Utrustning> snöskoter = null!;
@@ -58,7 +57,6 @@ namespace PresentationslagerWPF.ViewModels
             get => snöskoter; set
             {
                 snöskoter = value; OnPropertyChanged();
-                Antal = RäknaAntal(snöskoter);
             }
         }
 
@@ -68,7 +66,6 @@ namespace PresentationslagerWPF.ViewModels
             get => snowboard; set
             {
                 snowboard = value; OnPropertyChanged();
-                Antal = RäknaAntal(Snowboard);
                 SnowboardBoard = new ObservableCollection<Utrustning>(snowboard.Where(i => i.Benämning == "Snowboard"));
             }
         }
@@ -80,7 +77,6 @@ namespace PresentationslagerWPF.ViewModels
                 snowboardBoard = value; OnPropertyChanged();
 
 
-                Antal = RäknaAntal(SnowboardBoard);
                 int nummer = Antal.Count;
 
                 int iteration = 0;
@@ -108,18 +104,7 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private ObservableCollection<Utrustning> allUtrustning = null!;
-        public ObservableCollection<Utrustning> AllUtrustning
-        {
-            get => allUtrustning; set
-            {
-                allUtrustning = value; OnPropertyChanged();
-                IList<Utrustning> allaUtrustningar = utrustningsKontroller.HämtaTillgängligUtrustning();
 
-                Alpint = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.Typ == "Alpint"));
-
-            }
-        }
         private ObservableCollection<Utrustning> valdUtrustningTillBokning = null!;
         public ObservableCollection<Utrustning> ValdUtrustningTillBokning
         {
@@ -128,12 +113,12 @@ namespace PresentationslagerWPF.ViewModels
                 valdUtrustningTillBokning = value; OnPropertyChanged();
             }
         }
+
         private List<int> antal;
         public List<int> Antal
         {
             get { return antal; }
             set { antal = value; OnPropertyChanged(); }
-
         }
 
 
@@ -146,16 +131,18 @@ namespace PresentationslagerWPF.ViewModels
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-
+            
 
             AllaUtrustningar = new ObservableCollection<Utrustning>(utrustningsKontroller.HämtaTillgängligUtrustning());
-            Alpint = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Alpint")); //Pjäxor, Stavar, Skidor
-            Snowboard = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Snowboard")); //Snowboard, Snowboardboots
-            Längd = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Längd")); //Pjäxor, Stavar, Skidor
-            Snöskoter = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Snöskoter")); //Skoter 1, Skoter 2, Pulka
+            //Alpint = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Alpint")); //Pjäxor, Stavar, Skidor
+            //Snowboard = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Snowboard")); //Snowboard, Snowboardboots
+            //Längd = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Längd")); //Pjäxor, Stavar, Skidor
+            //Snöskoter = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Snöskoter")); //Skoter 1, Skoter 2, Pulka
             Hjälm = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Hjälm")); // Hjälm
 
             //HÄR
+            ValdUtrustningTillBokning = new ObservableCollection<Utrustning>();
+            AntalTestList = new ObservableCollection<Antal>();
 
 
         }
@@ -183,17 +170,104 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        private ICommand utrustningCommand = null!;
-        public ICommand  UtrustningCommandSkidor => utrustningCommand ??= utrustningCommand = new RelayCommand(() =>
+        private int testAntalSelected;
+        public int TestAntalSelected
         {
+            get { return testAntalSelected; }
+            set { testAntalSelected = value; OnPropertyChanged(); }
+        }
 
+        private ICommand utrustningCommand = null!;
+        public ICommand UtrustningCommandSkidor => utrustningCommand ??= utrustningCommand = new RelayCommand(() =>
+        {
+            
+            int värde = TestAntalSelected;
+            int iteration = 0;
+            Utrustning TestHjälm = new Utrustning();
+            foreach (var item in Hjälm)
+            {
+                TestHjälm = item;
+            }
+            Antal antal = new Antal(värde, TestHjälm, TestHjälm.Benämning, TestHjälm.Typ);
             if (Antal != null)
             {
-                //AllaUtrustningar.Add(Test);
+                AntalTestList.Add(antal);
+                 //ValdUtrustningTillBokning.Add(utrustning);
 
             }
 
         });
+
+        private int antalTestint;
+        public int AntalTestint
+        {
+            get { return antalTestint; }
+            set { antalTestint = value; OnPropertyChanged();
+                    
+
+
+            }
+        }
+
+        private ICommand utrustningCommandSnowboard = null!;
+        public ICommand UtrustningCommandSnowboard => utrustningCommandSnowboard ??= utrustningCommandSnowboard = new RelayCommand(() =>
+        {
+
+            int värde = TestAntalSelected;
+
+            Utrustning TestSnowboard = new Utrustning();
+            foreach (var item in Hjälm)
+            {
+                TestSnowboard = item;
+            }
+            Antal antal = new Antal(värde, TestSnowboard, TestSnowboard.Benämning, TestSnowboard.Typ);
+            if (Antal != null)
+            {
+                AntalTestList.Add(antal);
+                //ValdUtrustningTillBokning.Add(utrustning);
+            }
+        });
+
+        private Antal antalTest = null!;
+        public Antal AntalTest
+        {
+            get => antalTest;
+            set
+            {
+                antalTest = value; OnPropertyChanged();
+
+            }
+        }
+        private ObservableCollection<Antal> antalTestList = null!;
+        public ObservableCollection<Antal> AntalTestList
+        {
+            get => antalTestList; set
+            {
+                antalTestList = value; OnPropertyChanged();
+            }
+        }
+
+
+    }
+
+    public class Antal
+    {
+        public Antal(int antal, Utrustning propUtrustning, string typ, string benämning)
+        {
+            Value = antal;
+            PropUtrustning = propUtrustning;
+            Typ = typ;
+            Benämning = benämning;
+        }
+
+        public int Value { get; set; }
+
+        public Utrustning PropUtrustning { get; set; }
+
+        public string Typ { get; set; }
+
+        public string Benämning { get; set; }
+
     }
 }
 

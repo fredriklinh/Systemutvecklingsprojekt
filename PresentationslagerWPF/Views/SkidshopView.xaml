@@ -180,31 +180,37 @@
         <StackPanel Grid.Row="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="10,5,5,5">
             <Label>ENSTAKA PRDOUKTER</Label>
             <Label>ALPIN</Label>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="VäljMedlem" Width="150" Margin="5,10,5,10" ItemsSource="{Binding AllaUtrustningar}"
+                  DisplayMemberPath="Typ" SelectedValuePath="Typ"/> 
+                <ComboBox Margin="5,0,5,0" Width="100">Width="100"</ComboBox>
+                <ComboBox Width="100">Antal</ComboBox>
+            </StackPanel>
 
             <StackPanel Background="LightGray">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10,5,0,5" HorizontalAlignment="Right">
-                        <Button Height="28" Margin="0,0,0,5" Command="{Binding UtrustningCommandSkidor}" CommandParameter="SkidorAlpint">Skidor</Button>
-                        <Label>Snowboard</Label>
+                        <ComboBox Height="30"  x:Name="CbSkidorAlpint" FontSize="12" ItemsSource="{Binding Antal}" SelectedItem="{Binding TestAntalSelected}"  Width="40"></ComboBox>
+                        <ComboBox Margin="0,5,0,0" Height="30" x:Name="CbSnowboard" FontSize="12" ItemsSource="{Binding Antal}" Width="40"></ComboBox>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox x:Name="CbSkidorAlpint" SelectedValue="tempValue"  FontSize="12" ItemsSource="{Binding IndexedItems}" DisplayMemberPath="Index" Width="40"></ComboBox>
+                            <Button Height="28" Margin="0,0,0,5" Command="{Binding UtrustningCommandSkidor}" CommandParameter="Hjälm">Hjälm</Button>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            <Label >Pjäxor</Label>
+                            <Button>Pjäxor</Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox x:Name="CbSnowboard" FontSize="12" ItemsSource="{Binding Snowboard}" DisplayMemberPath="B" Margin="0,0,0,0" Width="40"></ComboBox>
+                            <Button Command="{Binding UtrustningCommandSnowboard}">Snowboard</Button>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            <Label>SnowboardSkor</Label>
+                            <Button>SnowboardSkor</Button>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox  FontSize="12" ItemsSource="{Binding IndexedItemsAlpint}" DisplayMemberPath="Index" Margin="0,0,0,0" Width="40"></ComboBox>
+                            <ComboBox  FontSize="12" ItemsSource="{Binding Antal, Mode=OneWay}"  Margin="0,0,0,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             <Label>Stavar</Label>
-                            <ComboBox FontSize="12" ItemsSource="{Binding Antal}" Margin="0,0,0,0" Width="40"></ComboBox>
+                            <ComboBox FontSize="12" ItemsSource="{Binding Antal, Mode=TwoWay}" Margin="0,0,0,0" Width="40"></ComboBox>
                             <Label FontSize="11" Foreground="Red">20 kvar</Label>
                             
                         </StackPanel>
@@ -274,30 +280,18 @@
 
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="LightGray" Margin="10,5,5,5">
             <Label>Vald till Bokning</Label>
-            <DockPanel Margin="10">
-                <StackPanel DockPanel.Dock="Right" Margin="10,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Margin" Value="0,0,0,5" />
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock Margin="0,0,0,10">ListBox selection</TextBlock>
-                    <Button Name="btnShowSelectedItem">Add</Button>
-                    <Button Name="btnSelectLast">Remove</Button>
-                    <Button Name="btnSelectNext">Select all</Button>
-                    <Button Name="btnSelectCSharp">Remove all</Button>
-                    <Button Name="btnSelectAll">Clear</Button>
-                </StackPanel>
-                <ListView ItemsSource="{Binding ValdUtrustning}" VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView >
-                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.Typ}" Width="150" Header="Typ" ></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.Count}" Width="150" Header="Antal" ></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.TotalSumma}" Width="150" Header="Kostnad" ></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </DockPanel>
+            <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding AntalTestList, UpdateSourceTrigger=PropertyChanged}" 
+                          AutoGenerateColumns="False" SelectionMode="Single"
+                          SelectionUnit="FullRow" IsReadOnly="True"
+                          SelectedItem="{Binding ValdLogiSelectedItem, Mode=TwoWay}"
+                          SelectedIndex="{Binding ValdLogiSelectedIndex, Mode=TwoWay}"
+                          Background="White" Width="450" Height="150" Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
+                    <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
+                    <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5,5,5,5"  Background="LightPink">
@@ -305,8 +299,7 @@
             <Label>Skidor</Label>
             <StackPanel  Background="lightBlue" Height="50">
                 
-
-
+                
             </StackPanel>
             <Label>Stavar</Label>
             <StackPanel  Background="lightBlue" Height="50">

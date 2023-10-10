@@ -11,6 +11,5 @@ namespace PresentationslagerWPF.Views
         {
             InitializeComponent();
         }
-
     }
 }
