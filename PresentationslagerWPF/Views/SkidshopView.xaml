@@ -245,14 +245,72 @@
             </DataGrid>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
-        <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5,5,5,5"  Background="LightPink">
-            <Label Content="Alpint"/>
-            <Label Content="Skidor"/>
-            <StackPanel  Background="lightBlue" Height="50"/>
-            <Label Content="Stavar"/>
-            <StackPanel  Background="lightBlue" Height="50"/>
-            <Label Content="Pjäxor"/>
-            <StackPanel  Background="lightBlue" Height="50"/>
+        <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="4,5,5,5"  Background="LightPink">
+            <Label Content="Lägg till elev:" HorizontalAlignment="Center" FontSize="14"/>
+            
+
+            <StackPanel  Background="lightBlue" Height="200">
+                <Label Content="Klicka på den lektion du vill boka in en elev på:" FontSize="12" HorizontalAlignment="Center"/>
+                <!--<ComboBox Width="100" Height="20" IsTextSearchEnabled="True" ItemsSource="{Binding Elev}" DisplayMemberPath="Förnamn" SelectedItem="{Binding SelectedItemElev}"/>-->
+
+                <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektion}"
+                           AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10"
+                          SelectionMode="Single" SelectionUnit="FullRow" 
+                          SelectedItem="{Binding GruppLektionSelectedItem, Mode=TwoWay}"
+                           SelectedIndex="{Binding GruppLektionSelectedIndex, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
+                        <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                        <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
+                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding PrivatLektion}"
+                         AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10"
+                           SelectionMode="Single" SelectionUnit="FullRow" 
+                         SelectedItem="{Binding PrivatLektionSelectedItem, Mode=TwoWay}"
+                         SelectedIndex="{Binding PrivatLektionSelectedIndex, Mode=TwoWay}">>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
+                        <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
+                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Förnamn:" HorizontalAlignment="Left" FontSize="12"/>
+                <TextBox x:Name="txtFörN"  Width="100" Height="20" HorizontalAlignment="Left" Text="{Binding InFörnamn, Mode=OneWayToSource}" Margin="62,-23,0,0"/>
+                <Label Content="EfterNamn:" HorizontalAlignment="Left" FontSize="12" Margin="160,-24,0,0"/>
+                <TextBox x:Name="txtEfterN"  Width="100" Height="20" HorizontalAlignment="Right" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="62,-23,115,0"/>
+                <Button x:Name="btnLäggTillElev" Content="Lägg till Elev" FontSize="12" Width="100" Height="20" Margin="10,-23,-320,10" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                
+            </StackPanel>
+
+            <StackPanel  Background="lightBlue" Height="165">
+                <Label Content="Veckans lektioner:" FontSize="14" HorizontalAlignment="Center" />
+                <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektion}"
+AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
+                        <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                        <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
+                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding PrivatLektion}"
+AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
+                        <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
+                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+            </StackPanel>
+            <Label Content="Axel får leka här nu!"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -27,18 +27,39 @@ namespace Affärslager
             GruppLektion gruppLektion = unitOfWork.GruppLektionRepository.FirstOrDefault(a => a.LektionsTillfälle == lektionsTillfälle && a.Svårighetsgrad == svårighetsgrad);
             gruppLektion.Deltagare.Add(elev);
             unitOfWork.Complete();
-            return gruppLektion;           
+            return gruppLektion;
         }
-        public PrivatLektion BokaPrivatLektion(Elev elev, string lektionstillfälle)
+        public PrivatLektion BokaPrivatLektion(Elev elev, string lektionsTillfälle)
         {
             PrivatLektion privatLektion = unitOfWork.PrivatLektionRepository.FirstOrDefault(a => a.LektionsTillfälle == lektionstillfälle);
             int elever = 2;
             if (privatLektion.Deltagare.Count < elever)
             {
                 privatLektion.Deltagare.Add(elev);
-            }            
+            }
             return privatLektion;
         }
-        
+        public IList<GruppLektion> AllaGruppLektion()
+        {
+            List<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
+
+            foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.GetAll())
+            {
+                AllaGruppLektion.Add(Hej);
+            }
+            return AllaGruppLektion;
+        }
+        public IList<PrivatLektion> AllaPrivatLektion()
+        {
+            List<PrivatLektion> AllaPrivatLektion = new List<PrivatLektion>();
+
+            foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.GetAll())
+            {
+                AllaPrivatLektion.Add(Hej);
+            }
+            return AllaPrivatLektion;
+        }
     }
+        
+    
 }
