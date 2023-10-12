@@ -246,7 +246,7 @@
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="4,5,5,5"  Background="LightPink">
-            <Label Content="Lägg till elev:" HorizontalAlignment="Center" FontSize="14"/>
+            <Label Content="DRA ÅT HELVETE, FATTAR DU DET?" HorizontalAlignment="Center" FontSize="14"/>
             
 
             <StackPanel  Background="lightBlue" Height="200">
