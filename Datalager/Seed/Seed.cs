@@ -1720,6 +1720,235 @@ namespace Datalager.Seed
 
             #endregion Ladda utrustning
 
+            #region Ladda Grupplektioner
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Måndag - Onsdag",
+                   Pris = 400,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Måndag - Onsdag",
+                   Pris = 415,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Blå
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Måndag - Onsdag",
+                   Pris = 425,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Röd
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Måndag - Onsdag",
+                   Pris = 455,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Torsdag & Fredag",
+                   Pris = 500,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Torsdag & Fredag",
+                   Pris = 515,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Blå
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Torsdag & Fredag",
+                   Pris = 525,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Röd
+               }
+               );
+            modelBuilder.Entity<GruppLektion>().HasData(
+               new GruppLektion()
+               {
+                   LektionsTillfälle = "Torsdag & Fredag",
+                   Pris = 555,
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart                 
+               }
+               );
+
+            #endregion Ladda Grupplektioner
+
+            #region Ladda PrivatLektion
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Måndag förmiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Måndag Eftermiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Tisdag förmiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Tisdag Eftermiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Onsdag förmiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Onsdag Eftermiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Torsdag förmiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Torsdag Eftermiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Fredag förmiddag",
+                Pris = 375,
+            });
+            modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
+            {
+                LektionsTillfälle = "Fredag Eftermiddag",
+                Pris = 375,
+            });
+            #endregion Ladda PrivatLektion
+
+
+            #region Ladda Personal
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Bert",
+                Efternamn = "Svensson",
+                AnstNr = 001,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Åke",
+                Efternamn = "Lundgren",
+                AnstNr = 002,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Ida",
+                Efternamn = "Åslund",
+                AnstNr = 003,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Jennifer",
+                Efternamn = "Svensson",
+                AnstNr = 004,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Angelica",
+                Efternamn = "Broberg",
+                AnstNr = 005,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Joakim",
+                Efternamn = "Sjöberg",
+                AnstNr = 006,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Maja",
+                Efternamn = "Johnsson",
+                AnstNr = 007,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Daniel",
+                Efternamn = "Andersson",
+                AnstNr = 008,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Isabelle",
+                Efternamn = "Lindh",
+                AnstNr = 009,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Lisa",
+                Efternamn = "Adamsson",
+                AnstNr = 010,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Shakira",
+                Efternamn = "Shakira",
+                AnstNr = 011,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Lundin",
+                Efternamn = "Oil",
+                AnstNr = 012,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Astra",
+                Efternamn = "Zenica",
+                AnstNr = 013,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Johnsson",
+                Efternamn = "Jonnsson",
+                AnstNr = 014,
+                Befattning = "Skidlärare",
+            });
+            modelBuilder.Entity<Personal>().HasData(new Personal()
+            {
+                Förnamn = "Magdalena",
+                Efternamn = "Andersson",
+                AnstNr = 015,
+                Befattning = "Skidlärare",
+            });
+            #endregion Ladda Personal
             // Test för att se rabatterat pris
 
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
