@@ -99,7 +99,11 @@ namespace PresentationslagerWPF.ViewModels
         {
             get => allaUtrustningar; set
             {
+
+
+                
                 allaUtrustningar = value; OnPropertyChanged();
+                //List<Utrustning> hej123 = utrustningsKontroller.SökBenämningTyp();
             }
         }
 
@@ -159,8 +163,50 @@ namespace PresentationslagerWPF.ViewModels
             //HÄR
             ValdUtrustningTillBokning = new ObservableCollection<Utrustning>();
             AntalTestList = new ObservableCollection<Antal>();
+            UnikBenämning = AllaUtrustningar
+                                .GroupBy(i => i.Typ)
+                                .Select(group => group.First())
+                                .ToList();
 
+        }
+        private Utrustning selectedItemUtrustning = null!;
+        public Utrustning SelectedItemUtrustning
+        {
+            get => selectedItemUtrustning; set
+            {
+                selectedItemUtrustning = value; OnPropertyChanged();
 
+                //UnikTyp = AllaUtrustningar
+                //.Where(i => i.Typ == SelectedItemUtrustning.Typ).Distinct().Select(group => group.First())
+                //.ToList();
+
+                var test123 = AllaUtrustningar
+                    .Where(i => i.Typ == SelectedItemUtrustning.Typ)
+                    .Distinct()
+                    .ToList();
+
+                UnikTyp = test123
+                    .GroupBy(i => i.Typ)
+                    .Select(group => group.First())
+                    .ToList();
+            }
+        }
+        private List<Utrustning> unikTyp = null!;
+        public List<Utrustning> UnikTyp
+        {
+            get => unikTyp; set
+            {
+                unikTyp = value; OnPropertyChanged();
+            }
+        }
+
+        private List<Utrustning> unikBenämning = null!;
+        public List<Utrustning> UnikBenämning
+        {
+            get => unikBenämning; set
+            {
+                unikBenämning = value; OnPropertyChanged();
+            }
         }
 
         public List<int> RäknaAntal(ObservableCollection<Utrustning> utrustnings)

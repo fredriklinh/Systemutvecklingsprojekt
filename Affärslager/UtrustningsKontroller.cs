@@ -21,13 +21,12 @@ namespace Affärslager
 
 
 
-        //public IList<Utrustning> SökBenämningTyp(string benämning, string typ)
+        //public List<Utrustning> SökBenämningTyp()
         //{
         //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-        //    foreach (Utrustning i in unitOfWork.UtrustningRepository.GetAll().Where(a => a.Benämning == benämning && a.Typ == typ).)
+        //    foreach (Utrustning i in unitOfWork.UtrustningRepository.GetAll().Distinct().ToList();.Where(a => a.Benämning == "Alpint" && a.Typ == "Pjäxor"));
         //    {
-
         //        AllaUtrustningar.Add(i);
         //    }
         //    return AllaUtrustningar;

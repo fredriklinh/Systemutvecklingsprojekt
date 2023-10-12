@@ -178,11 +178,8 @@
             <Label Content="ENSTAKA PRDOUKTER"/>
             <Label Content="ALPIN"/>
             <StackPanel Orientation="Horizontal">
-                <ComboBox x:Name="VäljMedlem" Width="150" Margin="5,10,5,10" ItemsSource="{Binding AllaUtrustningar}"
-                  DisplayMemberPath="Typ" SelectedValuePath="Typ"/>
-                <ComboBox Width="100">
-                    <System:String>Antal</System:String>
-                </ComboBox>
+                <ComboBox x:Name="VäljMedlem" Width="150" Margin="5,10,5,10" ItemsSource="{Binding UnikBenämning}" DisplayMemberPath="Typ" SelectedItem="{Binding SelectedItemUtrustning}"/>
+                <ComboBox Width="100" ItemsSource="{Binding UnikTyp}" DisplayMemberPath="Benämning"></ComboBox>
                 <ComboBox Margin="5,0,5,0" Width="100">
                     <System:String>Width="100"</System:String>
                 </ComboBox>
