@@ -186,7 +186,7 @@ namespace PresentationslagerWPF.ViewModels
                     .ToList();
 
                 UnikTyp = test123
-                    .GroupBy(i => i.Typ)
+                    .GroupBy(i => i.Benämning)
                     .Select(group => group.First())
                     .ToList();
             }
