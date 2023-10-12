@@ -3,15 +3,14 @@
 namespace PresentationslagerWPF.Views
 {
     /// <summary>
-    /// Interaction logic for MasterBokningView.xaml
+    /// Interaction logic for SkidshopView.xaml
     /// </summary>
-    public partial class MasterBokningView : UserControl
+    public partial class SkidshopView : UserControl
     {
-        public MasterBokningView()
+        public SkidshopView()
         {
             InitializeComponent();
         }
-
 
     }
 }

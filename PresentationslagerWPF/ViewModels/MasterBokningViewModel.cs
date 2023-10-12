@@ -107,7 +107,7 @@ namespace PresentationslagerWPF.ViewModels
         {
 
             get { return fsynlighet; }
-            set {  fsynlighet = value; OnPropertyChanged(); }
+            set { fsynlighet = value; OnPropertyChanged(); }
 
         }
         private Visibility ksynlighet;
@@ -296,16 +296,18 @@ namespace PresentationslagerWPF.ViewModels
         public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
-            Tillbaka = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            UppdateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             Användare = användare;
         }
-
+        
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         public ICommand NavigateLoggaUtCommand { get; }
-        public ICommand Tillbaka { get; }
+        public ICommand TillbakaCommand { get; }
+        public ICommand UppdateraCommand { get; }
 
         #endregion
 
@@ -318,12 +320,12 @@ namespace PresentationslagerWPF.ViewModels
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
 
+
         });
 
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-
             if (tillgänligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
@@ -355,7 +357,6 @@ namespace PresentationslagerWPF.ViewModels
                 }
 
                 //Kostnad totalt
-
                 if (TotalKostnad == null)
                 {
                     TotalKostnad = resKostnad + TotalPris;
@@ -403,46 +404,59 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand spara = null!;
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
         {
+            //Lös bättre lösning för IF och nullning
 
-            if (Privatkund == null && Företagskund == null)
+            if (Privatkund == null && Företagskund == null && ValdLogi != null)
             {
-
                 Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("PrivatKund och Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                PDF.CreatePDF.RunP(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            if (Privatkund != null)
+            if (Privatkund != null && ValdLogi != null)
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                 
-                PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                PDF.CreatePDF.RunP(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-            else
+            if (ValdLogi == null)
+            {
+                MessageBox.Show("Bokning måste innehålla logi", "Välj logi", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            if (Företagskund != null)
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningFöretagskund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Företagskund, Användare);
-                MessageBox.Show("Bokning Registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-                PDF.CreatePDF.Run(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                PDF.CreatePDF.RunF(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-            valdLogi.Clear();
-            InputAdress = null;
-            InputPostnummer = null;
-            InputOrt = null;
-            InputTelefonnummer = null;
-            InputMailAdress = null;
-            Kundnummer = null;
-            InputFörnamn = null;
-            InputEfternamn = null;
-            AntalSovplatser = null;
-            TotalKostnad = null;
-            ValdLogi = null;
-            TotalPris = 0;
-            Privatkund = null;
-            TillgänligLogi = null;
-            Starttid = DateTime.Now;
-            Sluttid = DateTime.Now;
-            TotalPrisRabatt = 0;
+            
+
+            bokningsKontroller.SparaÄndring(MasterBokning);
+            if (ValdLogi != null)
+            {
+                valdLogi.Clear();
+            }
+
+            //InputAdress = null;
+            //InputPostnummer = null;
+            //InputOrt = null;
+            //InputTelefonnummer = null;
+            //InputMailAdress = null;
+            //Kundnummer = null;
+            //InputFörnamn = null;
+            //InputEfternamn = null;
+            //AntalSovplatser = null;
+            //TotalKostnad = null;
+            //ValdLogi = null;
+            //TotalPris = 0;
+            //Privatkund = null;
+            //TillgänligLogi = null;
+            //Starttid = DateTime.Now;
+            //Sluttid = DateTime.Now;
+            //TotalPrisRabatt = 0;
+            
         });
 
         private ICommand taBortCommand = null!;

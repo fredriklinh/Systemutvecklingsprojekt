@@ -16,20 +16,19 @@ namespace Affärslager.KundKontroller
             return företagskund;
         }
 
-        //public bool KontrollFKund(string orgnr)
-        //{
-        //    Företagskund k = unitOfWork.FöretagskundRepository.FirstOrDefault(f => f.OrgNr == orgnr);
-        //    bool x;
-        //    if (k != null)
-        //    {
-        //        x = false;
-        //    }
-        //    else
-        //    {
-        //        x = true;
-        //    }
-        //    return x;
-        //}
+        public void KontrollFKund(string orgnr, bool x)
+        {
+            Företagskund k = unitOfWork.FöretagskundRepository.FirstOrDefault(f => f.OrgNr == orgnr);
+
+            if (k == null)
+            {
+                x = false;
+            }
+            else
+            {
+                x = true;
+            }
+        }
 
         //OBS. FUNKTION ENDAST FÖR ADMIN
         public Företagskund TaBortFöretagskund(string OrgNummer)

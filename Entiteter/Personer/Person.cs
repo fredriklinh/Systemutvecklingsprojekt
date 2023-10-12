@@ -10,5 +10,9 @@
         {
             
         }
+        public Person()
+        {
+            
+        }
     }
 }

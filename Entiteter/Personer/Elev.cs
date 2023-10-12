@@ -11,9 +11,12 @@ namespace Entiteter.Personer
     {
         public int ID { get; set; }
 
-        public GruppLektion? GruppLektion { get; set; }
-        public PrivatLektion? PrivatLektion { get; set; }
-        public Elev(string förnamn, string efternamn): base(förnamn, efternamn)
+        public virtual GruppLektion? GruppLektion { get; set; }
+        public virtual PrivatLektion? PrivatLektion { get; set; }
+
+
+
+        public Elev(string förnamn, string efternamn) : base(förnamn, efternamn)
         {
             Förnamn = förnamn;
             Efternamn = efternamn;

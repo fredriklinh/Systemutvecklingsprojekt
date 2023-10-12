@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entiteter.Prislistor;
+﻿using Datalager;
 using Entiteter.Tjänster;
-using Entiteter.Personer;
-using Datalager;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Affärslager
 {
@@ -14,13 +8,31 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public List<Utrustning> HämtaTillgängligUtrustning()
+        public IList<Utrustning> HämtaTillgängligUtrustning()
         {
-            List<Utrustning> utrustning = new List<Utrustning>();
+            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-            Utrustning utr = unitOfWork.UtrustningRepository.FirstOrDefault(a => a.UtrustningsTyp.Typ == "Alpint");
-           
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+            {
+                AllaUtrustningar.Add(Hej);
+            }
+            return AllaUtrustningar;
         }
+
+
+
+        //public List<Utrustning> SökBenämningTyp()
+        //{
+        //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+
+        //    foreach (Utrustning i in unitOfWork.UtrustningRepository.GetAll().Distinct().ToList();.Where(a => a.Benämning == "Alpint" && a.Typ == "Pjäxor"));
+        //    {
+        //        AllaUtrustningar.Add(i);
+        //    }
+        //    return AllaUtrustningar;
+        //}
+
+
 
 
     }

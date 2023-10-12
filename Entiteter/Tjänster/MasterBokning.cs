@@ -53,7 +53,6 @@ namespace Entiteter.Tjänster
 
         public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund, Användare användare)
         {
-
             Avbeställningsskydd = avbeställningsskydd;
             NyttjadKreditsumma = 0;
             BokningsDatum = DateTime.Now;
@@ -62,7 +61,6 @@ namespace Entiteter.Tjänster
             ValdLogi = valdLogi;
             Företagskund = företagskund;
             Användare = användare;
-
             Användare = användare;
         }
 
