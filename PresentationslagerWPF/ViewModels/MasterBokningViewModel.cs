@@ -55,7 +55,7 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private string inputOrt;
+        private string inputOrt = "HallåEller";
         public string InputOrt
         {
             get { return inputOrt; }
@@ -300,7 +300,7 @@ namespace PresentationslagerWPF.ViewModels
             UppdateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             Användare = användare;
         }
-        
+
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
@@ -417,7 +417,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+
                 PDF.CreatePDF.RunP(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
             if (ValdLogi == null)
@@ -431,7 +431,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 PDF.CreatePDF.RunF(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-            
+
 
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
@@ -456,7 +456,7 @@ namespace PresentationslagerWPF.ViewModels
             //Starttid = DateTime.Now;
             //Sluttid = DateTime.Now;
             //TotalPrisRabatt = 0;
-            
+
         });
 
         private ICommand taBortCommand = null!;

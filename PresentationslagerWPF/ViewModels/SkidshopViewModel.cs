@@ -1,5 +1,4 @@
 ﻿using Affärslager;
-using Affärslager.KundKontroller;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 using PresentationslagerWPF.Commands;
@@ -9,7 +8,6 @@ using PresentationslagerWPF.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -184,7 +182,7 @@ namespace PresentationslagerWPF.ViewModels
 
 
         private ICommand utrustningCommand = null!;
-        public ICommand  UtrustningCommandSkidor => utrustningCommand ??= utrustningCommand = new RelayCommand(() =>
+        public ICommand UtrustningCommandSkidor => utrustningCommand ??= utrustningCommand = new RelayCommand(() =>
         {
 
             if (Antal != null)
