@@ -18,18 +18,8 @@ namespace Affärslager
         {
             List<Utrustning> utrustning = new List<Utrustning>();
 
-            foreach (Utrustning allUtrustning in unitOfWork.UtrustningRepository.Find(b => b.Tillgänglig))
-            {
-                utrustning.Add(allUtrustning);
-            }
-            //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => startdatum >= f.SlutDatum || slutdatum <= f.StartDatum))
-            //{
-            //    foreach (Logi ledigLogi in item.ValdLogi)
-            //    {
-            //        logi.Add(ledigLogi);
-            //    }
-            //}
-            return utrustning;
+            Utrustning utr = unitOfWork.UtrustningRepository.FirstOrDefault(a => a.UtrustningsTyp.Typ == "Alpint");
+           
         }
 
 
