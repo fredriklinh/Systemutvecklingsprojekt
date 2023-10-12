@@ -12,19 +12,19 @@ namespace Entiteter.Tjänster
 {
     public class GruppLektion
     {
-        public int ID { get; set; } 
+        public string ID { get; set; } 
         public string LektionsTillfälle {  get; set; }
         //public int[] AntalDeltagare = new int[14];
 
         public virtual IList<Elev> Deltagare { get; set; } = new List<Elev>();
         public double Pris {  get; set; }
-        [Required]
+
         public Svårighetsgrad Svårighetsgrad { get; set; }
         
 
         [ForeignKey("Personal")]
-        public string Förnamn { get; set; }
-        public virtual Personal? Personal { get; set; }
+        public int? Lärare { get; set; }
+        public virtual Personal Personal { get; set; } = null!;
         
         public GruppLektion() { }   
     }

@@ -12,7 +12,7 @@ namespace Entiteter.Tjänster
 {
     public class PrivatLektion
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string LektionsTillfälle { get; set; }
         //public int[] AntalDeltagare = new int[1];
         public virtual IList<Elev> Deltagare {  get; set; } = new List<Elev>();
@@ -21,7 +21,7 @@ namespace Entiteter.Tjänster
 
 
         [ForeignKey("Personal")]
-        public string Förnamn { get; set; }
+        public int? Lärare { get; set; }
         public virtual Personal? Personal { get; set; }
         public PrivatLektion() { }
     }

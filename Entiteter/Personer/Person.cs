@@ -11,5 +11,9 @@
             förnamn = Förnamn;
             efternamn = Efternamn;
         }
+        public Person()
+        {
+            
+        }
     }
 }
