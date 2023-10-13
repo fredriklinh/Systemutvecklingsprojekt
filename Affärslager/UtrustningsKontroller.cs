@@ -79,7 +79,7 @@ namespace Affärslager
         public IList<Utrustning> SökTyp(Utrustning SelectedItem)
         {
             var querable = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Benämning == SelectedItem.Benämning);
-            
+
             return querable
                         .GroupBy(i => i.Benämning)
                         .Select(group => group.First())

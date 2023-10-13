@@ -24,14 +24,14 @@ namespace Affärslager
             {
                 logi.Add(allLogi);
             }
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
             {
                 foreach (Logi ledigLogi in item.ValdLogi)
                 {
                     logi.Remove(ledigLogi);
                 }
             }
-            
+
             return logi;
         }
 
@@ -55,8 +55,20 @@ namespace Affärslager
             return masterBokning;
         }
 
+        public void KonferensTillMasterBokning(List<Konferenslokal> kLista, MasterBokning mb)
+        {
+
+            foreach (Konferenslokal kl in kLista)
+            {
+                mb.ValdaKonferenser.Add(kl);
+            }
+            unitOfWork.MasterBokningRepository.Update(mb);
+            unitOfWork.Complete();
+        }
+
+
         //Söker först igenom bokningar på privatkunder om inget hittas söker vi på företagskunder och returnerar
-        public List<MasterBokning> HämtaMasterbokningar(string kundnummer)
+        public List<MasterBokning> HämtaKundsMasterbokningar(string kundnummer)
         {
             List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
@@ -103,7 +115,7 @@ namespace Affärslager
             unitOfWork.MasterBokningRepository.Delete(masterBokning);
             unitOfWork.Complete();
         }
-        
+
 
         //Metoden ska plocka bort vald Logi från masterbekoningen och spara detta 
         public void TaBortLogiFrånBokning(MasterBokning masterBokning, Logi logi)

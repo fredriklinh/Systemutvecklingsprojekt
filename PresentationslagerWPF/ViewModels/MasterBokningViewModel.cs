@@ -21,12 +21,14 @@ namespace PresentationslagerWPF.ViewModels
         PrisKontroller prisKontroller = new PrisKontroller();
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
+        KonferensKontroller konferensKontroller = new KonferensKontroller();
 
+        public MasterBokningViewModel() { }
         #endregion
 
 
 
-        #region On property change
+        #region Properties Logi, kund (Sprint1)
 
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
@@ -55,7 +57,7 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private string inputOrt;
+        private string inputOrt = "HallåEller";
         public string InputOrt
         {
             get { return inputOrt; }
@@ -152,16 +154,16 @@ namespace PresentationslagerWPF.ViewModels
         private double totalPrisRabatt2;
         public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
-        private Logi tillgänligLogiSelectedItem = null!;
-        public Logi TillgänligLogiSelectedItem
+        private Logi tillgängligLogiSelectedItem = null!;
+        public Logi TillgängligLogiSelectedItem
         {
-            get => tillgänligLogiSelectedItem;
+            get => tillgängligLogiSelectedItem;
             set
             {
-                tillgänligLogiSelectedItem = value; OnPropertyChanged();
-                if (TillgänligLogiSelectedItem != null)
+                tillgängligLogiSelectedItem = value; OnPropertyChanged();
+                if (tillgängligLogiSelectedItem != null)
                 {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgängligLogiSelectedItem.Typen, Starttid, Sluttid);
                 }
             }
         }
@@ -255,9 +257,27 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region Obervible Collections 
-        private ObservableCollection<Logi> tillgänligLogi = null!;
-        public ObservableCollection<Logi> TillgänligLogi { get => tillgänligLogi; set { tillgänligLogi = value; OnPropertyChanged(); } }
+        #region Observable collections + Properties - Konferens - Sprint 2
+        private ObservableCollection<Konferenslokal> tillgängligaKonferensRum = null!;
+        public ObservableCollection<Konferenslokal> TillgängligaKonferensRum { get => tillgängligaKonferensRum; set { tillgängligaKonferensRum = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
+        public ObservableCollection<Konferenslokal> ValdaKonferensRum
+        {
+            get => valdaKonferensRum; set
+            { valdaKonferensRum = value; OnPropertyChanged(); }
+        }
+
+        private Konferenslokal valdKonferensItem = null!;
+        public Konferenslokal ValdKonferensItem
+        { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); } }
+
+        #endregion
+
+        #region Observable Collections Logi/Kund - Sprint 1
+
+        private ObservableCollection<Logi> tillgängligLogi = null!;
+        public ObservableCollection<Logi> TillgängligLogi { get => tillgängligLogi; set { tillgängligLogi = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Kund> kund = null!;
         public ObservableCollection<Kund> Kund { get => kund; set { kund = value; OnPropertyChanged(); } }
@@ -287,10 +307,6 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
-
-        public MasterBokningViewModel() { }
-
-
         #region Navigation
         //**** NAVIGATION *******//
         public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
@@ -300,7 +316,7 @@ namespace PresentationslagerWPF.ViewModels
             UppdateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             Användare = användare;
         }
-        
+
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
@@ -312,24 +328,48 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
+        #region ICommands - Konferens - Sprint 2
 
-        #region Icommands
+
+
+        private ICommand läggTillKonferens = null!;
+        public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
+        {
+            Konferenslokal kRum = ValdKonferensItem;
+            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
+            if (ValdKonferensItem != null)
+            {
+                ValdaKonferensRum.Add(kRum);
+                TillgängligaKonferensRum.Remove(kRum);
+            }
+            else
+            {
+
+            }
+        });
+
+        #endregion
+
+
+
+
+
+        #region Icommands - Skapa bokning - Sprint 1 + Inläsning av nya listor(Tillgängligakonferensrum)
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
+            TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
-
-
         });
 
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-            if (tillgänligLogiSelectedItem != null)
+            if (TillgängligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
-                Logi logi = tillgänligLogiSelectedItem;
+                Logi logi = TillgängligLogiSelectedItem;
                 if (Privatkund != null)
                 {
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
@@ -345,7 +385,7 @@ namespace PresentationslagerWPF.ViewModels
                     TotalPrisRabatt = TotalPrisRabatt + TotalPrisRabatt2;
                 }
                 ValdLogi.Add(logi);
-                TillgänligLogi.Remove(logi);
+                TillgängligLogi.Remove(logi);
                 //Bäddar totalt
                 int resBädd = 0;
                 if (ValdLogi != null)
@@ -417,7 +457,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+
                 PDF.CreatePDF.RunP(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
             if (ValdLogi == null)
@@ -431,7 +471,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 PDF.CreatePDF.RunF(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-            
+
 
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
@@ -452,11 +492,11 @@ namespace PresentationslagerWPF.ViewModels
             //ValdLogi = null;
             //TotalPris = 0;
             //Privatkund = null;
-            //TillgänligLogi = null;
+            //TillgängligLogi = null;
             //Starttid = DateTime.Now;
             //Sluttid = DateTime.Now;
             //TotalPrisRabatt = 0;
-            
+
         });
 
         private ICommand taBortCommand = null!;
@@ -472,7 +512,7 @@ namespace PresentationslagerWPF.ViewModels
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
                     TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
                 }
-                TillgänligLogi.Add(tabortLogi);
+                TillgängligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
                 //Ta bort bäddar totalt
                 int res = 0;

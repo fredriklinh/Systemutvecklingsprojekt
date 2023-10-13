@@ -1,14 +1,8 @@
 ﻿using Entiteter.Tjänster;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entiteter.Personer
 {
-    public class Personal: Person 
+    public class Personal : Person
     {
         public int AnstNr { get; set; }
         public string Befattning { get; set; }

@@ -22,6 +22,8 @@ namespace Entiteter.Tjänster
         public DateTime SlutDatum { get; set; }
         public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
 
+        public virtual IList<Konferenslokal> ValdaKonferenser { get; set; } = new List<Konferenslokal>();
+
         [ForeignKey("Företagskund")]
         public string? OrgaNr { get; set; }
         public virtual Företagskund? Företagskund { get; set; } = null!;

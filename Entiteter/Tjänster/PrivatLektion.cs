@@ -1,12 +1,5 @@
-﻿using Entiteter.Enums;
-using Entiteter.Personer;
-using System;
-using System.Collections.Generic;
+﻿using Entiteter.Personer;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entiteter.Tjänster
 {
@@ -15,14 +8,19 @@ namespace Entiteter.Tjänster
         public string ID { get; set; }
         public string LektionsTillfälle { get; set; }
         //public int[] AntalDeltagare = new int[1];
-        public virtual IList<Elev> Deltagare {  get; set; } = new List<Elev>();
+        public virtual IList<Elev> Deltagare { get; set; } = new List<Elev>();
 
-        public double Pris = 375;
+
+        public double Pris { get; set; }
 
 
         [ForeignKey("Personal")]
         public int? Lärare { get; set; }
         public virtual Personal? Personal { get; set; }
-        public PrivatLektion() { }
+        public PrivatLektion()
+        {
+            int antalDeltagare = Deltagare.Count;
+            Pris = 375 * antalDeltagare;
+        }
     }
 }
