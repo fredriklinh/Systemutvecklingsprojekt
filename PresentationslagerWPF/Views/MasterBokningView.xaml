@@ -118,7 +118,7 @@
             <Separator></Separator>
             <StackPanel Orientation="Vertical" Background="LightGray" Margin="10,10,10,10">
                 <Grid>
-                    <Button x:Name="btnLogi" Margin="5,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Logi" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"></Button>
+                    <Button x:Name="btnLogi" Margin="5,10,0,0" HorizontalAlignment="Left" Content="Logi" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"/>
                     <Button x:Name="btnKonferens" Margin="120,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Konferens" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button x:Name="btnUtrustning" Margin="372,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button x:Name="btnLektion" Margin="488,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Lektion" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
@@ -156,16 +156,15 @@
                                     <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <StackPanel HorizontalAlignment="Left" Margin="10,10,10,10">
-                                <Label  Content="Kostnad Logi:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                            <StackPanel>
+                                <Label Content="Kostnad Logi:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                                 <TextBox Foreground="AliceBlue" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
                                 <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
                             </StackPanel>
                             <DataGrid x:Name="KonferensAlternativ" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-                                  SelectedItem="{Binding HejItem, Mode=TwoWay}"
-                                  SelectedIndex="{Binding HejIndex, Mode=TwoWay}"
-                                  Background="White" Width="273" Height="141" Margin="600,0,10,0">
+                                  SelectedItem="{Binding ValdKonferensItem, Mode=TwoWay}"
+                                  Background="White" Width="273" Height="141" Margin="0,0,10,0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Konferensnummer" Binding="{Binding KonferensBenämningsId}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Storlek" Binding="{Binding Storlek}"></DataGridTextColumn>

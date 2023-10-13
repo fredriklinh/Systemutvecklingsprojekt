@@ -152,19 +152,16 @@ namespace PresentationslagerWPF.ViewModels
         private double totalPrisRabatt2;
         public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
-        private Logi tillgänligLogiSelectedItem = null!;
-        public Logi TillgänligLogiSelectedItem
-        {
-            get => tillgänligLogiSelectedItem;
-            set
-            {
-                tillgänligLogiSelectedItem = value; OnPropertyChanged();
-                if (TillgänligLogiSelectedItem != null)
-                {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgänligLogiSelectedItem.Typen, Starttid, Sluttid);
-                }
+
+        private Konferenslokal valdKonferensItem = null!;
+        public Konferenslokal ValdKonferensItem
+        {  get => valdKonferensItem;
+            set 
+            { valdKonferensItem = value;
+                OnPropertyChanged();
             }
         }
+
 
         private int tillgänligLogiSelectedIndex;
         public int TillgänligLogiSelectedIndex { get => tillgänligLogiSelectedIndex; set { tillgänligLogiSelectedIndex = value; OnPropertyChanged(); } }
@@ -329,10 +326,10 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-            if (tillgänligLogiSelectedItem != null)
+            if (tillgängligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
-                Logi logi = tillgänligLogiSelectedItem;
+                Logi logi = tillgängligLogiSelectedItem;
                 if (Privatkund != null)
                 {
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
