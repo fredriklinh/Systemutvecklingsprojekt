@@ -319,8 +319,6 @@ namespace PresentationslagerWPF.ViewModels
         {
             TillgänligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
-
-
         });
 
         private ICommand läggTillCommand = null!;
