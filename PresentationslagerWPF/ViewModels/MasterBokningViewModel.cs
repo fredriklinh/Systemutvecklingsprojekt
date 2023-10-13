@@ -381,7 +381,7 @@ namespace PresentationslagerWPF.ViewModels
             GömAllt = Visibility.Visible;
 
         });
-
+        
         private ICommand taBortKonferens = null!;
         public ICommand TaBortKonferens => taBortKonferens ??= taBortKonferens = new RelayCommand(() =>
         {
