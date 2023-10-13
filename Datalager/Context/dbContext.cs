@@ -50,16 +50,19 @@ namespace Datalager.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            #region Användare + Masterbokning
             modelBuilder.Entity<Användare>()
             .HasKey(a => a.Användarnamn);
-
 
             modelBuilder.Entity<MasterBokning>()
             .HasKey(m => m.BokningsNr);
             modelBuilder.Entity<MasterBokning>().HasOne<Privatkund>(pk => pk.Privatkund);
             modelBuilder.Entity<MasterBokning>().HasOne<Företagskund>(pk => pk.Företagskund);
             modelBuilder.Entity<MasterBokning>().HasOne<Användare>(pk => pk.Användare);
+            #endregion
 
+            #region Logi + Relaterat + Faktura
             modelBuilder.Entity<Logi>()
             .HasKey(l => l.LogiId);
             modelBuilder.Entity<Logi>().HasOne<LogiTyp>(l => l.LogiTyp);
@@ -69,14 +72,14 @@ namespace Datalager.Context
 
             modelBuilder.Entity<LogiTyp>()
             .HasKey(t => t.LogiTypId);
+
             modelBuilder.Entity<LogiTyp>().HasMany<Logi>(t => t.Logier);
 
             modelBuilder.Entity<Faktura>()
             .HasKey(f => f.FakturaId);
+            #endregion
 
-            //modelBuilder.Entity<PrislistaLogi>()
-            //.HasKey(p => p.PrisId); UPPREPAS, finns på rad 65.
-
+            #region Privat & Företagskund
             modelBuilder.Entity<Företagskund>()
             .HasKey(fö => fö.OrgNr);
             modelBuilder.Entity<Företagskund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
@@ -84,7 +87,9 @@ namespace Datalager.Context
             modelBuilder.Entity<Privatkund>()
             .HasKey(pk => pk.Personnummer);
             modelBuilder.Entity<Privatkund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
+            #endregion
 
+            #region Utrustning
             modelBuilder.Entity<Utrustning>()
                 .HasKey(u => u.UtrustningsId);
             modelBuilder.Entity<Utrustning>().HasOne<UtrustningsTyp>(u => u.UtrustningsTyp);
@@ -96,7 +101,9 @@ namespace Datalager.Context
            .HasKey(ut => ut.Typ);
             modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
 
+            #endregion
 
+            #region Lektioner + Relaterat
             modelBuilder.Entity<PrivatLektion>()
             .HasKey(pl => pl.ID);
 
@@ -108,16 +115,15 @@ namespace Datalager.Context
 
             modelBuilder.Entity<Personal>()
             .HasKey(p => p.AnstNr);
+            #endregion
 
-
+            #region Konferenslokal + Relaterat
             modelBuilder.Entity<Konferenslokal>()
             .HasKey(kl => kl.KonferensBenämningsId);
 
-
-
             modelBuilder.Entity<PrisListaKonferens>()
             .HasKey(plk => plk.PrisId);
-
+            #endregion
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.
             modelBuilder.Populate();
 
