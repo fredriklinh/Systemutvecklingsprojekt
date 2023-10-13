@@ -362,19 +362,21 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
-
+            Konferenslokal kRum = ValdKonferensItem;
             if (ValdKonferensItem != null)
             {
-                Konferenslokal kRum = ValdKonferensItem;
+
+                ValdaKonferensRum.Add(kRum);
+                TillgängligaKonferensRum.Remove(kRum);
+
             }
-            ValdaKonferensRum.Add(kRum);
-            TillgängligaKonferensRum.Remove(kRum);
         });
 
         private ICommand syngörKonferensKommand = null!;
         public ICommand SyngörKonferensKommand => syngörKonferensKommand ??= syngörKonferensKommand = new RelayCommand(() =>
         {
             TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
             SeKonferens = Visibility.Collapsed;
             GömAllt = Visibility.Visible;
 
@@ -398,7 +400,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-
+            
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });
