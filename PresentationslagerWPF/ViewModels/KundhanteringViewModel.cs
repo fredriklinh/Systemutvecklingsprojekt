@@ -324,7 +324,7 @@ namespace PresentationslagerWPF.ViewModels
                 bokningsKontroller.TaBortMasterBokning(ValdBokningSelectedItem);
                 MessageBox.Show($"Bokning med bokningsNr: {valdBokningSelectedItem.BokningsNr} är borttagen", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                 //möjlig fullösning
-                Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaMasterbokningar(Kundnummer));
+                Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
 
 
             }
@@ -360,7 +360,7 @@ namespace PresentationslagerWPF.ViewModels
 
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaMasterbokningar(Kundnummer));
+            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
 
 
             //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);

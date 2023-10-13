@@ -55,8 +55,20 @@ namespace Affärslager
             return masterBokning;
         }
 
+        public void KonferensTillMasterBokning(List<Konferenslokal> kLista, MasterBokning mb)
+        {
+
+            foreach (Konferenslokal kl in kLista)
+            {
+                mb.ValdaKonferenser.Add(kl);
+            }
+            unitOfWork.MasterBokningRepository.Update(mb);
+            unitOfWork.Complete();
+        }
+
+
         //Söker först igenom bokningar på privatkunder om inget hittas söker vi på företagskunder och returnerar
-        public List<MasterBokning> HämtaMasterbokningar(string kundnummer)
+        public List<MasterBokning> HämtaKundsMasterbokningar(string kundnummer)
         {
             List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
