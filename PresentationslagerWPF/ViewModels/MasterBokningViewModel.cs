@@ -163,8 +163,8 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private int tillgänligLogiSelectedIndex;
-        public int TillgänligLogiSelectedIndex { get => tillgänligLogiSelectedIndex; set { tillgänligLogiSelectedIndex = value; OnPropertyChanged(); } }
+        private int tillgängligLogiSelectedIndex;
+        public int TillgängligLogiSelectedIndex { get => tillgängligLogiSelectedIndex; set { tillgängligLogiSelectedIndex = value; OnPropertyChanged(); } }
 
         private Logi valdLogiSelectedItem = null!;
         public Logi ValdLogiSelectedItem
@@ -315,6 +315,15 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #region Icommands
+
+
+        private ICommand läggTillKonferens = null!;
+        public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
+        {
+            
+
+        });
+
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
@@ -326,10 +335,10 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
-            if (tillgängligLogiSelectedItem != null)
+            if (TillgängligLogiSelectedItem != null)
             {
                 double resKostnad = 0;
-                Logi logi = tillgängligLogiSelectedItem;
+                Logi logi = TillgängligLogiSelectedItem;
                 if (Privatkund != null)
                 {
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
