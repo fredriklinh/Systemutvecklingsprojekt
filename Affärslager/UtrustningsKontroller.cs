@@ -1,5 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Tjänster;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Affärslager
 {
@@ -17,5 +18,22 @@ namespace Affärslager
             }
             return AllaUtrustningar;
         }
+
+
+
+        //public List<Utrustning> SökBenämningTyp()
+        //{
+        //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+
+        //    foreach (Utrustning i in unitOfWork.UtrustningRepository.GetAll().Distinct().ToList();.Where(a => a.Benämning == "Alpint" && a.Typ == "Pjäxor"));
+        //    {
+        //        AllaUtrustningar.Add(i);
+        //    }
+        //    return AllaUtrustningar;
+        //}
+
+
+
+
     }
 }

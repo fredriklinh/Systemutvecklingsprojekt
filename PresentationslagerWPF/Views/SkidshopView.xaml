@@ -1,49 +1,50 @@
-﻿<UserControl x:Class="PresentationslagerWPF.Views.SkidshopView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
              xmlns:vm="clr-namespace:PresentationslagerWPF.ViewModels"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="PresentationslagerWPF.Views.SkidshopView"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
               FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
              >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"/>
             <!--Row 0-->
-            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="125"/>
             <!--Row 1-->
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"/>
             <!--Row 2-->
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"/>
             <!--Row 3-->
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"/>
             <!--Row 4-->
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"/>
             <!--Row 5-->
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"/>
             <!--Row 6-->
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"/>
             <!--Row 7-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column-0-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column-1-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column-2-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column-3-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column 4-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column 5-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column 6-->
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
             <!--Column 7-->
 
 
@@ -59,55 +60,55 @@
             </Menu>
         </StackPanel>
         <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="8" Grid.RowSpan="1">
-                <StackPanel Orientation="Vertical">
-                    <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Datum för bokning</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Vertical">
-                            <Label>Utcheckning:</Label>
-                            <DatePicker x:Name="Inlämningckning" SelectedDate="{Binding Inlämning, Mode=TwoWay}"></DatePicker>
-                        </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Datum för bokning"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Utcheckning:"/>
+                        <DatePicker x:Name="Inlämningckning" SelectedDate="{Binding Inlämning, Mode=TwoWay}"/>
                     </StackPanel>
-                    <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                </StackPanel>
+                <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" />
             </StackPanel>
-            <StackPanel></StackPanel>
+            <StackPanel/>
             <StackPanel>
-                <Label>Kund</Label>
-                <Label>Personnummer/OrgNr:</Label>
+                <Label Content="Kund"/>
+                <Label Content="Personnummer/OrgNr:"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
-                    <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"></Button>
+                    <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"/>
+                    <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"/>
                 </StackPanel>
             </StackPanel>
             <!--PANEL FÖR PRIVATKUND-->
             <WrapPanel Visibility="{Binding KSynlighet}">
                 <StackPanel  Margin="10,10,10,10">
                     <StackPanel Orientation="Horizontal">
-                        <Label Margin="0,0,30,0" Content="Förnamn:"></Label>
-                        <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
+                        <Label Margin="0,0,30,0" Content="Förnamn:"/>
+                        <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox x:Name="KundFörnamn" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" ></TextBox>
-                        <TextBox x:Name="EfterNamn" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                        <TextBox x:Name="KundFörnamn" Text="{Binding InputFörnamn, Mode=TwoWay}" Height="25" Width="80" />
+                        <TextBox x:Name="EfterNamn" Text="{Binding InputEfternamn, Mode=TwoWay}" Height="25" Width="80" Margin="8,0,0,0"/>
                     </StackPanel>
                     <StackPanel>
-                        <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Telefonnummer:"></Label>
-                        <TextBox x:Name="Telefonnummer"  Height="25"  Text="{Binding InputTelefonnummer, Mode=TwoWay}" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Telefonnummer:"/>
+                        <TextBox x:Name="Telefonnummer"  Height="25"  Text="{Binding InputTelefonnummer, Mode=TwoWay}" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Margin="0,10,0,10">
                     <StackPanel Orientation="Horizontal">
-                        <Label Margin="0,0,50,0" Content="Adress:"></Label>
-                        <Label Margin="0,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
-                        <Label FontSize="12" FontWeight="DemiBold"  Content="Ort:"></Label>
+                        <Label Margin="0,0,50,0" Content="Adress:"/>
+                        <Label Margin="0,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"/>
+                        <Label FontSize="12" FontWeight="DemiBold"  Content="Ort:"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBox Text="{Binding InputAdress, Mode=TwoWay}" Height="25" Width="94"></TextBox>
-                        <TextBox Margin="10,0,10,0" Text="{Binding InputPostnummer, Mode=TwoWay}" Height="25" Width="90"></TextBox>
-                        <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay}" Height="25" Width="90"></TextBox>
+                        <TextBox Text="{Binding InputAdress, Mode=TwoWay}" Height="25" Width="94"/>
+                        <TextBox Margin="10,0,10,0" Text="{Binding InputPostnummer, Mode=TwoWay}" Height="25" Width="90"/>
+                        <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay}" Height="25" Width="90"/>
                     </StackPanel>
                     <StackPanel>
-                        <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
-                        <TextBox Text="{Binding InputMailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                        <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"/>
+                        <TextBox Text="{Binding InputMailAdress}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"/>
 
                     </StackPanel>
                 </StackPanel>
@@ -117,60 +118,56 @@
                 <StackPanel>
                     <StackPanel Margin="10,10,10,10">
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="OrgNummer:"></Label>
-                            <Label Content="FöretagsNamn:"></Label>
-                            <Label Content="Rabatsatts:"></Label>
-                            <Label Content="MaxBeloppKredit:"></Label>
+                            <Label Content="OrgNummer:"/>
+                            <Label Content="FöretagsNamn:"/>
+                            <Label Content="Rabatsatts:"/>
+                            <Label Content="MaxBeloppKredit:"/>
                         </StackPanel>
                         <StackPanel  Orientation="Horizontal" >
-                            <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" ></TextBox>
-                            <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.Företagsnamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                            <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.Rabattsats}" Height="25" Width="80" ></TextBox>
-                            <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding Företagskund.MaxBeloppsKreditGräns}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                            <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" />
+                            <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.Företagsnamn}" Height="25" Width="80" Margin="8,0,0,0"/>
+                            <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.Rabattsats}" Height="25" Width="80" />
+                            <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding Företagskund.MaxBeloppsKreditGräns}" Height="25" Width="80" Margin="8,0,0,0" />
                         </StackPanel>
                         <StackPanel  Orientation="Horizontal">
-                            <Label Content="Adress:"></Label>
-                            <Label Content="Postnummer:"></Label>
-                            <Label Content="Ort:"></Label>
-                            <Label Content="Telefonummer:"></Label>
-                            <Label Content="Mailadress:"></Label>
+                            <Label Content="Adress:"/>
+                            <Label Content="Postnummer:"/>
+                            <Label Content="Ort:"/>
+                            <Label Content="Telefonummer:"/>
+                            <Label Content="Mailadress:"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" >
-                            <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="80" ></TextBox>
-                            <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                            <TextBox x:Name="Ort" Text="{Binding Ort}" Height="25" Width="80" ></TextBox>
-                            <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                            <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="80" />
+                            <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80" Margin="8,0,0,0"/>
+                            <TextBox x:Name="Ort" Text="{Binding Ort}" Height="25" Width="80" />
+                            <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25" Width="80" Margin="8,0,0,0" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </WrapPanel>
         </StackPanel>
         <!--PANEL FÖR UTRUSTGNIN-->
-        <StackPanel Grid.Row="2" Grid.Column="0"  Background="DarkBlue" Grid.ColumnSpan="8">
-            
-            
-     
-        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="0"  Background="DarkBlue" Grid.ColumnSpan="8"/>
         <StackPanel Grid.Row="5" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="5" Margin="10,5,5,5" Grid.RowSpan="1" Orientation="Horizontal">
             <StackPanel>
-                <Label>ALPIN KOMPLETT</Label>
+                <Label Content="ALPIN KOMPLETT"/>
 
                 <StackPanel Background="LightGray" Orientation="Horizontal">
                     <StackPanel>
-                        <Label>Komplett Skidor</Label>
-                        <Label>Komplett Snowboard</Label>
+                        <Label Content="Komplett Skidor"/>
+                        <Label Content="Komplett Snowboard"/>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-                            <ComboBox Margin="10,0,10,0" Width="40"></ComboBox>
-                            <Label Foreground="Red">20 kvar</Label>
-                            <Label >KOMPLETT Längdskidor</Label>
-                            <ComboBox Margin="10,0,10,0" Width="40"></ComboBox>
-                            <Label Foreground="Red">20 kvar</Label>
+                            <ComboBox Margin="10,0,10,0" Width="40"/>
+                            <Label Foreground="Red" Content="20 kvar"/>
+                            <Label Content="KOMPLETT Längdskidor" />
+                            <ComboBox Margin="10,0,10,0" Width="40"/>
+                            <Label Foreground="Red" Content="20 kvar"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <ComboBox Margin="10,0,10,0" Width="40"></ComboBox>
-                            <Label FontSize="14" Foreground="Red">20 kvar</Label>
+                            <ComboBox Margin="10,0,10,0" Width="40"/>
+                            <Label FontSize="14" Foreground="Red" Content="20 kvar"/>
 
                         </StackPanel>
                     </StackPanel>
@@ -178,148 +175,130 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="10,5,5,5">
-            <Label>ENSTAKA PRDOUKTER</Label>
-            <Label>ALPIN</Label>
+            <Label Content="ENSTAKA PRDOUKTER"/>
+            <Label Content="ALPIN"/>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="VäljMedlem" Width="150" Margin="5,10,5,10" ItemsSource="{Binding UnikBenämning}" DisplayMemberPath="Typ" SelectedItem="{Binding SelectedItemUtrustning}"/>
+                <ComboBox Width="100" ItemsSource="{Binding UnikTyp}" DisplayMemberPath="Benämning"></ComboBox>
+                <ComboBox Margin="5,0,5,0" Width="100">
+                    <System:String>Width="100"</System:String>
+                </ComboBox>
+            </StackPanel>
 
             <StackPanel Background="LightGray">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10,5,0,5" HorizontalAlignment="Right">
-                        <Button Height="28" Margin="0,0,0,5" Command="{Binding UtrustningCommandSkidor}" CommandParameter="SkidorAlpint">Skidor</Button>
-                        <Label>Snowboard</Label>
+                        <ComboBox Height="30"  x:Name="CbSkidorAlpint" FontSize="12" ItemsSource="{Binding Antal}" SelectedItem="{Binding TestAntalSelected}"  Width="40"/>
+                        <ComboBox Margin="0,5,0,0" Height="30" x:Name="CbSnowboard" FontSize="12" ItemsSource="{Binding Antal}" Width="40"/>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox x:Name="CbSkidorAlpint" SelectedValue="tempValue"  FontSize="12" ItemsSource="{Binding IndexedItems}" DisplayMemberPath="Index" Width="40"></ComboBox>
-                            <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            <Label >Pjäxor</Label>
+                            <Button Height="28" Margin="0,0,0,5" Command="{Binding UtrustningCommandSkidor}" CommandParameter="Hjälm" Content="Hjälm"/>
+                            <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+                            <Button Content="Pjäxor"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox x:Name="CbSnowboard" FontSize="12" ItemsSource="{Binding Snowboard}" DisplayMemberPath="B" Margin="0,0,0,0" Width="40"></ComboBox>
-                            <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            <Label>SnowboardSkor</Label>
+                            <Button Command="{Binding UtrustningCommandSnowboard}" Content="Snowboard"/>
+                            <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+                            <Button Content="SnowboardSkor"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox  FontSize="12" ItemsSource="{Binding IndexedItemsAlpint}" DisplayMemberPath="Index" Margin="0,0,0,0" Width="40"></ComboBox>
-                            <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            <Label>Stavar</Label>
-                            <ComboBox FontSize="12" ItemsSource="{Binding Antal}" Margin="0,0,0,0" Width="40"></ComboBox>
-                            <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            
+                            <ComboBox  FontSize="12" ItemsSource="{Binding Antal, Mode=OneWay}"  Margin="0,0,0,0" Width="40"/>
+                            <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+                            <Label Content="Stavar"/>
+                            <ComboBox FontSize="12" ItemsSource="{Binding Antal, Mode=TwoWay}" Margin="0,0,0,0" Width="40"/>
+                            <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" >
-                            <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
-                            <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                            <Label>Hjälm</Label>
-                            <ComboBox FontSize="12" ItemsSource="{Binding Antal}" Margin="0,0,10,0" Width="40"></ComboBox>
-                            <Label FontSize="11" Foreground="Red">20 kvar</Label>
+                            <ComboBox Margin="0,0,0,0" Width="40"/>
+                            <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+                            <Label Content="Hjälm"/>
+                            <ComboBox FontSize="12" ItemsSource="{Binding Antal}" Margin="0,0,10,0" Width="40"/>
+                            <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
 
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <Border BorderThickness="0,3,0,0" BorderBrush="Black" Margin="10"></Border>
-                <Label>LÄNGD</Label>
-                <StackPanel>
-            </StackPanel>
+                <Border BorderThickness="0,3,0,0" BorderBrush="Black" Margin="10"/>
+                <Label Content="LÄNGD"/>
+                <StackPanel/>
                 <StackPanel Orientation="Horizontal">
-                    <Label Margin="10,0,0,0">Skidor</Label>
+                    <Label Margin="10,0,0,0" Content="Skidor"/>
                     <StackPanel Orientation="Horizontal">
-                        <Label FontSize="14" ></Label>
-                        <ComboBox Margin="20,0,0,0" Width="40"></ComboBox>
-                        <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                        <Label>Pjäxor</Label>
+                        <Label FontSize="14" />
+                        <ComboBox Margin="20,0,0,0" Width="40"/>
+                        <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+                        <Label Content="Pjäxor"/>
 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                        <Label FontSize="14" ></Label>
-                        <ComboBox Margin="52,0,0,0" Width="40"></ComboBox>
-                        <Label FontSize="11" Foreground="Red">20 kvar</Label>
-                        <Label>Stavar</Label>
-                        <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
-                        <Label FontSize="11" Foreground="Red">20 kvar</Label>
+                        <Label FontSize="14" />
+                        <ComboBox Margin="52,0,0,0" Width="40"/>
+                        <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
+                        <Label Content="Stavar"/>
+                        <ComboBox Margin="0,0,0,0" Width="40"/>
+                        <Label FontSize="11" Foreground="Red" Content="20 kvar"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" Grid.RowSpan ="2" Background="LightGray" Margin="5,5,5,5">
-            <Label>Övrigt</Label>
+            <Label Content="Övrigt"/>
             <StackPanel Background="LightGray" Orientation="Horizontal">
                 <StackPanel>
-                    <Label Margin="0,10,0,0"> SKOTER</Label>
-                    <Label Margin="0,10,0,10">YH.Viki</Label>
-                    <Label >Pulka</Label>
-                    
+                    <Label Margin="0,10,0,0" Content="SKOTER"/>
+                    <Label Margin="0,10,0,10" Content="YH.Viki"/>
+                    <Label Content="Pulka" />
+
                 </StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,15,5,5">
-                        <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
-                        <Label FontSize="9" Foreground="Red">20 kvar</Label>
+                        <ComboBox Margin="0,0,0,0" Width="40"/>
+                        <Label FontSize="9" Foreground="Red" Content="20 kvar"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,10,5,10">
-                        <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
-                        <Label FontSize="9" Foreground="Red">20 kvar</Label>
+                        <ComboBox Margin="0,0,0,0" Width="40"/>
+                        <Label FontSize="9" Foreground="Red" Content="20 kvar"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <ComboBox Margin="0,0,0,0" Width="40"></ComboBox>
-                        <Label FontSize="9" Foreground="Red">20 kvar</Label>
+                        <ComboBox Margin="0,0,0,0" Width="40"/>
+                        <Label FontSize="9" Foreground="Red" Content="20 kvar"/>
                     </StackPanel>
 
                 </StackPanel>
 
             </StackPanel>
-            
+
         </StackPanel>
 
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="LightGray" Margin="10,5,5,5">
-            <Label>Vald till Bokning</Label>
-            <DockPanel Margin="10">
-                <StackPanel DockPanel.Dock="Right" Margin="10,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Margin" Value="0,0,0,5" />
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock Margin="0,0,0,10">ListBox selection</TextBlock>
-                    <Button Name="btnShowSelectedItem">Add</Button>
-                    <Button Name="btnSelectLast">Remove</Button>
-                    <Button Name="btnSelectNext">Select all</Button>
-                    <Button Name="btnSelectCSharp">Remove all</Button>
-                    <Button Name="btnSelectAll">Clear</Button>
-                </StackPanel>
-                <ListView ItemsSource="{Binding ValdUtrustning}" VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView >
-                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.Typ}" Width="150" Header="Typ" ></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.Count}" Width="150" Header="Antal" ></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding ListaUtrustningTest.TotalSumma}" Width="150" Header="Kostnad" ></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </DockPanel>
+            <Label Content="Vald till Bokning"/>
+            <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding AntalTestList, UpdateSourceTrigger=PropertyChanged}" 
+                          AutoGenerateColumns="False" SelectionMode="Single"
+                          SelectionUnit="FullRow" IsReadOnly="True"
+                          SelectedItem="{Binding ValdLogiSelectedItem, Mode=TwoWay}"
+                          SelectedIndex="{Binding ValdLogiSelectedIndex, Mode=TwoWay}"
+                          Background="White" Width="450" Height="150" Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
+                    <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
+                    <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5,5,5,5"  Background="LightPink">
-            <Label>Alpint</Label>
-            <Label>Skidor</Label>
-            <StackPanel  Background="lightBlue" Height="50">
-                
-
-
-            </StackPanel>
-            <Label>Stavar</Label>
-            <StackPanel  Background="lightBlue" Height="50">
-
-
-
-            </StackPanel>
-            <Label>Pjäxor</Label>
-            <StackPanel  Background="lightBlue" Height="50">
-
-
-
-            </StackPanel>
+            <Label Content="Alpint"/>
+            <Label Content="Skidor"/>
+            <StackPanel  Background="lightBlue" Height="50"/>
+            <Label Content="Stavar"/>
+            <StackPanel  Background="lightBlue" Height="50"/>
+            <Label Content="Pjäxor"/>
+            <StackPanel  Background="lightBlue" Height="50"/>
         </StackPanel>
     </Grid>
 </UserControl>
