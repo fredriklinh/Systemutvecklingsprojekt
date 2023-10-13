@@ -25,15 +25,12 @@ namespace PresentationslagerWPF.ViewModels
 
         #region Observable Collection 
 
-
-
         private ObservableCollection<Utrustning> allaUtrustningar = null!;
         public ObservableCollection<Utrustning> AllaUtrustningar
         {
             get => allaUtrustningar; set
             {
                 allaUtrustningar = value; OnPropertyChanged();
-                //List<Utrustning> hej123 = utrustningsKontroller.SökBenämningTyp();
             }
         }
 
@@ -45,13 +42,53 @@ namespace PresentationslagerWPF.ViewModels
                 valdUtrustningTillBokning = value; OnPropertyChanged();
             }
         }
-
-        private List<int> antal;
-        public List<int> Antal
+        private ObservableCollection<Utrustning> typAlpin = null!;
+        public ObservableCollection<Utrustning> TypAlpin
         {
-            get { return antal; }
-            set { antal = value; OnPropertyChanged(); }
+            get => typAlpin; set
+            {
+                typAlpin = value; OnPropertyChanged();
+
+            }
         }
+        private ObservableCollection<Utrustning> typSnowboard = null!;
+        public ObservableCollection<Utrustning> TypSnowboard
+        {
+            get => typSnowboard; set
+            {
+                typSnowboard = value; OnPropertyChanged();
+
+            }
+        }
+        private ObservableCollection<Utrustning> typLängd = null!;
+        public ObservableCollection<Utrustning> TypLängd
+        {
+            get => typLängd; set
+            {
+                typLängd = value; OnPropertyChanged();
+
+            }
+        }
+        private ObservableCollection<Utrustning> typSkoter = null!;
+        public ObservableCollection<Utrustning> TypSkoter
+        {
+            get => typSkoter; set
+            {
+                typSkoter = value; OnPropertyChanged();
+
+            }
+        }
+        private ObservableCollection<Utrustning> typHjälm= null!;
+        public ObservableCollection<Utrustning>  TypHjälm
+        {
+            get => typHjälm; set
+            {
+                typHjälm = value; OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
 
 
         #region NAVIGATION
@@ -61,10 +98,12 @@ namespace PresentationslagerWPF.ViewModels
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             
-            AllaUtrustningar = new ObservableCollection<Utrustning>(utrustningsKontroller.HämtaTillgängligUtrustning());
-
             //Benämning ObservableCollection
-            BenämningAlpin = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Alpint"));
+            TypAlpin = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Alpint"));
+            TypSnowboard = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Snowboard"));
+            TypLängd = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Längd"));
+            TypSkoter = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Skoter"));
+            TypHjälm = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Hjälm"));
 
 
             ValdUtrustningTillBokning = new ObservableCollection<Utrustning>();
@@ -83,7 +122,7 @@ namespace PresentationslagerWPF.ViewModels
         #region AntalInt
 
         private ObservableCollection<int> antalAlpin;
-        public ObservableCollection<int> AntalAlping
+        public ObservableCollection<int> AntalAlpin
         {
             get { return antalAlpin; }
             set { antalAlpin = value; OnPropertyChanged(); }
@@ -113,44 +152,69 @@ namespace PresentationslagerWPF.ViewModels
 
         #region SELECTED ITEM
 
-        private Utrustning selectedItemUtrustning = null!;
-        public Utrustning SelectedItemUtrustning
+
+        private Utrustning selectedItemAlpin = null!;
+        public Utrustning SelectedItemAlpin
         {
-            get => selectedItemUtrustning; set
+            get => selectedItemAlpin; set
             {
-                selectedItemUtrustning = value; OnPropertyChanged();
-       
-                IList<Utrustning> ListaTyp = utrustningsKontroller.SökTyp(SelectedItemUtrustning);
+                selectedItemAlpin = value; OnPropertyChanged();
+                AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ);
+
+
+            }
+        }
+        private Utrustning selectedItemSnowboard = null!;
+        public Utrustning SelectedItemSnowboard
+        {
+            get => selectedItemSnowboard; set
+            {
+                selectedItemSnowboard = value; OnPropertyChanged();
+                AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ);
+
+
+
+            }
+        }
+        private Utrustning selectedItemLängd = null!;
+        public Utrustning SelectedItemLängd
+        {
+            get => selectedItemLängd; set
+            {
+                selectedItemLängd = value; OnPropertyChanged();
+                AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ);
+
+            }
+        }
+        private Utrustning selectedItemHjälm = null!;
+        public Utrustning SelectedItemHjälm
+        {
+            get => selectedItemHjälm; set
+            {
+                selectedItemHjälm = value; OnPropertyChanged();
+
+                //IList<Utrustning> ListaTyp = utrustningsKontroller.SökTyp(SelectedItemUtrustning);
             }
         }
 
         #endregion
 
-        private ObservableCollection<Utrustning> benämningAlpin = null!;
-        public ObservableCollection<Utrustning> BenämningAlpin
-        {
-            get => benämningAlpin; set
-            {
-                benämningAlpin = value; OnPropertyChanged();
-                //BenämningAlpin = utrustningsKontroller.SökBenämning("Alpin");
 
-            }
-        }
+        #region SELECTED INT
 
-        private List<Utrustning> unikBenämning = null!;
-        public List<Utrustning> UnikBenämning
-        {
-            get => unikBenämning; set
-            {
-                unikBenämning = value; OnPropertyChanged();
-            }
-        }
+
+
+        #endregion
+
 
 
 
         //**** SKIDLEKTION *******//
-        #endregion
 
+
+
+
+        #region DisplayUtrustning
 
         private DisplayUtrustning antalTest = null!;
         public DisplayUtrustning AntalTest
@@ -171,23 +235,11 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+        #endregion
+
         #region Metoder
 
-        public List<int> RäknaAntal(ObservableCollection<Utrustning> utrustnings)
-        {
-            List<int> antal = new List<int>();
-            int steg = 0;
-            foreach (Utrustning item in utrustnings)
-            {
-                if (steg == 50)
-                {
-                    return antal;
-                }
-                steg = steg + 1;
-                antal.Add(steg);
-            }
-            return antal;
-        }
+
 
 
         public void TilldelaTypUtrustning(Utrustning selectedItemUtrustning)

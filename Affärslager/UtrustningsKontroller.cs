@@ -1,6 +1,8 @@
 ﻿using Datalager;
 using Entiteter.Tjänster;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Collections.ObjectModel;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Affärslager
 {
@@ -35,7 +37,7 @@ namespace Affärslager
 
 
 
-        public List<Utrustning> SökBenämningTyp(string benämning, string typ)
+        public ObservableCollection<int> SökBenämningTyp(string benämning, string typ)
         {
             List<Utrustning> utrustningAvTyp = new List<Utrustning>();
 
@@ -44,25 +46,30 @@ namespace Affärslager
 
                 utrustningAvTyp.Add(utr);
             }
-            return utrustningAvTyp;
+            return RäknaAntal(utrustningAvTyp);
+        }
+
+        private ObservableCollection<int> RäknaAntal(List<Utrustning> utrustnings)
+        {
+            ObservableCollection<int> antal = new ObservableCollection<int>();
+            int steg = 0;
+            foreach (Utrustning item in utrustnings)
+            {
+                if (steg == 50)
+                {
+                    return antal;
+                }
+                steg = steg + 1;
+                antal.Add(steg);
+            }
+            return antal;
         }
 
         public List<Utrustning> SökBenämning(string utrBenämning)
         {
-            //var querable = unitOfWork.UtrustningRepository.Find().Where(a => a.Typ == utrBenämning);
-            
-            List<Utrustning> loo = new List<Utrustning>();
+            var querable = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == utrBenämning);
 
-            foreach (Utrustning item in unitOfWork.UtrustningRepository.Find(a => a.Typ == utrBenämning))
-            {
-                loo.Add(item);
-            }
-            int hej = 0;
-           //return querable
-           //         .Where(i => i.Typ == utrBenämning.Typ)
-           //         .Distinct()
-           //         .ToList();
-            return loo
+            return querable
                     .GroupBy(i => i.Benämning)
                     .Select(group => group.First())
                     .ToList();

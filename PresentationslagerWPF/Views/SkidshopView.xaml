@@ -182,19 +182,19 @@
             </StackPanel>
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding BenämningAlpin}" DisplayMemberPath="Benämning"></ComboBox>
+                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypAlpin}"  SelectedItem="{Binding SelectedItemAlpin}" DisplayMemberPath="Benämning"></ComboBox>
                     <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalAlpin}" SelectedItem="{Binding SelectedItemAntalAlpin}"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding UnikTyp}" DisplayMemberPath="Benämning"></ComboBox>
+                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypSnowboard}" DisplayMemberPath="Benämning" ></ComboBox>
                     <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalSnowboard }" SelectedItem="{Binding SelectedItemAntalSnowboard }"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding UnikTyp}" DisplayMemberPath="Benämning"></ComboBox>
+                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypLängd}" DisplayMemberPath="Benämning"></ComboBox>
                     <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalLängd}" SelectedItem="{Binding SelectedItemAntalLängd}"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding UnikTyp}" DisplayMemberPath="Benämning"></ComboBox>
+                <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypHjälm}" DisplayMemberPath="Benämning"></ComboBox>
                 <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
             </StackPanel>
             </StackPanel>
