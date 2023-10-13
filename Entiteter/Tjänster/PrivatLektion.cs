@@ -10,12 +10,17 @@ namespace Entiteter.Tjänster
         //public int[] AntalDeltagare = new int[1];
         public virtual IList<Elev> Deltagare { get; set; } = new List<Elev>();
 
-        public double Pris = 375;
+
+        public double Pris { get; set;}
 
 
         [ForeignKey("Personal")]
         public int? Lärare { get; set; }
         public virtual Personal? Personal { get; set; }
-        public PrivatLektion() { }
+        public PrivatLektion() 
+        {
+            int antalDeltagare = Deltagare.Count;
+            Pris = 375 * antalDeltagare;
+        }
     }
 }
