@@ -1,6 +1,7 @@
 ﻿using Affärslager;
 using Affärslager.KundKontroller;
 using ceTe.DynamicPDF.PageElements;
+using ceTe.DynamicPDF.PageElements.Forms;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
@@ -9,8 +10,10 @@ using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -265,13 +268,32 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> ValdaKonferensRum
         {
-            get => valdaKonferensRum; set
-            { valdaKonferensRum = value; OnPropertyChanged(); }
+            get { return valdaKonferensRum; } 
+            set { valdaKonferensRum = value; OnPropertyChanged(); }
         }
 
         private Konferenslokal valdKonferensItem = null!;
         public Konferenslokal ValdKonferensItem
         { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); } }
+
+        private Visibility gömAllt = Visibility.Collapsed;
+        public Visibility GömAllt
+        {
+
+            get { return gömAllt; }
+            set { gömAllt = value; OnPropertyChanged(); }
+
+        }
+        private Visibility seKonferens;
+        public Visibility SeKonferens
+        {
+
+            get { return seKonferens; }
+            set { seKonferens = value; OnPropertyChanged(); }
+
+        }
+
+
 
         #endregion
 
@@ -293,7 +315,6 @@ namespace PresentationslagerWPF.ViewModels
 
             }
         }
-
 
         //Användarnamn för ANVÄNDARE
         private Användare användare = null!;
@@ -335,30 +356,45 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
-            Konferenslokal kRum = ValdKonferensItem;
-            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
+
             if (ValdKonferensItem != null)
             {
+                Konferenslokal kRum = valdKonferensItem;
                 ValdaKonferensRum.Add(kRum);
                 TillgängligaKonferensRum.Remove(kRum);
             }
-            if(ValdKonferensItem == null)
-            {
+            else
                 MessageBox.Show("Var god välj ett konferensrum att lägga till", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+        });
+
+        private ICommand syngörKonferensKommand = null!;
+        public ICommand SyngörKonferensKommand => syngörKonferensKommand ??= syngörKonferensKommand = new RelayCommand(() =>
+        {
+            TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            SeKonferens = Visibility.Collapsed;
+            GömAllt = Visibility.Visible;
+
+        });
+
+        private ICommand taBortKonferens = null!;
+        public ICommand TaBortKonferens => taBortKonferens ??= taBortKonferens = new RelayCommand(() =>
+        {
+            Konferenslokal konferensTabort = ValdKonferensItem;
+            if (valdaKonferensRum != null)
+            {
+                ValdaKonferensRum.Remove(konferensTabort);
+                TillgängligaKonferensRum.Add(konferensTabort);
             }
         });
 
+
         #endregion
-
-
-
-
 
         #region Icommands - Skapa bokning - Sprint 1 + Inläsning av nya listor(Tillgängligakonferensrum)
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });
