@@ -169,6 +169,7 @@ namespace Affärslager
             return restDatum;
         }
 
+        //Denna metod ska fixas innan inlämning!!!!
         public int HämtaPrisSportlov(string LogiNamn, DateTime startdatum, DateTime slutdatum, List<DateTime> sportVeckorKontroll)
         {
             int totalprisSportlov = 0;
