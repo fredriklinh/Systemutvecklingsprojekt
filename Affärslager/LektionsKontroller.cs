@@ -16,12 +16,14 @@ namespace Affärslager
             unitOfWork.Complete();
             return elev;
         }
-        public GruppLektion BokaGruppLektion(Elev elev, string lektionsTillfälle, Svårighetsgrad svårighetsgrad)
+        public void BokaGruppLektion(Elev elev, GruppLektion gLektion)
         {
-            GruppLektion gruppLektion = unitOfWork.GruppLektionRepository.FirstOrDefault(a => a.LektionsTillfälle == lektionsTillfälle && a.Svårighetsgrad == svårighetsgrad);
-            gruppLektion.Deltagare.Add(elev);
-            unitOfWork.Complete();
-            return gruppLektion;
+            int elever = 15;
+            if (gLektion.Deltagare.Count > elever)
+            {
+                gLektion.Deltagare.Add(elev);
+                unitOfWork.Complete();
+            }
         }
         public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
         {
@@ -29,6 +31,7 @@ namespace Affärslager
             if (pLektion.Deltagare.Count < elever)
             {
                 pLektion.Deltagare.Add(elev);
+                unitOfWork.Complete();
             }
         }
         public IList<GruppLektion> AllaGruppLektion()

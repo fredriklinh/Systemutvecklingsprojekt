@@ -295,16 +295,16 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
             }
             if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
             }
             if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGrupp);
             }
         });
         #endregion

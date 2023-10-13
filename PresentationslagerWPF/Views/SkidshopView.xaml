@@ -257,7 +257,7 @@
                 <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektioner}"
                            AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10"
                           SelectionMode="Single" SelectionUnit="FullRow" 
-                          SelectedItem="{Binding GruppLektionSelectedItem, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedGrupp, Mode=TwoWay}"
                            SelectedIndex="{Binding GruppLektionSelectedIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
@@ -267,10 +267,10 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>
-                <DataGrid Height="100" Width="auto" ItemsSource="{Binding PrivatLektioner}"
+                <DataGrid Height="100" Width="149" ItemsSource="{Binding PrivatLektioner}"
                          AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10"
                            SelectionMode="Single" SelectionUnit="FullRow" 
-                         SelectedItem="{Binding PrivatLektionSelectedItem, Mode=TwoWay}"
+                         SelectedItem="{Binding SelectedGrupp, Mode=TwoWay}"
                          SelectedIndex="{Binding PrivatLektionSelectedIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
