@@ -75,7 +75,7 @@
                 <Label Content="Kund"/>
                 <Label Content="Personnummer/OrgNr:"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"/>
+                    <TextBox x:Name="txtSökKund" Text="{Binding InputKundSök}" Height="25" Width="100"/>
                     <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"/>
                 </StackPanel>
             </StackPanel>
@@ -254,7 +254,7 @@
                 <!--<ComboBox Width="100" Height="20" IsTextSearchEnabled="True" ItemsSource="{Binding Elev}" DisplayMemberPath="Förnamn" SelectedItem="{Binding SelectedItemElev}"/>-->
 
                 <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
-                <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektion}"
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektioner}"
                            AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10"
                           SelectionMode="Single" SelectionUnit="FullRow" 
                           SelectedItem="{Binding GruppLektionSelectedItem, Mode=TwoWay}"
@@ -267,7 +267,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>
-                <DataGrid Height="100" Width="auto" ItemsSource="{Binding PrivatLektion}"
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding PrivatLektioner}"
                          AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10"
                            SelectionMode="Single" SelectionUnit="FullRow" 
                          SelectedItem="{Binding PrivatLektionSelectedItem, Mode=TwoWay}"

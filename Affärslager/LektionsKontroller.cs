@@ -23,15 +23,13 @@ namespace Affärslager
             unitOfWork.Complete();
             return gruppLektion;
         }
-        public PrivatLektion BokaPrivatLektion(Elev elev, string lektionsTillfälle)
+        public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
         {
-            PrivatLektion privatLektion = unitOfWork.PrivatLektionRepository.FirstOrDefault(a => a.LektionsTillfälle == lektionsTillfälle);
             int elever = 2;
-            if (privatLektion.Deltagare.Count < elever)
+            if (pLektion.Deltagare.Count < elever)
             {
-                privatLektion.Deltagare.Add(elev);
+                pLektion.Deltagare.Add(elev);
             }
-            return privatLektion;
         }
         public IList<GruppLektion> AllaGruppLektion()
         {
