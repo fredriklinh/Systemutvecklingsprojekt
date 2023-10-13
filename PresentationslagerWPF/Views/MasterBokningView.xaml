@@ -135,7 +135,7 @@
                     <StackPanel Margin="10,10,10,10" Height="220" Background="LightGray" HorizontalAlignment="Left">
                         <Label HorizontalAlignment="Left" Content="TYP AV LOGI" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                         <!--COMBOBOX LOGI-->
-                        <!--<ComboBox HorizontalAlignment="Left" Width="100" ItemsSource ="{Binding TillgänligLogi}"
+                        <!--<ComboBox HorizontalAlignment="Left" Width="100" ItemsSource ="{Binding TillgängligLogi}"
                                   DisplayMemberPath="Typen" SelectedValuePath="Typen"
                                   SelectedItem="{Binding TESTLogiSelectedItem, Mode=TwoWay}"
                                   SelectedIndex="{Binding TESTLogiSelectedIndex, Mode=TwoWay}"/>-->
@@ -145,7 +145,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <DataGrid x:Name="Logialternativ" AutoGenerateColumns="False" SelectionMode="Single"
-                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgänligLogi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligLogi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
                                   SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}" 
                                   Background="White" Width="273" Height="141" Margin="0,0,10,0">
@@ -162,7 +162,7 @@
                                 <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
                             </StackPanel>
                             <DataGrid x:Name="KonferensAlternativ" AutoGenerateColumns="False" SelectionMode="Single"
-                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding hej, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding HejItem, Mode=TwoWay}"
                                   SelectedIndex="{Binding HejIndex, Mode=TwoWay}"
                                   Background="White" Width="273" Height="141" Margin="600,0,10,0">
