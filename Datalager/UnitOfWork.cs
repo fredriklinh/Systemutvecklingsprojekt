@@ -21,7 +21,7 @@ namespace Datalager
 
         public Repository<MasterBokning> MasterBokningRepository { get; private set; }
         public Repository<Utrustning> UtrustningRepository { get; private set; }
-
+        public Repository<UtrustningsBokning> UtrustningsBokningRepository { get; private set; }
         public Repository<Konferenslokal> KonferensLokalRepository { get; private set; }
         public Repository<PrisListaKonferens> KonferensPrisRepository { get; private set; }
         public Repository<Elev> ElevRepository { get; private set; }
@@ -37,6 +37,7 @@ namespace Datalager
             LogiRepository = new Repository<Logi>(_dbContext);
             MasterBokningRepository = new Repository<MasterBokning>(_dbContext);
             UtrustningRepository = new Repository<Utrustning>(_dbContext);
+            UtrustningsBokningRepository = new Repository<UtrustningsBokning>(_dbContext);
             KonferensLokalRepository = new Repository<Konferenslokal>(_dbContext);
             KonferensPrisRepository = new Repository<PrisListaKonferens>(_dbContext);
             ElevRepository = new Repository<Elev>(_dbContext);

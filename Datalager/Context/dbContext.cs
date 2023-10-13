@@ -97,6 +97,10 @@ namespace Datalager.Context
             modelBuilder.Entity<PrisListaUtrustning>()
                 .HasKey(plu => plu.PrisId);
 
+            modelBuilder.Entity<UtrustningsBokning>()
+           .HasKey(utb => utb.UtrustningBokningsId);
+            modelBuilder.Entity<UtrustningsBokning>().HasMany<Utrustning>(u => u.Utrustningar);
+
             modelBuilder.Entity<UtrustningsTyp>()
            .HasKey(ut => ut.Typ);
             modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
