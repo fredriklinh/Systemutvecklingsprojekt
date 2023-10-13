@@ -257,18 +257,25 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region Observable collections Konferens - Sprint 2
+        #region Observable collections + Properties - Konferens - Sprint 2
         private ObservableCollection<Konferenslokal> tillgängligaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> TillgängligaKonferensRum { get => tillgängligaKonferensRum; set { tillgängligaKonferensRum = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> ValdaKonferensRum
+        {get => valdaKonferensRum;set
+            {valdaKonferensRum = value; OnPropertyChanged(); }}
+
+        public Logi TillgängligLogiSelectedItem
         {
-            get => valdaKonferensRum;
+            get => tillgängligLogiSelectedItem;
             set
             {
-                valdaKonferensRum = value; OnPropertyChanged();
-
+                tillgängligLogiSelectedItem = value; OnPropertyChanged();
+                if (TillgängligLogiSelectedItem != null)
+                {
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgängligLogiSelectedItem.Typen, Starttid, Sluttid);
+                }
             }
         }
         #endregion
@@ -329,15 +336,60 @@ namespace PresentationslagerWPF.ViewModels
 
         #region ICommands - Konferens - Sprint 2
 
+
+
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
-
             ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
+            if (TillgängligLogiSelectedItem != null)
+            {
+                Konferenslokal kRum = ValdKonferensItem;
+                if (Privatkund != null)
+                {
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                    //TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
+                }
+
+                if (TotalPrisRabatt == 0)
+                {
+                    TotalPrisRabatt = resKostnad + TotalPrisRabatt2;
+                }
+                else
+                {
+                    TotalPrisRabatt = TotalPrisRabatt + TotalPrisRabatt2;
+                }
+                ValdLogi.Add(logi);
+                TillgängligLogi.Remove(logi);
+                //Bäddar totalt
+                int resBädd = 0;
+                if (ValdLogi != null)
+                {
+                    for (var i = 0; i < ValdLogi.Count; i++)
+                    {
+                        resBädd += ValdLogi[i].Bäddar;
+                    }
+                }
+
+                //Kostnad totalt
+                if (TotalKostnad == null)
+                {
+                    TotalKostnad = resKostnad + TotalPris;
+                }
+                else
+                {
+                    TotalKostnad = TotalKostnad + TotalPris;
+                }
+
+                AntalSovplatser = resBädd;
+            }
         });
 
-
         #endregion
+
+
+
+
 
         #region Icommands - Skapa bokning - Sprint 1 + Inläsning av nya listor(Tillgängligakonferensrum)
         private ICommand hämtaBokningCommand = null!;
