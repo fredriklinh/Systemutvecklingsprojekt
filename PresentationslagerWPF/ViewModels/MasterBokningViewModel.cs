@@ -263,12 +263,14 @@ namespace PresentationslagerWPF.ViewModels
 
         private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> ValdaKonferensRum
-        {get => valdaKonferensRum;set
-            {valdaKonferensRum = value; OnPropertyChanged(); }}
+        {
+            get => valdaKonferensRum; set
+            { valdaKonferensRum = value; OnPropertyChanged(); }
+        }
 
         private Konferenslokal valdKonferensItem = null!;
         public Konferenslokal ValdKonferensItem
-        { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); }}
+        { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -411,7 +413,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-            
+
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
             {

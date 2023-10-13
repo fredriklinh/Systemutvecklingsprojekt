@@ -1428,7 +1428,6 @@ namespace Datalager.Seed
                     Kvadratmeter = 50,
                     Bäddar = 4,
                     Kök = true,
-                    ÄrTillgänglig = true,
                     Typen = "LGH.I"
 
                 });
@@ -1443,7 +1442,6 @@ namespace Datalager.Seed
                     Kvadratmeter = 70,
                     Bäddar = 6,
                     Kök = true,
-                    ÄrTillgänglig = true,
                     Typen = "LGH.II"
 
 

@@ -1,18 +1,13 @@
 ﻿using Affärslager;
-using Affärslager.KundKontroller;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.Identity.Client;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.DataDisplay;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -51,12 +46,12 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         private ObservableCollection<MasterBokning> masterbokningar = null!;
-        public ObservableCollection<MasterBokning> Masterbokningar 
-        { 
-            get => masterbokningar; 
-            set 
-            { 
-                masterbokningar = value; OnPropertyChanged(); 
+        public ObservableCollection<MasterBokning> Masterbokningar
+        {
+            get => masterbokningar;
+            set
+            {
+                masterbokningar = value; OnPropertyChanged();
             }
         }
 
@@ -75,7 +70,7 @@ namespace PresentationslagerWPF.ViewModels
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-            
+
             AllaUtrustningar = new ObservableCollection<Utrustning>(utrustningsKontroller.HämtaTillgängligUtrustning());
 
             //Benämning ObservableCollection
@@ -134,7 +129,7 @@ namespace PresentationslagerWPF.ViewModels
             get => selectedItemUtrustning; set
             {
                 selectedItemUtrustning = value; OnPropertyChanged();
-       
+
                 IList<Utrustning> ListaTyp = utrustningsKontroller.SökTyp(SelectedItemUtrustning);
             }
         }
@@ -163,7 +158,7 @@ namespace PresentationslagerWPF.ViewModels
 
 
 
-        //**** SKIDLEKTION *******//
+        #region SKIDLEKTION ........................................................
         private ObservableCollection<Elev> elev = null!;
         public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
 
@@ -217,7 +212,7 @@ namespace PresentationslagerWPF.ViewModels
             }
             if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                
+
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
             }
             if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
@@ -269,17 +264,11 @@ namespace PresentationslagerWPF.ViewModels
         public void TilldelaTypUtrustning(Utrustning selectedItemUtrustning)
         {
 
-
+        }
+        
         private string inPutKundSök;
         public string InputKundSök { get => inPutKundSök; set { inPutKundSök = value; OnPropertyChanged(); } }
-        
-        
-        private ICommand sökKund = null!;
-        public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
-        {
 
-
-        });
 
         private Antal antalTest = null!;
         public Antal AntalTest
@@ -290,19 +279,20 @@ namespace PresentationslagerWPF.ViewModels
                 antalTest = value; OnPropertyChanged();
 
 
-            //UnikTyp = UtrustningTyp
-            //.GroupBy(i => i.Benämning)
-            //.Select(group => group.First())
-            //.ToList();
+                //UnikTyp = UtrustningTyp
+                //.GroupBy(i => i.Benämning)
+                //.Select(group => group.First())
+                //.ToList();
+
+            }
+
+
+            #endregion
+
+
+
 
         }
-
-
-        #endregion
-
-
-
-
     }
 }
 
