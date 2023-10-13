@@ -31,7 +31,7 @@ namespace Affärslager
         }
         public PrivatLektion BokaPrivatLektion(Elev elev, string lektionsTillfälle)
         {
-            PrivatLektion privatLektion = unitOfWork.PrivatLektionRepository.FirstOrDefault(a => a.LektionsTillfälle == lektionstillfälle);
+            PrivatLektion privatLektion = unitOfWork.PrivatLektionRepository.FirstOrDefault(a => a.LektionsTillfälle == lektionsTillfälle);
             int elever = 2;
             if (privatLektion.Deltagare.Count < elever)
             {
