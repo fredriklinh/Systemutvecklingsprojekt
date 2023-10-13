@@ -118,6 +118,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
+        private DisplayUtrustning = null
 
         #region AntalInt
 
@@ -126,6 +127,8 @@ namespace PresentationslagerWPF.ViewModels
         {
             get { return antalAlpin; }
             set { antalAlpin = value; OnPropertyChanged(); }
+
+             = new DisplayUtrustning(AntalAlpin, SelectedItemAlping, SelectedItemAlpin.Typ)
         }
 
         private ObservableCollection<int> antalSnowboard;

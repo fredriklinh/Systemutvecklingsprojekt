@@ -10,34 +10,34 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public IList<Utrustning> HämtaTillgängligUtrustning()
-        {
-            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+        //public IList<Utrustning> HämtaTillgängligUtrustning()
+        //{
+        //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
-            {
-                AllaUtrustningar.Add(Hej);
-            }
-            return AllaUtrustningar;
+        //    foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+        //    {
+        //        AllaUtrustningar.Add(Hej);
+        //    }
+        //    return AllaUtrustningar;
 
-        }
+        //}
 
-        public IList<Utrustning> HämtaTillgängligUtrustningTyp()
-        {
+        //public IList<Utrustning> HämtaTillgängligUtrustningTyp()
+        //{
 
             
-            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+        //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
-            {
-                AllaUtrustningar.Add(Hej);
-            }
-            return AllaUtrustningar;
-        }
+        //    foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+        //    {
+        //        AllaUtrustningar.Add(Hej);
+        //    }
+        //    return AllaUtrustningar;
+        //}
 
 
 
-        public ObservableCollection<int> SökBenämningTyp(string benämning, string typ)
+        public ObservableCollection<int> SökBenämningTyp(string benämning, string typ, DateTime slutdatum)
         {
             List<Utrustning> utrustningAvTyp = new List<Utrustning>();
 
