@@ -22,11 +22,13 @@ namespace PresentationslagerWPF.ViewModels
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
         KonferensKontroller konferensKontroller = new KonferensKontroller();
+
+        public MasterBokningViewModel() { }
         #endregion
 
 
 
-        #region On property change
+        #region Properties Logi, kund (Sprint1)
 
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
@@ -152,19 +154,22 @@ namespace PresentationslagerWPF.ViewModels
         private double totalPrisRabatt2;
         public double TotalPrisRabatt2 { get => totalPrisRabatt2; set { totalPrisRabatt2 = value; OnPropertyChanged(); } }
 
-
-        private Konferenslokal valdKonferensItem = null!;
-        public Konferenslokal ValdKonferensItem
-        {  get => valdKonferensItem;
-            set 
-            { valdKonferensItem = value;
-                OnPropertyChanged();
+        private Logi tillgängligLogiSelectedItem = null!;
+        public Logi TillgängligLogiSelectedItem
+        {
+            get => tillgängligLogiSelectedItem;
+            set
+            {
+                tillgängligLogiSelectedItem = value; OnPropertyChanged();
+                if (TillgängligLogiSelectedItem != null)
+                {
+                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgängligLogiSelectedItem.Typen, Starttid, Sluttid);
+                }
             }
         }
 
-
-        private int tillgängligLogiSelectedIndex;
-        public int TillgängligLogiSelectedIndex { get => tillgängligLogiSelectedIndex; set { tillgängligLogiSelectedIndex = value; OnPropertyChanged(); } }
+        private int tillgänligLogiSelectedIndex;
+        public int TillgänligLogiSelectedIndex { get => tillgänligLogiSelectedIndex; set { tillgänligLogiSelectedIndex = value; OnPropertyChanged(); } }
 
         private Logi valdLogiSelectedItem = null!;
         public Logi ValdLogiSelectedItem
@@ -252,10 +257,23 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region Observable Collections 
-
+        #region Observable collections Konferens - Sprint 2
         private ObservableCollection<Konferenslokal> tillgängligaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> TillgängligaKonferensRum { get => tillgängligaKonferensRum; set { tillgängligaKonferensRum = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
+        public ObservableCollection<Konferenslokal> ValdaKonferensRum
+        {
+            get => valdaKonferensRum;
+            set
+            {
+                valdaKonferensRum = value; OnPropertyChanged();
+
+            }
+        }
+        #endregion
+
+        #region Observable Collections Logi/Kund - Sprint 1
 
         private ObservableCollection<Logi> tillgängligLogi = null!;
         public ObservableCollection<Logi> TillgängligLogi { get => tillgängligLogi; set { tillgängligLogi = value; OnPropertyChanged(); } }
@@ -288,10 +306,6 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
-
-        public MasterBokningViewModel() { }
-
-
         #region Navigation
         //**** NAVIGATION *******//
         public MasterBokningViewModel(NavigationStore navigationStore, Användare användare)
@@ -313,17 +327,19 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-
-        #region Icommands
-
+        #region ICommands - Konferens - Sprint 2
 
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
-            
 
+            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
         });
 
+
+        #endregion
+
+        #region Icommands - Skapa bokning - Sprint 1 + Inläsning av nya listor(Tillgängligakonferensrum)
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {

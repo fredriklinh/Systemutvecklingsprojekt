@@ -171,6 +171,15 @@
                                     <DataGridTextColumn Header="Platser" Binding="{Binding AntalPlatser}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
+                            <DataGrid x:Name="KonferensVal" AutoGenerateColumns="False" SelectionMode="Single"
+                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding ValdaKonferensRum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                  Background="White" Width="273" Height="141" Margin="0,0,10,0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Konferensnummer" Binding="{Binding KonferensBenämningsId}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Storlek" Binding="{Binding Storlek}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Platser" Binding="{Binding AntalPlatser}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </StackPanel>
                     </StackPanel>
 
