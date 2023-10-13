@@ -1,7 +1,5 @@
 ﻿using Affärslager;
 using Affärslager.KundKontroller;
-using ceTe.DynamicPDF.PageElements;
-using ceTe.DynamicPDF.PageElements.Forms;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
@@ -13,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -265,12 +262,21 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Konferenslokal> tillgängligaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> TillgängligaKonferensRum { get => tillgängligaKonferensRum; set { tillgängligaKonferensRum = value; OnPropertyChanged(); } }
 
+
         private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
-        public ObservableCollection<Konferenslokal> ValdaKonferensRum
-        {
-            get { return valdaKonferensRum; } 
-            set { valdaKonferensRum = value; OnPropertyChanged(); }
-        }
+        public ObservableCollection<Konferenslokal> ValdaKonferensRum { get => valdaKonferensRum; set { valdaKonferensRum = value; OnPropertyChanged(); } }
+
+
+
+        private int tillgängligKonferensIndex;
+        public int TillgängligKonferensIndex { get { return tillgängligKonferensIndex; } set { tillgängligKonferensIndex = value; OnPropertyChanged(); } }
+
+        private int valdKonferensIndex;
+        public int ValdKonferensIndex { get { return valdKonferensIndex; } set { valdKonferensIndex = value; OnPropertyChanged(); } }
+
+
+
+
 
         private Konferenslokal valdKonferensItem = null!;
         public Konferenslokal ValdKonferensItem
@@ -359,12 +365,10 @@ namespace PresentationslagerWPF.ViewModels
 
             if (ValdKonferensItem != null)
             {
-                Konferenslokal kRum = valdKonferensItem;
-                ValdaKonferensRum.Add(kRum);
-                TillgängligaKonferensRum.Remove(kRum);
+                Konferenslokal kRum = ValdKonferensItem;
             }
-            else
-                MessageBox.Show("Var god välj ett konferensrum att lägga till", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+            ValdaKonferensRum.Add(kRum);
+            TillgängligaKonferensRum.Remove(kRum);
         });
 
         private ICommand syngörKonferensKommand = null!;
@@ -394,7 +398,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            
+
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });

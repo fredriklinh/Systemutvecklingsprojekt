@@ -266,17 +266,17 @@ namespace PresentationslagerWPF.ViewModels
         {
 
         }
-        
+
         private string inPutKundSök;
         public string InputKundSök { get => inPutKundSök; set { inPutKundSök = value; OnPropertyChanged(); } }
 
 
-            #endregion
+        #endregion
 
 
 
 
-        
+
     }
 }
 

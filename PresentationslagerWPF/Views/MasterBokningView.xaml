@@ -159,9 +159,10 @@
                             <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Foreground="AliceBlue" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
                             <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
 
-                            <DataGrid x:Name="KonferensAlternativ" Visibility="{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
+                            <DataGrid x:Name="KonferensAlternativ" Visibility = "{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum}"
                                   SelectedItem="{Binding ValdKonferensItem, Mode=TwoWay}"
+                                  SelectedIndex="{Binding TillgängligKonferensIndex, Mode=TwoWay}"
                                   Background="White" Width="273" Height="141" Margin="0,0,10,0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Konferensnummer" Binding="{Binding KonferensBenämningsId, Mode=TwoWay}"></DataGridTextColumn>
@@ -217,6 +218,8 @@
 
                 <DataGrid  x:Name="KonferensValda" Visibility="{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding ValdaKonferensRum}"
+                                  SelectedItem="{Binding ValdKonferensItem, Mode=TwoWay}"
+                                  SelectedIndex="{Binding ValdKonferensIndex, Mode=TwoWay}"
                                   Background="White" Width="294" Height="146" Margin="0,0,10,0">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Konferensnummer" Binding="{Binding KonferensBenämningsId}"></DataGridTextColumn>
