@@ -161,7 +161,7 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 tillgängligLogiSelectedItem = value; OnPropertyChanged();
-                if (TillgängligLogiSelectedItem != null)
+                if (tillgängligLogiSelectedItem != null)
                 {
                     TotalPris = prisKontroller.BeräknaPrisLogi(TillgängligLogiSelectedItem.Typen, Starttid, Sluttid);
                 }
