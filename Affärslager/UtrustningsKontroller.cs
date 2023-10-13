@@ -1,6 +1,5 @@
 ﻿using Datalager;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Affärslager
 {

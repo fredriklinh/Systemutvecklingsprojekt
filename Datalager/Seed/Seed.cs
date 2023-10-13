@@ -1791,7 +1791,7 @@ namespace Datalager.Seed
                    ID = "S2",
                    LektionsTillfälle = "Torsdag & Fredag",
                    Pris = 555,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart                 
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart
                }
                );
 
@@ -1809,7 +1809,7 @@ namespace Datalager.Seed
                 ID = "M2",
                 LektionsTillfälle = "Måndag Eftermiddag",
                 Pris = 375,
-            }) ;
+            });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "Ti1",

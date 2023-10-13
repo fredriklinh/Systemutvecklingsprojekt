@@ -1,13 +1,7 @@
 ﻿using Datalager;
-using Datalager.Context;
+using Entiteter.Enums;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Entiteter.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Affärslager
 {
@@ -60,6 +54,6 @@ namespace Affärslager
             return AllaPrivatLektion;
         }
     }
-        
-    
+
+
 }

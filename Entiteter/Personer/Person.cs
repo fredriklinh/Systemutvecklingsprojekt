@@ -8,11 +8,11 @@
 
         public Person(string förnamn, string efternamn)
         {
-            
+
         }
         public Person()
         {
-            
+
         }
     }
 }

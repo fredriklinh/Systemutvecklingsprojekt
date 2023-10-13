@@ -24,7 +24,7 @@ namespace Datalager
 
         public Repository<Konferenslokal> KonferensLokalRepository { get; private set; }
         public Repository<PrisListaKonferens> KonferensPrisRepository { get; private set; }
-        public Repository<Utrustning> UtrustningRepository { get; private set; }    
+        public Repository<Utrustning> UtrustningRepository { get; private set; }
         public Repository<Elev> ElevRepository { get; private set; }
         public Repository<GruppLektion> GruppLektionRepository { get; private set; }
         public Repository<PrivatLektion> PrivatLektionRepository { get; private set; }
@@ -40,7 +40,7 @@ namespace Datalager
             UtrustningRepository = new Repository<Utrustning>(_dbContext);
             KonferensLokalRepository = new Repository<Konferenslokal>(_dbContext);
             KonferensPrisRepository = new Repository<PrisListaKonferens>(_dbContext);
-            UtrustningRepository = new Repository<Utrustning>(_dbContext);  
+            UtrustningRepository = new Repository<Utrustning>(_dbContext);
             ElevRepository = new Repository<Elev>(_dbContext);
             GruppLektionRepository = new Repository<GruppLektion>(_dbContext);
             PrivatLektionRepository = new Repository<PrivatLektion>(_dbContext);

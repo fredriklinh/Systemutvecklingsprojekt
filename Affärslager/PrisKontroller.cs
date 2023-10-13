@@ -2,9 +2,7 @@
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
-using System.Collections.Generic;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Affärslager
 {

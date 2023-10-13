@@ -1,7 +1,6 @@
 ﻿using Affärslager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.Identity.Client;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
@@ -103,7 +102,7 @@ namespace PresentationslagerWPF.ViewModels
             {
 
 
-                
+
                 allaUtrustningar = value; OnPropertyChanged();
                 //List<Utrustning> hej123 = utrustningsKontroller.SökBenämningTyp();
             }
@@ -133,7 +132,9 @@ namespace PresentationslagerWPF.ViewModels
 
 
             get { return stringTyp; }
-            set { stringTyp = value; OnPropertyChanged();
+            set
+            {
+                stringTyp = value; OnPropertyChanged();
 
 
 
@@ -153,7 +154,7 @@ namespace PresentationslagerWPF.ViewModels
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-            
+
 
             AllaUtrustningar = new ObservableCollection<Utrustning>(utrustningsKontroller.HämtaTillgängligUtrustning());
             //Alpint = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Alpint")); //Pjäxor, Stavar, Skidor
@@ -235,8 +236,8 @@ namespace PresentationslagerWPF.ViewModels
         public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
 
         private ObservableCollection<GruppLektion> gruppLektion = null!;
-        public ObservableCollection<GruppLektion> GruppLektion {get => gruppLektion; set { gruppLektion = value; OnPropertyChanged(); } }
-    
+        public ObservableCollection<GruppLektion> GruppLektion { get => gruppLektion; set { gruppLektion = value; OnPropertyChanged(); } }
+
         private ObservableCollection<PrivatLektion> privatLektion = null!;
         public ObservableCollection<PrivatLektion> PrivatLektion { get => privatLektion; set { privatLektion = value; OnPropertyChanged(); } }
 
@@ -264,9 +265,9 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);                 
+                lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
             }
-        if (PrivatLektion != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (PrivatLektion != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(SelectedPrivat);
@@ -289,7 +290,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand utrustningCommand = null!;
         public ICommand UtrustningCommandSkidor => utrustningCommand ??= utrustningCommand = new RelayCommand(() =>
         {
-            
+
             int värde = TestAntalSelected;
             int iteration = 0;
             Utrustning TestHjälm = new Utrustning();
@@ -301,7 +302,7 @@ namespace PresentationslagerWPF.ViewModels
             if (Antal != null)
             {
                 AntalTestList.Add(antal);
-                 //ValdUtrustningTillBokning.Add(utrustning);
+                //ValdUtrustningTillBokning.Add(utrustning);
 
             }
 
@@ -311,8 +312,10 @@ namespace PresentationslagerWPF.ViewModels
         public int AntalTestint
         {
             get { return antalTestint; }
-            set { antalTestint = value; OnPropertyChanged();
-                    
+            set
+            {
+                antalTestint = value; OnPropertyChanged();
+
 
 
             }
