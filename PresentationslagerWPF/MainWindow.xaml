@@ -29,6 +29,9 @@
             <DataTemplate DataType="{x:Type viewmodels:SkidshopViewModel}">
                 <views:SkidshopView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:StatistikViewModel}">
+                <views:StatistikView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
     <Window.Resources>
