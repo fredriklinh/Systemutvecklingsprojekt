@@ -271,7 +271,7 @@
                          AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10"
                            SelectionMode="Single" SelectionUnit="FullRow" 
                          SelectedItem="{Binding PrivatLektionSelectedItem, Mode=TwoWay}"
-                         SelectedIndex="{Binding PrivatLektionSelectedIndex, Mode=TwoWay}">>
+                         SelectedIndex="{Binding PrivatLektionSelectedIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal}" Width="auto"/>
                         <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>

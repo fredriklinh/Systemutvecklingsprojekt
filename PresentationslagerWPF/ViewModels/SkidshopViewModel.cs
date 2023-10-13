@@ -23,7 +23,6 @@ namespace PresentationslagerWPF.ViewModels
         LektionsKontroller lektionsKontroller = new LektionsKontroller();
 
 
-
         #region ObservableColletion Utrustning
         //TABORT
         private ObservableCollection<Utrustning> alpint = null!;
@@ -162,7 +161,7 @@ namespace PresentationslagerWPF.ViewModels
 
         //**** NAVIGATION *******//
 
-        public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
+        public SkidshopViewModel (NavigationStore navigationStore, Användare användare)
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
 
@@ -252,7 +251,7 @@ namespace PresentationslagerWPF.ViewModels
             get => gruppLektioner;
             set
             {
-                gruppLektioner = (ObservableCollection<GruppLektion>)lektionsKontroller.AllaGruppLektion(); OnPropertyChanged();
+                gruppLektioner = value; OnPropertyChanged();
             }
         }
 
@@ -262,7 +261,7 @@ namespace PresentationslagerWPF.ViewModels
             get => privatLektioner;
             set
             {
-                privatLektioner = (ObservableCollection<PrivatLektion>)lektionsKontroller.AllaPrivatLektion(); ; OnPropertyChanged();
+                privatLektioner = value; OnPropertyChanged();
             }
         }
         private Elev elevTillLektion = null!;
@@ -375,8 +374,8 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-
-            //Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaMasterbokningar(InputKundSök));
+            GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+            PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
 
         });
 
