@@ -266,18 +266,10 @@ namespace PresentationslagerWPF.ViewModels
         {get => valdaKonferensRum;set
             {valdaKonferensRum = value; OnPropertyChanged(); }}
 
-        public Logi TillgängligLogiSelectedItem
-        {
-            get => tillgängligLogiSelectedItem;
-            set
-            {
-                tillgängligLogiSelectedItem = value; OnPropertyChanged();
-                if (TillgängligLogiSelectedItem != null)
-                {
-                    TotalPris = prisKontroller.BeräknaPrisLogi(TillgängligLogiSelectedItem.Typen, Starttid, Sluttid);
-                }
-            }
-        }
+        private Konferenslokal valdKonferensItem = null!;
+        public Konferenslokal ValdKonferensItem
+        { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); }}
+
         #endregion
 
         #region Observable Collections Logi/Kund - Sprint 1
@@ -341,47 +333,16 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
+            Konferenslokal kRum = ValdKonferensItem;
             ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
-            if (TillgängligLogiSelectedItem != null)
+            if (ValdKonferensItem != null)
             {
-                Konferenslokal kRum = ValdKonferensItem;
-                if (Privatkund != null)
-                {
-                    TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
-                    //TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
-                }
+                ValdaKonferensRum.Add(kRum);
+                TillgängligaKonferensRum.Remove(kRum);
+            }
+            else
+            {
 
-                if (TotalPrisRabatt == 0)
-                {
-                    TotalPrisRabatt = resKostnad + TotalPrisRabatt2;
-                }
-                else
-                {
-                    TotalPrisRabatt = TotalPrisRabatt + TotalPrisRabatt2;
-                }
-                ValdLogi.Add(logi);
-                TillgängligLogi.Remove(logi);
-                //Bäddar totalt
-                int resBädd = 0;
-                if (ValdLogi != null)
-                {
-                    for (var i = 0; i < ValdLogi.Count; i++)
-                    {
-                        resBädd += ValdLogi[i].Bäddar;
-                    }
-                }
-
-                //Kostnad totalt
-                if (TotalKostnad == null)
-                {
-                    TotalKostnad = resKostnad + TotalPris;
-                }
-                else
-                {
-                    TotalKostnad = TotalKostnad + TotalPris;
-                }
-
-                AntalSovplatser = resBädd;
             }
         });
 
