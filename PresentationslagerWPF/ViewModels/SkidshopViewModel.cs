@@ -163,9 +163,10 @@ namespace PresentationslagerWPF.ViewModels
 
         public SkidshopViewModel (NavigationStore navigationStore, Användare användare)
         {
-            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-
-
+            TillbakaCommand = 
+                new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>
+                (navigationStore, 
+                () => new HuvudMenyViewModel(navigationStore, användare)));
             AllaUtrustningar = new ObservableCollection<Utrustning>(utrustningsKontroller.HämtaTillgängligUtrustning());
             //Alpint = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Alpint")); //Pjäxor, Stavar, Skidor
             //Snowboard = new ObservableCollection<Utrustning>(allaUtrustningar.Where(i => i.UtrustningsTyp.Typ == "Snowboard")); //Snowboard, Snowboardboots
@@ -180,6 +181,9 @@ namespace PresentationslagerWPF.ViewModels
                                 .GroupBy(i => i.Typ)
                                 .Select(group => group.First())
                                 .ToList();
+
+            GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+            PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
 
         }
         private Utrustning selectedItemUtrustning = null!;
@@ -374,8 +378,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-            GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
-            PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
+
 
         });
 
