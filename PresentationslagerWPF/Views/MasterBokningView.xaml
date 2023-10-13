@@ -156,11 +156,11 @@
                                     <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <StackPanel>
-                                <Label Content="Kostnad Logi:" FontSize="10" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                                <TextBox Foreground="AliceBlue" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
+
+                            <Label Content="Kostnad Logi:" FontSize="10" FontFamily="Calibri" Panel.ZIndex="1" FontWeight="DemiBold" Foreground="DarkSlateGray" > </Label>
+                                <TextBox MinWidth="100" Height="20" Foreground="AliceBlue" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
                                 <Button x:Name="btnLäggTillLogi" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
-                            </StackPanel>
+
                             <DataGrid x:Name="KonferensAlternativ" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding ValdKonferensItem, Mode=TwoWay}"

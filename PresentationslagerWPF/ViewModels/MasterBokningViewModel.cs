@@ -1,5 +1,6 @@
 ﻿using Affärslager;
 using Affärslager.KundKontroller;
+using ceTe.DynamicPDF.PageElements;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
@@ -331,7 +332,6 @@ namespace PresentationslagerWPF.ViewModels
         #region ICommands - Konferens - Sprint 2
 
 
-
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
@@ -342,9 +342,9 @@ namespace PresentationslagerWPF.ViewModels
                 ValdaKonferensRum.Add(kRum);
                 TillgängligaKonferensRum.Remove(kRum);
             }
-            else
+            if(ValdKonferensItem == null)
             {
-
+                MessageBox.Show("Var god välj ett konferensrum att lägga till", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         });
 
@@ -471,31 +471,16 @@ namespace PresentationslagerWPF.ViewModels
 
                 PDF.CreatePDF.RunF(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-
-
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
             {
                 valdLogi.Clear();
             }
+            if (ValdaKonferensRum != null)
+            {
+                bokningsKontroller.KonferensTillMasterBokning(ValdaKonferensRum, MasterBokning);
+            }
 
-            //InputAdress = null;
-            //InputPostnummer = null;
-            //InputOrt = null;
-            //InputTelefonnummer = null;
-            //InputMailAdress = null;
-            //Kundnummer = null;
-            //InputFörnamn = null;
-            //InputEfternamn = null;
-            //AntalSovplatser = null;
-            //TotalKostnad = null;
-            //ValdLogi = null;
-            //TotalPris = 0;
-            //Privatkund = null;
-            //TillgängligLogi = null;
-            //Starttid = DateTime.Now;
-            //Sluttid = DateTime.Now;
-            //TotalPrisRabatt = 0;
 
         });
 
