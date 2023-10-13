@@ -224,15 +224,15 @@ namespace PresentationslagerWPF.ViewModels
 
 
         private DisplayUtrustning antalTest = null!;
-        public DisplayUtrustning AntalTest
-        {
-            get => antalTest;
-            set
-            {
-                antalTest = value; OnPropertyChanged();
+        //public DisplayUtrustning AntalTest
+        //{
+        //    get => antalTest;
+        //    set
+        //    {
+        //        antalTest = value; OnPropertyChanged();
 
-            }
-        }
+        //    }
+        //}
         private ObservableCollection<DisplayUtrustning> antalTestList = null!;
         public ObservableCollection<DisplayUtrustning> AntalTestList
         {
@@ -270,29 +270,12 @@ namespace PresentationslagerWPF.ViewModels
         public string InputKundSök { get => inPutKundSök; set { inPutKundSök = value; OnPropertyChanged(); } }
 
 
-        private Antal antalTest = null!;
-        public Antal AntalTest
-        {
-            get => antalTest;
-            set
-            {
-                antalTest = value; OnPropertyChanged();
-
-
-                //UnikTyp = UtrustningTyp
-                //.GroupBy(i => i.Benämning)
-                //.Select(group => group.First())
-                //.ToList();
-
-            }
-
-
             #endregion
 
 
 
 
-        }
+        
     }
 }
 
