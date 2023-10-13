@@ -96,6 +96,20 @@ namespace Datalager.Context
            .HasKey(ut => ut.Typ);
             modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
 
+            
+            modelBuilder.Entity<PrivatLektion>()
+            .HasKey(pl => pl.ID);
+
+            modelBuilder.Entity<GruppLektion>()
+            .HasKey(gl => gl.ID);
+
+            modelBuilder.Entity<Elev>()
+            .HasKey(e => e.ID);
+
+            modelBuilder.Entity<Personal>()
+            .HasKey(p => p.AnstNr);
+
+
             modelBuilder.Entity<Konferenslokal>()
             .HasKey(kl => kl.KonferensBenämningsId);
 

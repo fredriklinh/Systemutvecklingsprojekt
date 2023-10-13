@@ -1,6 +1,7 @@
 ﻿using Affärslager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
+using Microsoft.Identity.Client;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
@@ -18,6 +19,7 @@ namespace PresentationslagerWPF.ViewModels
 
 
         UtrustningsKontroller utrustningsKontroller = new UtrustningsKontroller();
+        LektionsKontroller lektionsKontroller = new LektionsKontroller();
 
 
 
@@ -229,6 +231,51 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand TillbakaCommand { get; }
 
         //**** SKIDLEKTION *******//
+        private ObservableCollection<Elev> elev = null!;
+        public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<GruppLektion> gruppLektion = null!;
+        public ObservableCollection<GruppLektion> GruppLektion {get => gruppLektion; set { gruppLektion = value; OnPropertyChanged(); } }
+    
+        private ObservableCollection<PrivatLektion> privatLektion = null!;
+        public ObservableCollection<PrivatLektion> PrivatLektion { get => privatLektion; set { privatLektion = value; OnPropertyChanged(); } }
+
+        private GruppLektion selectedGrupp = null!;
+        public GruppLektion SelectedGrupp { get => selectedGrupp; set { selectedGrupp = value; OnPropertyChanged(); } }
+
+        private PrivatLektion selectedPrivat = null!;
+        public PrivatLektion SelectedPrivat { get => selectedPrivat; set { selectedPrivat = value; OnPropertyChanged(); } }
+
+        private string inFörnamn;
+        public string InFörnamn
+        {
+            get { return inFörnamn; }
+            set { inFörnamn = value; OnPropertyChanged(); }
+        }
+        private string inEfternamn;
+        public string InEfternamn
+        {
+            get { return inEfternamn; }
+            set { inEfternamn = value; OnPropertyChanged(); }
+        }
+
+        private ICommand läggTillElevCommand = null!;
+        public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
+        {
+            if (InFörnamn != string.Empty && InEfternamn != string.Empty)
+            {
+                lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);                 
+            }
+        if (PrivatLektion != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            {
+                lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                lektionsKontroller.BokaPrivatLektion(SelectedPrivat);
+            }
+            if (GruppLektion != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            {
+
+            }
+        });
         #endregion
 
 
