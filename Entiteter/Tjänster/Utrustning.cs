@@ -13,7 +13,7 @@ namespace Entiteter.Tjänster
         public string? Typ { get; set; }
         public virtual UtrustningsTyp UtrustningsTyp { get; set; }
 
-        
+
 
         public Utrustning()
         {

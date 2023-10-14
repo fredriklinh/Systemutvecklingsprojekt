@@ -4,7 +4,6 @@ namespace PresentationslagerWPF.DataDisplay
 {
     public class DisplayUtrustning
     {
-
         public DisplayUtrustning(int antal, Utrustning propUtrustning, string typ, string benämning)
         {
             Value = antal;
@@ -20,6 +19,8 @@ namespace PresentationslagerWPF.DataDisplay
         public string Typ { get; set; }
 
         public string Benämning { get; set; }
+
+        public int Summa { get; set; }
 
     }
 }

@@ -1719,6 +1719,7 @@ namespace Datalager.Seed
 
             #endregion Ladda utrustning
 
+
             #region Ladda Grupplektioner
             modelBuilder.Entity<GruppLektion>().HasData(
                new GruppLektion()
@@ -3014,6 +3015,175 @@ namespace Datalager.Seed
 
             #endregion
 
+
+            #region Ladda PrisUtrustning
+            //Ladda Prisutrustningar
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+                TypAvUtrustning = "Alpint",
+                BenämningUtrustning = "Paket",
+                Dag1 = 180,
+                Dag2 = 305,
+                Dag3 = 405,
+                Dag4 = 495,
+                Dag5 = 560
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+                TypAvUtrustning = "Alpint",
+                BenämningUtrustning = "Skidor",
+                Dag1 = 130,
+                Dag2 = 230,
+                Dag3 = 330,
+                Dag4 = 395,
+                Dag5 = 445
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Alpint",
+                BenämningUtrustning = "Pjäxor",
+                Dag1 = 115,
+                Dag2 = 195,
+                Dag3 = 255,
+                Dag4 = 315,
+                Dag5 = 375
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Alpint",
+                BenämningUtrustning = "Stavar",
+                Dag1 = 40,
+                Dag2 = 50,
+                Dag3 = 60,
+                Dag4 = 70,
+                Dag5 = 80
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Längd",
+                BenämningUtrustning = "Paket",
+                Dag1 = 130,
+                Dag2 = 230,
+                Dag3 = 320,
+                Dag4 = 390,
+                Dag5 = 440
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Längd",
+                BenämningUtrustning = "Skidor",
+                Dag1 = 100,
+                Dag2 = 170,
+                Dag3 = 220,
+                Dag4 = 270,
+                Dag5 = 320
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Längd",
+                BenämningUtrustning = "Pjäxor",
+                Dag1 = 80,
+                Dag2 = 120,
+                Dag3 = 150,
+                Dag4 = 170,
+                Dag5 = 200
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Längd",
+                BenämningUtrustning = "Stavar",
+                Dag1 = 40,
+                Dag2 = 50,
+                Dag3 = 60,
+                Dag4 = 70,
+                Dag5 = 80
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Snowboard",
+                BenämningUtrustning = "Paket",
+                Dag1 = 250,
+                Dag2 = 415,
+                Dag3 = 540,
+                Dag4 = 655,
+                Dag5 = 760
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Snowboard",
+                BenämningUtrustning = "Snowboard",
+                Dag1 = 190,
+                Dag2 = 335,
+                Dag3 = 455,
+                Dag4 = 555,
+                Dag5 = 625
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Snowboard",
+                BenämningUtrustning = "Snowboardskor",
+                Dag1 = 115,
+                Dag2 = 195,
+                Dag3 = 275,
+                Dag4 = 350,
+                Dag5 = 395
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Hjälm",
+                BenämningUtrustning = "Hjäml",
+                Dag1 = 40,
+                Dag2 = 50,
+                Dag3 = 60,
+                Dag4 = 70,
+                Dag5 = 80
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Skoter",
+                BenämningUtrustning = "Lynx50",
+                Dag1 = 1000,
+                Dag2 = 0,
+                Dag3 = 2750,
+                Dag4 = 0,
+                Dag5 = 5950
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Skoter",
+                BenämningUtrustning = "Yahama Viking",
+                Dag1 = 1300,
+                Dag2 = 0,
+                Dag3 = 3700,
+                Dag4 = 0,
+                Dag5 = 7250
+            });
+            modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
+            {
+
+                TypAvUtrustning = "Skoter",
+                BenämningUtrustning = "Nilapulka",
+                Dag1 = 240,
+                Dag2 = 0,
+                Dag3 = 640,
+                Dag4 = 0,
+                Dag5 = 1280
+            });
+
+
+            #endregion
 
 
         }

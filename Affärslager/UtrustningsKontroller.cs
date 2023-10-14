@@ -1,7 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using System;
 using System.Collections.ObjectModel;
 
 namespace Affärslager
@@ -35,46 +34,42 @@ namespace Affärslager
         //    return AllaUtrustningar;
         //}
 
-        public UtrustningsBokning SkapaUtrustningsBokningPrivat(List<int> antal, List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare/*, int summa*/)
+
+        public List<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum)
         {
-            List<Utrustning> resulterandeUtrustningar = new List<Utrustning>();
-            foreach (Utrustning item in utrustningar)
+
+            List<Utrustning> utrustnings = new List<Utrustning>();
+
+            var AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList();
+
+            var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(a => a.StartDatum > DateTime.Now && a.SlutDatum < slutdatum).ToList();
+            List<Utrustning> test123 = new List<Utrustning>();
+            foreach (var item in AllaBokadeUtrustnignar)
             {
-                foreach (int i in antal)
+                foreach (var lista in item.Utrustningar)
                 {
-                    for (int x = 0; x < i; x++)
-                    {
-                        foreach (Utrustning utrustning in unitOfWork.UtrustningRepository.Find(a => a.Benämning == item.Benämning && a.Typ == item.Typ))
-                        {
-                            resulterandeUtrustningar.Add(utrustning);
-                        }
-                    }
+                    test123.Add(lista);
                 }
             }
+            var UnikaUtrustningar = AllaUtrustningar.Concat(test123).Distinct().ToList();
 
-            
+            return UnikaUtrustningar;
+        }
 
-            //for (int i = 0; i < antal.Count && i < utrustningar.Count; i++)
-            //{
-            //    for (int j = 0; j < antal[i]; j++)
-            //    {
-            //        resulterandeUtrustningar.Add(utrustningar[i]);
-            //    }
-            //}
+
+
+
+        public void SkapaUtrustningsBokningPrivat(List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare, int summa)
+        {
             DateTime startdatum = DateTime.Now;
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => (a.Privatkund == privatkund) && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
-            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokning, startdatum, slutdatum, /*summa,*/ resulterandeUtrustningar);
+            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokning, startdatum, slutdatum, /*summa,*/ utrustningar);
             masterBokning.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
             unitOfWork.Complete();
-            return utrustningsBokning;
+
         }
 
-        //public UtrustningsBokning SkapaUtrustningsBokningFöretag(List<Utrustning> utrustningar, DateTime slutdatum)
-        //{
-
-
-        //}
 
         public ObservableCollection<int> SökBenämningTyp(string benämning, string typ, DateTime slutdatum)
         {
@@ -89,7 +84,7 @@ namespace Affärslager
                 foreach (Utrustning utrustning in utrustningsBokning.Utrustningar)
                 {
                     utrustningAvTyp.Remove(utrustning);
-                }  
+                }
             }
             return RäknaAntal(utrustningAvTyp);
         }
@@ -120,7 +115,6 @@ namespace Affärslager
                     .Select(group => group.First())
                     .ToList();
         }
-
 
         public IList<Utrustning> SökTyp(Utrustning SelectedItem)
         {

@@ -27,6 +27,8 @@ namespace Datalager
         public Repository<Elev> ElevRepository { get; private set; }
         public Repository<GruppLektion> GruppLektionRepository { get; private set; }
         public Repository<PrivatLektion> PrivatLektionRepository { get; private set; }
+        public Repository<PrisListaUtrustning> PrisUtrustningRepository { get; private set; }
+
         public UnitOfWork()
         {
             _dbContext = new dbContext();
@@ -43,6 +45,8 @@ namespace Datalager
             ElevRepository = new Repository<Elev>(_dbContext);
             GruppLektionRepository = new Repository<GruppLektion>(_dbContext);
             PrivatLektionRepository = new Repository<PrivatLektion>(_dbContext);
+            PrisUtrustningRepository = new Repository<PrisListaUtrustning>(_dbContext);
+
         }
 
 

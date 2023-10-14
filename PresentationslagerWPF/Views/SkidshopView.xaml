@@ -149,98 +149,131 @@
         <StackPanel Grid.Row="2" Grid.Column="0"  Background="DarkBlue" Grid.ColumnSpan="8"/>
         <StackPanel Grid.Row="5" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="5" Margin="10,5,5,5" Grid.RowSpan="1" Orientation="Horizontal">
             <StackPanel>
-                <Label Content="Kompletta"/>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin" Value="0,5,10,10"/>
+                        <Setter Property="Width" Value="50"/>
+                    </Style>
+                </StackPanel.Resources>
                 <StackPanel Background="LightGray" Orientation="Horizontal">
                     <StackPanel>
-                        <Label Content="Komplett Skidor"/>
-                        <Label Content="Komplett Snowboard"/>
+                        <Label Margin="0,10,0,10">Alpint</Label>
+                        <Label Margin="0,10,0,10">Snowboard</Label>
                     </StackPanel>
                     <StackPanel>
-                        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-                            <ComboBox Margin="10,0,10,0" Width="40"/>
-                            <Label Foreground="Red" Content="20 kvar"/>
-                            <Label Content="KOMPLETT Längdskidor" />
-                            <ComboBox Margin="10,0,10,0" Width="40"/>
-                            <Label Foreground="Red" Content="20 kvar"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Benämning"></ComboBox>
+                            <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
+                            <Label Margin="10,10,0,10">Kr</Label>
+                            <TextBox Text="{Binding SummaAlpin}"></TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <ComboBox Margin="10,0,10,0" Width="40"/>
-                            <Label FontSize="14" Foreground="Red" Content="20 kvar"/>
-
+                            <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Benämning"></ComboBox>
+                            <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
+                            <Label Margin="10,10,0,10">Kr</Label>
+                            <TextBox Text="{Binding SummaAlpin}"></TextBox>
                         </StackPanel>
                     </StackPanel>
+                    <StackPanel >
+                        <StackPanel Orientation="Horizontal">
+                            <Label Margin="0,10,0,10">Längd</Label>
+                            <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Benämning"></ComboBox>
+                            <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
+                            <Label Margin="10,10,0,10">Kr</Label>
+                            <TextBox Text="{Binding SummaAlpin}"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    
                 </StackPanel>
+            <StackPanel/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="10,5,5,5">
+        <StackPanel Orientation="Horizontal" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="10,5,5,5">
             <StackPanel>
                 <Label Margin="0,10,0,10">Alpin</Label>
                 <Label Margin="0,10,0,10">Snowboard</Label>
                 <Label Margin="0,10,0,10">Längd</Label>
-                <Label>Hjälm</Label>
+                <Label Margin="0,10,0,10">Hjälm</Label>
             </StackPanel>
             <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin" Value="0,5,10,10"/>
+                        <Setter Property="Width" Value="50"/>
+                    </Style>
+                </StackPanel.Resources>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypAlpin}"  SelectedItem="{Binding SelectedItemAlpin}" DisplayMemberPath="Benämning"></ComboBox>
                     <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalAlpin}" SelectedItem="{Binding SelectedItemAntalAlpin}"></ComboBox>
+                    <Label Margin="10,10,0,10">Kr</Label>
+                    <TextBox Text="{Binding SummaAlpin}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypSnowboard}" SelectedItem="{Binding SelectedItemSnowboard}" DisplayMemberPath="Benämning" ></ComboBox>
                     <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalSnowboard}" SelectedItem="{Binding SelectedItemAntalSnowboard }"></ComboBox>
+                    <Label Margin="10,10,0,10">Kr</Label>
+                    <TextBox Text="{Binding SummaSnowboard}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypLängd}" SelectedItem="{Binding SelectedItemLängd}" DisplayMemberPath="Benämning"></ComboBox>
                     <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalLängd}" SelectedItem="{Binding SelectedItemAntalLängd}"></ComboBox>
+                    <Label Margin="10,10,0,10">Kr</Label>
+                    <TextBox Text="{Binding SummaLängd}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypHjälm}" SelectedItem="{Binding SelectedItemHjälm}" DisplayMemberPath="Benämning"></ComboBox>
-                <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
-            </StackPanel>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" Grid.RowSpan ="2" Background="LightGray" Margin="5,5,5,5">
-            <Label Content="Övrigt"/>
-            <StackPanel Background="LightGray" Orientation="Horizontal">
-                <StackPanel>
-                    <Label Margin="0,10,0,0" Content="SKOTER"/>
-                    <Label Margin="0,10,0,10" Content="YH.Viki"/>
-                    <Label Content="Pulka" />
-
+                    <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
+                    <Label Margin="10,10,0,10">Kr</Label>
+                    <TextBox Text="{Binding SummaHjälm}"></TextBox>
                 </StackPanel>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,15,5,5">
-                        <ComboBox Margin="0,0,0,0" Width="40"/>
-                        <Label FontSize="9" Foreground="Red" Content="20 kvar"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,10,5,10">
-                        <ComboBox Margin="0,0,0,0" Width="40"/>
-                        <Label FontSize="9" Foreground="Red" Content="20 kvar"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <ComboBox Margin="0,0,0,0" Width="40"/>
-                        <Label FontSize="9" Foreground="Red" Content="20 kvar"/>
-                    </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <Label Margin="20,10,0,10">Skoter</Label>
+            </StackPanel>
 
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin" Value="0,5,0,10"/>
+                        <Setter Property="Width" Value="50"/>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox Width="125"  Margin="5,10,5,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Benämning"></ComboBox>
+                    <ComboBox Width="50" Margin="5,10,5,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
+                    <Label Margin="10,10,0,10">Kr</Label>
+                    <TextBox Text="{Binding SummaAlpin}"></TextBox>
                 </StackPanel>
-
             </StackPanel>
 
         </StackPanel>
-
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="LightGray" Margin="10,5,5,5">
             <Label Content="Vald till Bokning"/>
-            <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
+            <StackPanel Margin="10,10,10,10" Orientation="Horizontal">
+                <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
                           AutoGenerateColumns="False" SelectionMode="Single"
                           SelectionUnit="FullRow" IsReadOnly="True"
                           SelectedItem="{Binding ValdLogiSelectedItem, Mode=TwoWay}"
                           SelectedIndex="{Binding ValdLogiSelectedIndex, Mode=TwoWay}"
                           Background="White" Width="450" Height="150" Margin="0,0,10,0">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
-                    <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
-                    <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
+                        <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
+                        <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" >
+                        <Label>Total</Label>
+                        <TextBox Text="{Binding SummaTotal}" Width="50"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,10,10" VerticalAlignment="Bottom">
+                        <Button Command="{Binding TaBortCommand}">TaBort</Button>
+                        <Button Command="{Binding SparaCommand}" Margin="0,20,0,0">Spara</Button>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="4,5,5,5"  Background="LightPink">

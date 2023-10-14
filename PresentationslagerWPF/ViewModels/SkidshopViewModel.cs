@@ -6,8 +6,10 @@ using PresentationslagerWPF.DataDisplay;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PresentationslagerWPF.ViewModels
@@ -19,6 +21,8 @@ namespace PresentationslagerWPF.ViewModels
 
         UtrustningsKontroller utrustningsKontroller = new UtrustningsKontroller();
         LektionsKontroller lektionsKontroller = new LektionsKontroller();
+        PrisKontroller priskontroller = new PrisKontroller();
+
 
 
         #region Observable Collection 
@@ -46,17 +50,6 @@ namespace PresentationslagerWPF.ViewModels
             get => typAlpin; set
             {
                 typAlpin = value; OnPropertyChanged();
-            }
-        }
-        #endregion
-
-        private ObservableCollection<MasterBokning> masterbokningar = null!;
-        public ObservableCollection<MasterBokning> Masterbokningar
-        {
-            get => masterbokningar;
-            set
-            {
-                masterbokningar = value; OnPropertyChanged();
             }
         }
 
@@ -87,14 +80,28 @@ namespace PresentationslagerWPF.ViewModels
 
             }
         }
-        private ObservableCollection<Utrustning> typHjälm= null!;
-        public ObservableCollection<Utrustning>  TypHjälm
+        private ObservableCollection<Utrustning> typHjälm = null!;
+        public ObservableCollection<Utrustning> TypHjälm
         {
             get => typHjälm; set
             {
                 typHjälm = value; OnPropertyChanged();
             }
         }
+
+        #endregion
+
+        private ObservableCollection<MasterBokning> masterbokningar = null!;
+        public ObservableCollection<MasterBokning> Masterbokningar
+        {
+            get => masterbokningar;
+            set
+            {
+                masterbokningar = value; OnPropertyChanged();
+            }
+        }
+
+
 
 
         #region NAVIGATION
@@ -103,7 +110,7 @@ namespace PresentationslagerWPF.ViewModels
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-            
+
             //Benämning ObservableCollection
             TypAlpin = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Alpint"));
             TypSnowboard = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Snowboard"));
@@ -114,16 +121,62 @@ namespace PresentationslagerWPF.ViewModels
 
             TotalDisplayUtrustning = new ObservableCollection<DisplayUtrustning>();
             ValdUtrustningTillBokning = new ObservableCollection<Utrustning>();
-            AntalTestList = new ObservableCollection<DisplayUtrustning>();
 
 
         }
         public ICommand TillbakaCommand { get; }
 
+
+        private ICommand spara = null!;
+        public ICommand Spara => spara ??= spara = new RelayCommand(() =>
+        {
+            List<Utrustning> hämtadUtrustning = new List<Utrustning>();
+            foreach (var item in TotalDisplayUtrustning)
+            {
+                hämtadUtrustning.Concat(utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Sluttid));
+
+            }
+            //utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning);
+
+
+
+        });
         #endregion
 
+        #region SUMMA
 
-        //private DisplayUtrustning = null
+        private int summaAlpin;
+        public int SummaAlpin
+        {
+            get { return summaAlpin; }
+            set { summaAlpin = value; OnPropertyChanged(); }
+
+
+        }
+        private int summaSnowboard;
+        public int SummaSnowboard
+        {
+            get { return summaSnowboard; }
+            set { summaSnowboard = value; OnPropertyChanged(); }
+
+
+        }
+        private int summaLängd;
+        public int SummaLängd
+        {
+            get { return summaLängd; }
+            set { summaLängd = value; OnPropertyChanged(); }
+
+
+        }
+        private int summaHjälm;
+        public int SummaHjälm
+        {
+            get { return summaHjälm; }
+            set { summaHjälm = value; OnPropertyChanged(); }
+        }
+        #endregion
+
 
         #region AntalInt
 
@@ -173,6 +226,8 @@ namespace PresentationslagerWPF.ViewModels
 
             }
         }
+        private DateTime sluttid = DateTime.Now;
+        public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
 
         #region SELECTED ITEM
 
@@ -182,16 +237,16 @@ namespace PresentationslagerWPF.ViewModels
             get => selectedItemAlpin; set
             {
                 selectedItemAlpin = value; OnPropertyChanged();
-                AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ);
+                AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Sluttid);
             }
         }
         private Utrustning selectedItemSnowboard = null!;
-        public Utrustning SelectedItemSnowboard 
+        public Utrustning SelectedItemSnowboard
         {
             get => selectedItemSnowboard; set
             {
                 selectedItemSnowboard = value; OnPropertyChanged();
-                AntalSnowboard = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ);
+                AntalSnowboard = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Sluttid);
             }
         }
         private Utrustning selectedItemLängd = null!;
@@ -200,7 +255,7 @@ namespace PresentationslagerWPF.ViewModels
             get => selectedItemLängd; set
             {
                 selectedItemLängd = value; OnPropertyChanged();
-                AntalLängd = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ);
+                AntalLängd = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Sluttid);
 
             }
         }
@@ -210,7 +265,7 @@ namespace PresentationslagerWPF.ViewModels
             get => selectedItemHjälm; set
             {
                 selectedItemHjälm = value; OnPropertyChanged();
-                AntalHjälm = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ);
+                AntalHjälm = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Sluttid);
 
             }
         }
@@ -226,7 +281,9 @@ namespace PresentationslagerWPF.ViewModels
             {
                 selectedItemAntalAlpin = value; OnPropertyChanged();
 
-                TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalAlpin, SelectedItemAlpin, SelectedItemAlpin.UtrustningsTyp.Typ, SelectedItemAlpin.Benämning));        
+
+                SummaAlpin = priskontroller.BeräknaPrisUtrustning(SelectedItemAntalAlpin, SelectedItemAlpin.Typ, SelectedItemAlpin.Benämning, Sluttid);
+                //TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalAlpin, SelectedItemAlpin, SelectedItemAlpin.UtrustningsTyp.Typ, SelectedItemAlpin.Benämning));     
             }
         }
 
@@ -351,7 +408,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        
+
         private string inPutKundSök;
         public string InputKundSök { get => inPutKundSök; set { inPutKundSök = value; OnPropertyChanged(); } }
 
@@ -359,7 +416,7 @@ namespace PresentationslagerWPF.ViewModels
 
 
 
-        
+
     }
 }
 
