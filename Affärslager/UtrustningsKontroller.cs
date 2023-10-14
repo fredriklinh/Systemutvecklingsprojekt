@@ -37,7 +37,7 @@ namespace Affärslager
 
 
 
-        public ObservableCollection<int> SökBenämningTyp(string benämning, string typ, DateTime slutdatum)
+        public ObservableCollection<int> SökBenämningTyp(string benämning, string typ /*DateTime slutdatum*/)
         {
             List<Utrustning> utrustningAvTyp = new List<Utrustning>();
 

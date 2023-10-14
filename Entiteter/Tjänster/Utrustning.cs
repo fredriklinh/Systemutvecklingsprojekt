@@ -20,5 +20,12 @@ namespace Entiteter.Tjänster
 
         }
 
+        public Utrustning(string utrustningsId, bool tillgänglig, string benämning, string? typ)
+        {
+            UtrustningsId = utrustningsId;
+            Tillgänglig = tillgänglig;
+            Benämning = benämning;
+            Typ = typ;
+        }
     }
 }

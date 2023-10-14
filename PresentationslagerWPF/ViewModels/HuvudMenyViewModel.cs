@@ -9,7 +9,6 @@ namespace PresentationslagerWPF.ViewModels
 {
     public class HuvudMenyViewModel : ObservableObject
     {
-
         public HuvudMenyViewModel(NavigationStore navigationStore, Användare användare)
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
@@ -23,18 +22,16 @@ namespace PresentationslagerWPF.ViewModels
 
         //**** NAVIGATION *******//
         public ICommand NavigateSkidshopCommand { get; }
-
-        public ICommand NavigateLoggaUtCommand { get; }
         public ICommand NavigateMasterBokningCommand { get; }
         public ICommand NavigateKundHanteringCommand { get; }
         public ICommand NavigateStatistikCommand { get; }
-
 
 
         //**** NAVBAR *******//
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
+        public ICommand NavigateLoggaUtCommand { get; }
 
 
     }
