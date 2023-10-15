@@ -10,34 +10,34 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        //public IList<Utrustning> HämtaTillgängligUtrustning()
-        //{
-        //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+        public IList<Utrustning> HämtaTillgängligUtrustning()
+        {
+            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-        //    foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
-        //    {
-        //        AllaUtrustningar.Add(Hej);
-        //    }
-        //    return AllaUtrustningar;
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+            {
+                AllaUtrustningar.Add(Hej);
+            }
+            return AllaUtrustningar;
 
-        //}
+        }
 
-        //public IList<Utrustning> HämtaTillgängligUtrustningTyp()
-        //{
+        public IList<Utrustning> HämtaTillgängligUtrustningTyp()
+        {
 
 
-        //    List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-        //    foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
-        //    {
-        //        AllaUtrustningar.Add(Hej);
-        //    }
-        //    return AllaUtrustningar;
-        //}
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+            {
+                AllaUtrustningar.Add(Hej);
+            }
+            return AllaUtrustningar;
+        }
 
         public UtrustningsBokning SkapaUtrustningsBokningPrivat(List<int> antal, List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare/*, int summa*/)
         {
-            List<Utrustning> resulterandeUtrustningar = new List<Utrustning>();
+            IList<Utrustning> resulterandeUtrustningar = new List<Utrustning>();
             foreach (Utrustning item in utrustningar)
             {
                 foreach (int i in antal)
@@ -63,7 +63,7 @@ namespace Affärslager
             //}
             DateTime startdatum = DateTime.Now;
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => (a.Privatkund == privatkund) && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
-            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokning, startdatum, slutdatum, /*summa,*/ resulterandeUtrustningar);
+            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokning, startdatum, slutdatum, resulterandeUtrustningar);
             masterBokning.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
             unitOfWork.Complete();
