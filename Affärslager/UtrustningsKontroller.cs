@@ -2,6 +2,10 @@
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
+using System.Linq;
+using static Azure.Core.HttpHeader;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Affärslager
 {
@@ -57,6 +61,10 @@ namespace Affärslager
         }
 
 
+        public MasterBokning BokningExisterar(string bokningsNr)
+        {
+            return unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.BokningsNr.ToString() == bokningsNr);
+        }
 
 
         public void SkapaUtrustningsBokningPrivat(List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare, int summa)
@@ -69,7 +77,6 @@ namespace Affärslager
             unitOfWork.Complete();
 
         }
-
 
         public ObservableCollection<int> SökBenämningTyp(string benämning, string typ, DateTime slutdatum)
         {
@@ -88,7 +95,41 @@ namespace Affärslager
             }
             return RäknaAntal(utrustningAvTyp);
         }
+        public ObservableCollection<int> SökPaketTyp(string benämning, string typ, DateTime slutdatum)
+        {
+            DateTime startDatum = DateTime.Now;
 
+            List<Utrustning> TillgängligUtrustning = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning ).ToList();
+
+            foreach (UtrustningsBokning utrustningsBokning in unitOfWork.UtrustningsBokningRepository.Find(f => (startDatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startDatum <= f.SlutDatum && startDatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startDatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
+            {
+                foreach (Utrustning utrustning in utrustningsBokning.Utrustningar)
+                {
+                    TillgängligUtrustning.Remove(utrustning);
+                }
+            }
+            return RäknaAntalPaket(TillgängligUtrustning);
+        }
+
+        private ObservableCollection<int>RäknaAntalPaket(List<Utrustning> tillgänligUtrustning)
+        {
+            //Grupperar listan efter hur många gånger en string förekommer med den minsta värdet överst
+            var SorteraAntal = tillgänligUtrustning
+             .GroupBy(s => s.Benämning)
+             .Select(g => new { Value = g.Key, Count = g.Count() })
+             .OrderBy(x => x.Count);
+
+            //Hämtar det första värde i SorteraAntal => Minsta värdet
+            var minsFörekommande = SorteraAntal.FirstOrDefault();
+
+            ObservableCollection<int> AntalPaket = new ObservableCollection<int>();
+            for (int i = 0; i < minsFörekommande.Count; i++)
+            {
+                AntalPaket.Add(i);
+
+            }
+            return AntalPaket;
+        }
 
         private ObservableCollection<int> RäknaAntal(List<Utrustning> utrustnings)
         {
@@ -105,6 +146,25 @@ namespace Affärslager
             }
             return antal;
         }
+
+        public void FullbordaÅterlämning(string InputÅterlämning)
+        {
+            //OBS. Måste har en bool för återlämnad utrustning.
+            //unitOfWork.UtrustningsBokningRepository.FirstOrDefault(a => a.Återlämmnad == true).Where(e => e.bokningsNr == InputÅterlämning)
+        }
+
+        public List<Utrustning> SökPaket(string paket)
+        {
+            
+           var allaPaket = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Benämning == paket);
+            
+            return allaPaket
+                .GroupBy(i => i.Typ)
+                .Select(group => group.First())
+                .ToList();
+
+        }
+
 
         public List<Utrustning> SökBenämning(string utrBenämning)
         {

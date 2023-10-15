@@ -1499,7 +1499,31 @@ namespace Datalager.Seed
             #endregion Ladda Kund
 
 
-            #region --------------------------------------------Ladda utrustning            
+            #region --------------------------------------------Ladda utrustning    
+
+            //TEST - Tillkommit 
+            modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+            {
+                UtrustningsId = "P1",
+                Tillgänglig = true,
+                Typ = "Alpint",
+                Benämning = "Paket"
+            });
+            modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+            {
+                UtrustningsId = "P2",
+                Tillgänglig = true,
+                Typ = "Snowboard",
+                Benämning = "Paket"
+            });
+            modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
+            {
+                UtrustningsId = "P3",
+                Tillgänglig = true,
+                Typ = "Längd",
+                Benämning = "Paket"
+            });
+
             //Ladda in Alpinskidor
             for (int i = 1; i <= 350; i++)
             {
@@ -1596,7 +1620,7 @@ namespace Datalager.Seed
                     UtrustningsId = $"S{+i}",
                     Tillgänglig = true,
                     Typ = "Snöskoter",
-                    Benämning = "Lynx 50"
+                    Benämning = "Lynx50"
                 });
             }
             //Ladda in Snöskoter av märket Yamaha
@@ -3020,6 +3044,7 @@ namespace Datalager.Seed
             //Ladda Prisutrustningar
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
+                PrisId = 1,
                 TypAvUtrustning = "Alpint",
                 BenämningUtrustning = "Paket",
                 Dag1 = 180,
@@ -3030,6 +3055,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
+                PrisId = 2,
                 TypAvUtrustning = "Alpint",
                 BenämningUtrustning = "Skidor",
                 Dag1 = 130,
@@ -3040,7 +3066,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 3,
                 TypAvUtrustning = "Alpint",
                 BenämningUtrustning = "Pjäxor",
                 Dag1 = 115,
@@ -3051,7 +3077,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 4,
                 TypAvUtrustning = "Alpint",
                 BenämningUtrustning = "Stavar",
                 Dag1 = 40,
@@ -3062,7 +3088,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 5,
                 TypAvUtrustning = "Längd",
                 BenämningUtrustning = "Paket",
                 Dag1 = 130,
@@ -3073,7 +3099,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 6,
                 TypAvUtrustning = "Längd",
                 BenämningUtrustning = "Skidor",
                 Dag1 = 100,
@@ -3084,7 +3110,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 7,
                 TypAvUtrustning = "Längd",
                 BenämningUtrustning = "Pjäxor",
                 Dag1 = 80,
@@ -3095,7 +3121,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 8,
                 TypAvUtrustning = "Längd",
                 BenämningUtrustning = "Stavar",
                 Dag1 = 40,
@@ -3106,7 +3132,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 9,
                 TypAvUtrustning = "Snowboard",
                 BenämningUtrustning = "Paket",
                 Dag1 = 250,
@@ -3117,7 +3143,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 10,
                 TypAvUtrustning = "Snowboard",
                 BenämningUtrustning = "Snowboard",
                 Dag1 = 190,
@@ -3128,7 +3154,7 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 11,
                 TypAvUtrustning = "Snowboard",
                 BenämningUtrustning = "Snowboardskor",
                 Dag1 = 115,
@@ -3139,9 +3165,9 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
+                PrisId = 12,
                 TypAvUtrustning = "Hjälm",
-                BenämningUtrustning = "Hjäml",
+                BenämningUtrustning = "Hjälm",
                 Dag1 = 40,
                 Dag2 = 50,
                 Dag3 = 60,
@@ -3150,8 +3176,8 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
-                TypAvUtrustning = "Skoter",
+                PrisId = 13,
+                TypAvUtrustning = "Snöskoter",
                 BenämningUtrustning = "Lynx50",
                 Dag1 = 1000,
                 Dag2 = 0,
@@ -3161,9 +3187,9 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
-                TypAvUtrustning = "Skoter",
-                BenämningUtrustning = "Yahama Viking",
+                PrisId = 14,
+                TypAvUtrustning = "Snöskoter",
+                BenämningUtrustning = "Yamaha Vikning",
                 Dag1 = 1300,
                 Dag2 = 0,
                 Dag3 = 3700,
@@ -3172,8 +3198,8 @@ namespace Datalager.Seed
             });
             modelBuilder.Entity<PrisListaUtrustning>().HasData(new PrisListaUtrustning()
             {
-
-                TypAvUtrustning = "Skoter",
+                PrisId = 15,
+                TypAvUtrustning = "Snöskoter",
                 BenämningUtrustning = "Nilapulka",
                 Dag1 = 240,
                 Dag2 = 0,

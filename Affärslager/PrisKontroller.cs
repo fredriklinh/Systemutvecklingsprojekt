@@ -239,19 +239,22 @@ namespace Affärslager
             PrisListaUtrustning prislista = unitOfWork.PrisUtrustningRepository.FirstOrDefault(a => (a.TypAvUtrustning == typ) && a.BenämningUtrustning == benämning);
 
             int Summa = 0;
-            for (int i = 1; i < antalDagar; i++)
+            for (int d = 1; d < antal; d++)
             {
-                if (i == 1) Summa = prislista.Dag1;
+                for (int i = 1; i < antalDagar; i++)
+                {
+                    if (i == 1) Summa += prislista.Dag1;
 
-                if (i == 2) Summa += prislista.Dag2;
+                    if (i == 2) Summa += prislista.Dag2;
 
-                if (i == 3) Summa += prislista.Dag3;
+                    if (i == 3) Summa += prislista.Dag3;
 
-                if (i == 4) Summa += prislista.Dag4;
+                    if (i == 4) Summa += prislista.Dag4;
 
-                if (i == 5) Summa += prislista.Dag5;
+                    if (i == 5) Summa += prislista.Dag5;
 
-                if (i >= 5) Summa += prislista.Dag5 / 7;
+                    if (i >= 5) Summa += prislista.Dag5 + prislista.Dag5 / 7;
+                }
             }
             return Summa;
         }

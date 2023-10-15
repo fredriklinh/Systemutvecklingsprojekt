@@ -94,7 +94,7 @@ namespace Datalager.Context
             modelBuilder.Entity<Utrustning>()
                 .HasKey(u => u.UtrustningsId);
             modelBuilder.Entity<Utrustning>().HasOne<UtrustningsTyp>(u => u.UtrustningsTyp);
-            
+
 
             modelBuilder.Entity<PrisListaUtrustning>()
                 .HasKey(plu => plu.PrisId);
