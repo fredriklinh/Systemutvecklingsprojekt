@@ -322,11 +322,11 @@
                 <Label Content="Veckans lektioner:" FontSize="14" HorizontalAlignment="Center" />
                 <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
                 <DataGrid Height="100" Width="auto" ItemsSource="{Binding AllaLektioner}"
-                AutoGenerateColumns="True" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10">
+                AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding AntaletDeltagare}" Width="auto"/>
+                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding AntalDeltagare}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>

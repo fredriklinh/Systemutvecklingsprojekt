@@ -2,6 +2,7 @@
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
+using System.Globalization;
 
 namespace Affärslager
 {
@@ -79,10 +80,66 @@ namespace Affärslager
         }
 
 
-        public IList<Object> KnytIhopSäcken(IList<PrivatLektion> pL, IList<GruppLektion> gL)
+        public IList<Object> HämtaAktuellaLektioner(IList<PrivatLektion> pL, IList<GruppLektion> gL)
         {
             IList<Object> AllaLektioner = pL.Cast<Object>().Concat(gL).ToList();
             return AllaLektioner;
+        }
+
+        public int RäknaAntalDeltagareP(IList<Object> AllaLektioner)
+        {
+            IList<Elev> elever = new List<Elev>();
+            int elevAntal = 0;
+                if (AllaLektioner.Contains(elever))
+                {
+                    foreach (Elev e in elever)
+                    {
+                    elevAntal = elevAntal + 1;
+                    }
+
+            }
+            return elevAntal;
+        }
+
+
+        public IList<GruppLektion> AktuellaGruppLektioner(DateTime inDatum)
+        {
+            IList<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
+
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Monday) || inDatum.DayOfWeek.Equals(DayOfWeek.Tuesday) || inDatum.DayOfWeek.Equals(DayOfWeek.Wednesday))
+
+                foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.Find(gL => gL.LektionsTillfälle.Contains("Mån") && gL.Deltagare.Count < 15))
+                {
+                    AllaGruppLektion.Add(Hej);
+                }
+            else
+            {
+                foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.Find(gL => gL.LektionsTillfälle.Contains("Tors") && gL.Deltagare.Count < 15))
+                {
+                    AllaGruppLektion.Add(Hej);
+                }
+            }
+            
+            return AllaGruppLektion;
+        }
+        public IList<PrivatLektion> AktuellaPrivatLektioner(DateTime inDatum)
+        {
+            IList<PrivatLektion> AllaPrivatLektion = new List<PrivatLektion>();
+
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Monday) || inDatum.DayOfWeek.Equals(DayOfWeek.Tuesday) || inDatum.DayOfWeek.Equals(DayOfWeek.Wednesday))
+
+                foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Mån") && pL.Deltagare.Count < 2))
+                {
+                    AllaPrivatLektion.Add(Hej);
+                }
+            else
+            {
+                foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Tors") && pL.Deltagare.Count < 2))
+                {
+                    AllaPrivatLektion.Add(Hej);
+                }
+            }
+            return AllaPrivatLektion;
         }
     }
 }

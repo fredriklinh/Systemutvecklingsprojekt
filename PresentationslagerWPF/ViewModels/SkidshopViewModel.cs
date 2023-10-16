@@ -193,9 +193,9 @@ namespace PresentationslagerWPF.ViewModels
                 else
                 {
                     IsEnabledUtrustning = true;
-                    GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
-                    PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
-                    AllaLektioner = new ObservableCollection<object>(lektionsKontroller.KnytIhopSäcken(PrivatLektioner, GruppLektioner));
+                    GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(Inlämning));
+                    PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(inlämning));
+                    AllaLektioner = new ObservableCollection<object>(lektionsKontroller.HämtaAktuellaLektioner(PrivatLektioner, GruppLektioner));
                 }
 
             }
@@ -669,7 +669,11 @@ namespace PresentationslagerWPF.ViewModels
         private PrivatLektion selectedPrivatItem = null!;
         public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged(); } }
 
+        private int antalDeltagare;
+        public int AntalDeltagare { get => antalDeltagare; set { antalDeltagare = value; OnPropertyChanged();
 
+                }
+        } 
 
         private string inFörnamn;
         public string InFörnamn
@@ -689,13 +693,6 @@ namespace PresentationslagerWPF.ViewModels
         {
             
             
-            //if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
-            //{
-
-            //    ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-            //    lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
-            //    Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
-            //}
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
