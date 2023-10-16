@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
-             xmlns:chart="http://mindfusion.eu/charting/wpf"
+             xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <Grid HorizontalAlignment="Left">
@@ -37,7 +37,7 @@
         <ComboBox x:Name="Datatyp1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
         <ComboBox x:Name="År1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Width="180"/>
         <WrapPanel Grid.Row="3" Grid.ColumnSpan="3">
-            <chart:BarChart HorizontalAlignment="Center" Margin="10,10,10,10" VerticalAlignment="Center"></chart:BarChart>
+            
         </WrapPanel>
         <Label Grid.Row="4" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Datakälla</Label>
         <Label Grid.Row="4" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Datatyp</Label>
@@ -46,7 +46,7 @@
         <ComboBox x:Name="Datatyp2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
         <ComboBox x:Name="År2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="180"/>
         <WrapPanel Grid.Row="6" Grid.ColumnSpan="3">
-            <chart:BarChart HorizontalAlignment="Center" Margin="10,10,10,10" VerticalAlignment="Center"></chart:BarChart>
+            
         </WrapPanel>
         
 
