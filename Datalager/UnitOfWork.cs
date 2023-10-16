@@ -14,11 +14,8 @@ namespace Datalager
         public Repository<Användare> AnvändareRepository { get; private set; }
         public Repository<Privatkund> PrivatkundRepository { get; private set; }
         public Repository<Företagskund> FöretagskundRepository { get; private set; }
-
         public Repository<PrislistaLogi> PrisLogiRepository { get; private set; }
-
         public Repository<Logi> LogiRepository { get; private set; }
-
         public Repository<MasterBokning> MasterBokningRepository { get; private set; }
         public Repository<Utrustning> UtrustningRepository { get; private set; }
         public Repository<UtrustningsBokning> UtrustningsBokningRepository { get; private set; }

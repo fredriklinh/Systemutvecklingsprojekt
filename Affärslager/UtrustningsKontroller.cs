@@ -45,7 +45,11 @@ namespace Affärslager
             var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
             List<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
 
-
+            List<UtrustningsBokning> aktivaBokningar = new List<UtrustningsBokning>();
+            foreach (UtrustningsBokning item in unitOfWork.UtrustningsBokningRepository.Find(a => a.Användare != null, a => a.Utrustningar, a => a.MasterBokning)) // returnerar items där a.ÄrBokningHämtad = true;
+            {
+                aktivaBokningar.Add(item); //lägger till item i aktivabokningar
+            }
             List<Utrustning> test123 = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
