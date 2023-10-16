@@ -102,6 +102,7 @@ namespace Affärslager
         }
 
 
+
         public IList<GruppLektion> AktuellaGruppLektioner(DateTime inDatum)
         {
             IList<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
