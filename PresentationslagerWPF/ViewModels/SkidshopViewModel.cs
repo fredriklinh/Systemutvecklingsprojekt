@@ -224,7 +224,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        private DisplayUtrustning antalTest = null!;
+        //private DisplayUtrustning antalTest = null!;
         //public DisplayUtrustning AntalTest
         //{
         //    get => antalTest;
