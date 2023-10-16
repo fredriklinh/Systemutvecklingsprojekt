@@ -156,7 +156,7 @@
                                     <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="Hej" Text="{Binding TotalPris}" Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" IsReadOnly="True"></TextBox>
                             <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
 
                             <DataGrid x:Name="KonferensAlternativ" Visibility = "{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"

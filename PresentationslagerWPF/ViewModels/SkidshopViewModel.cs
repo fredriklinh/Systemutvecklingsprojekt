@@ -21,13 +21,11 @@ namespace PresentationslagerWPF.ViewModels
     public class SkidshopViewModel : ObservableObject
     {
 
-
         UtrustningsKontroller utrustningsKontroller = new UtrustningsKontroller();
         LektionsKontroller lektionsKontroller = new LektionsKontroller();
         PrisKontroller priskontroller = new PrisKontroller();
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
-
 
         #region Observable Collection 
 
@@ -279,102 +277,15 @@ namespace PresentationslagerWPF.ViewModels
                     MessageBox.Show("Datum är inkorrekt", "Bokning", MessageBoxButton.OK);
                     IsEnabledUtrustning = false;
                 }
+                else
+                {
+                    IsEnabledUtrustning = true;
+                    GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(Inlämning));
+                    PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(inlämning));
+                    AllaLektioner = new ObservableCollection<object>(lektionsKontroller.HämtaAktuellaLektioner(PrivatLektioner, GruppLektioner));
+                }
 
             }
-        }
-
-
-
-        #endregion
-
-
-        #region Properties Logi, Privatkund (Sprint1)
-
-        private Företagskund företagskund = null!;
-        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
-
-        private DateTime starttid = DateTime.Now;
-        public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
-
-        private DateTime sluttid = DateTime.Now;
-        public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
-
-        private double? antalSovplatser;
-        public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
-
-        private double? totalKostnad;
-        public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
-
-        private string inputAdress;
-        public string InputAdress
-        {
-            get { return inputAdress; }
-            set { inputAdress = value; OnPropertyChanged(); }
-        }
-
-        private string inputPostnummer;
-        public string InputPostnummer
-        {
-            get { return inputPostnummer; }
-            set { inputPostnummer = value; OnPropertyChanged(); }
-        }
-
-
-        private string inputOrt = "HallåEller";
-        public string InputOrt
-        {
-            get { return inputOrt; }
-            set { inputOrt = value; OnPropertyChanged(); }
-
-        }
-
-        private string inputTelefonnummer;
-        public string InputTelefonnummer
-        {
-            get { return inputTelefonnummer; }
-            set { inputTelefonnummer = value; OnPropertyChanged(); }
-        }
-
-
-        private string inputMailAdress;
-        public string InputMailAdress
-        {
-            get { return inputMailAdress; }
-            set { inputMailAdress = value; OnPropertyChanged(); }
-        }
-
-        private string inputFörnamn;
-        public string InputFörnamn
-        {
-            get { return inputFörnamn; }
-            set { inputFörnamn = value; OnPropertyChanged(); }
-        }
-
-
-        private string inputEfternamn;
-        public string InputEfternamn
-        {
-            get { return inputEfternamn; }
-            set { inputEfternamn = value; OnPropertyChanged(); }
-        }
-
-        private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
-
-
-        private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
-
-        private MasterBokning masterbokning = null!;
-        public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
-
-        private Visibility fsynlighet = Visibility.Collapsed;
-        public Visibility FSynlighet
-        {
-
-            get { return fsynlighet; }
-            set { fsynlighet = value; OnPropertyChanged(); }
-
         }
         private Visibility ksynlighet;
         public Visibility KSynlighet
@@ -859,14 +770,46 @@ namespace PresentationslagerWPF.ViewModels
                 privatLektioner = value; OnPropertyChanged();
             }
         }
+        private ObservableCollection<Elev> eleverna = null!;
+        public ObservableCollection<Elev> Eleverna
+        {
+            get => eleverna;
+            set
+            {
+                eleverna = value; OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<Object> allaLektioner = null!;
+        public ObservableCollection<Object> AllaLektioner
+        {
+            get => allaLektioner;
+            set
+            {
+                allaLektioner = value; OnPropertyChanged();
+            }
+        }
         private Elev elevTillLektion = null!;
         public Elev ElevTillLektion { get => elevTillLektion; set { elevTillLektion = value; OnPropertyChanged(); } }
 
-        private GruppLektion selectedGrupp = null!;
-        public GruppLektion SelectedGrupp { get => selectedGrupp; set { selectedGrupp = value; OnPropertyChanged(); } }
 
-        private PrivatLektion selectedPrivat = null!;
-        public PrivatLektion SelectedPrivat { get => selectedPrivat; set { selectedPrivat = value; OnPropertyChanged(); } }
+        private int selectedPrivatIndex;
+        public int SelectedPrivatIndex { get { return selectedPrivatIndex; } set { selectedPrivatIndex = value; OnPropertyChanged(); } }
+        
+        private int selectedGruppIndex;
+        public int SelectedGruppIndex { get { return selectedGruppIndex; } set { selectedGruppIndex = value; OnPropertyChanged(); } }
+
+        private GruppLektion selectedGruppItem = null!;
+        public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged(); } }
+
+        private PrivatLektion selectedPrivatItem = null!;
+        public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged(); } }
+
+        private int antalDeltagare;
+        public int AntalDeltagare { get => antalDeltagare; set { antalDeltagare = value; OnPropertyChanged();
+
+                }
+        } 
 
         private string inFörnamn;
         public string InFörnamn
@@ -884,20 +827,20 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
-
-            if (InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
             }
-            if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
+                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
+                
             }
-            if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
-            {
-                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGrupp);
-            }
+           
         });
         #endregion
 
