@@ -669,22 +669,23 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
 
-
+            GruppLektion gLektion = SelectedGrupp;
+            PrivatLektion pLektion = SelectedPrivat;
+            Elev e = ElevTillLektion;
+            
             if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivat));
+                lektionsKontroller.BokaPrivatLektion(e, pLektion);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(pLektion));
             }
             if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGrupp);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGrupp));
+                lektionsKontroller.BokaGruppLektion(e, gLektion);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(gLektion));
             }
-            
-
-
+           
         });
         #endregion
 
