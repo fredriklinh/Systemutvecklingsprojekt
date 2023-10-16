@@ -195,6 +195,7 @@ namespace PresentationslagerWPF.ViewModels
                     IsEnabledUtrustning = true;
                     GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
                     PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
+                    AllaLektioner = new ObservableCollection<object>(lektionsKontroller.KnytIhopSäcken(PrivatLektioner, GruppLektioner));
                 }
 
             }
@@ -643,6 +644,15 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+        private ObservableCollection<Object> allaLektioner = null!;
+        public ObservableCollection<Object> AllaLektioner
+        {
+            get => allaLektioner;
+            set
+            {
+                allaLektioner = value; OnPropertyChanged();
+            }
+        }
         private Elev elevTillLektion = null!;
         public Elev ElevTillLektion { get => elevTillLektion; set { elevTillLektion = value; OnPropertyChanged(); } }
 
@@ -677,20 +687,21 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
-
             
-            if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
-            {
+            
+            //if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            //{
 
-                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
-            }
+            //    ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+            //    lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
+            //    Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
+            //}
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
+                
             }
            
         });

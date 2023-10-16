@@ -1,5 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
+using Entiteter.Prislistor;
 using Entiteter.Tjänster;
 
 namespace Affärslager
@@ -17,7 +18,7 @@ namespace Affärslager
         }
         public void BokaGruppLektion(Elev elev, GruppLektion gLektion)
         {
-            if (gLektion.Deltagare.Count > 15)
+            if (gLektion.Deltagare.Count <= 15)
             {
                 gLektion.Deltagare.Add(elev);
                 unitOfWork.GruppLektionRepository.Update(gLektion);
@@ -27,7 +28,7 @@ namespace Affärslager
         public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
         {
 
-            if (pLektion.Deltagare.Count < 2)
+            if (pLektion.Deltagare.Count <= 2)
             {
                 pLektion.Deltagare.Add(elev);
                 unitOfWork.PrivatLektionRepository.Update(pLektion);
@@ -75,6 +76,13 @@ namespace Affärslager
                 eleverILektionen.Add(e);
             }
             return eleverILektionen;
+        }
+
+
+        public IList<Object> KnytIhopSäcken(IList<PrivatLektion> pL, IList<GruppLektion> gL)
+        {
+            IList<Object> AllaLektioner = pL.Cast<Object>().Concat(gL).ToList();
+            return AllaLektioner;
         }
     }
 }
