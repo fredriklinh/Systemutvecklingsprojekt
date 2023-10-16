@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Services;
-using ScottPlot;
 using System.Windows.Markup;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace PresentationslagerWPF.ViewModels
 {
