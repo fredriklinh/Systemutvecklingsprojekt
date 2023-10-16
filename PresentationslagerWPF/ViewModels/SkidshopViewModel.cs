@@ -26,6 +26,7 @@ namespace PresentationslagerWPF.ViewModels
         PrisKontroller priskontroller = new PrisKontroller();
 
 
+
         #region Observable Collection 
 
 
@@ -120,6 +121,8 @@ namespace PresentationslagerWPF.ViewModels
                 masterbokningar = value; OnPropertyChanged();
             }
         }
+
+
         #region IsEnabled - Utrustning
 
         private bool isEnabledUtrustning = false!;
@@ -195,7 +198,11 @@ namespace PresentationslagerWPF.ViewModels
                 else
                 {
                     IsEnabledUtrustning = true;
+                    GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+                    PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
                 }
+                //GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+                //PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
             }
         }
 
@@ -609,8 +616,13 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region SKIDLEKTION ............
+
+
         private ObservableCollection<Elev> elev = null!;
         public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Personal> lärare = null!;
+        public ObservableCollection<Personal> Lärare { get => lärare; set { lärare = value; OnPropertyChanged(); } }
 
         private ObservableCollection<GruppLektion> gruppLektioner = null!;
         public ObservableCollection<GruppLektion> GruppLektioner
@@ -632,14 +644,41 @@ namespace PresentationslagerWPF.ViewModels
                 privatLektioner = value; OnPropertyChanged();
             }
         }
+        private ObservableCollection<Elev> eleverna = null!;
+        public ObservableCollection<Elev> Eleverna
+        {
+            get => eleverna;
+            set
+            {
+                eleverna = value; OnPropertyChanged();
+            }
+        }
         private Elev elevTillLektion = null!;
         public Elev ElevTillLektion { get => elevTillLektion; set { elevTillLektion = value; OnPropertyChanged(); } }
 
-        private GruppLektion selectedGrupp = null!;
-        public GruppLektion SelectedGrupp { get => selectedGrupp; set { selectedGrupp = value; OnPropertyChanged(); } }
+        private int selectedPrivatIndex;
+        public int SelectedPrivatIndex { get { return selectedPrivatIndex; } set { selectedPrivatIndex = value; OnPropertyChanged(); } }
 
-        private PrivatLektion selectedPrivat = null!;
-        public PrivatLektion SelectedPrivat { get => selectedPrivat; set { selectedPrivat = value; OnPropertyChanged(); } }
+        private int selectedGruppIndex;
+        public int SelectedGruppIndex { get { return selectedGruppIndex; } set { selectedGruppIndex = value; OnPropertyChanged(); } }
+
+        private GruppLektion selectedGruppItem = null!;
+        public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged(); } }
+
+        private PrivatLektion selectedPrivatItem = null!;
+        public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged(); } }
+
+
+        private int bokadPrivatLIndex;
+        public int BokadPrivatLIndex { get { return bokadPrivatLIndex; } set { bokadPrivatLIndex = value; OnPropertyChanged(); } }
+        private int bokadGruppLIndex;
+        public int BokadGruppLIndex { get { return bokadGruppLIndex; } set { bokadGruppLIndex = value; OnPropertyChanged(); } }
+        private PrivatLektion bokadPrivatLItem = null!;
+        public PrivatLektion BokadPrivatLItem { get => bokadPrivatLItem; set { bokadPrivatLItem = value; OnPropertyChanged(); } }
+        private GruppLektion bokadGruppLItem = null!;
+        public GruppLektion BokadGruppLItem { get => bokadGruppLItem; set { bokadGruppLItem = value; OnPropertyChanged(); } }
+
+
 
         private string inFörnamn;
         public string InFörnamn
@@ -657,20 +696,23 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
-
-            if (InFörnamn != string.Empty && InEfternamn != string.Empty)
+            GruppLektion gLektion = SelectedGruppItem;
+            PrivatLektion pLektion = SelectedPrivatItem;
+            if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
             }
-            if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
+                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
             }
-            if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
-            {
-                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGrupp);
-            }
+            
+            
+           
         });
         #endregion
 

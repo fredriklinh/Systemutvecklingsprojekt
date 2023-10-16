@@ -1751,7 +1751,8 @@ namespace Datalager.Seed
                    ID = "G1",
                    LektionsTillfälle = "Måndag - Onsdag",
                    Pris = 400,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön,
+                   Lärare = 008
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1760,7 +1761,8 @@ namespace Datalager.Seed
                    ID = "B1",
                    LektionsTillfälle = "Måndag - Onsdag",
                    Pris = 415,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Blå
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Blå,
+                   Lärare = 007
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1769,7 +1771,8 @@ namespace Datalager.Seed
                    ID = "R1",
                    LektionsTillfälle = "Måndag - Onsdag",
                    Pris = 425,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Röd
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Röd,
+                   Lärare = 006
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1778,7 +1781,8 @@ namespace Datalager.Seed
                    ID = "S1",
                    LektionsTillfälle = "Måndag - Onsdag",
                    Pris = 455,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart,
+                   Lärare = 005
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1787,7 +1791,8 @@ namespace Datalager.Seed
                    ID = "G2",
                    LektionsTillfälle = "Torsdag & Fredag",
                    Pris = 500,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön,
+                    Lärare = 004
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1796,7 +1801,8 @@ namespace Datalager.Seed
                    ID = "B2",
                    LektionsTillfälle = "Torsdag & Fredag",
                    Pris = 515,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Blå
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Blå,
+                   Lärare = 003
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1805,7 +1811,8 @@ namespace Datalager.Seed
                    ID = "R2",
                    LektionsTillfälle = "Torsdag & Fredag",
                    Pris = 525,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Röd
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Röd,
+                   Lärare = 002
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(
@@ -1814,7 +1821,8 @@ namespace Datalager.Seed
                    ID = "S2",
                    LektionsTillfälle = "Torsdag & Fredag",
                    Pris = 555,
-                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart
+                   Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Svart,
+                   Lärare = 001
                }
                );
 
@@ -1826,60 +1834,70 @@ namespace Datalager.Seed
                 ID = "M1",
                 LektionsTillfälle = "Måndag förmiddag",
                 Pris = 375,
+                Lärare = 009
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "M2",
                 LektionsTillfälle = "Måndag Eftermiddag",
                 Pris = 375,
+                Lärare = 009
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "Ti1",
                 LektionsTillfälle = "Tisdag förmiddag",
                 Pris = 375,
+                Lärare = 010
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "Ti2",
                 LektionsTillfälle = "Tisdag Eftermiddag",
                 Pris = 375,
+                Lärare = 010
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "O1",
                 LektionsTillfälle = "Onsdag förmiddag",
                 Pris = 375,
+                Lärare = 013
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "O2",
                 LektionsTillfälle = "Onsdag Eftermiddag",
                 Pris = 375,
+                Lärare = 013
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "T1",
                 LektionsTillfälle = "Torsdag förmiddag",
                 Pris = 375,
+                Lärare = 014
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "T2",
                 LektionsTillfälle = "Torsdag Eftermiddag",
                 Pris = 375,
+                Lärare = 014
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "F1",
                 LektionsTillfälle = "Fredag förmiddag",
                 Pris = 375,
+                Lärare = 015
             });
             modelBuilder.Entity<PrivatLektion>().HasData(new PrivatLektion()
             {
                 ID = "F2",
                 LektionsTillfälle = "Fredag Eftermiddag",
                 Pris = 375,
+                Lärare = 015
             });
             #endregion Ladda PrivatLektion
 

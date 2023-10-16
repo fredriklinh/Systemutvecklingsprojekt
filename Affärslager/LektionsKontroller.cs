@@ -53,6 +53,26 @@ namespace Affärslager
             }
             return AllaPrivatLektion;
         }
+        public IList<Elev> HämtaDeltagareFrånLektionG(GruppLektion gLektion)
+        {
+            List<Elev> eleverILektionen = new List<Elev>();
+
+            foreach (Elev e in gLektion.Deltagare)
+            {
+                eleverILektionen.Add(e);
+            }
+            return eleverILektionen;
+        }
+        public IList<Elev> HämtaDeltagareFrånLektionP(PrivatLektion pLektion)
+        {
+            List<Elev> eleverILektionen = new List<Elev>();
+
+            foreach (Elev e in pLektion.Deltagare)
+            {
+                eleverILektionen.Add(e);
+            }
+            return eleverILektionen;
+        }
     }
 
 
