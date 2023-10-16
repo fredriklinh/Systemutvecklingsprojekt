@@ -8,7 +8,6 @@ using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -381,7 +380,7 @@ namespace PresentationslagerWPF.ViewModels
             GömAllt = Visibility.Visible;
 
         });
-        
+
         private ICommand taBortKonferens = null!;
         public ICommand TaBortKonferens => taBortKonferens ??= taBortKonferens = new RelayCommand(() =>
         {
@@ -400,7 +399,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            
+
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });

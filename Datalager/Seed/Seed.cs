@@ -2,6 +2,7 @@
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Datalager.Seed
 {
@@ -1418,7 +1419,6 @@ namespace Datalager.Seed
 
             });
 
-
             for (int i = 1; i <= 50; i++)
             {
 
@@ -1433,6 +1433,7 @@ namespace Datalager.Seed
                 });
 
             }
+
             for (int i = 1; i <= 35; i++)
             {
 
@@ -1452,6 +1453,24 @@ namespace Datalager.Seed
             }
             #endregion Ladda Logi
 
+            #region MASTERBOKNING
+
+
+            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            {
+                BokningsNr = 10,
+                Avbeställningsskydd = false,
+                NyttjadKreditsumma = 0,
+                BokningsDatum = DateTime.Now,
+                StartDatum = new DateTime(2023,10,14),
+                SlutDatum = new DateTime(2023,10,19),
+                PersonNr =  "19680314-2322",
+                SkapadAv = "Anders"
+               
+             });;
+
+
+            #endregion
 
             #region  --------------------------------------------Ladda Kund
             modelBuilder.Entity<Privatkund>().HasData(new Privatkund()

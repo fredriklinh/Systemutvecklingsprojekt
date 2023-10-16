@@ -150,7 +150,7 @@ namespace PresentationslagerWPF.ViewModels
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-
+            Användare = användare;
             //Benämning ObservableCollection
             TypAlpin = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Alpint"));
             TypSnowboard = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Snowboard"));
@@ -169,6 +169,17 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region Properties Utrustning + Datum
+
+        private Användare användare = null!;
+        public Användare Användare
+        {
+            get => användare;
+            set
+            {
+                användare = value; OnPropertyChanged();
+
+            }
+        }
 
         private string inputBokningsNr;
         public string InputBokningsNr
@@ -211,12 +222,34 @@ namespace PresentationslagerWPF.ViewModels
             List<Utrustning> hämtadUtrustning = new List<Utrustning>();
             foreach (var item in TotalDisplayUtrustning)
             {
+                List<Utrustning> test = new List<Utrustning>();
+                test = utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning);
+                foreach (var itemUtrustning in test)
+                {
+                    hämtadUtrustning.Add(itemUtrustning);
 
-                hämtadUtrustning.Concat(utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning));
+                }
 
             }
-            //utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, DateTime.Now, Inlämning, Privatkund, användare, //Summa );
+            int SummaTest = 0;
+            Privatkund kund = new Privatkund("19680314-2322",
+                               "Fiel",
+                               "Skogholm",
+                               "Tingstadsalé 24",
+                               "78533",
+                               "Stockholm",
+                               "07266555994",
+                               "Fiel.Skogholm@stocknäs.se");
+            MasterBokning existerarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, kund, Användare, SummaTest);
+            if (existerarEj == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            else MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information)
+
+            hämtadUtrustning.Clear();
         });
+        //PrivatkundId = 1,
+
+
+
         private ICommand taBortCommand = null!;
         public ICommand TaBortCommand => taBortCommand ??= taBortCommand = new RelayCommand(() =>
         {

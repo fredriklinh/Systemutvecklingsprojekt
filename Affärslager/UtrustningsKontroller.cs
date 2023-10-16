@@ -2,10 +2,6 @@
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using static Azure.Core.HttpHeader;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Affärslager
 {
@@ -46,7 +42,7 @@ namespace Affärslager
 
             var AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList();
 
-            var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(a => a.StartDatum > DateTime.Now && a.SlutDatum < slutdatum).ToList();
+            var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (DateTime.Now <= f.StartDatum && slutdatum >= f.SlutDatum) || (DateTime.Now >= f.SlutDatum && DateTime.Now <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (DateTime.Now >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
             List<Utrustning> test123 = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
@@ -56,8 +52,27 @@ namespace Affärslager
                 }
             }
             var UnikaUtrustningar = AllaUtrustningar.Concat(test123).Distinct().ToList();
+            List<Utrustning> MatchadeUtrustningar = new List<Utrustning>();
+            int index = 1;
+            foreach (Utrustning item in UnikaUtrustningar)
+            {
+                if (index > antal)
+                {
+                    break;
+                }
+                if (item.Typ == typ && item.Benämning == benämning)
+                {
+                    if (!MatchadeUtrustningar.Contains(item))
+                    {
+                        index++;
 
-            return UnikaUtrustningar;
+                        MatchadeUtrustningar.Add(item);
+
+                    }
+                }
+
+            }
+            return MatchadeUtrustningar;
         }
 
 
@@ -67,16 +82,23 @@ namespace Affärslager
         }
 
 
-        public void SkapaUtrustningsBokningPrivat(List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare, int summa)
+        public MasterBokning SkapaUtrustningsBokningPrivat(List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare, int summa)
         {
             DateTime startdatum = DateTime.Now;
-            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => (a.Privatkund == privatkund) && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
-            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokning, startdatum, slutdatum, /*summa,*/ utrustningar);
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.Privatkund.Personnummer == privatkund.Personnummer/* && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum*/);
+            if (masterBokning == null)
+            {
+                return masterBokning;
+            }
+            Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
+            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokning, startdatum, slutdatum, summa, utrustningar, korrektAnvändare);
             masterBokning.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
             unitOfWork.Complete();
-
+            return masterBokning;
+   
         }
+
 
         public ObservableCollection<int> SökBenämningTyp(string benämning, string typ, DateTime slutdatum)
         {
@@ -99,7 +121,7 @@ namespace Affärslager
         {
             DateTime startDatum = DateTime.Now;
 
-            List<Utrustning> TillgängligUtrustning = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning ).ToList();
+            List<Utrustning> TillgängligUtrustning = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning).ToList();
 
             foreach (UtrustningsBokning utrustningsBokning in unitOfWork.UtrustningsBokningRepository.Find(f => (startDatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startDatum <= f.SlutDatum && startDatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startDatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
             {
@@ -111,7 +133,7 @@ namespace Affärslager
             return RäknaAntalPaket(TillgängligUtrustning);
         }
 
-        private ObservableCollection<int>RäknaAntalPaket(List<Utrustning> tillgänligUtrustning)
+        private ObservableCollection<int> RäknaAntalPaket(List<Utrustning> tillgänligUtrustning)
         {
             //Grupperar listan efter hur många gånger en string förekommer med den minsta värdet överst
             var SorteraAntal = tillgänligUtrustning
@@ -155,9 +177,9 @@ namespace Affärslager
 
         public List<Utrustning> SökPaket(string paket)
         {
-            
-           var allaPaket = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Benämning == paket);
-            
+
+            var allaPaket = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Benämning == paket);
+
             return allaPaket
                 .GroupBy(i => i.Typ)
                 .Select(group => group.First())
