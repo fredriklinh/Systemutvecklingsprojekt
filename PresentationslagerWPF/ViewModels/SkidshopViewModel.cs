@@ -684,6 +684,7 @@ namespace PresentationslagerWPF.ViewModels
             
             if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
+
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
