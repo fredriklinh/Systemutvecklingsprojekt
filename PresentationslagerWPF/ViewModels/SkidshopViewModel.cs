@@ -20,7 +20,6 @@ namespace PresentationslagerWPF.ViewModels
     public class SkidshopViewModel : ObservableObject
     {
 
-
         UtrustningsKontroller utrustningsKontroller = new UtrustningsKontroller();
         LektionsKontroller lektionsKontroller = new LektionsKontroller();
         PrisKontroller priskontroller = new PrisKontroller();
@@ -195,8 +194,8 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     IsEnabledUtrustning = true;
                 }
-                GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
-                PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
+                //GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+                //PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
             }
         }
 
@@ -633,6 +632,16 @@ namespace PresentationslagerWPF.ViewModels
                 privatLektioner = value; OnPropertyChanged();
             }
         }
+        private ObservableCollection<Elev> eleverna = null!;
+        public ObservableCollection<Elev> Eleverna
+        {
+            get => eleverna;
+            set
+            {
+                eleverna = value; OnPropertyChanged();
+            }
+        }
+
         private Elev elevTillLektion = null!;
         public Elev ElevTillLektion { get => elevTillLektion; set { elevTillLektion = value; OnPropertyChanged(); } }
 
@@ -659,19 +668,22 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
 
-            if (InFörnamn != string.Empty && InEfternamn != string.Empty)
-            {
-                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-            }
+
             if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-
+                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektion(SelectedPrivat));
             }
             if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
+                ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGrupp);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektion(SelectedGrupp));
             }
+            
+
+
         });
         #endregion
 

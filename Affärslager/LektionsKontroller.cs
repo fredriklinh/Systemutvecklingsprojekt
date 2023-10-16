@@ -40,7 +40,7 @@ namespace Affärslager
             foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.GetAll())
             {
                 AllaGruppLektion.Add(Hej);
-                
+
             }
             return AllaGruppLektion;
         }
@@ -54,7 +54,26 @@ namespace Affärslager
             }
             return AllaPrivatLektion;
         }
+        public IList<Elev> HämtaDeltagareFrånLektion(GruppLektion gLektion)
+        {
+            List<Elev> eleverILektionen = new List<Elev>();
+
+            foreach (Elev e in gLektion.Deltagare)
+            {
+                eleverILektionen.Add(e);
+            }
+            return eleverILektionen;
+        }
+
+        public IList<Elev> HämtaDeltagareFrånLektion(PrivatLektion pLektion)
+        {
+            List<Elev> eleverILektionen = new List<Elev>();
+
+            foreach (Elev e in pLektion.Deltagare)
+            {
+                eleverILektionen.Add(e);
+            }
+            return eleverILektionen;
+        }
     }
-
-
 }

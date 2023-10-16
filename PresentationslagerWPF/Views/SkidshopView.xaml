@@ -343,6 +343,17 @@ AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment=
 
             </StackPanel>
             <Label Content="Axel får leka här nu!"/>
+            <StackPanel>
+                <Label Content="Hej"/>
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding Eleverna, UpdateSourceTrigger=PropertyChanged}"
+                                AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Center">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Namn" Binding="{Binding Förnamn}" Width="auto"/>
+                        <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>
