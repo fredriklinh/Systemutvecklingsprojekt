@@ -7,10 +7,7 @@ namespace Entiteter.Tjänster
     {
         public string ID { get; set; }
         public string LektionsTillfälle { get; set; }
-        //public int[] AntalDeltagare = new int[1];
         public virtual IList<Elev> Deltagare { get; set; } = new List<Elev>();
-
-
         public double Pris { get; set; }
 
 
@@ -19,8 +16,7 @@ namespace Entiteter.Tjänster
         public virtual Personal? Personal { get; set; }
         public PrivatLektion()
         {
-            int antalDeltagare = Deltagare.Count;
-            Pris = 375 * antalDeltagare;
+
         }
     }
 }

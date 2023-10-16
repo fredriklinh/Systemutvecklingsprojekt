@@ -55,7 +55,7 @@ namespace Affärslager
             return masterBokning;
         }
 
-        public void KonferensTillMasterBokning(List<Konferenslokal> kLista, MasterBokning mb)
+        public void KonferensTillMasterBokning(IList<Konferenslokal> kLista, MasterBokning mb)
         {
 
             foreach (Konferenslokal kl in kLista)
