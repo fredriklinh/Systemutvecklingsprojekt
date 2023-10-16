@@ -199,13 +199,6 @@
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaLängd}"></TextBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypHjälm}" SelectedItem="{Binding SelectedItemHjälm}" DisplayMemberPath="Benämning"></ComboBox>
-                        <ComboBox Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
-                        <Button Command="{Binding LäggTillHjälmCommand}">+</Button>
-                        <Label Margin="10,10,0,10">Kr</Label>
-                        <TextBox Text="{Binding SummaHjälm}"></TextBox>
-                    </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -218,6 +211,8 @@
                         <StackPanel>
                             <Label Margin="0,10,0,10">Skoter</Label>
                             <Label Margin="0,10,0,10">Paket</Label>
+                            <Label Margin="0,10,0,10">Hjälm</Label>
+
                         </StackPanel>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -227,14 +222,21 @@
                                 <Label Margin="10,10,0,10">Kr</Label>
                                 <TextBox Text="{Binding SummaSkoter}"></TextBox>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
 
+                            <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypPaket}" SelectedItem="{Binding SelectedItemPaket}" DisplayMemberPath="Typ"></ComboBox>
                                     <ComboBox Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalPaket}" SelectedItem="{Binding SelectedItemAntalPaket}"></ComboBox>
                                     <Button Command="{Binding LäggTillPaketCommand}">+</Button>
                                     <Label Margin="10,10,0,10">Kr</Label>
                                     <TextBox Text="{Binding SummaPaket}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypHjälm}" SelectedItem="{Binding SelectedItemHjälm}" DisplayMemberPath="Benämning"></ComboBox>
+                                    <ComboBox Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
+                                    <Button Command="{Binding LäggTillHjälmCommand}">+</Button>
+                                    <Label Margin="10,10,0,10">Kr</Label>
+                                    <TextBox Text="{Binding SummaHjälm}"></TextBox>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
