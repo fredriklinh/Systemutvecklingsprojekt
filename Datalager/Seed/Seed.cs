@@ -1792,7 +1792,7 @@ namespace Datalager.Seed
                    LektionsTillfälle = "Torsdag & Fredag",
                    Pris = 500,
                    Svårighetsgrad = Entiteter.Enums.Svårighetsgrad.Grön,
-                    Lärare = 004
+                   Lärare = 004
                }
                );
             modelBuilder.Entity<GruppLektion>().HasData(

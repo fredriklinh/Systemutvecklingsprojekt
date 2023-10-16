@@ -245,52 +245,52 @@
             </StackPanel>
 
         </StackPanel>
-                    <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="LightGray" Margin="10,5,5,5">
-                <Label Content="Vald till Bokning"/>
-                <StackPanel Margin="10,10,10,10" Orientation="Horizontal">
-                    <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="LightGray" Margin="10,5,5,5">
+            <Label Content="Vald till Bokning"/>
+            <StackPanel Margin="10,10,10,10" Orientation="Horizontal">
+                <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
                           AutoGenerateColumns="False" SelectionMode="Single"
                           SelectionUnit="FullRow" IsReadOnly="True"
                           SelectedItem="{Binding SelectedItemDisplayUtrustning, Mode=TwoWay}"
                           SelectedIndex="{Binding ValdLogiSelectedIndex, Mode=TwoWay}"
                           Background="White" Width="450" Height="150" Margin="0,0,10,0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
-                            <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
-                            <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
-                            <DataGridTextColumn Header="Summa" Binding= "{Binding Summa}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
+                        <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
+                        <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
+                        <DataGridTextColumn Header="Summa" Binding= "{Binding Summa}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top">
-                            <Label>Total</Label>
-                            <TextBox Text="{Binding SummaTotal}" Width="50"></TextBox>
-                        </StackPanel>
-                        <StackPanel Margin="0,10,10,10" VerticalAlignment="Bottom">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Label>Total</Label>
+                        <TextBox Text="{Binding SummaTotal}" Width="50"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,10,10" VerticalAlignment="Bottom">
 
                         <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}">TaBort</Button>
                         <Button Command="{Binding AccepteraÅterlämningCommand}" Margin="0,20,0,0">Återlämnad</Button>
                         <Button  Background="DarkSeaGreen" Command="{Binding SparaCommand}" Margin="0,20,0,0">Lämna ut</Button>
                     </StackPanel>
-                    </DockPanel>
-                </StackPanel>
+                </DockPanel>
             </StackPanel>
+        </StackPanel>
         <!--LEKTIONSBOKNING-->
         <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="4,5,5,5"  Background="LightPink">
-            <Label Content="Hejsan hoppsan" HorizontalAlignment="Center" FontSize="14"/>
-            
+            <Label Content="DRA ÅT HELVETE, FATTAR DU DET?" HorizontalAlignment="Center" FontSize="14"/>
+
 
             <StackPanel  Background="lightBlue" Height="200">
                 <Label Content="Klicka på den lektion du vill boka in en elev på:" FontSize="12" HorizontalAlignment="Center"/>
                 <!--<ComboBox Width="100" Height="20" IsTextSearchEnabled="True" ItemsSource="{Binding Elev}" DisplayMemberPath="Förnamn" SelectedItem="{Binding SelectedItemElev}"/>-->
 
                 <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
-                <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektioner}"
+                <DataGrid x:Name="TillgängligaGrupplektioner" Height="100" Width="auto" ItemsSource="{Binding GruppLektioner}"
                            AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10"
                           SelectionMode="Single" SelectionUnit="FullRow" 
-                          SelectedItem="{Binding SelectedGruppItem, Mode=TwoWay}"
-                           SelectedIndex="{Binding SelectedGruppIndex, Mode=TwoWay}">
+                          SelectedItem="{Binding SelectedGruppItem}"
+                           SelectedIndex="{Binding SelectedGruppIndex}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
@@ -299,11 +299,11 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>
-                <DataGrid Height="100" Width="149" ItemsSource="{Binding PrivatLektioner}"
+                <DataGrid x:Name="TillgängligaPrivatLektioner" Height="100" Width="149" ItemsSource="{Binding PrivatLektioner}"
                          AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10"
                            SelectionMode="Single" SelectionUnit="FullRow" 
-                         SelectedItem="{Binding SelectedPrivatItem, Mode=TwoWay}"
-                         SelectedIndex="{Binding SelectedPrivatIndex, Mode=TwoWay}">
+                         SelectedItem="{Binding SelectedPrivatItem}"
+                         SelectedIndex="{Binding SelectedPrivatIndex}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
@@ -315,24 +315,23 @@
                 <Label Content="EfterNamn:" HorizontalAlignment="Left" FontSize="12" Margin="160,-24,0,0"/>
                 <TextBox x:Name="txtEfterN"  Width="100" Height="20" HorizontalAlignment="Right" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="62,-23,115,0"/>
                 <Button x:Name="btnLäggTillElev" Content="Lägg till Elev" FontSize="12" Width="100" Height="20" Margin="10,-23,-320,10" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
-                
+
             </StackPanel>
 
             <StackPanel  Background="lightBlue" Height="165">
                 <Label Content="Veckans lektioner:" FontSize="14" HorizontalAlignment="Center" />
                 <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
-                <DataGrid Height="100" Width="auto" ItemsSource="{Binding GruppLektioner}"
-AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10">
+                <DataGrid Height="100" Width="auto" ItemsSource="{Binding AllaLektioner}"
+                AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
-                        <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
                         <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                        <DataGridTextColumn Header="Lediga platser" Binding="{Binding AntalDeltagare}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Privatlektioner:" HorizontalAlignment="Right" FontSize="12" Margin="0,-133,60,0"/>
                 <DataGrid Height="100" Width="auto" ItemsSource="{Binding PrivatLektion}"
-AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10">
+                AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Right" Margin="0,-110,30,10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
@@ -342,22 +341,19 @@ AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment=
 
 
             </StackPanel>
+
+
             <StackPanel>
-                <Label Content="Hej"/>
-                <DataGrid Height="100" Width="auto" ItemsSource="{Binding Eleverna}"
-AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Center" 
-                          SelectionMode="Single" SelectionUnit="FullRow" 
-SelectedItem="{Binding BokadGruppLItem, Mode=TwoWay}"
- SelectedIndex="{Binding BokadGruppLIndex, Mode=TwoWay}">
+                <Label Content="Deltagare i vald lektion" Margin="120,10,10,10"/>
+                <DataGrid Height="97" Width="136" ItemsSource="{Binding Eleverna}"
+                                AutoGenerateColumns="False" IsReadOnly="True" FontSize="12" HorizontalAlignment="Center">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Namn" Binding="{Binding Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                               
+
             </StackPanel>
-            
-            
         </StackPanel>
     </Grid>
 </UserControl>

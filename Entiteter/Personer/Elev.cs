@@ -6,8 +6,8 @@ namespace Entiteter.Personer
     {
         public int ID { get; set; }
 
-        public virtual GruppLektion? GruppLektion { get; set; }
-        public virtual PrivatLektion? PrivatLektion { get; set; }
+        //public virtual GruppLektion? GruppLektion { get; set; }
+        //public virtual PrivatLektion? PrivatLektion { get; set; }
 
 
 
