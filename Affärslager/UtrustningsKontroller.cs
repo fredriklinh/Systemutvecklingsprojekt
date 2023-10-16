@@ -39,7 +39,7 @@ namespace Affärslager
         {
             DateTime dagensDatum = DateTime.Now.Date;
             IList<Utrustning> utrustnings = new List<Utrustning>();                                                                          //Mån-------------------------Lör       NYBOKNING
-                                                                                                                                                  //Tis--------------Fre            TIDIGARE BOKNING
+                                                                                                                                             //Tis--------------Fre            TIDIGARE BOKNING
             IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
             IList<UtrustningsBokning> AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum <= f.SlutDatum) || (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
@@ -106,7 +106,7 @@ namespace Affärslager
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
             unitOfWork.Complete();
             return masterBokning;
-   
+
         }
 
 

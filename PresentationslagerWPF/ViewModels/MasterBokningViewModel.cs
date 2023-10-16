@@ -348,7 +348,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand NavigateLoggaUtCommand { get; }
         public ICommand TillbakaCommand { get; }
         public ICommand UppdateraCommandMasterBokning { get; }
-        
+
 
         #endregion
 

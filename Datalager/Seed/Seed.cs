@@ -2,7 +2,6 @@
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Datalager.Seed
 {
@@ -1462,12 +1461,12 @@ namespace Datalager.Seed
                 Avbeställningsskydd = false,
                 NyttjadKreditsumma = 0,
                 BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023,10,14),
-                SlutDatum = new DateTime(2023,10,19),
-                PersonNr =  "19680314-2322",
+                StartDatum = new DateTime(2023, 10, 14),
+                SlutDatum = new DateTime(2023, 10, 19),
+                PersonNr = "19680314-2322",
                 SkapadAv = "Anders"
-               
-             });;
+
+            }); ;
 
 
             #endregion
