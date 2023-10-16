@@ -54,7 +54,7 @@ namespace Affärslager
             }
             return AllaPrivatLektion;
         }
-        public IList<Elev> HämtaDeltagareFrånLektion(GruppLektion gLektion)
+        public IList<Elev> HämtaDeltagareFrånLektionG(GruppLektion gLektion)
         {
             List<Elev> eleverILektionen = new List<Elev>();
 
@@ -65,7 +65,7 @@ namespace Affärslager
             return eleverILektionen;
         }
 
-        public IList<Elev> HämtaDeltagareFrånLektion(PrivatLektion pLektion)
+        public IList<Elev> HämtaDeltagareFrånLektionP(PrivatLektion pLektion)
         {
             List<Elev> eleverILektionen = new List<Elev>();
 
