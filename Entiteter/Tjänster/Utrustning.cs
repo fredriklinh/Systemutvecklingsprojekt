@@ -13,12 +13,19 @@ namespace Entiteter.Tjänster
         public string? Typ { get; set; }
         public virtual UtrustningsTyp UtrustningsTyp { get; set; }
 
-        public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
+
 
         public Utrustning()
         {
 
         }
 
+        public Utrustning(string utrustningsId, bool tillgänglig, string benämning, string? typ)
+        {
+            UtrustningsId = utrustningsId;
+            Tillgänglig = tillgänglig;
+            Benämning = benämning;
+            Typ = typ;
+        }
     }
 }

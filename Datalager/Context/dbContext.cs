@@ -60,6 +60,7 @@ namespace Datalager.Context
             modelBuilder.Entity<MasterBokning>().HasOne<Privatkund>(pk => pk.Privatkund);
             modelBuilder.Entity<MasterBokning>().HasOne<Företagskund>(pk => pk.Företagskund);
             modelBuilder.Entity<MasterBokning>().HasOne<Användare>(pk => pk.Användare);
+            modelBuilder.Entity<MasterBokning>().HasMany<UtrustningsBokning>();
             #endregion
 
             #region Logi + Relaterat + Faktura
@@ -94,8 +95,14 @@ namespace Datalager.Context
                 .HasKey(u => u.UtrustningsId);
             modelBuilder.Entity<Utrustning>().HasOne<UtrustningsTyp>(u => u.UtrustningsTyp);
 
+
             modelBuilder.Entity<PrisListaUtrustning>()
                 .HasKey(plu => plu.PrisId);
+
+            modelBuilder.Entity<UtrustningsBokning>()
+           .HasKey(utb => utb.UtrustningBokningsId);
+            modelBuilder.Entity<UtrustningsBokning>().HasMany<Utrustning>(u => u.Utrustningar);
+            modelBuilder.Entity<UtrustningsBokning>().HasOne<MasterBokning>(u => u.MasterBokning);
 
             modelBuilder.Entity<UtrustningsTyp>()
            .HasKey(ut => ut.Typ);

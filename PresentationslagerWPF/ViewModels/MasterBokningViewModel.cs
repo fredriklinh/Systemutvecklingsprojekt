@@ -8,6 +8,7 @@ using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -261,16 +262,44 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<Konferenslokal> tillgängligaKonferensRum = null!;
         public ObservableCollection<Konferenslokal> TillgängligaKonferensRum { get => tillgängligaKonferensRum; set { tillgängligaKonferensRum = value; OnPropertyChanged(); } }
 
+
         private ObservableCollection<Konferenslokal> valdaKonferensRum = null!;
-        public ObservableCollection<Konferenslokal> ValdaKonferensRum
-        {
-            get => valdaKonferensRum; set
-            { valdaKonferensRum = value; OnPropertyChanged(); }
-        }
+        public ObservableCollection<Konferenslokal> ValdaKonferensRum { get => valdaKonferensRum; set { valdaKonferensRum = value; OnPropertyChanged(); } }
+
+
+
+        private int tillgängligKonferensIndex;
+        public int TillgängligKonferensIndex { get { return tillgängligKonferensIndex; } set { tillgängligKonferensIndex = value; OnPropertyChanged(); } }
+
+        private int valdKonferensIndex;
+        public int ValdKonferensIndex { get { return valdKonferensIndex; } set { valdKonferensIndex = value; OnPropertyChanged(); } }
+
+
+
+
 
         private Konferenslokal valdKonferensItem = null!;
         public Konferenslokal ValdKonferensItem
         { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); } }
+
+        private Visibility gömAllt = Visibility.Collapsed;
+        public Visibility GömAllt
+        {
+
+            get { return gömAllt; }
+            set { gömAllt = value; OnPropertyChanged(); }
+
+        }
+        private Visibility seKonferens;
+        public Visibility SeKonferens
+        {
+
+            get { return seKonferens; }
+            set { seKonferens = value; OnPropertyChanged(); }
+
+        }
+
+
 
         #endregion
 
@@ -292,7 +321,6 @@ namespace PresentationslagerWPF.ViewModels
 
             }
         }
-
 
         //Användarnamn för ANVÄNDARE
         private Användare användare = null!;
@@ -331,34 +359,48 @@ namespace PresentationslagerWPF.ViewModels
         #region ICommands - Konferens - Sprint 2
 
 
-
         private ICommand läggTillKonferens = null!;
         public ICommand LäggTillKonferens => läggTillKonferens ??= läggTillKonferens = new RelayCommand(() =>
         {
             Konferenslokal kRum = ValdKonferensItem;
-            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
             if (ValdKonferensItem != null)
             {
+
                 ValdaKonferensRum.Add(kRum);
                 TillgängligaKonferensRum.Remove(kRum);
-            }
-            else
-            {
 
             }
         });
 
+        private ICommand syngörKonferensKommand = null!;
+        public ICommand SyngörKonferensKommand => syngörKonferensKommand ??= syngörKonferensKommand = new RelayCommand(() =>
+        {
+            TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
+            SeKonferens = Visibility.Collapsed;
+            GömAllt = Visibility.Visible;
+
+        });
+        
+        private ICommand taBortKonferens = null!;
+        public ICommand TaBortKonferens => taBortKonferens ??= taBortKonferens = new RelayCommand(() =>
+        {
+            Konferenslokal konferensTabort = ValdKonferensItem;
+            if (valdaKonferensRum != null)
+            {
+                ValdaKonferensRum.Remove(konferensTabort);
+                TillgängligaKonferensRum.Add(konferensTabort);
+            }
+        });
+
+
         #endregion
-
-
-
-
 
         #region Icommands - Skapa bokning - Sprint 1 + Inläsning av nya listor(Tillgängligakonferensrum)
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });
@@ -471,31 +513,16 @@ namespace PresentationslagerWPF.ViewModels
 
                 PDF.CreatePDF.RunF(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-
-
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
             {
                 valdLogi.Clear();
             }
+            if (ValdaKonferensRum != null)
+            {
+                bokningsKontroller.KonferensTillMasterBokning(ValdaKonferensRum, MasterBokning);
+            }
 
-            //InputAdress = null;
-            //InputPostnummer = null;
-            //InputOrt = null;
-            //InputTelefonnummer = null;
-            //InputMailAdress = null;
-            //Kundnummer = null;
-            //InputFörnamn = null;
-            //InputEfternamn = null;
-            //AntalSovplatser = null;
-            //TotalKostnad = null;
-            //ValdLogi = null;
-            //TotalPris = 0;
-            //Privatkund = null;
-            //TillgängligLogi = null;
-            //Starttid = DateTime.Now;
-            //Sluttid = DateTime.Now;
-            //TotalPrisRabatt = 0;
 
         });
 
