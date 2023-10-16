@@ -35,18 +35,18 @@ namespace Affärslager
         }
 
 
-        public List<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum)
+        public IList<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum)
         {
             DateTime dagensDatum = DateTime.Now.Date;
-            List<Utrustning> utrustnings = new List<Utrustning>();                                                                          //Mån-------------------------Lör       NYBOKNING
+            IList<Utrustning> utrustnings = new List<Utrustning>();                                                                          //Mån-------------------------Lör       NYBOKNING
                                                                                                                                                   //Tis--------------Fre            TIDIGARE BOKNING
-            var AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
+            IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
-            var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
-            List<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
+            IList<UtrustningsBokning> AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum <= f.SlutDatum) || (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
+            IList<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
 
 
-            List<Utrustning> test123 = new List<Utrustning>();
+            IList<Utrustning> test123 = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
                 foreach (var lista in item.Utrustningar)
@@ -54,10 +54,17 @@ namespace Affärslager
                     test123.Add(lista);
                 }
             }
-            var UnikaUtrustningar = AllaUtrustningar.Concat(test123).Distinct().ToList();
-            List<Utrustning> MatchadeUtrustningar = new List<Utrustning>();
+            //var UnikaUtrustningar = AllaUtrustningar.Concat(test123).Distinct().ToList();
+            foreach (Utrustning item in AllaUtrustningar.ToList())
+            {
+                if (test123.Contains(item))
+                {
+                    AllaUtrustningar.Remove(item);
+                }
+            }
+            IList<Utrustning> MatchadeUtrustningar = new List<Utrustning>();
             int index = 1;
-            foreach (Utrustning item in UnikaUtrustningar)
+            foreach (Utrustning item in AllaUtrustningar)
             {
                 if (index > antal)
                 {

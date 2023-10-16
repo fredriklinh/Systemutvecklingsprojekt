@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
              xmlns:vm="clr-namespace:PresentationslagerWPF.ViewModels"
              xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="PresentationslagerWPF.Views.SkidshopView"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
               FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
@@ -271,7 +272,14 @@
 
                         <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}">TaBort</Button>
                         <Button Command="{Binding AccepteraÅterlämningCommand}" Margin="0,20,0,0">Återlämnad</Button>
-                        <Button  Background="DarkSeaGreen" Command="{Binding SparaCommand}" Margin="0,20,0,0">Lämna ut</Button>
+                        <Button  Background="DarkSeaGreen" Margin="0,20,0,0" Content="Lämna ut">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SparaCommand, UpdateSourceTrigger=PropertyChanged}" />
+                                    <i:InvokeCommandAction Command="{Binding UppdateraCommandSkidshop, UpdateSourceTrigger=PropertyChanged}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
                     </StackPanel>
                     </DockPanel>
                 </StackPanel>
