@@ -281,7 +281,7 @@
             <Label Content="DRA ÅT HELVETE, FATTAR DU DET?" HorizontalAlignment="Center" FontSize="14"/>
 
 
-            <StackPanel  Background="lightBlue" Height="200">
+            <StackPanel  Background="lightBlue" MaxHeight="200" Height="143">
                 <Label Content="Klicka på den lektion du vill boka in en elev på:" FontSize="12" HorizontalAlignment="Center"/>
                 <!--<ComboBox Width="100" Height="20" IsTextSearchEnabled="True" ItemsSource="{Binding Elev}" DisplayMemberPath="Förnamn" SelectedItem="{Binding SelectedItemElev}"/>-->
 
@@ -310,15 +310,16 @@
                         <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label Content="Förnamn:" HorizontalAlignment="Left" FontSize="12"/>
-                <TextBox x:Name="txtFörN"  Width="100" Height="20" HorizontalAlignment="Left" Text="{Binding InFörnamn, Mode=OneWayToSource}" Margin="62,-23,0,0"/>
-                <Label Content="EfterNamn:" HorizontalAlignment="Left" FontSize="12" Margin="160,-24,0,0"/>
-                <TextBox x:Name="txtEfterN"  Width="100" Height="20" HorizontalAlignment="Right" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="62,-23,115,0"/>
-                <Button x:Name="btnLäggTillElev" Content="Lägg till Elev" FontSize="12" Width="100" Height="20" Margin="10,-23,-320,10" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
-
+            </StackPanel>
+            <StackPanel  Background="lightBlue" MaxHeight="40" HorizontalAlignment="Stretch" Orientation="Horizontal">
+                <Label Content="Förnamn:" FontSize="12" Margin="10" Height="24"/>
+                <TextBox x:Name="txtFörN" Width="50" Text="{Binding InFörnamn, Mode=OneWayToSource}" Margin="10"/>
+                <Label Content="Efternamn:" FontSize="12" Margin="10" Height="24"/>
+                <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="10"/>
+                <Button x:Name="btnLäggTillElev" Content="Boka" FontSize="12" Height="20" Margin="10" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
-            <StackPanel  Background="lightBlue" Height="165">
+            <StackPanel  Background="lightBlue" MaxHeight="222" Height="170">
                 <Label Content="Veckans lektioner:" FontSize="14" HorizontalAlignment="Center" />
                 <Label Content="Grupplektioner:" HorizontalAlignment="Left" FontSize="12"/>
                 <DataGrid Height="100" Width="auto" ItemsSource="{Binding AllaLektioner}"
