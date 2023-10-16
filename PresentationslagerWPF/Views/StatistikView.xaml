@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
+             xmlns:lvs="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <Grid HorizontalAlignment="Left">
@@ -36,6 +37,14 @@
         <ComboBox x:Name="Datatyp1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
         <ComboBox x:Name="År1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Width="180"/>
         <WrapPanel Grid.Row="3" Grid.ColumnSpan="3">
+            <Grid>
+                <lvs:CartesianChart>
+                    <lvs:CartesianChart.Series>
+                        <lvs:ColumnSeries Title="Källa" Values= "{Binding }" />
+                    </lvs:CartesianChart.Series>
+
+                </lvs:CartesianChart>
+            </Grid>
             
         </WrapPanel>
         <Label Grid.Row="4" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Datakälla</Label>
