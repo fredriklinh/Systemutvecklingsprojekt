@@ -678,9 +678,6 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
 
-            //GruppLektion gLektion = SelectedGruppItem;
-            //PrivatLektion pLektion = SelectedPrivatItem;
-            //Elev e = ElevTillLektion;
             
             if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
