@@ -193,9 +193,10 @@ namespace PresentationslagerWPF.ViewModels
                 else
                 {
                     IsEnabledUtrustning = true;
+                    GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+                    PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
                 }
-                GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
-                PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
+
             }
         }
 
