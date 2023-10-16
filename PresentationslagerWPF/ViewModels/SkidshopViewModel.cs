@@ -674,13 +674,13 @@ namespace PresentationslagerWPF.ViewModels
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivat);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektion(SelectedPrivat));
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivat));
             }
             if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGrupp);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektion(SelectedGrupp));
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGrupp));
             }
             
 
