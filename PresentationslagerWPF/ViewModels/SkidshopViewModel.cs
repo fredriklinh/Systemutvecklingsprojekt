@@ -166,9 +166,11 @@ namespace PresentationslagerWPF.ViewModels
 
             TotalDisplayUtrustning = new ObservableCollection<DisplayUtrustning>();
             ValdUtrustningTillBokning = new ObservableCollection<Utrustning>();
+            UppdateraCommandSkidshop = new NavigateCommand<SkidshopViewModel>(new NavigationService<SkidshopViewModel>(navigationStore, () => new SkidshopViewModel(navigationStore, användare)));
         }
 
         public ICommand TillbakaCommand { get; }
+        public ICommand UppdateraCommandSkidshop { get; }
 
         #endregion
 
@@ -393,7 +395,7 @@ namespace PresentationslagerWPF.ViewModels
             List<Utrustning> hämtadUtrustning = new List<Utrustning>();
             foreach (var item in TotalDisplayUtrustning)
             {
-                List<Utrustning> test = new List<Utrustning>();
+                IList<Utrustning> test = new List<Utrustning>();
                 test = utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning);
                 foreach (var itemUtrustning in test)
                 {
