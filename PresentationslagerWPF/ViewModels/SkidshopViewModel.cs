@@ -25,7 +25,6 @@ namespace PresentationslagerWPF.ViewModels
         LektionsKontroller lektionsKontroller = new LektionsKontroller();
         PrisKontroller priskontroller = new PrisKontroller();
 
-
         #region Observable Collection 
 
 
@@ -196,6 +195,8 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     IsEnabledUtrustning = true;
                 }
+                GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AllaGruppLektion());
+                PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AllaPrivatLektion());
             }
         }
 

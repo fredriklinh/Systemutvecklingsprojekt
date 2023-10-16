@@ -40,6 +40,7 @@ namespace Affärslager
             foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.GetAll())
             {
                 AllaGruppLektion.Add(Hej);
+                
             }
             return AllaGruppLektion;
         }
