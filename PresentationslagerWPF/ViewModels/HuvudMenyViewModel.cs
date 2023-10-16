@@ -16,6 +16,7 @@ namespace PresentationslagerWPF.ViewModels
             NavigateKundHanteringCommand = new NavigateCommand<KundhanteringViewModel>(new NavigationService<KundhanteringViewModel>(navigationStore, () => new KundhanteringViewModel(navigationStore, användare)));
             NavigateStatistikCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             NavigateSkidshopCommand = new NavigateCommand<SkidshopViewModel>(new NavigationService<SkidshopViewModel>(navigationStore, () => new SkidshopViewModel(navigationStore, användare)));
+            NavigateStatistikCommand = new NavigateCommand<StatistikViewModel>(new NavigationService<StatistikViewModel>(navigationStore, () => new StatistikViewModel(navigationStore, användare)));
 
         }
         public HuvudMenyViewModel() { }
@@ -25,6 +26,8 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand NavigateMasterBokningCommand { get; }
         public ICommand NavigateKundHanteringCommand { get; }
         public ICommand NavigateStatistikCommand { get; }
+
+        
 
 
         //**** NAVBAR *******//
