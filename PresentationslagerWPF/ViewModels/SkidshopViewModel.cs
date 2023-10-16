@@ -646,11 +646,18 @@ namespace PresentationslagerWPF.ViewModels
         private Elev elevTillLektion = null!;
         public Elev ElevTillLektion { get => elevTillLektion; set { elevTillLektion = value; OnPropertyChanged(); } }
 
-        private GruppLektion selectedGrupp = null!;
-        public GruppLektion SelectedGrupp { get => selectedGrupp; set { selectedGrupp = value; OnPropertyChanged(); } }
+
+
+        private int selectedGruppIndex;
+        public int SelectedGruppIndex { get => selectedGruppIndex; set { selectedGruppIndex = value; OnPropertyChanged(); } }
+
+        private GruppLektion selectedGruppItem = null!;
+        public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged(); } }
 
         private PrivatLektion selectedPrivat = null!;
         public PrivatLektion SelectedPrivat { get => selectedPrivat; set { selectedPrivat = value; OnPropertyChanged(); } }
+
+
 
         private string inFörnamn;
         public string InFörnamn
