@@ -647,15 +647,17 @@ namespace PresentationslagerWPF.ViewModels
         public Elev ElevTillLektion { get => elevTillLektion; set { elevTillLektion = value; OnPropertyChanged(); } }
 
 
-
+        private int selectedPrivatIndex;
+        public int SelectedPrivatIndex { get { return selectedPrivatIndex; } set { selectedPrivatIndex = value; OnPropertyChanged(); } }
+        
         private int selectedGruppIndex;
-        public int SelectedGruppIndex { get => selectedGruppIndex; set { selectedGruppIndex = value; OnPropertyChanged(); } }
+        public int SelectedGruppIndex { get { return selectedGruppIndex; } set { selectedGruppIndex = value; OnPropertyChanged(); } }
 
         private GruppLektion selectedGruppItem = null!;
         public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged(); } }
 
-        private PrivatLektion selectedPrivat = null!;
-        public PrivatLektion SelectedPrivat { get => selectedPrivat; set { selectedPrivat = value; OnPropertyChanged(); } }
+        private PrivatLektion selectedPrivatItem = null!;
+        public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged(); } }
 
 
 
@@ -676,17 +678,17 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
 
-            GruppLektion gLektion = SelectedGrupp;
-            PrivatLektion pLektion = SelectedPrivat;
+            GruppLektion gLektion = SelectedGruppItem;
+            PrivatLektion pLektion = SelectedPrivatItem;
             Elev e = ElevTillLektion;
             
-            if (SelectedPrivat != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(e, pLektion);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(pLektion));
             }
-            if (SelectedGrupp != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(e, gLektion);
