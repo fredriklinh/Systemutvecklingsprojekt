@@ -37,12 +37,15 @@ namespace Affärslager
 
         public List<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum)
         {
+            DateTime dagensDatum = DateTime.Now.Date;
+            List<Utrustning> utrustnings = new List<Utrustning>();                                                                          //Mån-------------------------Lör       NYBOKNING
+                                                                                                                                                  //Tis--------------Fre            TIDIGARE BOKNING
+            var AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
-            List<Utrustning> utrustnings = new List<Utrustning>();
+            var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
+            List<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
 
-            var AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList();
 
-            var AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (DateTime.Now <= f.StartDatum && slutdatum >= f.SlutDatum) || (DateTime.Now >= f.SlutDatum && DateTime.Now <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (DateTime.Now >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
             List<Utrustning> test123 = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
@@ -85,7 +88,7 @@ namespace Affärslager
         public MasterBokning SkapaUtrustningsBokningPrivat(List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare, int summa)
         {
             DateTime startdatum = DateTime.Now;
-            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.Privatkund.Personnummer == privatkund.Personnummer/* && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum*/);
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.Privatkund.Personnummer == privatkund.Personnummer && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
             if (masterBokning == null)
             {
                 return masterBokning;

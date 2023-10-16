@@ -274,9 +274,6 @@ namespace PresentationslagerWPF.ViewModels
         public int ValdKonferensIndex { get { return valdKonferensIndex; } set { valdKonferensIndex = value; OnPropertyChanged(); } }
 
 
-
-
-
         private Konferenslokal valdKonferensItem = null!;
         public Konferenslokal ValdKonferensItem
         { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); } }
@@ -399,11 +396,9 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });
-
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
@@ -436,7 +431,6 @@ namespace PresentationslagerWPF.ViewModels
                         resBädd += ValdLogi[i].Bäddar;
                     }
                 }
-
                 //Kostnad totalt
                 if (TotalKostnad == null)
                 {
@@ -446,7 +440,6 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     TotalKostnad = TotalKostnad + TotalPris;
                 }
-
                 AntalSovplatser = resBädd;
             }
         });
@@ -454,7 +447,6 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
             {
@@ -476,9 +468,6 @@ namespace PresentationslagerWPF.ViewModels
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
             }
-
-
-
         });
 
 
@@ -521,8 +510,6 @@ namespace PresentationslagerWPF.ViewModels
             {
                 bokningsKontroller.KonferensTillMasterBokning(ValdaKonferensRum, MasterBokning);
             }
-
-
         });
 
         private ICommand taBortCommand = null!;
