@@ -277,13 +277,10 @@ namespace PresentationslagerWPF.ViewModels
                     MessageBox.Show("Datum är inkorrekt", "Bokning", MessageBoxButton.OK);
                     IsEnabledUtrustning = false;
                 }
-                else
-                {
-                    IsEnabledUtrustning = true;
-                    GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(Inlämning));
-                    PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(inlämning));
-                    AllaLektioner = new ObservableCollection<object>(lektionsKontroller.HämtaAktuellaLektioner(PrivatLektioner, GruppLektioner));
-                }
+
+                GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(Inlämning));
+                PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(inlämning));
+                AllaLektioner = new ObservableCollection<object>(lektionsKontroller.HämtaAktuellaLektioner(PrivatLektioner, GruppLektioner));
 
             }
         }
@@ -321,6 +318,95 @@ namespace PresentationslagerWPF.ViewModels
             hämtadUtrustning.Clear();
         });
 
+        #region Properties Logi, Privatkund (Sprint1)
+
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
+
+        private DateTime starttid = DateTime.Now;
+        public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
+
+        private DateTime sluttid = DateTime.Now;
+        public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
+
+        private double? antalSovplatser;
+        public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
+
+        private double? totalKostnad;
+        public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
+
+        private string inputAdress;
+        public string InputAdress
+        {
+            get { return inputAdress; }
+            set { inputAdress = value; OnPropertyChanged(); }
+        }
+
+        private string inputPostnummer;
+        public string InputPostnummer
+        {
+            get { return inputPostnummer; }
+            set { inputPostnummer = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputOrt = "HallåEller";
+        public string InputOrt
+        {
+            get { return inputOrt; }
+            set { inputOrt = value; OnPropertyChanged(); }
+
+        }
+
+        private string inputTelefonnummer;
+        public string InputTelefonnummer
+        {
+            get { return inputTelefonnummer; }
+            set { inputTelefonnummer = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputMailAdress;
+        public string InputMailAdress
+        {
+            get { return inputMailAdress; }
+            set { inputMailAdress = value; OnPropertyChanged(); }
+        }
+
+        private string inputFörnamn;
+        public string InputFörnamn
+        {
+            get { return inputFörnamn; }
+            set { inputFörnamn = value; OnPropertyChanged(); }
+        }
+
+
+        private string inputEfternamn;
+        public string InputEfternamn
+        {
+            get { return inputEfternamn; }
+            set { inputEfternamn = value; OnPropertyChanged(); }
+        }
+
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+
+        private MasterBokning masterbokning = null!;
+        public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
+
+        private Visibility fsynlighet = Visibility.Collapsed;
+        public Visibility FSynlighet
+        {
+
+            get { return fsynlighet; }
+            set { fsynlighet = value; OnPropertyChanged(); }
+
+        }
+        #endregion
 
 
 
@@ -745,6 +831,10 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #endregion
+
+
+
+
 
         #region SKIDLEKTION ............
         private ObservableCollection<Elev> elev = null!;
