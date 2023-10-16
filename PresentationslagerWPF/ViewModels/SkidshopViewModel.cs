@@ -678,21 +678,21 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
 
-            GruppLektion gLektion = SelectedGruppItem;
-            PrivatLektion pLektion = SelectedPrivatItem;
-            Elev e = ElevTillLektion;
+            //GruppLektion gLektion = SelectedGruppItem;
+            //PrivatLektion pLektion = SelectedPrivatItem;
+            //Elev e = ElevTillLektion;
             
             if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaPrivatLektion(e, pLektion);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(pLektion));
+                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
             }
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaGruppLektion(e, gLektion);
-                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(gLektion));
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem);
+                Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
             }
            
         });

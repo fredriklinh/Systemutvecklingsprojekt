@@ -17,25 +17,26 @@ namespace Affärslager
         }
         public void BokaGruppLektion(Elev elev, GruppLektion gLektion)
         {
-            int elever = 15;
-            if (gLektion.Deltagare.Count > elever)
+            if (gLektion.Deltagare.Count > 15)
             {
                 gLektion.Deltagare.Add(elev);
-                unitOfWork.Complete();
+                unitOfWork.GruppLektionRepository.Update(gLektion);
             }
+            unitOfWork.Complete();
         }
         public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
         {
-            int elever = 2;
-            if (pLektion.Deltagare.Count < elever)
+
+            if (pLektion.Deltagare.Count < 2)
             {
                 pLektion.Deltagare.Add(elev);
-                unitOfWork.Complete();
+                unitOfWork.PrivatLektionRepository.Update(pLektion);
             }
+            unitOfWork.Complete();
         }
         public IList<GruppLektion> AllaGruppLektion()
         {
-            List<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
+            IList<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
 
             foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.GetAll())
             {
@@ -46,7 +47,7 @@ namespace Affärslager
         }
         public IList<PrivatLektion> AllaPrivatLektion()
         {
-            List<PrivatLektion> AllaPrivatLektion = new List<PrivatLektion>();
+            IList<PrivatLektion> AllaPrivatLektion = new List<PrivatLektion>();
 
             foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.GetAll())
             {
@@ -56,7 +57,7 @@ namespace Affärslager
         }
         public IList<Elev> HämtaDeltagareFrånLektionG(GruppLektion gLektion)
         {
-            List<Elev> eleverILektionen = new List<Elev>();
+            IList<Elev> eleverILektionen = new List<Elev>();
 
             foreach (Elev e in gLektion.Deltagare)
             {
@@ -67,7 +68,7 @@ namespace Affärslager
 
         public IList<Elev> HämtaDeltagareFrånLektionP(PrivatLektion pLektion)
         {
-            List<Elev> eleverILektionen = new List<Elev>();
+            IList<Elev> eleverILektionen = new List<Elev>();
 
             foreach (Elev e in pLektion.Deltagare)
             {
