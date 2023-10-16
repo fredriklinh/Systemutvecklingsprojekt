@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
              xmlns:lvs="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
     <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="330"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="320"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -30,22 +30,33 @@
             </MenuItem>
             <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
         </Menu>
-        <Label Grid.Row="1" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Datakälla</Label>
-        <Label Grid.Row="1" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Datatyp</Label>
+        <Label Grid.Row="1" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Årtal</Label>
+        <Label Grid.Row="1" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Årtal</Label>
         <Label Grid.Row="1" Grid.Column="2" Margin="40,0,40,0" Background="LightGray">År</Label>
-        <ComboBox x:Name="Datakälla1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Width="180"/>
-        <ComboBox x:Name="Datatyp1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
-        <ComboBox x:Name="År1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Width="180"/>
-        <WrapPanel Grid.Row="3" Grid.ColumnSpan="3">
-            <Grid>
-                <lvs:CartesianChart>
-                    <lvs:CartesianChart.Series>
-                        <lvs:ColumnSeries Title="Källa" Values= "{Binding }" />
-                    </lvs:CartesianChart.Series>
+        <ComboBox Name="Årtal" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemÅr}" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Width="180"/>
+        <ComboBox Name="Årtal2" ItemsSource="{Binding Årtal}" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
+        
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3">
+            <DataGrid x:Name="StatistikLogi" ItemsSource="{Binding Objekt}" AlternatingRowBackground="Gray" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datatyp" Binding="{Binding Objekt.ValdLogi.Typen}"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Totalen}"/>
+                    <DataGridTextColumn Header="Jan" Binding="{Binding Path=JanAntal}"/>
+                    <DataGridTextColumn Header="Feb" Binding="{Binding Path=FebAntal}"/>
+                    <DataGridTextColumn Header="Mar" Binding="{Binding Path=MarAntal}"/>
+                    <DataGridTextColumn Header="Apr" Binding="{Binding Path=AprAntal}"/>
+                    <DataGridTextColumn Header="Maj" Binding="{Binding Path=MajAntal}"/>
+                    <DataGridTextColumn Header="Jun" Binding="{Binding Path=JuniAntal}"/>
+                    <DataGridTextColumn Header="Jul" Binding="{Binding Path=JuliAntal}"/>
+                    <DataGridTextColumn Header="Aug" Binding="{Binding Path=AugAntal}"/>
+                    <DataGridTextColumn Header="Sep" Binding="{Binding Path=SepAntal}"/>
+                    <DataGridTextColumn Header="Okt" Binding="{Binding Path=OktAntal}"/>
+                    <DataGridTextColumn Header="Nov" Binding="{Binding Path=NowAntal}"/>
+                    <DataGridTextColumn Header="Dec" Binding="{Binding Path=DecAntal}"/>
+                </DataGrid.Columns>
+            </DataGrid>
 
-                </lvs:CartesianChart>
-            </Grid>
-            
+
         </WrapPanel>
         <Label Grid.Row="4" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Datakälla</Label>
         <Label Grid.Row="4" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Datatyp</Label>
@@ -53,10 +64,27 @@
         <ComboBox x:Name="Datakälla2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Width="180"/>
         <ComboBox x:Name="Datatyp2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
         <ComboBox x:Name="År2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="180"/>
-        <WrapPanel Grid.Row="6" Grid.ColumnSpan="3">
-            
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="3">
+            <DataGrid x:Name="StatistikUtrustning" AlternatingRowBackground="Gray" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Källa" Binding="{Binding Objekt}"/>
+                    <DataGridTextColumn Header="Datatyp" Binding="{Binding Path=Utrustning.Typ}"/>
+                    <DataGridTextColumn Header="Jan" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Feb" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Mar" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Apr" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Maj" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Jun" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Jul" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Aug" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Sep" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Okt" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Nov" Binding="{Binding Path=Antal}"/>
+                    <DataGridTextColumn Header="Dec" Binding="{Binding Path=Antal}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </WrapPanel>
-        
+
 
 
 
