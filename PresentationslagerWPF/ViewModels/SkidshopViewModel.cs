@@ -417,6 +417,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand TaBortCommand => taBortCommand ??= taBortCommand = new RelayCommand(() =>
         {
             TotalDisplayUtrustning.Remove(SelectedItemDisplayUtrustning);
+            BeräknaSummaTotal();
         });
 
         private ICommand accepteraÅterlämningCommand = null!;
@@ -491,6 +492,7 @@ namespace PresentationslagerWPF.ViewModels
                 TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalAlpin, SelectedItemAlpin, SelectedItemAlpin.UtrustningsTyp.Typ, SelectedItemAlpin.Benämning, SummaAlpin));
                 AntalAlpin.Clear();
                 SummaAlpin = 0;
+                BeräknaSummaTotal();
             }
         });
 
@@ -503,6 +505,7 @@ namespace PresentationslagerWPF.ViewModels
                 TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalSnowboard, SelectedItemSnowboard, SelectedItemSnowboard.UtrustningsTyp.Typ, SelectedItemSnowboard.Benämning, SummaSnowboard));
                 AntalSnowboard.Clear();
                 SummaSnowboard = 0;
+                BeräknaSummaTotal();
             }
         });
         private ICommand läggTillLängdCommand = null!;
@@ -514,7 +517,7 @@ namespace PresentationslagerWPF.ViewModels
                 TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalLängd, SelectedItemLängd, SelectedItemLängd.UtrustningsTyp.Typ, SelectedItemLängd.Benämning, SummaLängd));
                 AntalLängd.Clear();
                 SummaLängd = 0;
-
+                BeräknaSummaTotal();
             }
         });
         private ICommand läggTillHjälmCommand = null!;
@@ -526,7 +529,7 @@ namespace PresentationslagerWPF.ViewModels
                 TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalHjälm, SelectedItemHjälm, SelectedItemHjälm.UtrustningsTyp.Typ, SelectedItemHjälm.Benämning, SummaHjälm));
                 AntalHjälm.Clear();
                 SummaHjälm = 0;
-
+                BeräknaSummaTotal();
             }
         });
         private ICommand läggTillSkoterCommand = null!;
@@ -538,6 +541,7 @@ namespace PresentationslagerWPF.ViewModels
                 TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalSkoter, SelectedItemSkoter, SelectedItemSkoter.UtrustningsTyp.Typ, SelectedItemSkoter.Benämning, SummaHjälm));
                 AntalSkoter.Clear();
                 SummaSkoter = 0;
+                BeräknaSummaTotal();
             }
         });
 
@@ -548,7 +552,7 @@ namespace PresentationslagerWPF.ViewModels
             TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalPaket, SelectedItemPaket, SelectedItemPaket.UtrustningsTyp.Typ, SelectedItemPaket.Benämning, SummaPaket));
             AntalPaket.Clear();
             SummaPaket = 0;
-
+            BeräknaSummaTotal();
         });
 
         #endregion
@@ -762,6 +766,16 @@ namespace PresentationslagerWPF.ViewModels
             IsEnabledAntalAlpin = true;
             TypAlpin.Clear();
             AntalAlpin.Clear();
+        }
+
+        public void BeräknaSummaTotal()
+        {
+            int total = 0;
+            foreach (var item in TotalDisplayUtrustning)
+            {
+                total += item.Summa;
+            }
+            SummaTotal = total;
         }
         #endregion
 
