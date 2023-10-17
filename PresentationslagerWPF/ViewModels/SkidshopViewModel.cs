@@ -11,6 +11,7 @@ using PresentationslagerWPF.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -121,6 +122,8 @@ namespace PresentationslagerWPF.ViewModels
                 masterbokningar = value; OnPropertyChanged();
             }
         }
+
+
         #region IsEnabled - Utrustning
 
         private bool isEnabledUtrustning = false!;
@@ -145,6 +148,9 @@ namespace PresentationslagerWPF.ViewModels
         public bool IsEnabledAntalPaket { get => isEnabledAntalPaket; set { isEnabledAntalPaket = value; OnPropertyChanged(); } }
         #endregion
 
+
+        private bool isCheckedKredit = true!;
+        public bool IsCheckedKredit { get => isCheckedKredit; set { isCheckedKredit = value; OnPropertyChanged(); } }
 
         #region NAVIGATION
         //**** NAVIGATION *******//
@@ -295,11 +301,14 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
+
         #region Commands
 
         private ICommand sparaCommand = null!;
         public ICommand SparaCommand => sparaCommand ??= sparaCommand = new RelayCommand(() =>
         {
+
+            //Fyller lista som ska hämtas från bokning
             List<Utrustning> hämtadUtrustning = new List<Utrustning>();
             foreach (var item in TotalDisplayUtrustning)
             {
@@ -308,15 +317,28 @@ namespace PresentationslagerWPF.ViewModels
                 foreach (var itemUtrustning in test)
                 {
                     hämtadUtrustning.Add(itemUtrustning);
-
                 }
+            }     
+            if (Privatkund != null)
+            {
+                MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
+                BoolExisterarBokning(privatexisterarEj);
             }
-            MasterBokning existerarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal);
-            if (existerarEj == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            else MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            else if (Företagskund != null) 
+            {
+                MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
+                BoolExisterarBokning(företagexisterarEj);
+            }
+            else
+            {
+                MessageBox.Show("Ange en Kund", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
             hämtadUtrustning.Clear();
         });
+
+
+
+
 
         #region Properties Logi, Privatkund (Sprint1)
 
@@ -328,12 +350,6 @@ namespace PresentationslagerWPF.ViewModels
 
         private DateTime sluttid = DateTime.Now;
         public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
-
-        private double? antalSovplatser;
-        public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }
-
-        private double? totalKostnad;
-        public double? TotalKostnad { get => totalKostnad; set { totalKostnad = value; OnPropertyChanged(); } }
 
         private string inputAdress;
         public string InputAdress
@@ -348,7 +364,6 @@ namespace PresentationslagerWPF.ViewModels
             get { return inputPostnummer; }
             set { inputPostnummer = value; OnPropertyChanged(); }
         }
-
 
         private string inputOrt = "HallåEller";
         public string InputOrt
@@ -470,12 +485,16 @@ namespace PresentationslagerWPF.ViewModels
                 Kundnummer = Privatkund.Personnummer;
                 InputFörnamn = Privatkund.Förnamn;
                 InputEfternamn = Privatkund.Efternamn;
+                //Tillkommmit
+                Företagskund = null;
             }
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
             if (företagskund != null)
             {
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
+                //Tillkommmit
+                Privatkund = null;
             }
         });
 
@@ -550,6 +569,7 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
+
         #region SUMMA
         private int summaTotal;
         public int SummaTotal
@@ -604,6 +624,7 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
+
         #region AntalInt
 
         private ObservableCollection<int> antalAlpin;
@@ -650,6 +671,7 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
+
         #region SELECTEDITEM
 
         private DisplayUtrustning selectedItemDisplayUtrustning = null!;
@@ -670,7 +692,11 @@ namespace PresentationslagerWPF.ViewModels
                 selectedItemAlpin = value; OnPropertyChanged();
                 IsEnabledAntalAlpin = true;
                 IsEnabledAntalAlpin = ÄrRedanIBokning(SelectedItemAlpin);
-                if (IsEnabledAntalAlpin) AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
+                if (IsEnabledAntalAlpin)
+                {
+                    if (SelectedItemAlpin.Benämning == "Paket") AntalAlpin = utrustningsKontroller.SökPaketTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
+                    else AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
+                }
             }
         }
 
@@ -682,7 +708,14 @@ namespace PresentationslagerWPF.ViewModels
                 selectedItemSnowboard = value; OnPropertyChanged();
                 IsEnabledAntalSnowboard = true;
                 IsEnabledAntalSnowboard = ÄrRedanIBokning(SelectedItemSnowboard);
-                if (IsEnabledAntalSnowboard) AntalSnowboard = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
+                if (IsEnabledAntalSnowboard)
+                {
+                    if (SelectedItemSnowboard.Benämning == "Paket") AntalSnowboard = utrustningsKontroller.SökPaketTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
+                    else AntalSnowboard = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
+                }
+
+
+                    
             }
         }
         private Utrustning selectedItemLängd = null!;
@@ -694,7 +727,11 @@ namespace PresentationslagerWPF.ViewModels
                 IsEnabledAntalLängd = true;
 
                 IsEnabledAntalLängd = ÄrRedanIBokning(SelectedItemLängd);
-                if (IsEnabledAntalLängd) AntalLängd = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
+                if (IsEnabledAntalLängd)
+                {
+                    if (SelectedItemLängd.Benämning == "Paket") AntalLängd = utrustningsKontroller.SökPaketTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
+                    else AntalLängd = AntalLängd = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
+                }
             }
         }
         private Utrustning selectedItemHjälm = null!;
@@ -736,6 +773,7 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
+
         #region Metoder
 
         public bool ÄrRedanIBokning(Utrustning selectedItem)
@@ -760,7 +798,17 @@ namespace PresentationslagerWPF.ViewModels
             TypAlpin.Clear();
             AntalAlpin.Clear();
         }
+
+
+        public void BoolExisterarBokning(MasterBokning existerar)
+        {
+            if (existerar == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            else MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
         #endregion
+
 
         #region SELECTED INT
 
@@ -831,9 +879,6 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #endregion
-
-
-
 
 
         #region SKIDLEKTION ............
