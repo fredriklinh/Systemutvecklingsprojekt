@@ -15,6 +15,7 @@ namespace Entiteter.Tjänster
 
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
+        
         public int NyttjadKreditsumma { get; set; }
 
         public DateTime BokningsDatum { get; set; } // Attribut för när bokningen skapades i systemet. 

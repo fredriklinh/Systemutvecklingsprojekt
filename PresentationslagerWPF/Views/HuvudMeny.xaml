@@ -29,7 +29,7 @@
             <Button x:Name="btnUthyrning" Command="{Binding NavigateSkidshopCommand}" Content="Uthyrning/Skidshop" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold"></Button>
             <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" ></Button>
             <Separator/>
-            <Button x:Name="btnStatistik" Content="Statistik" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,20,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold"></Button>
+            <Button x:Name="btnStatistik" Command="{Binding NavigateStatistikCommand}" Content="Statistik" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,20,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold"></Button>
             <Button x:Name="btnAdmin" Content="Admin" HorizontalAlignment="Left" Width="250" Height="30" Margin="10,5,10,20" HorizontalContentAlignment="Left" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" 
                    ></Button>
             <Separator/>
