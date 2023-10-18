@@ -134,25 +134,25 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel  Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel>
-                                        <Label Content="Adress:"/>
-                                        <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="auto" />
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Postnummer:"/>
-                                        <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Ort:"/>
-                                        <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" />
-                                    </StackPanel>
-                                    <StackPanel Margin="10,0,0,0">
-                                        <Label Content="Telefonummer:"/>
-                                        <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25"/>
-                                    </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Adress:"/>
+                                    <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="auto" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Postnummer:"/>
+                                    <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Ort:"/>
+                                    <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" />
+                                </StackPanel>
+                                <StackPanel Margin="10,0,0,0">
+                                    <Label Content="Telefonummer:"/>
+                                    <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25"/>
                                 </StackPanel>
                             </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </WrapPanel>
@@ -270,7 +270,7 @@
                                 </CheckBox.LayoutTransform>
                             </CheckBox>
                         </StackPanel>
- 
+
                     </StackPanel>
 
 
@@ -329,7 +329,6 @@
                 <Label Content="Veckans lektioner:" FontSize="16" HorizontalAlignment="Center" />
                 <StackPanel  Orientation="Horizontal">
                     <StackPanel>
-                        <Label Content="Grupplektioner:"/>
                         <DataGrid Height="118" ItemsSource="{Binding AllaLektioner}"
                                 AutoGenerateColumns="False" IsReadOnly="True" Width="auto">
                             <DataGrid.Columns>
@@ -339,29 +338,25 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
-                    <StackPanel Margin="10,0,0,0">
-                        <Label Content="Privatlektioner:" />
-                        <DataGrid Height="118" Width="auto" ItemsSource="{Binding PrivatLektion}"
-                                AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
-                                <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                    <StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Width="auto" Margin="10,0,0,0">
                 <Label Content="Deltagare i vald lektion"/>
                 <DataGrid Height="97" Width="260" ItemsSource="{Binding Eleverna}"
-                                AutoGenerateColumns="False" IsReadOnly="True">
+                                AutoGenerateColumns="False" IsReadOnly="True"
+                          SelectionMode="Single" SelectionUnit="FullRow"
+                          SelectedItem="{Binding ElevAttTaBortItem}"
+                          SelectedIndex="{Binding ElevAttTaBortIndex}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Namn" Binding="{Binding Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
+
             </StackPanel>
+            <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="TaBort" DockPanel.Dock="Right" Margin="10,10,10,10" Width="50" Height="20"/>
         </DockPanel>
     </Grid>
 </UserControl>

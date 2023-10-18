@@ -39,14 +39,17 @@ namespace Affärslager
         }
         public void AvBokaPrivatLektion(Elev elev, PrivatLektion pLektion)
         {
-                pLektion.Deltagare.Remove(elev);
-                unitOfWork.PrivatLektionRepository.Update(pLektion);
-           
+            pLektion.Deltagare.Remove(elev);
+            unitOfWork.ElevRepository.Delete(elev);
+            unitOfWork.ElevRepository.Update(elev);
+            unitOfWork.PrivatLektionRepository.Update(pLektion);
             unitOfWork.Complete();
         }
         public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion)
         {
             gLektion.Deltagare.Remove(elev);
+            unitOfWork.ElevRepository.Delete(elev);
+            unitOfWork.ElevRepository.Update(elev);
             unitOfWork.GruppLektionRepository.Update(gLektion);
             unitOfWork.Complete();
         }

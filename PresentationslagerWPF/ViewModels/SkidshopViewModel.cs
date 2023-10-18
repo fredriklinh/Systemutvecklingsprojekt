@@ -111,8 +111,6 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-        #endregion
-
         private ObservableCollection<MasterBokning> masterbokningar = null!;
         public ObservableCollection<MasterBokning> Masterbokningar
         {
@@ -122,6 +120,11 @@ namespace PresentationslagerWPF.ViewModels
                 masterbokningar = value; OnPropertyChanged();
             }
         }
+    
+
+
+
+        #endregion
 
 
         #region IsEnabled - Utrustning
@@ -423,7 +426,7 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
-
+      
 
         private ICommand taBortCommand = null!;
         public ICommand TaBortCommand => taBortCommand ??= taBortCommand = new RelayCommand(() =>
@@ -775,6 +778,9 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+
+
+
         #endregion
 
 
@@ -895,7 +901,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region SKIDLEKTION ............
+        #region SKIDLEKTION Observables ............
         private ObservableCollection<Elev> elev = null!;
         public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
 
@@ -908,7 +914,6 @@ namespace PresentationslagerWPF.ViewModels
                 gruppLektioner = value; OnPropertyChanged();
             }
         }
-        #region DisplayUtrustning
 
         private ObservableCollection<PrivatLektion> privatLektioner = null!;
         public ObservableCollection<PrivatLektion> PrivatLektioner
@@ -973,6 +978,20 @@ namespace PresentationslagerWPF.ViewModels
             set { inEfternamn = value; OnPropertyChanged(); }
         }
 
+
+        private Elev elevAttTaBortItem = null!;
+        public Elev ElevAttTaBortItem { get => elevAttTaBortItem; set { elevAttTaBortItem = value; OnPropertyChanged(); } }
+
+
+        private Elev elevAttTaBortIndex = null!;
+        public Elev ElevAttTaBortIndex { get => elevAttTaBortIndex; set { elevAttTaBortIndex = value; OnPropertyChanged(); } }
+
+        #endregion
+
+
+        #region SKIDLEKTION Commands................
+
+
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
@@ -991,7 +1010,81 @@ namespace PresentationslagerWPF.ViewModels
             }
            
         });
+
+        private ICommand avbokaElevCommand = null!;
+        public ICommand AvbokaElevCommand => avbokaElevCommand ??= avbokaElevCommand = new RelayCommand(() =>
+        {
+            if (ElevAttTaBortItem != null && SelectedGruppItem != null)
+            {
+
+                lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem);
+            }
+
+
+            if (ElevAttTaBortItem != null && SelectedPrivatItem != null)
+            {
+
+                lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem);
+            }
+
+        });
         #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //private DisplayUtrustning antalTest = null!;
@@ -1012,8 +1105,6 @@ namespace PresentationslagerWPF.ViewModels
                 antalTestList = value; OnPropertyChanged();
             }
         }
-
-        #endregion
 
 
 
