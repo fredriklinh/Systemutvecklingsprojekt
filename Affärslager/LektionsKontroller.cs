@@ -201,5 +201,57 @@ namespace Affärslager
         }
 
 
+        private MasterBokning KollaKredtiTotal(double kreditTotalKund, int summaBokning, MasterBokning masterBokning)
+        {
+            //SKA TESTAS
+            masterBokning.NyttjadKreditsumma += summaBokning;
+            if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
+            {
+                unitOfWork.Complete();
+                return masterBokning;
+
+
+            }
+            else return masterBokning;
+        }
+
+        //public MasterBokning FixaPrisLektion(int summa, bool påKredit, MasterBokning mB)
+        //{
+        //    DateTime startdatum = DateTime.Now;
+        //    Privatkund pk;
+        //    Företagskund fK;
+        //    mB = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.PersonNr == mB.PersonNr && startdatum >= mB.StartDatum|| a.OrgaNr == mB.OrgaNr && startdatum >= a.StartDatum);
+            
+        //    //Kollakredit
+        //    if (påKredit == true) KollaKredtiTotal(pk.MaxBeloppsKreditGräns, summa, mB);
+        //    if (mB.NyttjadKreditsumma > pk.MaxBeloppsKreditGräns) return mB;
+
+        //    unitOfWork.Complete();
+        //    return mB;
+        //}
+
+
+
+
+
+
+        public MasterBokning SkapaUtrustningsBokningFöretag(List<Utrustning> utrustningar, DateTime slutdatum, Företagskund företagskund, Användare användare, int summa, bool påKredit)
+        {
+            DateTime startdatum = DateTime.Now;
+            MasterBokning masterBokningFöretag = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.Företagskund.OrgNr == företagskund.OrgNr && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
+            if (masterBokningFöretag == null) return masterBokningFöretag;
+            //Kollakredit
+            if (påKredit == true) KollaKredtiTotal(företagskund.MaxBeloppsKreditGräns, summa, masterBokningFöretag);
+            if (masterBokningFöretag.NyttjadKreditsumma > företagskund.MaxBeloppsKreditGräns) return masterBokningFöretag;
+
+
+            Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
+            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningFöretag, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
+            masterBokningFöretag.UtrustningsBokningar.Add(utrustningsBokning);
+            unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
+            unitOfWork.Complete();
+            return masterBokningFöretag;
+        }
+
     }
 }

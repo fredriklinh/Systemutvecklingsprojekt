@@ -1,13 +1,16 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Affärslager
 {
     public class BokningsKontroller
     {
+        public BokningsKontroller()
+        {
 
+        }
         public UnitOfWork UnitOfWork
         {
             get => default;
@@ -24,6 +27,13 @@ namespace Affärslager
         /// <param name="startdatum"></param>
         /// <param name="slutdatum"></param>
         /// <returns></returns>
+        /// 
+
+        //    var blogs = ctx.Blogs
+        //.Include(b => b.Posts)
+        //.ThenInclude(p => p.Comments)
+        //.ToList();
+
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
 
@@ -41,6 +51,7 @@ namespace Affärslager
                     {
                         logi.Remove(ledigLogi);
                     }
+                    
                 }
 
                 return logi;
@@ -53,6 +64,7 @@ namespace Affärslager
             Användare användare1 = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
             MasterBokning masterBokning = new MasterBokning(avbeställningsskydd, startDatum, slutDatum, valdLogi, privatkund1, användare1, null);
             unitOfWork.MasterBokningRepository.Add(masterBokning);
+            unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
             return masterBokning;
         }

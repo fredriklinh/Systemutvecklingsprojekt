@@ -326,7 +326,7 @@
                 <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="10"/>
                 <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label>På Kredit</Label>
-                    <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked}" Width="20">
+                    <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditCheckLektion}" Width="20">
                         <CheckBox.LayoutTransform>
                             <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                         </CheckBox.LayoutTransform>
@@ -363,9 +363,9 @@
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
-
+                <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="TaBort" DockPanel.Dock="Left" Margin="10,10,10,10" Width="50" Height="20"/>
             </StackPanel>
-            <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="TaBort" Margin="10,10,10,10" Width="50" Height="20"/>
+            
         </DockPanel>
     </Grid>
 </UserControl>
