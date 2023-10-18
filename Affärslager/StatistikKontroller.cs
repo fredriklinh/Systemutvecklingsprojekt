@@ -20,10 +20,11 @@ namespace Affärslager
             return MS;
         }
 
-        public List<MasterBokning> HämtaBokningarLogiTyp()
+        public List<MasterBokning> HämtaBokningarLogiTyp(string LogiTyp)
         {
 
             return new List<MasterBokning>();
+
         }
 
         #endregion
