@@ -256,6 +256,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
+                        <Button Command ="{Binding SkrivUtKvittoCommand}" Margin="0,20,0,10">Skriv ut Kvitto</Button>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">

@@ -322,11 +322,15 @@ namespace PresentationslagerWPF.ViewModels
             if (Privatkund != null)
             {
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
+                if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
+
                 BoolExisterarBokning(privatexisterarEj);
             }
             else if (Företagskund != null) 
             {
                 MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
+                if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
+
                 BoolExisterarBokning(företagexisterarEj);
             }
             else
