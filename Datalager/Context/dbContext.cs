@@ -44,7 +44,7 @@ namespace Datalager.Context
             #endregion
         }
 
-        public DbSet<Användare> Användare { get; set; } = null!;
+
 
 
 

@@ -19,7 +19,7 @@ namespace Affärslager
         }
         public void BokaGruppLektion(Elev elev, GruppLektion gLektion)
         {
-            if (gLektion.Deltagare.Count <= 15)
+            if (gLektion.Deltagare.Count < 15)
             {
                 gLektion.Deltagare.Add(elev);
                 unitOfWork.GruppLektionRepository.Update(gLektion);
@@ -29,7 +29,7 @@ namespace Affärslager
         public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
         {
 
-            if (pLektion.Deltagare.Count <= 2)
+            if (pLektion.Deltagare.Count < 2)
             {
                 pLektion.Deltagare.Add(elev);
                 unitOfWork.PrivatLektionRepository.Update(pLektion);
@@ -126,19 +126,36 @@ namespace Affärslager
         {
             IList<PrivatLektion> AllaPrivatLektion = new List<PrivatLektion>();
 
-            if (inDatum.DayOfWeek.Equals(DayOfWeek.Monday) || inDatum.DayOfWeek.Equals(DayOfWeek.Tuesday) || inDatum.DayOfWeek.Equals(DayOfWeek.Wednesday))
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Monday))
 
                 foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Mån") && pL.Deltagare.Count < 2))
                 {
                     AllaPrivatLektion.Add(Hej);
                 }
-            else
-            {
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Tuesday))
+
+                foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Tis") && pL.Deltagare.Count < 2))
+                {
+                    AllaPrivatLektion.Add(Hej);
+                }
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Wednesday))
+
+                foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Ons") && pL.Deltagare.Count < 2))
+                {
+                    AllaPrivatLektion.Add(Hej);
+                }
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Thursday))
+
                 foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Tors") && pL.Deltagare.Count < 2))
                 {
                     AllaPrivatLektion.Add(Hej);
                 }
-            }
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Friday))
+
+                foreach (PrivatLektion Hej in unitOfWork.PrivatLektionRepository.Find(pL => pL.LektionsTillfälle.Contains("Fre") && pL.Deltagare.Count < 2))
+                {
+                    AllaPrivatLektion.Add(Hej);
+                }
             return AllaPrivatLektion;
         }
     }

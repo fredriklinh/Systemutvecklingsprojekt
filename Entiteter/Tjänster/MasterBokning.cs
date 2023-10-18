@@ -15,14 +15,19 @@ namespace Entiteter.Tjänster
 
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
+        
         public int NyttjadKreditsumma { get; set; }
 
         public DateTime BokningsDatum { get; set; } // Attribut för när bokningen skapades i systemet. 
         public DateTime StartDatum { get; set; }
         public DateTime SlutDatum { get; set; }
-        public virtual IList<Logi> ValdLogi { get; set; } = new List<Logi>();
-        public virtual IList<Konferenslokal> ValdaKonferenser { get; set; } = new List<Konferenslokal>();
-        public virtual IList<UtrustningsBokning> UtrustningsBokningar { get; set; } = new List<UtrustningsBokning>();
+
+
+        public virtual IList<Logi>? ValdLogi { get; set; } = new List<Logi>();
+
+        public virtual IList<Konferenslokal>? ValdaKonferenser { get; set; } = new List<Konferenslokal>();
+
+        public virtual IList<UtrustningsBokning>? UtrustningsBokningar { get; set; } = new List<UtrustningsBokning>();
 
         [ForeignKey("Företagskund")]
         public string? OrgaNr { get; set; }
@@ -63,7 +68,6 @@ namespace Entiteter.Tjänster
             SlutDatum = slutDatum;
             ValdLogi = valdLogi;
             Företagskund = företagskund;
-            Användare = användare;
             Användare = användare;
         }
 
