@@ -151,7 +151,7 @@ namespace PresentationslagerWPF.ViewModels
         public bool IsEnabledAntalPaket { get => isEnabledAntalPaket; set { isEnabledAntalPaket = value; OnPropertyChanged(); } }
         #endregion
 
-
+        KreditCheckLektion
         private bool isCheckedKredit = true!;
         public bool IsCheckedKredit { get => isCheckedKredit; set { isCheckedKredit = value; OnPropertyChanged(); } }
 
@@ -911,6 +911,12 @@ namespace PresentationslagerWPF.ViewModels
 
         #region SKIDLEKTION Observables ............
 
+
+        
+        private bool kreditCheckLektion = true!;
+        public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged(); } }
+
+
         private MasterBokning callesMasterBokning = null!;
         public MasterBokning CallesMasterBokning { get => callesMasterBokning; set { callesMasterBokning = value; OnPropertyChanged(); } }
 
@@ -1053,6 +1059,7 @@ namespace PresentationslagerWPF.ViewModels
             }
             Eleverna.Clear();
         });
+
 
 
 
