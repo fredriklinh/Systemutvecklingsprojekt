@@ -407,7 +407,10 @@ namespace PresentationslagerWPF.ViewModels
         }
 
         private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged();
+                
+                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+            } }
 
 
         private Privatkund privatkund = null!;
@@ -1011,7 +1014,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
@@ -1034,15 +1037,15 @@ namespace PresentationslagerWPF.ViewModels
             
             if (ElevAttTaBortItem != null && SelectedGruppItem != null)
             {
-                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem);
+                
+                lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem, CallesMasterBokning);
             }
 
 
             if (ElevAttTaBortItem != null && SelectedPrivatItem != null)
             {
-                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem);
+                
+                lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem, CallesMasterBokning);
             }
             Eleverna.Clear();
         });

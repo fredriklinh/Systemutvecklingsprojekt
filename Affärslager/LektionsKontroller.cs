@@ -196,7 +196,7 @@ namespace Affärslager
         public MasterBokning HämtaKundsMasterBokning(string sökning)
         {
 
-            MasterBokning item = unitOfWork.MasterBokningRepository.FirstOrDefault(kl => kl.Privatkund.Personnummer == sökning || kl.Företagskund.OrgNr == sökning);
+            MasterBokning item = unitOfWork.MasterBokningRepository.FirstOrDefault(kl => kl.PersonNr == sökning || kl.OrgaNr == sökning);
             return item;
         }
 
