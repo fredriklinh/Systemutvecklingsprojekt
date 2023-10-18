@@ -50,10 +50,6 @@ namespace Datalager
         private bool isDisposed = false;
         private readonly bool disposeContext = false;
 
-        public bool Danne()
-        {
-            return disposeContext = true;
-        }
         public UnitOfWork(dbContext bokningDbContext)
         {
             _dbContext = bokningDbContext;
