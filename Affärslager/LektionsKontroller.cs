@@ -2,6 +2,7 @@
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.Globalization;
 
 namespace Affärslager
@@ -36,6 +37,25 @@ namespace Affärslager
             }
             unitOfWork.Complete();
         }
+        public void AvBokaPrivatLektion(Elev elev, PrivatLektion pLektion)
+        {
+                pLektion.Deltagare.Remove(elev);
+                unitOfWork.PrivatLektionRepository.Update(pLektion);
+           
+            unitOfWork.Complete();
+        }
+        public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion)
+        {
+            gLektion.Deltagare.Remove(elev);
+            unitOfWork.GruppLektionRepository.Update(gLektion);
+            unitOfWork.Complete();
+        }
+
+
+
+
+
+
         public IList<GruppLektion> AllaGruppLektion()
         {
             IList<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
@@ -78,6 +98,7 @@ namespace Affärslager
             }
             return eleverILektionen;
         }
+
 
 
         public IList<Object> HämtaAktuellaLektioner(IList<PrivatLektion> pL, IList<GruppLektion> gL)
