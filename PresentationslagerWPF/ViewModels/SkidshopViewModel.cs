@@ -327,7 +327,9 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     item.Status = item.StatusBokad();
                 }
+                Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
+                PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
                 BoolExisterarBokning(privatexisterarEj);
             }
             else if (Företagskund != null) 
@@ -336,7 +338,9 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     item.Status = item.StatusBokad();
                 }
+                Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
                 MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
+                PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
                 BoolExisterarBokning(företagexisterarEj);
             }
             else
@@ -505,6 +509,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
+                Kundnummer = Företagskund.OrgNr;
                 //Tillkommmit
                 Privatkund = null;
             }
