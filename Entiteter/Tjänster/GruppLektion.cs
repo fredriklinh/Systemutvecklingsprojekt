@@ -15,6 +15,7 @@ namespace Entiteter.Tjänster
 
         public Svårighetsgrad Svårighetsgrad { get; set; }
 
+        public virtual IList<MasterBokning> MasterBokningar { get; set; } = new List<MasterBokning>();
 
         [ForeignKey("Personal")]
         public int? Lärare { get; set; }

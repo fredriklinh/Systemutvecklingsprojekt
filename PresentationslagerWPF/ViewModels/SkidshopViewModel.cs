@@ -954,10 +954,18 @@ namespace PresentationslagerWPF.ViewModels
         public int SelectedGruppIndex { get { return selectedGruppIndex; } set { selectedGruppIndex = value; OnPropertyChanged(); } }
 
         private GruppLektion selectedGruppItem = null!;
-        public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged(); } }
+        public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged();
+
+            Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
+
+            } }
 
         private PrivatLektion selectedPrivatItem = null!;
-        public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged(); } }
+        public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged();
+
+            Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
+
+            } }
 
         private int antalDeltagare;
         public int AntalDeltagare { get => antalDeltagare; set { antalDeltagare = value; OnPropertyChanged();
@@ -1006,8 +1014,10 @@ namespace PresentationslagerWPF.ViewModels
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
-                
+               
             }
+            InFörnamn = null;
+            InEfternamn = null;
            
         });
 
@@ -1026,7 +1036,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem);
             }
-
+            Eleverna.Clear();
         });
         #endregion
 

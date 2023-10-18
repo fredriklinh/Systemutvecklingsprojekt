@@ -347,8 +347,8 @@
                 <DataGrid Height="97" Width="260" ItemsSource="{Binding Eleverna}"
                                 AutoGenerateColumns="False" IsReadOnly="True"
                           SelectionMode="Single" SelectionUnit="FullRow"
-                          SelectedItem="{Binding ElevAttTaBortItem}"
-                          SelectedIndex="{Binding ElevAttTaBortIndex}">
+                          SelectedItem="{Binding ElevAttTaBortItem, Mode=TwoWay}"
+                          SelectedIndex="{Binding ElevAttTaBortIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Namn" Binding="{Binding Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>

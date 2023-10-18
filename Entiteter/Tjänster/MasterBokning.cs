@@ -29,6 +29,9 @@ namespace Entiteter.Tjänster
 
         public virtual IList<UtrustningsBokning>? UtrustningsBokningar { get; set; } = new List<UtrustningsBokning>();
 
+        public virtual IList<PrivatLektion>? PrivatLektioner { get; set; } = new List<PrivatLektion>();
+        public virtual IList<GruppLektion>? GruppLektioner { get; set; } = new List<GruppLektion>();
+
         [ForeignKey("Företagskund")]
         public string? OrgaNr { get; set; }
         public virtual Företagskund? Företagskund { get; set; } = null!;
