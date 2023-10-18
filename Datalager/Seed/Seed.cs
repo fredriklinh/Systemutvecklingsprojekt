@@ -1455,18 +1455,18 @@ namespace Datalager.Seed
             #region MASTERBOKNING
 
 
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 10,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 10, 14),
-                SlutDatum = new DateTime(2023, 10, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 10,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 10, 14),
+            //    SlutDatum = new DateTime(2023, 10, 19),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders"
 
-            }); ;
+            //}); ;
 
 
             #endregion
@@ -1523,21 +1523,21 @@ namespace Datalager.Seed
             modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
             {
                 UtrustningsId = "P1",
-                Tillgänglig = true,
+                Status = true,
                 Typ = "Alpint",
                 Benämning = "Paket"
             });
             modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
             {
                 UtrustningsId = "P2",
-                Tillgänglig = true,
+                Status = true,
                 Typ = "Snowboard",
                 Benämning = "Paket"
             });
             modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
             {
                 UtrustningsId = "P3",
-                Tillgänglig = true,
+                Status = true,
                 Typ = "Längd",
                 Benämning = "Paket"
             });
@@ -1548,7 +1548,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"AS{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Alpint",
                     Benämning = "Skidor"
                 });
@@ -1559,7 +1559,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"AP{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Alpint",
                     Benämning = "Pjäxor"
                 });
@@ -1570,7 +1570,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"ASS{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Alpint",
                     Benämning = "Stavar"
                 });
@@ -1581,7 +1581,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"LS{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Längd",
                     Benämning = "Skidor"
                 });
@@ -1592,7 +1592,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"LP{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Längd",
                     Benämning = "Pjäxor"
                 });
@@ -1603,7 +1603,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"LSS{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Längd",
                     Benämning = "Stavar"
                 });
@@ -1614,7 +1614,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"SB{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Snowboard",
                     Benämning = "Snowboard"
                 });
@@ -1625,7 +1625,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"SS{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Snowboard",
                     Benämning = "Snowboardskor"
                 });
@@ -1636,7 +1636,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"S{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Snöskoter",
                     Benämning = "Lynx50"
                 });
@@ -1647,7 +1647,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"S{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Snöskoter",
                     Benämning = "Yamaha Vikning"
                 });
@@ -1658,7 +1658,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"NP{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Snöskoter",
                     Benämning = "Nilapulka"
                 });
@@ -1669,7 +1669,7 @@ namespace Datalager.Seed
                 modelBuilder.Entity<Utrustning>().HasData(new Utrustning()
                 {
                     UtrustningsId = $"H{+i}",
-                    Tillgänglig = true,
+                    Status = true,
                     Typ = "Hjälm",
                     Benämning = "Hjälm"
                 });
