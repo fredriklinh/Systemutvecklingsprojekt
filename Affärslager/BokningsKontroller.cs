@@ -37,7 +37,7 @@ namespace Affärslager
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
 
-
+            UnitOfWork.Danne();
                 List<Logi> logi = new List<Logi>();
 
 
