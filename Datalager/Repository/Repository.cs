@@ -5,7 +5,7 @@ namespace Datalager.Repository
 {
 
 
-    public class Repository<T> //operations only needed for this version of CarPool's use cases implemented
+    public class Repository<T>
         where T : class
     {
         internal DbContext context;
@@ -71,6 +71,7 @@ namespace Datalager.Repository
         {
             return dbSet.FirstOrDefault(predicate);
         }
+
         public IEnumerable<T> Find(Func<T, bool> predicate, params Expression<Func<T, object>>[] includes)
         {
             var query = dbSet.AsQueryable();
@@ -78,6 +79,7 @@ namespace Datalager.Repository
                 query = query.Include(include);
             return query.Where(predicate);
         }
+
         public T FirstOrDefault(Func<T, bool> predicate, params Expression<Func<T, object>>[] includes)
         {
             var query = dbSet.AsQueryable();

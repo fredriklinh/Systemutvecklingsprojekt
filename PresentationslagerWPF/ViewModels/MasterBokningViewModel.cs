@@ -8,7 +8,6 @@ using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -275,9 +274,6 @@ namespace PresentationslagerWPF.ViewModels
         public int ValdKonferensIndex { get { return valdKonferensIndex; } set { valdKonferensIndex = value; OnPropertyChanged(); } }
 
 
-
-
-
         private Konferenslokal valdKonferensItem = null!;
         public Konferenslokal ValdKonferensItem
         { get => valdKonferensItem; set { valdKonferensItem = value; OnPropertyChanged(); } }
@@ -341,7 +337,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-            UppdateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
+            UppdateraCommandMasterBokning = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             Användare = användare;
         }
 
@@ -351,7 +347,8 @@ namespace PresentationslagerWPF.ViewModels
 
         public ICommand NavigateLoggaUtCommand { get; }
         public ICommand TillbakaCommand { get; }
-        public ICommand UppdateraCommand { get; }
+        public ICommand UppdateraCommandMasterBokning { get; }
+
 
         #endregion
 
@@ -381,7 +378,7 @@ namespace PresentationslagerWPF.ViewModels
             GömAllt = Visibility.Visible;
 
         });
-        
+
         private ICommand taBortKonferens = null!;
         public ICommand TaBortKonferens => taBortKonferens ??= taBortKonferens = new RelayCommand(() =>
         {
@@ -400,11 +397,9 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand hämtaBokningCommand = null!;
         public ICommand HämtaBokningCommand => hämtaBokningCommand ??= hämtaBokningCommand = new RelayCommand(() =>
         {
-            
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });
-
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
@@ -437,7 +432,6 @@ namespace PresentationslagerWPF.ViewModels
                         resBädd += ValdLogi[i].Bäddar;
                     }
                 }
-
                 //Kostnad totalt
                 if (TotalKostnad == null)
                 {
@@ -447,7 +441,6 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     TotalKostnad = TotalKostnad + TotalPris;
                 }
-
                 AntalSovplatser = resBädd;
             }
         });
@@ -455,7 +448,6 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
-
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
             {
@@ -477,9 +469,6 @@ namespace PresentationslagerWPF.ViewModels
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
             }
-
-
-
         });
 
 
@@ -522,8 +511,6 @@ namespace PresentationslagerWPF.ViewModels
             {
                 bokningsKontroller.KonferensTillMasterBokning(ValdaKonferensRum, MasterBokning);
             }
-
-
         });
 
         private ICommand taBortCommand = null!;

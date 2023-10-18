@@ -24,7 +24,7 @@ namespace Entiteter.Personer
 
         }
 
-        public Privatkund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
+        public Privatkund(string personnummer, string postnummer, string ort, string telefonnummer, string mailAdress, string adress, string förnamn, string efternamn)
         {
             //Från kund
             MaxBeloppsKreditGräns = 12000;

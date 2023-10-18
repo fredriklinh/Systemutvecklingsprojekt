@@ -10,6 +10,17 @@ namespace Entiteter.Tjänster
         {
 
         }
+
+        public Logi(string logiId, int kvadratmeter, int bäddar, bool kök, string typen, LogiTyp? logiTyp)
+        {
+            LogiId = logiId;
+            Kvadratmeter = kvadratmeter;
+            Bäddar = bäddar;
+            Kök = kök;
+            Typen = typen;
+            LogiTyp = logiTyp;
+        }
+
         public string LogiId { get; set; }
 
         public int Kvadratmeter { get; set; }
@@ -22,6 +33,9 @@ namespace Entiteter.Tjänster
         [ForeignKey("LogiTyp")]
         public string Typen { get; set; }
         public virtual LogiTyp? LogiTyp { get; set; }
+
+
+
 
 
 
