@@ -18,39 +18,48 @@ namespace Affärslager
             unitOfWork.Complete();
             return elev;
         }
-        public void BokaGruppLektion(Elev elev, GruppLektion gLektion)
+
+        public void BokaGruppLektion(Elev elev, GruppLektion gLektion, MasterBokning mB)
         {
             if (gLektion.Deltagare.Count < 15)
             {
+                mB.GruppLektioner.Add(gLektion);
                 gLektion.Deltagare.Add(elev);
                 unitOfWork.GruppLektionRepository.Update(gLektion);
+                unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
-        public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
+        public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion, MasterBokning mB)
         {
 
             if (pLektion.Deltagare.Count < 2)
             {
+                mB.PrivatLektioner.Add(pLektion);
                 pLektion.Deltagare.Add(elev);
                 unitOfWork.PrivatLektionRepository.Update(pLektion);
+                unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
-        public void AvBokaPrivatLektion(Elev elev, PrivatLektion pLektion)
+        public void AvBokaPrivatLektion(Elev elev, PrivatLektion pLektion, MasterBokning mB)
         {
             pLektion.Deltagare.Remove(elev);
+            mB.PrivatLektioner.Remove(pLektion);
             unitOfWork.ElevRepository.Delete(elev);
             unitOfWork.ElevRepository.Update(elev);
             unitOfWork.PrivatLektionRepository.Update(pLektion);
+            unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
         }
-        public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion)
+        public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion, MasterBokning mB)
         {
             gLektion.Deltagare.Remove(elev);
+            mB.GruppLektioner.Remove(gLektion);
             unitOfWork.ElevRepository.Delete(elev);
             unitOfWork.ElevRepository.Update(elev);
             unitOfWork.GruppLektionRepository.Update(gLektion);
+            unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
         }
 
@@ -183,5 +192,14 @@ namespace Affärslager
                 }
             return AllaPrivatLektion;
         }
+
+        public MasterBokning HämtaKundsMasterBokning(string sökning)
+        {
+
+            MasterBokning item = unitOfWork.MasterBokningRepository.FirstOrDefault(kl => kl.Privatkund.Personnummer == sökning || kl.Företagskund.OrgNr == sökning);
+            return item;
+        }
+
+
     }
 }

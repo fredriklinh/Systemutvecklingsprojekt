@@ -500,6 +500,7 @@ namespace PresentationslagerWPF.ViewModels
                 //Tillkommmit
                 Privatkund = null;
             }
+            lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
         });
 
         private ICommand läggTillAlpinCommand = null!;
@@ -902,6 +903,11 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #region SKIDLEKTION Observables ............
+
+        private MasterBokning callesMasterBokning = null!;
+        public MasterBokning CallesMasterBokning { get => callesMasterBokning; set { callesMasterBokning = value; OnPropertyChanged(); } }
+
+
         private ObservableCollection<Elev> elev = null!;
         public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
 
@@ -1005,14 +1011,15 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
+                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem);
+                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
             }
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem);
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
                
             }
@@ -1024,20 +1031,24 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand avbokaElevCommand = null!;
         public ICommand AvbokaElevCommand => avbokaElevCommand ??= avbokaElevCommand = new RelayCommand(() =>
         {
+            
             if (ElevAttTaBortItem != null && SelectedGruppItem != null)
             {
-
+                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
                 lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem);
             }
 
 
             if (ElevAttTaBortItem != null && SelectedPrivatItem != null)
             {
-
+                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
                 lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem);
             }
             Eleverna.Clear();
         });
+
+
+
         #endregion
 
 
