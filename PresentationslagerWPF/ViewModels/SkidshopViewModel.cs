@@ -258,14 +258,16 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-        private string inputBokningsNr;
-        public string InputBokningsNr
-        {
-            get => inputBokningsNr; set
-            {
+        //private string inputBokningsNr;
+        //public string InputBokningsNr
+        //{
+        //    get => inputBokningsNr; set
+        //    {
 
-            }
-        }
+        //    }
+        //}
+        private string inputBokningsNr;
+        public string InputBokningsNr { get => inputBokningsNr; set { inputBokningsNr = value; OnPropertyChanged(); } }
 
 
         private DateTime inlämning = DateTime.Now;
@@ -323,14 +325,26 @@ namespace PresentationslagerWPF.ViewModels
             }     
             if (Privatkund != null)
             {
+                foreach (var item in hämtadUtrustning)
+                {
+                    item.Status = item.StatusBokad();
+                }
+                Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
+                PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
                 if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
 
                 BoolExisterarBokning(privatexisterarEj);
             }
             else if (Företagskund != null) 
             {
+                foreach (var item in hämtadUtrustning)
+                {
+                    item.Status = item.StatusBokad();
+                }
+                Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
                 MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
+                PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
                 if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
 
                 BoolExisterarBokning(företagexisterarEj);
@@ -445,6 +459,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand AccepteraÅterlämningCommand => accepteraÅterlämningCommand ??= accepteraÅterlämningCommand = new RelayCommand(() =>
         {
             utrustningsKontroller.FullbordaÅterlämning(InputBokningsNr.ToString());
+            MessageBox.Show($"Utrustning återlämnad!", "Återlämning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         });
 
 
@@ -457,20 +472,20 @@ namespace PresentationslagerWPF.ViewModels
             else
             {
                 InputBokningsNr = input;
-                int antalUtrustningar = bokningNrExiterar.UtrustningsBokningar.Count();
+                int antalUtrustningar = 0;
                 List<Utrustning> bokningsUtrustning = new List<Utrustning>();
                 foreach (var item in bokningNrExiterar.UtrustningsBokningar)
                 {
                     foreach (Utrustning utrustning in item.Utrustningar)
                     {
                         bokningsUtrustning.Add(utrustning);
-
                     }
                 }
                 List<Utrustning> query = bokningsUtrustning
                .GroupBy(i => i.Benämning)
                .Select(group => group.First())
                .ToList();
+                antalUtrustningar = bokningsUtrustning.Count();
                 foreach (Utrustning item in query)
                 {
                     TotalDisplayUtrustning.Add(new DisplayUtrustning(antalUtrustningar, item, item.Typ, item.Benämning, 0));
@@ -503,6 +518,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
+                Kundnummer = Företagskund.OrgNr;
                 //Tillkommmit
                 Privatkund = null;
             }

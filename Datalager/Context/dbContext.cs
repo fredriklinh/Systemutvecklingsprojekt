@@ -43,14 +43,8 @@ namespace Datalager.Context
             }
             #endregion
         }
-
-
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             #region Användare + Masterbokning
             modelBuilder.Entity<Användare>()
             .HasKey(a => a.Användarnamn);
