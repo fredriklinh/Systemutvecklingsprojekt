@@ -206,7 +206,7 @@ namespace Affärslager
             {
                 TotalPris = default;
             }
-            return Math.Round(TotalPris,1);
+            return Math.Round(TotalPris, 1);
         }
 
         public double HämtaRabattFöretagskund(double TotalPris, Företagskund företagskund)

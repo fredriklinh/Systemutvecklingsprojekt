@@ -1,7 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using System.Collections;
 using System.Collections.ObjectModel;
 
 namespace Affärslager
@@ -39,7 +38,7 @@ namespace Affärslager
             DateTime dagensDatum = DateTime.Now.Date;
 
             IList<Utrustning> UnikaBenämningarUtrustning = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning).Distinct().ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
-                       
+
             var BenämningarUnika = UnikaBenämningarUtrustning.GroupBy(x => x.Benämning).Select(group => group.First()).Distinct().ToList();
 
             IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning && a.Status == true).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
@@ -93,7 +92,7 @@ namespace Affärslager
         public IList<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum, List<Utrustning> tempUtrustningar)
         {
             DateTime dagensDatum = DateTime.Now.Date;
-                                                                                                                                             //Tis--------------Fre            TIDIGARE BOKNING
+            //Tis--------------Fre            TIDIGARE BOKNING
             IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning && a.Status == true).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
             IList<UtrustningsBokning> AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum <= f.SlutDatum) || (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
@@ -178,18 +177,13 @@ namespace Affärslager
         }
 
         //OBS Tillkommit
-        private MasterBokning KollaKredtiTotal(double kreditTotalKund, int summaBokning, MasterBokning masterBokning)
+        private MasterBokning KollaKredtiTotal(int summaBokning, MasterBokning masterBokning)
         {
             //SKA TESTAS
-            masterBokning.NyttjadKreditsumma += summaBokning;
-            if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
-            {
-                unitOfWork.Complete();
-                return masterBokning;
+            masterBokning.NyttjadKreditsumma = masterBokning.NyttjadKreditsumma + summaBokning;
 
+            return masterBokning;
 
-            }
-            else return masterBokning;
         }
 
 
@@ -200,10 +194,11 @@ namespace Affärslager
             MasterBokning masterBokningFöretag = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.OrgaNr == företagskund.OrgNr && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
             if (masterBokningFöretag == null) return masterBokningFöretag;
             //Kollakredit
-            if (påKredit == true) KollaKredtiTotal(företagskund.MaxBeloppsKreditGräns, summa, masterBokningFöretag);
-            if (masterBokningFöretag.NyttjadKreditsumma > företagskund.MaxBeloppsKreditGräns) return masterBokningFöretag;
-
-
+            if (påKredit == true) masterBokningFöretag.NyttjadKreditsumma = masterBokningFöretag.NyttjadKreditsumma + summa;
+            if (masterBokningFöretag.NyttjadKreditsumma > företagskund.MaxBeloppsKreditGräns)
+            {
+                return masterBokningFöretag;
+            }
             Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
             UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningFöretag, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
             masterBokningFöretag.UtrustningsBokningar.Add(utrustningsBokning);
@@ -217,8 +212,8 @@ namespace Affärslager
             MasterBokning masterBokningPrivat = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.Privatkund.Personnummer == privatkund.Personnummer && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
             if (masterBokningPrivat == null) return masterBokningPrivat;
             //Kollakredit
-            if (påKredit == true) KollaKredtiTotal(privatkund.MaxBeloppsKreditGräns, summa, masterBokningPrivat);
-            if (masterBokningPrivat.NyttjadKreditsumma > privatkund.MaxBeloppsKreditGräns) return masterBokningPrivat;
+            if (påKredit == true) masterBokningPrivat.NyttjadKreditsumma = masterBokningPrivat.NyttjadKreditsumma + summa;
+            if (masterBokningPrivat.NyttjadKreditsumma > privatkund.MaxBeloppsKreditGräns && påKredit == true) return masterBokningPrivat;
 
             Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
             UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningPrivat, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);

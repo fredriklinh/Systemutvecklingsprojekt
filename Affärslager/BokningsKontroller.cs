@@ -1,7 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore;
 
 namespace Affärslager
 {
@@ -12,9 +11,17 @@ namespace Affärslager
 
         }
 
+        public UnitOfWork UnitOfWork
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public UnitOfWork unitOfWork = new UnitOfWork();
 
-        
+
 
         /// <summary>
         /// Metoden kollar igenom alla logier mellan två angivna datum som har status tillgänglig true samt kollar igenom alla bokade logier som är utanför angivet datum f
@@ -47,9 +54,7 @@ namespace Affärslager
                 }
 
             }
-
             return logi;
-
         }
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)

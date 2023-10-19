@@ -15,7 +15,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -156,13 +155,18 @@ namespace PresentationslagerWPF.ViewModels
         #region IsEnabledButton
 
         private bool isEnabledBtnAlpin = false!;
-        public bool IsEnabledBtnAlpin { get => isEnabledBtnAlpin; set { isEnabledBtnAlpin = value; OnPropertyChanged();
-            } }
+        public bool IsEnabledBtnAlpin
+        {
+            get => isEnabledBtnAlpin; set
+            {
+                isEnabledBtnAlpin = value; OnPropertyChanged();
+            }
+        }
 
         private bool isEnabledBtnSnowboard = false!;
         public bool IsEnabledBtnSnowboard { get => isEnabledBtnSnowboard; set { isEnabledBtnSnowboard = value; OnPropertyChanged(); } }
 
-     
+
         private bool isEnabledBtnLängd = false!;
         public bool IsEnabledBtnLängd { get => isEnabledBtnLängd; set { isEnabledBtnLängd = value; OnPropertyChanged(); } }
 
@@ -372,7 +376,7 @@ namespace PresentationslagerWPF.ViewModels
             foreach (var item in TotalDisplayUtrustning)
             {
 
-                if (item.Benämning == "Paket") 
+                if (item.Benämning == "Paket")
                 {
                     IList<Utrustning> öö = new List<Utrustning>();
                     öö = utrustningsKontroller.HittaPaket(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
@@ -391,7 +395,7 @@ namespace PresentationslagerWPF.ViewModels
                     }
                 }
                 //if (item.Benämning == "Paket") hämtadUtrustning.Concat(utrustningsKontroller.HittaPaket(item.Value, item.Typ, item.Benämning, Inlämning));
-            }     
+            }
             if (Privatkund != null)
             {
                 foreach (var item in hämtadUtrustning)
@@ -400,12 +404,15 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
-                
-                BoolExisterarBokning(privatexisterarEj);
+                if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns)
+                {
+                    MessageBox.Show("Max kredit har nåtts");
+
+                }
                 if (privatexisterarEj != null)
                 {
+                    BoolExisterarBokning(privatexisterarEj);
                     PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
-                    if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
                 }
 
 
@@ -418,12 +425,19 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
                 MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
-                BoolExisterarBokning(företagexisterarEj);
-                if (företagexisterarEj != null)
+                if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns)
                 {
-                    PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
-                    if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
+                    MessageBox.Show("Max kredit har nåtts");
                 }
+                if (företagexisterarEj != null)
+
+                {
+                    BoolExisterarBokning(företagexisterarEj);
+
+                    PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
+                }
+
+
             }
             else
             {
@@ -638,7 +652,7 @@ namespace PresentationslagerWPF.ViewModels
                         TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                     }
                 }
-                
+
             }
         });
 
@@ -678,7 +692,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillAlpinCommand = null!;
         public ICommand LäggTillAlpinCommand => läggTillAlpinCommand ??= läggTillAlpinCommand = new RelayCommand(() =>
         {
-            if (AntalAlpin.Count == 0);
+            if (AntalAlpin.Count == 0) ;
             else
             {
                 TotalDisplayUtrustning.Add(new DisplayUtrustning(SelectedItemAntalAlpin, SelectedItemAlpin, SelectedItemAlpin.UtrustningsTyp.Typ, SelectedItemAlpin.Benämning, SummaAlpin));
@@ -877,11 +891,11 @@ namespace PresentationslagerWPF.ViewModels
                 IsEnabledAntalAlpin = true;
                 IsEnabledAntalAlpin = ÄrRedanIBokning(SelectedItemAlpin);
                 if (SelectedItemAlpin != null)
-                if (IsEnabledAntalAlpin)
-                {
-                    if (SelectedItemAlpin.Benämning == "Paket") AntalAlpin = utrustningsKontroller.SökPaketTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
-                    else AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
-                }
+                    if (IsEnabledAntalAlpin)
+                    {
+                        if (SelectedItemAlpin.Benämning == "Paket") AntalAlpin = utrustningsKontroller.SökPaketTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
+                        else AntalAlpin = utrustningsKontroller.SökBenämningTyp(SelectedItemAlpin.Benämning, SelectedItemAlpin.Typ, Inlämning);
+                    }
             }
         }
 
@@ -894,11 +908,11 @@ namespace PresentationslagerWPF.ViewModels
                 IsEnabledAntalSnowboard = true;
                 IsEnabledAntalSnowboard = ÄrRedanIBokning(SelectedItemSnowboard);
                 if (SelectedItemSnowboard != null)
-                if (IsEnabledAntalSnowboard)
-                {
-                    if (SelectedItemSnowboard.Benämning == "Paket") AntalSnowboard = utrustningsKontroller.SökPaketTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
-                    else AntalSnowboard = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
-                }
+                    if (IsEnabledAntalSnowboard)
+                    {
+                        if (SelectedItemSnowboard.Benämning == "Paket") AntalSnowboard = utrustningsKontroller.SökPaketTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
+                        else AntalSnowboard = utrustningsKontroller.SökBenämningTyp(SelectedItemSnowboard.Benämning, SelectedItemSnowboard.Typ, Inlämning);
+                    }
 
 
 
@@ -913,12 +927,12 @@ namespace PresentationslagerWPF.ViewModels
                 IsEnabledAntalLängd = true;
 
                 IsEnabledAntalLängd = ÄrRedanIBokning(SelectedItemLängd);
-                if(SelectedItemLängd != null)
-                if (IsEnabledAntalLängd)
-                {
-                    if (SelectedItemLängd.Benämning == "Paket") AntalLängd = utrustningsKontroller.SökPaketTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
-                    else AntalLängd = AntalLängd = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
-                }
+                if (SelectedItemLängd != null)
+                    if (IsEnabledAntalLängd)
+                    {
+                        if (SelectedItemLängd.Benämning == "Paket") AntalLängd = utrustningsKontroller.SökPaketTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
+                        else AntalLängd = AntalLängd = utrustningsKontroller.SökBenämningTyp(SelectedItemLängd.Benämning, SelectedItemLängd.Typ, Inlämning);
+                    }
             }
         }
         private Utrustning selectedItemHjälm = null!;
@@ -931,7 +945,7 @@ namespace PresentationslagerWPF.ViewModels
                 IsEnabledAntalHjälm = true;
                 IsEnabledAntalHjälm = ÄrRedanIBokning(SelectedItemHjälm);
                 if (SelectedItemHjälm != null)
-                 if (IsEnabledAntalHjälm) AntalHjälm = utrustningsKontroller.SökBenämningTyp(SelectedItemHjälm.Benämning, SelectedItemHjälm.Typ, Inlämning);
+                    if (IsEnabledAntalHjälm) AntalHjälm = utrustningsKontroller.SökBenämningTyp(SelectedItemHjälm.Benämning, SelectedItemHjälm.Typ, Inlämning);
             }
         }
         private Utrustning selectedItemSkoter = null!;
@@ -944,7 +958,7 @@ namespace PresentationslagerWPF.ViewModels
                 IsEnabledAntalSkoter = true;
                 IsEnabledAntalSkoter = ÄrRedanIBokning(SelectedItemSkoter);
                 if (SelectedItemSkoter != null)
-                if (IsEnabledAntalSkoter) AntalSkoter = utrustningsKontroller.SökBenämningTyp(SelectedItemSkoter.Benämning, SelectedItemSkoter.Typ, Inlämning);
+                    if (IsEnabledAntalSkoter) AntalSkoter = utrustningsKontroller.SökBenämningTyp(SelectedItemSkoter.Benämning, SelectedItemSkoter.Typ, Inlämning);
             }
         }
         private Utrustning selectedItemPaket = null!;
@@ -1057,7 +1071,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 SummaLängd = priskontroller.BeräknaPrisUtrustning(SelectedItemAntalLängd, SelectedItemLängd.Typ, SelectedItemLängd.Benämning, Inlämning);
 
-                if (AntalLängd!= null && SelectedItemLängd != null) IsEnabledBtnLängd = true;
+                if (AntalLängd != null && SelectedItemLängd != null) IsEnabledBtnLängd = true;
                 else IsEnabledBtnLängd = false;
             }
         }
