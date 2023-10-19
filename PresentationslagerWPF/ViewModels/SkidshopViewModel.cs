@@ -397,6 +397,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
+                
                 BoolExisterarBokning(privatexisterarEj);
                 PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
                 if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns) MessageBox.Show("Max kredit har nåtts");
