@@ -206,7 +206,7 @@ namespace Affärslager
             {
                 TotalPris = default;
             }
-            return TotalPris;
+            return Math.Round(TotalPris,1);
         }
 
         public double HämtaRabattFöretagskund(double TotalPris, Företagskund företagskund)
@@ -222,7 +222,7 @@ namespace Affärslager
             {
                 TotalPris = default;
             }
-            return TotalPris;
+            return Math.Round(TotalPris, 1);
         }
 
 
@@ -239,7 +239,7 @@ namespace Affärslager
             PrisListaUtrustning prislista = unitOfWork.PrisUtrustningRepository.FirstOrDefault(a => (a.TypAvUtrustning == typ) && a.BenämningUtrustning == benämning);
 
             int Summa = 0;
-            for (int d = 1; d < antal; d++)
+            for (int d = 1; d <= antal; d++)
             {
                 for (int i = 0; i <= antalDagar; i++)
                 {

@@ -2,7 +2,7 @@
 {
     public class DisplayStatistik
     {
-        public string LogiTyp { get; set; }
+        public string Typ { get; set; }
 
         public int Jan { get; set; }
         public int Feb { get; set; }
