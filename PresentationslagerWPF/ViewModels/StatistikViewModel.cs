@@ -19,14 +19,16 @@ namespace PresentationslagerWPF.ViewModels
         StatistikKontroller statistikKontroller = new StatistikKontroller();
         #endregion
 
-        #region NAVIGATION
+        #region ------------------------------------------NAVIGATION
         public StatistikViewModel(NavigationStore navigationStore, Användare användare)
         {
 
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-            DisplayStatistik = new ObservableCollection<DisplayStatistik>();
+            DisplayStatistikLogi = new ObservableCollection<DisplayStatistik>();
+            DisplayStatistikUtrustning = new ObservableCollection<DisplayStatistik>();
             Årtal = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
+            
         }
         public ICommand NavigateLoggaUtCommand { get; }
 
@@ -35,49 +37,43 @@ namespace PresentationslagerWPF.ViewModels
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         public ICommand TillbakaCommand { get; }
-        #endregion
-
-        #region MasterBokning
-
-        private int totalen;
-        public int Totalen { get => totalen; set { totalen = value; OnPropertyChanged(); } }
-
-        private ObservableCollection<MasterBokning> masterbokningar = null!;
-        public ObservableCollection<MasterBokning> Masterbokningar { get => masterbokningar; set { masterbokningar = value; OnPropertyChanged(); } }
-
-
-
-        private ObservableCollection<DisplayStatistik> displayStatistik = null!;
-        public ObservableCollection<DisplayStatistik> DisplayStatistik { get => displayStatistik; set { displayStatistik = value; OnPropertyChanged(); } }
 
         private ObservableCollection<int> årtal = null!;
         public ObservableCollection<int> Årtal { get => årtal; set { årtal = value; OnPropertyChanged(); } }
 
-        private int selectedItemÅr;
-        public int SelectedItemÅr
+        #endregion
+
+        #region -----------------------------------MasterBokning Logi
+
+        private int totalenLogi;
+        public int TotalenLogi { get => totalenLogi; set { totalenLogi = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<DisplayStatistik> displayStatistikLogi = null!;
+        public ObservableCollection<DisplayStatistik> DisplayStatistikLogi { get => displayStatistikLogi; set { displayStatistikLogi = value; OnPropertyChanged(); } }
+
+        
+        private int selectedItemLogiÅr;
+        public int SelectedItemLogiÅr
         {
-            get => selectedItemÅr;
+            get => selectedItemLogiÅr;
             set
             {
-                selectedItemÅr = value; OnPropertyChanged();
-                DisplayStatistik.Clear();
+                selectedItemLogiÅr = value; OnPropertyChanged();
+                DisplayStatistikLogi.Clear();
                 List<string> typAvLogier = statistikKontroller.HämtaUnikaBenämningarLogi();
-                foreach (var item in typAvLogier)
+                foreach (var typL in typAvLogier)
                 {
-                    List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaAntalBokningarLogi(item, selectedItemÅr);
-                    PopuleraDisplayLogi(bokningarPerMånad, item);
-
+                    List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaAntalBokningarLogi(typL, selectedItemLogiÅr);
+                    PopuleraDisplayLogi(bokningarPerMånad, typL);
                 }
-                
-
             }
         }
-        public void PopuleraDisplayLogi(List<Dictionary<int, int>> bokningarPerMånad, string logityp)
+        public void PopuleraDisplayLogi(List<Dictionary<int, int>> bokningarPerMånad, string typ)
         {
             DisplayStatistik statistikLogi = new DisplayStatistik();
             foreach (var item in bokningarPerMånad)
             {
-                statistikLogi.LogiTyp = logityp;
+                statistikLogi.Typ = typ;
                 foreach (var key in item.Keys)
                 {
                     foreach (var antal in item.Values)
@@ -98,22 +94,65 @@ namespace PresentationslagerWPF.ViewModels
                 }
 
             }
-            DisplayStatistik.Add(statistikLogi);
+            DisplayStatistikLogi.Add(statistikLogi);
         }
-
-
-
-
-
-        //private int? År = ValtÅr.Year;
-        //public int År { get => år; set => år = value; }
-
-
-
-
 
         #endregion
 
+        #region Bokningar Utrustning
+
+        private int totalenUtrustning;
+        public int TotalenUtrustning { get => totalenUtrustning; set { totalenUtrustning = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<DisplayStatistik> displayStatistikUtrustning = null!;
+        public ObservableCollection<DisplayStatistik> DisplayStatistikUtrustning { get => displayStatistikUtrustning; set { displayStatistikUtrustning = value; OnPropertyChanged(); } }
+
+        private int selectedItemUtrustningÅr;
+        public int SelectedItemUtrustningÅr
+        {
+            get => selectedItemUtrustningÅr;
+            set
+            {
+                selectedItemUtrustningÅr = value; OnPropertyChanged();
+                DisplayStatistikUtrustning.Clear();
+                List<string> typAvUtrustning = statistikKontroller.HämtaUnikaTyperUtrustning();
+                foreach (var typU in typAvUtrustning)
+                {
+                    List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaTotaltAntalBokningarUtrustning(selectedItemUtrustningÅr);
+                    PopuleraDisplayUtrustning(bokningarPerMånad, typU);
+                }
+            }
+        }
+        public void PopuleraDisplayUtrustning(List<Dictionary<int, int>> bokningarPerMånad, string typ)
+        {
+            DisplayStatistik statistikUtrustning = new DisplayStatistik();
+            foreach (var item in bokningarPerMånad)
+            {
+                statistikUtrustning.Typ = typ;
+                foreach (var key in item.Keys)
+                {
+                    foreach (var antal in item.Values)
+                    {
+                        if (key == 1) statistikUtrustning.Jan = antal;
+                        if (key == 2) statistikUtrustning.Feb = antal;
+                        if (key == 3) statistikUtrustning.Mar = antal;
+                        if (key == 4) statistikUtrustning.Apr = antal;
+                        if (key == 5) statistikUtrustning.Maj = antal;
+                        if (key == 6) statistikUtrustning.Jun = antal;
+                        if (key == 7) statistikUtrustning.Jul = antal;
+                        if (key == 8) statistikUtrustning.Aug = antal;
+                        if (key == 9) statistikUtrustning.Sep = antal;
+                        if (key == 10) statistikUtrustning.Okt = antal;
+                        if (key == 11) statistikUtrustning.Nov = antal;
+                        if (key == 12) statistikUtrustning.Dec = antal;
+                    }
+                }
+
+            }
+            DisplayStatistikUtrustning.Add(statistikUtrustning);
+        }
+
+        #endregion
     }
 
 
