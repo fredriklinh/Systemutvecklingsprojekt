@@ -200,7 +200,15 @@ namespace Affärslager
 
 
 
+        public bool TillåtEjKredit(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
+        {
+            if (masterBokning.NyttjadKreditsumma + summaBokning >= kreditTotalKund)
+            {
+                return false;
 
+            }
+            else return true;
+        }
 
 
         public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
