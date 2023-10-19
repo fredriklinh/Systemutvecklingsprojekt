@@ -171,17 +171,6 @@ namespace PDF
             Page page = new Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
             document.Pages.Add(page);
 
-         
-            
-            if (mB.PrivatLektioner.IsNullOrEmpty())
-            {
-                LektionsTyp = "Grupplektion";
-            }
-            if(mB.GruppLektioner.IsNullOrEmpty())
-            {
-                LektionsTyp = "Privatlektion";
-            }
-
             DateTime utlämningsTid = DateTime.Now.Date;
             if (mB.Privatkund != null)
             {
@@ -189,8 +178,7 @@ namespace PDF
                     $"\nKvitto för din lektionsbokning hos SkiCenter\n" +
                     $"\nKund: {mB.Privatkund.Förnamn}{mB.Privatkund.Efternamn}" +
                     $"\nPersonnummer: {mB.PersonNr}" +
-                    $"\nLektionsdatum:{LektionsDatum}" +
-                    $"\nLektionstyp:{LektionsTyp}";
+                    $"\nLektionsdatum:{LektionsDatum}";
 
                 Label label2 = new Label(labelTexten, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);
                 page.Elements.Add(label2);
@@ -218,8 +206,7 @@ namespace PDF
                     $"\nKvitto för din lektionsbokning hos SkiCenter\n" +
                     $"\nKund: {mB.Företagskund.FöretagsNamn}" +
                     $"\nOrganisationsnummer: {mB.OrgaNr}" +
-                    $"\nLektionsdatum:{LektionsDatum}"+
-                    $"\nLektionstyp:{LektionsTyp}";
+                    $"\nLektionsdatum:{LektionsDatum}";
                 Label label2 = new Label(labelTexten, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);
                 page.Elements.Add(label2);
 
