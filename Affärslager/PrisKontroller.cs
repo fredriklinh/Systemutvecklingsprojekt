@@ -239,7 +239,7 @@ namespace Affärslager
             PrisListaUtrustning prislista = unitOfWork.PrisUtrustningRepository.FirstOrDefault(a => (a.TypAvUtrustning == typ) && a.BenämningUtrustning == benämning);
 
             int Summa = 0;
-            for (int d = 1; d < antal; d++)
+            for (int d = 1; d <= antal; d++)
             {
                 for (int i = 0; i <= antalDagar; i++)
                 {

@@ -190,22 +190,21 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypAlpin}"  SelectedItem="{Binding SelectedItemAlpin}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalAlpin}"  Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalAlpin}" SelectedItem="{Binding SelectedItemAntalAlpin}"></ComboBox>
-                        <Button Command="{Binding LäggTillAlpinCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnAlpin}"  Command="{Binding LäggTillAlpinCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaAlpin}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSnowboard}" SelectedItem="{Binding SelectedItemSnowboard}" DisplayMemberPath="Benämning" ></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSnowboard}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSnowboard}" SelectedItem="{Binding SelectedItemAntalSnowboard }"></ComboBox>
-                        <Button Command="{Binding LäggTillSnowboardCommand}">+</Button>
-
+                        <Button IsEnabled ="{Binding IsEnabledBtnSnowboard}" Command="{Binding LäggTillSnowboardCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaSnowboard}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypLängd}" SelectedItem="{Binding SelectedItemLängd}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalLängd}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalLängd}" SelectedItem="{Binding SelectedItemAntalLängd}"></ComboBox>
-                        <Button Command="{Binding LäggTillLängdCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnLängd}" Command="{Binding LäggTillLängdCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaLängd}"></TextBox>
                     </StackPanel>
@@ -213,14 +212,14 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypHjälm}" SelectedItem="{Binding SelectedItemHjälm}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalHjälm}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
-                        <Button Command="{Binding LäggTillHjälmCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnHjälm}" Command="{Binding LäggTillHjälmCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaHjälm}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItemSkoter}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSkoter}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
-                        <Button Command="{Binding LäggTillSkoterCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnSkoter}" Command="{Binding LäggTillSkoterCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaSkoter}"></TextBox>
                     </StackPanel>
