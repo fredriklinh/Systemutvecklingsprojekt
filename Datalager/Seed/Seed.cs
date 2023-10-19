@@ -1699,7 +1699,7 @@ namespace Datalager.Seed
                     UtrustningsId = $"AS{+i}",
                     Status = true,
                     Typ = "Alpint",
-                    Benämning = "Skidor"
+                    Benämning = "Alpin Skidor"
                 });
             }
             //Ladda in Alpinpjäxor
@@ -1710,7 +1710,7 @@ namespace Datalager.Seed
                     UtrustningsId = $"AP{+i}",
                     Status = true,
                     Typ = "Alpint",
-                    Benämning = "Pjäxor"
+                    Benämning = "Alpin Pjäxor"
                 });
             }
             //Ladda in Alpinstavar
@@ -1721,7 +1721,7 @@ namespace Datalager.Seed
                     UtrustningsId = $"ASS{+i}",
                     Status = true,
                     Typ = "Alpint",
-                    Benämning = "Stavar"
+                    Benämning = "Alpin Stavar"
                 });
             }
             //Ladda in Längdskidor
@@ -3242,7 +3242,7 @@ namespace Datalager.Seed
             {
                 PrisId = 2,
                 TypAvUtrustning = "Alpint",
-                BenämningUtrustning = "Skidor",
+                BenämningUtrustning = "Alpin Skidor",
                 Dag1 = 130,
                 Dag2 = 230,
                 Dag3 = 330,
@@ -3253,7 +3253,7 @@ namespace Datalager.Seed
             {
                 PrisId = 3,
                 TypAvUtrustning = "Alpint",
-                BenämningUtrustning = "Pjäxor",
+                BenämningUtrustning = "Alpin Pjäxor",
                 Dag1 = 115,
                 Dag2 = 195,
                 Dag3 = 255,
@@ -3264,7 +3264,7 @@ namespace Datalager.Seed
             {
                 PrisId = 4,
                 TypAvUtrustning = "Alpint",
-                BenämningUtrustning = "Stavar",
+                BenämningUtrustning = "Alpin Stavar",
                 Dag1 = 40,
                 Dag2 = 50,
                 Dag3 = 60,

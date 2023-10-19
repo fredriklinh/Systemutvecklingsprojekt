@@ -34,7 +34,7 @@ namespace Affärslager
             }
             return AllaUtrustningar;
         }
-        public IList<Utrustning> HittaPaket(int antal, string typ, string benämning, DateTime slutdatum)
+        public IList<Utrustning> HittaPaket(int antal, string typ, string benämning, DateTime slutdatum, List<Utrustning> tempUtrustningar)
         {
             DateTime dagensDatum = DateTime.Now.Date;
 
@@ -64,7 +64,7 @@ namespace Affärslager
                 }
             }
             IList<Utrustning> MatchadeUtrustningar = new List<Utrustning>();
-            int index = 1;
+            int index = 0;
             foreach (var itemPaket in BenämningarUnika)
             {
                 foreach (Utrustning item in AllaUtrustningar)
@@ -72,11 +72,16 @@ namespace Affärslager
                     if (index >= antal) break;
                     if (item.Typ == typ && item.Benämning == itemPaket.Benämning)
                     {
-                        if (!MatchadeUtrustningar.Contains(item))
+                        if (!tempUtrustningar.Contains(item))
                         {
-                            index++;
-                            MatchadeUtrustningar.Add(item);
+                            if (!MatchadeUtrustningar.Contains(item))
+                            {
+                                index++;
+
+                                MatchadeUtrustningar.Add(item);
+                            }
                         }
+
                     }
                 }
                 index = 0;
@@ -85,7 +90,7 @@ namespace Affärslager
         }
 
 
-        public IList<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum)
+        public IList<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum, List<Utrustning> tempUtrustningar)
         {
             DateTime dagensDatum = DateTime.Now.Date;
                                                                                                                                              //Tis--------------Fre            TIDIGARE BOKNING
@@ -122,13 +127,16 @@ namespace Affärslager
                 }
                 if (item.Typ == typ && item.Benämning == benämning)
                 {
-                    if (!MatchadeUtrustningar.Contains(item))
+                    if (!tempUtrustningar.Contains(item))
                     {
-                        index++;
+                        if (!MatchadeUtrustningar.Contains(item))
+                        {
+                            index++;
 
-                        MatchadeUtrustningar.Add(item);
-
+                            MatchadeUtrustningar.Add(item);
+                        }
                     }
+
                 }
             }
             return MatchadeUtrustningar;
