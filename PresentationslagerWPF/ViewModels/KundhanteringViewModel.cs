@@ -360,8 +360,12 @@ namespace PresentationslagerWPF.ViewModels
 
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
 
+            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
+            if (Masterbokningar != null && Privatkund == null && Företagskund == null)
+            {
+                Masterbokningar = Masterbokningar;
+            }
 
             //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
@@ -393,7 +397,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 NollaPrivatkundInformation();
             }
-            else
+            else if (Företagskund == null && Masterbokningar == null && Privatkund == null)
             {
 
                 NollaFöretagsKundInformation();
