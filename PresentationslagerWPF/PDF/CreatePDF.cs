@@ -3,6 +3,7 @@ using ceTe.DynamicPDF.PageElements;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -166,27 +167,31 @@ namespace PDF
         public static void SkapaKvittoLektionAlla(MasterBokning mB, DateTime LektionsDatum)
         {
             Document document = new Document();
-
+            string LektionsTyp = "Hej";
             Page page = new Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
             document.Pages.Add(page);
-            string LektionsTyp;
-            if (mB.PrivatLektioner != null)
+
+         
+            
+            if (mB.PrivatLektioner.IsNullOrEmpty())
             {
-                LektionsTyp = $"\nLektionstyp: Privatlektion";
+                LektionsTyp = "Grupplektion";
             }
-            else
+            if(mB.GruppLektioner.IsNullOrEmpty())
             {
-                LektionsTyp = $"\nLektionstyp: Grupplektion";
+                LektionsTyp = "Privatlektion";
             }
 
             DateTime utlämningsTid = DateTime.Now.Date;
-            if(mB.Privatkund !=null)
+            if (mB.Privatkund != null)
             {
                 string labelTexten =
                     $"\nKvitto för din lektionsbokning hos SkiCenter\n" +
                     $"\nKund: {mB.Privatkund.Förnamn}{mB.Privatkund.Efternamn}" +
                     $"\nPersonnummer: {mB.PersonNr}" +
-                    $"\nLektionsdatum:{LektionsDatum}{LektionsTyp}";
+                    $"\nLektionsdatum:{LektionsDatum}" +
+                    $"\nLektionstyp:{LektionsTyp}";
+
                 Label label2 = new Label(labelTexten, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);
                 page.Elements.Add(label2);
 
@@ -213,7 +218,8 @@ namespace PDF
                     $"\nKvitto för din lektionsbokning hos SkiCenter\n" +
                     $"\nKund: {mB.Företagskund.FöretagsNamn}" +
                     $"\nOrganisationsnummer: {mB.OrgaNr}" +
-                    $"\nLektionsdatum:{LektionsDatum}{LektionsTyp}";
+                    $"\nLektionsdatum:{LektionsDatum}"+
+                    $"\nLektionstyp:{LektionsTyp}";
                 Label label2 = new Label(labelTexten, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);
                 page.Elements.Add(label2);
 
@@ -234,6 +240,6 @@ namespace PDF
                 document.Draw(filePath);
             }
         }
-
     }
+
 }

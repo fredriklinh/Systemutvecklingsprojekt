@@ -1062,9 +1062,6 @@ namespace PresentationslagerWPF.ViewModels
 
             }
             CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
-
-            InFörnamn = null;
-            InEfternamn = null;
            
         });
 
