@@ -621,6 +621,7 @@ namespace PresentationslagerWPF.ViewModels
             GömKvittoKnapp = Visibility.Visible;
             GömLämnaUtKnapp = Visibility.Collapsed;
             GömTaBortKnapp = Visibility.Collapsed;
+            GömÅterlämnaKnapp = Visibility.Collapsed;
             MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(Kundnummer);
             if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             else
