@@ -114,30 +114,8 @@ namespace Affärslager
             }
 
             return masterbokningar;
-        }
-
-            //List<MasterBokning> masterbokningar = new List<MasterBokning>();
-
-            //foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(pmb => pmb.PersonNr.Equals(kundnummer)))
-            //{
-            //    masterbokningar.Add(item);
-            //}
-            //if (masterbokningar == null)
-            //{
-            //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(fmb => fmb.OrgaNr.Equals(kundnummer)))
-            //    {
-            //        masterbokningar.Add(item);
-            //    }
-            //}
-            // TODO ? VIll vi söka på bokningsnummer också?
-            //if (masterbokningar == null)
-            //{
-            //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(bNr => bNr.BokningsNr.Equals(kundnummer)))
-            //    {
-            //        masterbokningar.Add(item);
-            //    }
-            //}
-            return masterbokningar;
+        
+            
         }
 
         public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)
