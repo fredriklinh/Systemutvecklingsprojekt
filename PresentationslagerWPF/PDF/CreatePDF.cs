@@ -2,8 +2,6 @@
 using ceTe.DynamicPDF.PageElements;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;

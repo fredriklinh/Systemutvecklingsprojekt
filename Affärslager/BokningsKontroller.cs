@@ -11,15 +11,10 @@ namespace Affärslager
         {
 
         }
-        public UnitOfWork UnitOfWork
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        UnitOfWork unitOfWork = new UnitOfWork();
+        public UnitOfWork unitOfWork = new UnitOfWork();
+
+        
 
         /// <summary>
         /// Metoden kollar igenom alla logier mellan två angivna datum som har status tillgänglig true samt kollar igenom alla bokade logier som är utanför angivet datum f
@@ -37,24 +32,24 @@ namespace Affärslager
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
 
-                List<Logi> logi = new List<Logi>();
+            List<Logi> logi = new List<Logi>();
 
 
-                foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
+            foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
+            {
+                logi.Add(allLogi);
+            }
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
+            {
+                foreach (Logi ledigLogi in item.ValdLogi)
                 {
-                    logi.Add(allLogi);
-                }
-                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
-                {
-                    foreach (Logi ledigLogi in item.ValdLogi)
-                    {
-                        logi.Remove(ledigLogi);
-                    }
-                    
+                    logi.Remove(ledigLogi);
                 }
 
-                return logi;
-           
+            }
+
+            return logi;
+
         }
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)

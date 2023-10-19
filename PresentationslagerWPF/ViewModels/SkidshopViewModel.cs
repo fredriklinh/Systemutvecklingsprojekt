@@ -12,7 +12,6 @@ using PresentationslagerWPF.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -121,7 +120,7 @@ namespace PresentationslagerWPF.ViewModels
                 masterbokningar = value; OnPropertyChanged();
             }
         }
-    
+
 
 
 
@@ -323,7 +322,7 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     hämtadUtrustning.Add(itemUtrustning);
                 }
-            }     
+            }
             if (Privatkund != null)
             {
                 foreach (var item in hämtadUtrustning)
@@ -337,7 +336,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 BoolExisterarBokning(privatexisterarEj);
             }
-            else if (Företagskund != null) 
+            else if (Företagskund != null)
             {
                 foreach (var item in hämtadUtrustning)
                 {
@@ -425,10 +424,15 @@ namespace PresentationslagerWPF.ViewModels
         }
 
         private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged();
-                
+        public string Kundnummer
+        {
+            get => kundnummer; set
+            {
+                kundnummer = value; OnPropertyChanged();
+
                 CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-            } }
+            }
+        }
 
 
         private Privatkund privatkund = null!;
@@ -447,7 +451,7 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
-      
+
 
         private ICommand taBortCommand = null!;
         public ICommand TaBortCommand => taBortCommand ??= taBortCommand = new RelayCommand(() =>
@@ -746,7 +750,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
 
 
-                    
+
             }
         }
         private Utrustning selectedItemLängd = null!;
@@ -928,7 +932,7 @@ namespace PresentationslagerWPF.ViewModels
         #region SKIDLEKTION Observables ............
 
 
-        
+
         private bool kreditCheckLektion = true!;
         public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged(); } }
 
@@ -984,34 +988,48 @@ namespace PresentationslagerWPF.ViewModels
 
         private int selectedPrivatIndex;
         public int SelectedPrivatIndex { get { return selectedPrivatIndex; } set { selectedPrivatIndex = value; OnPropertyChanged(); } }
-        
+
         private int selectedGruppIndex;
         public int SelectedGruppIndex { get { return selectedGruppIndex; } set { selectedGruppIndex = value; OnPropertyChanged(); } }
 
         private GruppLektion selectedGruppItem = null!;
-        public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged();
-                
+        public GruppLektion SelectedGruppItem
+        {
+            get => selectedGruppItem; set
+            {
+                selectedGruppItem = value; OnPropertyChanged();
+
                 if (SelectedGruppItem != null)
                 {
                     Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
                 }
 
-            } }
+            }
+        }
 
         private PrivatLektion selectedPrivatItem = null!;
-        public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged();
-               
+        public PrivatLektion SelectedPrivatItem
+        {
+            get => selectedPrivatItem; set
+            {
+                selectedPrivatItem = value; OnPropertyChanged();
+
                 if (SelectedPrivatItem != null)
                 {
                     Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
                 }
-        } }
+            }
+        }
 
         private int antalDeltagare;
-        public int AntalDeltagare { get => antalDeltagare; set { antalDeltagare = value; OnPropertyChanged();
+        public int AntalDeltagare
+        {
+            get => antalDeltagare; set
+            {
+                antalDeltagare = value; OnPropertyChanged();
 
-                }
-        } 
+            }
+        }
 
         private string inFörnamn;
         public string InFörnamn
@@ -1054,7 +1072,7 @@ namespace PresentationslagerWPF.ViewModels
             }
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                
+
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
@@ -1062,23 +1080,23 @@ namespace PresentationslagerWPF.ViewModels
 
             }
             CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
-           
+
         });
 
         private ICommand avbokaElevCommand = null!;
         public ICommand AvbokaElevCommand => avbokaElevCommand ??= avbokaElevCommand = new RelayCommand(() =>
         {
-            
+
             if (ElevAttTaBortItem != null && SelectedGruppItem != null)
             {
-                
+
                 lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem, CallesMasterBokning);
             }
 
 
             if (ElevAttTaBortItem != null && SelectedPrivatItem != null)
             {
-                
+
                 lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem, CallesMasterBokning);
             }
             Eleverna.Clear();

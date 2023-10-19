@@ -1,9 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
-using Entiteter.Prislistor;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-using System.Globalization;
 
 namespace Affärslager
 {
@@ -123,12 +120,12 @@ namespace Affärslager
         {
             IList<Elev> elever = new List<Elev>();
             int elevAntal = 0;
-                if (AllaLektioner.Contains(elever))
+            if (AllaLektioner.Contains(elever))
+            {
+                foreach (Elev e in elever)
                 {
-                    foreach (Elev e in elever)
-                    {
                     elevAntal = elevAntal + 1;
-                    }
+                }
 
             }
             return elevAntal;
@@ -147,14 +144,14 @@ namespace Affärslager
                     AllaGruppLektion.Add(Hej);
                 }
 
-            if(inDatum.DayOfWeek.Equals(DayOfWeek.Friday) || inDatum.DayOfWeek.Equals(DayOfWeek.Thursday))
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Friday) || inDatum.DayOfWeek.Equals(DayOfWeek.Thursday))
             {
                 foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.Find(gL => gL.LektionsTillfälle.Contains("Tors") && gL.Deltagare.Count < 15))
                 {
                     AllaGruppLektion.Add(Hej);
                 }
             }
-            
+
             return AllaGruppLektion;
         }
         public IList<PrivatLektion> AktuellaPrivatLektioner(DateTime inDatum)
@@ -201,9 +198,9 @@ namespace Affärslager
             return item;
         }
 
-        
-            
-            
+
+
+
 
 
         public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
@@ -238,7 +235,7 @@ namespace Affärslager
             unitOfWork.Complete();
             return mB;
         }
-        
+
 
 
 
