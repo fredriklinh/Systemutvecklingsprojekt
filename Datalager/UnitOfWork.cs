@@ -50,10 +50,6 @@ namespace Datalager
         private bool isDisposed = false;
         private readonly bool disposeContext = false;
 
-        //public UnitOfWork() : this(new dbContext())
-        //{
-        //    disposeContext = true;
-        //}
         public UnitOfWork(dbContext bokningDbContext)
         {
             _dbContext = bokningDbContext;
@@ -62,6 +58,8 @@ namespace Datalager
         {
             return _dbContext.SaveChanges();
         }
+
+
         public void Dispose()
         {
             Dispose(true);

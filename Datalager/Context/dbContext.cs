@@ -57,13 +57,11 @@ namespace Datalager.Context
             modelBuilder.Entity<MasterBokning>().HasMany<UtrustningsBokning>();
             #endregion
 
-            #region Logi + Relaterat + Faktura
+            #region Logi + LogiTyp + Faktura
             modelBuilder.Entity<Logi>()
             .HasKey(l => l.LogiId);
             modelBuilder.Entity<Logi>().HasOne<LogiTyp>(l => l.LogiTyp);
-
-            modelBuilder.Entity<PrislistaLogi>()
-            .HasKey(p => p.PrisId);
+            modelBuilder.Entity<Logi>().HasMany<MasterBokning>();
 
             modelBuilder.Entity<LogiTyp>()
             .HasKey(t => t.LogiTypId);
@@ -84,14 +82,21 @@ namespace Datalager.Context
             modelBuilder.Entity<Privatkund>().HasMany<MasterBokning>(pk => pk.MasterBokningar);
             #endregion
 
+            #region Prislistor
+            modelBuilder.Entity<PrislistaLogi>()
+                .HasKey(p => p.PrisId);
+            modelBuilder.Entity<PrisListaKonferens>()
+                .HasKey(plk => plk.PrisId);
+            modelBuilder.Entity<PrisListaUtrustning>()
+                .HasKey(plu => plu.PrisId);
+
+            #endregion
+
+
             #region Utrustning
             modelBuilder.Entity<Utrustning>()
                 .HasKey(u => u.UtrustningsId);
             modelBuilder.Entity<Utrustning>().HasOne<UtrustningsTyp>(u => u.UtrustningsTyp);
-
-
-            modelBuilder.Entity<PrisListaUtrustning>()
-                .HasKey(plu => plu.PrisId);
 
             modelBuilder.Entity<UtrustningsBokning>()
            .HasKey(utb => utb.UtrustningBokningsId);
@@ -103,6 +108,7 @@ namespace Datalager.Context
             modelBuilder.Entity<UtrustningsTyp>().HasMany<Utrustning>(u => u.Utrustning);
 
             #endregion
+
 
             #region Lektioner + Relaterat
             modelBuilder.Entity<PrivatLektion>()
@@ -122,8 +128,6 @@ namespace Datalager.Context
             modelBuilder.Entity<Konferenslokal>()
             .HasKey(kl => kl.KonferensBenämningsId);
 
-            modelBuilder.Entity<PrisListaKonferens>()
-            .HasKey(plk => plk.PrisId);
             #endregion
             //här ska klassernas associationer hanteras beroende på dess multiplicitet.
             modelBuilder.Populate();
