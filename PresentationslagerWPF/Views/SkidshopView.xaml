@@ -9,7 +9,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
-             FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
+             FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow" Loaded="UserControl_Loaded"
              >
     <Grid>
         <Grid.RowDefinitions>
@@ -247,7 +247,14 @@
                 <DockPanel>
                     <StackPanel Margin="0,0,10,0" DockPanel.Dock="Left">
                         <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}">TaBort</Button>
-                        <Button Command="{Binding AccepteraÅterlämningCommand}" Margin="0,15,0,0">Återlämnad</Button>
+                        <Button Margin="0,15,0,0" Content="Återlämnad">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AccepteraÅterlämningCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding UppdateraCommandSkidshop, UpdateSourceTrigger=PropertyChanged}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
                         <Button  Background="DarkSeaGreen" Margin="0,20,0,0" Content="Lämna ut">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -256,6 +263,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
+                        <Button Command ="{Binding SkrivUtKvittoCommand}" Margin="0,20,0,10">Skriv ut Kvitto</Button>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">

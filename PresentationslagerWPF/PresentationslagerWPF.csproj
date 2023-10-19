@@ -33,4 +33,13 @@
     <Resource Include="Bilder\TriBookingLogga.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PDF\KvittoUtrustning\" />
+    <Folder Include="PDF\Bokningsbekräftelse\" />
+    <Folder Include="PDF\KvittoUtrustning\" />
+    <Folder Include="PDF\Bokningsbekräftelse\" />
+    <Folder Include="PDF\Bokningsbekräftelse\" />
+    <Folder Include="PDF\KvittoUtrustning\" />
+  </ItemGroup>
+
 </Project>
