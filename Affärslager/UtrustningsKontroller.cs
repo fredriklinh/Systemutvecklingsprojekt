@@ -84,7 +84,36 @@ namespace Affärslager
             }
             return MatchadeUtrustningar;
         }
-
+        public IList<Utrustning> HämtaUtrustningsbokningFöretagskund(Företagskund företagskund)
+        {
+            DateTime datumIBokning = DateTime.Now;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datumIBokning && a.UtrustningsBokningar != null && a.OrgaNr == företagskund.OrgNr);
+            UtrustningsBokning utrustningsBokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(b => b.SlutDatum >= datumIBokning && b.MasterBokning.OrgaNr == företagskund.OrgNr);
+            IList<Utrustning> utrustningar = new List<Utrustning>();
+            foreach (var item in masterBokning.UtrustningsBokningar)
+            {
+                foreach (Utrustning utr in item.Utrustningar)
+                {
+                    utrustningar.Add(utr);
+                }
+            }
+            return utrustningar;
+        }
+        public IList<Utrustning> HämtaUtrustningsbokningPrivatkund(Privatkund privatkund)
+        {
+            DateTime datumIBokning = DateTime.Now;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datumIBokning && a.UtrustningsBokningar != null && a.PersonNr == privatkund.Personnummer);
+            UtrustningsBokning utrustningsBokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(b => b.SlutDatum >= datumIBokning && b.MasterBokning.OrgaNr == privatkund.Personnummer);
+            IList<Utrustning> utrustningar = new List<Utrustning>();
+            foreach (var item in masterBokning.UtrustningsBokningar)
+            {
+                foreach (Utrustning utr in item.Utrustningar)
+                {
+                    utrustningar.Add(utr);
+                }
+            }
+            return utrustningar;
+        }
 
         public MasterBokning BokningExisterar(string bokningsNr)
         {

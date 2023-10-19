@@ -12,6 +12,14 @@ namespace PresentationslagerWPF.DataDisplay
             Benämning = benämning;
             Summa = summa;
         }
+        public DisplayUtrustning(int antal, Utrustning propUtrustning, string typ, string benämning, bool status)
+        {
+            Value = antal;
+            PropUtrustning = propUtrustning;
+            Typ = typ;
+            Benämning = benämning;
+            Status = status;
+        }
 
         public int Value { get; set; }
 
@@ -22,6 +30,7 @@ namespace PresentationslagerWPF.DataDisplay
         public string Benämning { get; set; }
 
         public int Summa { get; set; }
+        public bool Status { get; set; }
 
     }
 }
