@@ -3,6 +3,7 @@ using Affärslager.KundKontroller;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
 using Microsoft.VisualBasic;
+using PDF;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.DataDisplay;
 using PresentationslagerWPF.Models;
@@ -1053,13 +1054,14 @@ namespace PresentationslagerWPF.ViewModels
             }
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, CallesMasterBokning);
+                
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
-               
-            }
+                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, CallesMasterBokning);
 
+            }
+            CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
 
             InFörnamn = null;
             InEfternamn = null;
