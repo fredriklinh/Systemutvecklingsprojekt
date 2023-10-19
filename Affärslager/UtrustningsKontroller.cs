@@ -40,7 +40,7 @@ namespace Affärslager
             DateTime dagensDatum = DateTime.Now.Date;
             IList<Utrustning> utrustnings = new List<Utrustning>();                                                                          //Mån-------------------------Lör       NYBOKNING
                                                                                                                                              //Tis--------------Fre            TIDIGARE BOKNING
-            IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
+            IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning && a.Status == true).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
             IList<UtrustningsBokning> AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum <= f.SlutDatum) || (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
             IList<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
@@ -111,7 +111,7 @@ namespace Affärslager
         public MasterBokning SkapaUtrustningsBokningFöretag(List<Utrustning> utrustningar, DateTime slutdatum, Företagskund företagskund, Användare användare, int summa, bool påKredit)
         {
             DateTime startdatum = DateTime.Now;
-            MasterBokning masterBokningFöretag = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.Företagskund.OrgNr == företagskund.OrgNr && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
+            MasterBokning masterBokningFöretag = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.OrgaNr == företagskund.OrgNr && startdatum >= a.StartDatum && slutdatum <= a.SlutDatum);
             if (masterBokningFöretag == null) return masterBokningFöretag;
             //Kollakredit
             if (påKredit == true) KollaKredtiTotal(företagskund.MaxBeloppsKreditGräns, summa, masterBokningFöretag);
@@ -215,8 +215,24 @@ namespace Affärslager
 
         public void FullbordaÅterlämning(string InputÅterlämning)
         {
-            //OBS. Måste har en bool för återlämnad utrustning.
-            //unitOfWork.UtrustningsBokningRepository.FirstOrDefault(a => a.Återlämmnad == true).Where(e => e.bokningsNr == InputÅterlämning)
+            int input = Int32.Parse(InputÅterlämning);
+            MasterBokning masterbokning = unitOfWork.MasterBokningRepository.FirstOrDefault(e => e.BokningsNr == input);
+            IList<UtrustningsBokning> utrustningsBokningar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(a => a.MasterBokning.BokningsNr == masterbokning.BokningsNr).ToList();
+            foreach (var item in utrustningsBokningar)
+            {
+                foreach (Utrustning utr in item.Utrustningar)
+                {
+                    utr.StatusTillgänglig();
+                }
+            }
+            //foreach (var item in masterbokning.UtrustningsBokningar)
+            //{
+            //    foreach (Utrustning utr in item.Utrustningar)
+            //    {
+            //        utr.StatusTillgänglig();
+            //    }
+            //}
+            unitOfWork.Complete();
         }
 
         public List<Utrustning> SökPaket(string paket)
