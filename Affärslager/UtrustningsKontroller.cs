@@ -161,7 +161,7 @@ namespace Affärslager
             if (masterBokningPrivat == null) return masterBokningPrivat;
             //Kollakredit
             if (påKredit == true) KollaKredtiTotal(privatkund.MaxBeloppsKreditGräns, summa, masterBokningPrivat);
-            if(masterBokningPrivat.NyttjadKreditsumma > privatkund.MaxBeloppsKreditGräns) return masterBokningPrivat;
+            if (masterBokningPrivat.NyttjadKreditsumma > privatkund.MaxBeloppsKreditGräns) return masterBokningPrivat;
 
             Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
             UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningPrivat, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
