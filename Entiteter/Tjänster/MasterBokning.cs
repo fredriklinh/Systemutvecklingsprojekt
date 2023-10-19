@@ -44,7 +44,7 @@ namespace Entiteter.Tjänster
 
 
         //Construktor Privatkund
-        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
+        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare, IList<UtrustningsBokning> utrustningsBokningar )
         {
 
             Avbeställningsskydd = avbeställningsskydd;
@@ -53,6 +53,7 @@ namespace Entiteter.Tjänster
             StartDatum = startDatum;
             SlutDatum = slutDatum;
             ValdLogi = valdLogi;
+            UtrustningsBokningar = utrustningsBokningar;
             Privatkund = privatkund;
             Användare = användare;
         }
