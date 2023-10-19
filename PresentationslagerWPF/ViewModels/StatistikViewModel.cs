@@ -61,44 +61,44 @@ namespace PresentationslagerWPF.ViewModels
             {
                 selectedItemÅr = value; OnPropertyChanged();
                 DisplayStatistik.Clear();
-                List<string> query = statistikKontroller.HämtaUnikaBenämningarLogi();
-                foreach (var item in query)
+                List<string> typAvLogier = statistikKontroller.HämtaUnikaBenämningarLogi();
+                foreach (var item in typAvLogier)
                 {
-                    List<Dictionary<int, int>> test69 = statistikKontroller.HämtaAntalBokningarLogi(item, selectedItemÅr);
-                    PopuleraDisplayLogi(test69, item);
+                    List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaAntalBokningarLogi(item, selectedItemÅr);
+                    PopuleraDisplayLogi(bokningarPerMånad, item);
 
                 }
                 
 
             }
         }
-        public void PopuleraDisplayLogi(List<Dictionary<int, int>> antalBokningarPerMånad, string logityp)
+        public void PopuleraDisplayLogi(List<Dictionary<int, int>> bokningarPerMånad, string logityp)
         {
-            DisplayStatistik test1 = new DisplayStatistik();
-            foreach (var item in antalBokningarPerMånad)
+            DisplayStatistik statistikLogi = new DisplayStatistik();
+            foreach (var item in bokningarPerMånad)
             {
-                test1.LogiTyp = logityp;
+                statistikLogi.LogiTyp = logityp;
                 foreach (var key in item.Keys)
                 {
-                    foreach (var test in item.Values)
+                    foreach (var antal in item.Values)
                     {
-                        if (key == 1) test1.Jan = test;
-                        if (key == 2) test1.Feb = test;
-                        if (key == 3) test1.Mar = test;
-                        if (key == 4) test1.Apr = test;
-                        if (key == 5) test1.Maj = test;
-                        if (key == 6) test1.Jun = test;
-                        if (key == 7) test1.Jul = test;
-                        if (key == 8) test1.Aug = test;
-                        if (key == 9) test1.Sep = test;
-                        if (key == 10) test1.Okt = test;
-                        if (key == 11) test1.Nov = test;
-                        if (key == 12) test1.Dec = test;
+                        if (key == 1) statistikLogi.Jan = antal;
+                        if (key == 2) statistikLogi.Feb = antal;
+                        if (key == 3) statistikLogi.Mar = antal;
+                        if (key == 4) statistikLogi.Apr = antal;
+                        if (key == 5) statistikLogi.Maj = antal;
+                        if (key == 6) statistikLogi.Jun = antal;
+                        if (key == 7) statistikLogi.Jul = antal;
+                        if (key == 8) statistikLogi.Aug = antal;
+                        if (key == 9) statistikLogi.Sep = antal;
+                        if (key == 10) statistikLogi.Okt = antal;
+                        if (key == 11) statistikLogi.Nov = antal;
+                        if (key == 12) statistikLogi.Dec = antal;
                     }
                 }
 
             }
-            DisplayStatistik.Add(test1);
+            DisplayStatistik.Add(statistikLogi);
         }
 
 
