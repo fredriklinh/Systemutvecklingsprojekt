@@ -115,7 +115,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 selectedItemUtrustningÅr = value; OnPropertyChanged();
                 DisplayStatistikUtrustning.Clear();
-                List<string> typAvUtrustning = statistikKontroller.HämtaUnikaTyperUtrustning();
+                List<string> typAvUtrustning = statistikKontroller.HämtaUnikaBenämningarUtrustning();
                 foreach (var typU in typAvUtrustning)
                 {
                     List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaTotaltAntalBokningarUtrustning(selectedItemUtrustningÅr);
