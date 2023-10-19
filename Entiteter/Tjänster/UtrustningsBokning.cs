@@ -9,6 +9,8 @@ namespace Entiteter.Tjänster
         public DateTime SlutDatum { get; set; }
         public int Summa { get; set; }
 
+        // Beskriver om kunden tog bokning på kredit
+        public bool PåKredit { get; set; }
 
         public virtual MasterBokning MasterBokning { get; set; }
 
@@ -16,14 +18,16 @@ namespace Entiteter.Tjänster
 
         public virtual Användare Användare { get; set; }
 
-        public UtrustningsBokning(MasterBokning masterbokning, DateTime startDatum, DateTime slutDatum, int summa, IList<Utrustning> utrustningar, Användare användare)
+        public UtrustningsBokning(MasterBokning masterbokning, DateTime startDatum, DateTime slutDatum, int summa, bool påKredit, IList<Utrustning> utrustningar, Användare användare)
         {
             MasterBokning = masterbokning;
             StartDatum = startDatum;
             SlutDatum = slutDatum;
             Summa = summa;
+            PåKredit = påKredit;
             Utrustningar = utrustningar;
             Användare = användare;
+
         }
         public UtrustningsBokning()
         {

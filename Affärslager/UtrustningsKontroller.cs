@@ -133,6 +133,36 @@ namespace Affärslager
             }
             return MatchadeUtrustningar;
         }
+        public IList<Utrustning> HämtaUtrustningsbokningFöretagskund(Företagskund företagskund)
+        {
+            DateTime datumIBokning = DateTime.Now;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datumIBokning && a.UtrustningsBokningar != null && a.OrgaNr == företagskund.OrgNr);
+            UtrustningsBokning utrustningsBokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(b => b.SlutDatum >= datumIBokning && b.MasterBokning.OrgaNr == företagskund.OrgNr);
+            IList<Utrustning> utrustningar = new List<Utrustning>();
+            foreach (var item in masterBokning.UtrustningsBokningar)
+            {
+                foreach (Utrustning utr in item.Utrustningar)
+                {
+                    utrustningar.Add(utr);
+                }
+            }
+            return utrustningar;
+        }
+        public IList<Utrustning> HämtaUtrustningsbokningPrivatkund(Privatkund privatkund)
+        {
+            DateTime datumIBokning = DateTime.Now;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datumIBokning && a.UtrustningsBokningar != null && a.PersonNr == privatkund.Personnummer);
+            UtrustningsBokning utrustningsBokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(b => b.SlutDatum >= datumIBokning && b.MasterBokning.OrgaNr == privatkund.Personnummer);
+            IList<Utrustning> utrustningar = new List<Utrustning>();
+            foreach (var item in masterBokning.UtrustningsBokningar)
+            {
+                foreach (Utrustning utr in item.Utrustningar)
+                {
+                    utrustningar.Add(utr);
+                }
+            }
+            return utrustningar;
+        }
 
         public MasterBokning BokningExisterar(string bokningsNr)
         {
@@ -140,10 +170,18 @@ namespace Affärslager
         }
 
         //OBS Tillkommit
-        private void KollaKredtiTotal(double kreditTotalKund, int summaBokning, MasterBokning masterBokning)
+        private MasterBokning KollaKredtiTotal(double kreditTotalKund, int summaBokning, MasterBokning masterBokning)
         {
-            if(masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund) masterBokning.NyttjadKreditsumma += summaBokning;
-            unitOfWork.Complete();
+            //SKA TESTAS
+            masterBokning.NyttjadKreditsumma += summaBokning;
+            if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
+            {
+                unitOfWork.Complete();
+                return masterBokning;
+
+
+            }
+            else return masterBokning;
         }
 
 
@@ -155,9 +193,11 @@ namespace Affärslager
             if (masterBokningFöretag == null) return masterBokningFöretag;
             //Kollakredit
             if (påKredit == true) KollaKredtiTotal(företagskund.MaxBeloppsKreditGräns, summa, masterBokningFöretag);
+            if (masterBokningFöretag.NyttjadKreditsumma > företagskund.MaxBeloppsKreditGräns) return masterBokningFöretag;
+
 
             Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
-            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningFöretag, startdatum, slutdatum, summa, utrustningar, korrektAnvändare);
+            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningFöretag, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
             masterBokningFöretag.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
             unitOfWork.Complete();
@@ -170,9 +210,10 @@ namespace Affärslager
             if (masterBokningPrivat == null) return masterBokningPrivat;
             //Kollakredit
             if (påKredit == true) KollaKredtiTotal(privatkund.MaxBeloppsKreditGräns, summa, masterBokningPrivat);
-            
+            if(masterBokningPrivat.NyttjadKreditsumma > privatkund.MaxBeloppsKreditGräns) return masterBokningPrivat;
+
             Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
-            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningPrivat, startdatum, slutdatum, summa, utrustningar, korrektAnvändare);
+            UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningPrivat, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
             masterBokningPrivat.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
             unitOfWork.Complete();

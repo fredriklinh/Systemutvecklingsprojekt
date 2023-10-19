@@ -1626,6 +1626,7 @@ namespace Datalager.Seed
                 Förnamn = "Fiel",
                 Efternamn = "Skogholm",
                 Adress = "Tingstadsalé 24",
+                MaxBeloppsKreditGräns = 12000,
                 Postnummer = "78533",
                 Ort = "Stockholm",
                 Telefonnummer = "07266555994",
@@ -1641,6 +1642,7 @@ namespace Datalager.Seed
                 Efternamn = "Skoglund",
                 Adress = "Tingstadsgatan 24",
                 Postnummer = "45839",
+                MaxBeloppsKreditGräns = 12000,
                 Ort = "Stockholm",
                 Telefonnummer = "07366555994",
                 MailAdress = "Fiel.Skogholm@stocknäs.se"

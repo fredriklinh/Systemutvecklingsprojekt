@@ -8,6 +8,14 @@ namespace Affärslager
     public class BokningsKontroller
     {
 
+        public UnitOfWork UnitOfWork
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         UnitOfWork unitOfWork = new UnitOfWork();
 
         /// <summary>
@@ -18,28 +26,32 @@ namespace Affärslager
         /// <returns></returns>
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
-            List<Logi> logi = new List<Logi>();
 
-            foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
-            {
-                logi.Add(allLogi);
-            }
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
-            {
-                foreach (Logi ledigLogi in item.ValdLogi)
+
+                List<Logi> logi = new List<Logi>();
+
+
+                foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
                 {
-                    logi.Remove(ledigLogi);
+                    logi.Add(allLogi);
                 }
-            }
+                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
+                {
+                    foreach (Logi ledigLogi in item.ValdLogi)
+                    {
+                        logi.Remove(ledigLogi);
+                    }
+                }
 
-            return logi;
+                return logi;
+           
         }
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
         {
             Privatkund privatkund1 = unitOfWork.PrivatkundRepository.FirstOrDefault(pk => pk.Personnummer.Equals(privatkund.Personnummer));
             Användare användare1 = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
-            MasterBokning masterBokning = new MasterBokning(avbeställningsskydd, startDatum, slutDatum, valdLogi, privatkund1, användare1);
+            MasterBokning masterBokning = new MasterBokning(avbeställningsskydd, startDatum, slutDatum, valdLogi, privatkund1, användare1, null);
             unitOfWork.MasterBokningRepository.Add(masterBokning);
             unitOfWork.Complete();
             return masterBokning;
