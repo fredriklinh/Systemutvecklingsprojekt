@@ -989,17 +989,22 @@ namespace PresentationslagerWPF.ViewModels
 
         private GruppLektion selectedGruppItem = null!;
         public GruppLektion SelectedGruppItem { get => selectedGruppItem; set { selectedGruppItem = value; OnPropertyChanged();
-
-            Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
+                
+                if (SelectedGruppItem != null)
+                {
+                    Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
+                }
 
             } }
 
         private PrivatLektion selectedPrivatItem = null!;
         public PrivatLektion SelectedPrivatItem { get => selectedPrivatItem; set { selectedPrivatItem = value; OnPropertyChanged();
-
-            Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
-
-            } }
+               
+                if (SelectedPrivatItem != null)
+                {
+                    Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
+                }
+        } }
 
         private int antalDeltagare;
         public int AntalDeltagare { get => antalDeltagare; set { antalDeltagare = value; OnPropertyChanged();
@@ -1039,18 +1044,23 @@ namespace PresentationslagerWPF.ViewModels
         {
             if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
-                
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
+                double x = Eleverna.Count;
+                double prisXElever = SelectedPrivatItem.Pris * x;
+                lektionsKontroller.FixaPrisLektion(prisXElever, KreditCheckLektion, CallesMasterBokning);
             }
             if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
             {
+                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, CallesMasterBokning);
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, CallesMasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
                
             }
+
+
             InFörnamn = null;
             InEfternamn = null;
            

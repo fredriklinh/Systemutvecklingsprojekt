@@ -37,7 +37,6 @@ namespace Affärslager
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
 
-            UnitOfWork.Danne();
                 List<Logi> logi = new List<Logi>();
 
 
@@ -64,7 +63,6 @@ namespace Affärslager
             Användare användare1 = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
             MasterBokning masterBokning = new MasterBokning(avbeställningsskydd, startDatum, slutDatum, valdLogi, privatkund1, användare1, null);
             unitOfWork.MasterBokningRepository.Add(masterBokning);
-            unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
             return masterBokning;
         }

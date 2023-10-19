@@ -306,7 +306,8 @@
                                 <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                                 <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                                <DataGridTextColumn Header="Pris" Binding="{Binding Pris}" Width="auto"/>
+                               
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -320,7 +321,7 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                                <DataGridTextColumn Header="Pris" Binding="{Binding Pris}" Width="auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </DockPanel>
@@ -350,7 +351,6 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding AntalDeltagare}" Width="auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
