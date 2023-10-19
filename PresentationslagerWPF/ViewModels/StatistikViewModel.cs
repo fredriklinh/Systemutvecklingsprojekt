@@ -68,8 +68,7 @@ namespace PresentationslagerWPF.ViewModels
                     PopuleraDisplayLogi(test69, item);
 
                 }
-                //MasterBokningar = new ObservableCollection<MasterBokning>(statistikKontroller.HämtaAllaBokningar(SelectedItemÅr));
-                //List<Dictionary<int, int>> AntalBokningarPerMånad = statistikKontroller.HämtaAntalBokningar(selectedItemÅr);
+                
 
             }
         }
