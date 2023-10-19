@@ -1512,36 +1512,36 @@ namespace Datalager.Seed
             //        }
             //    }.ToList()
             //}); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 2,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 10, 14),
-                SlutDatum = new DateTime(2023, 10, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders",
-                ValdLogi = new List<Logi>()
-                    {
-                        new Logi
-                        {
-                            LogiId = "Ll50",
-                            Kvadratmeter = 50,
-                            Bäddar = 4,
-                            Kök = true,
-                            Typen = "LGH.I"
-                        },
-                        new Logi
-                        {
-                            LogiId = "Ll49",
-                            Kvadratmeter = 50,
-                            Bäddar = 4,
-                            Kök = true,
-                            Typen = "LGH.I"
-                        }
-                 }.ToList()
-            }); ;
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 2,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 10, 14),
+            //    SlutDatum = new DateTime(2023, 10, 19),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders",
+            //    ValdLogi = new List<Logi>()
+            //        {
+            //            new Logi
+            //            {
+            //                LogiId = "Ll50",
+            //                Kvadratmeter = 50,
+            //                Bäddar = 4,
+            //                Kök = true,
+            //                Typen = "LGH.I"
+            //            },
+            //            new Logi
+            //            {
+            //                LogiId = "Ll49",
+            //                Kvadratmeter = 50,
+            //                Bäddar = 4,
+            //                Kök = true,
+            //                Typen = "LGH.I"
+            //            }
+            //     }.ToList()
+            //}); ;
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             //{
             //    BokningsNr = 12,
