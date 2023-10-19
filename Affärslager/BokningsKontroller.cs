@@ -120,9 +120,9 @@ namespace Affärslager
         //Metoden ska plocka bort vald Logi från masterbekoningen och spara detta 
         public void TaBortLogiFrånBokning(MasterBokning masterBokning, Logi logi)
         {
-            // Behöver lösa logiken att ta bort vald logi
-            logi.MasterBokning.Remove(masterBokning);
-            unitOfWork.MasterBokningRepository.Update(masterBokning);
+            //// Behöver lösa logiken att ta bort vald logi
+            //logi.MasterBokning.Remove(masterBokning);
+            //unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
         }
     }

@@ -1465,7 +1465,7 @@ namespace Datalager.Seed
             #endregion Ladda Logi
 
             #region MASTERBOKNING
-            //Försök till att skapa en masterbokning med vald logi till + klassen som EF skapar åt oss "LogiMasterBokning"
+            //Försök till att skapa en masterbokning med vald logi till +klassen som EF skapar åt oss "LogiMasterBokning"
             //var LogiMasterBokning = new Dictionary<int, Logi>
             //{
             //    { 1, new Logi { LogiId = "Ll49",} },
@@ -1474,8 +1474,24 @@ namespace Datalager.Seed
 
             //modelBuilder.Entity<MasterBokning>().HasData(LogiMasterBokning.Values);
 
+            //modelBuilder.Entity<ValdLogi>().HasData(new ValdLogi()
+            //{
+            //    ValdLogiId = 1,
+            //    LogiName = "Logi1",
+            //    MasterBokningBokningsNr = 10, // Set the foreign key to link to the MasterBokning
+            //});
+
+
             //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             //{
+            //    BokningsNr = 1,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2022, 10, 14),
+            //    SlutDatum = new DateTime(2022, 10, 19),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders",
             //    ValdLogi = new List<Logi>()
             //    {
             //        new Logi
@@ -1494,102 +1510,110 @@ namespace Datalager.Seed
             //            Kök = true,
             //            Typen = "LGH.I"
             //        }
-            //    },
-            //    BokningsNr = 10,
-            //    Avbeställningsskydd = false,
-            //    NyttjadKreditsumma = 0,
-            //    BokningsDatum = DateTime.Now,
-            //    StartDatum = new DateTime(2022, 10, 14),
-            //    SlutDatum = new DateTime(2022, 10, 19),
-            //    PersonNr = "19680314-2322",
-            //    SkapadAv = "Anders"
-
-                
+            //    }.ToList()
             //}); ;
             modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             {
-                BokningsNr = 11,
+                BokningsNr = 2,
                 Avbeställningsskydd = false,
                 NyttjadKreditsumma = 0,
                 BokningsDatum = DateTime.Now,
                 StartDatum = new DateTime(2023, 10, 14),
                 SlutDatum = new DateTime(2023, 10, 19),
                 PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
+                SkapadAv = "Anders",
+                ValdLogi = new List<Logi>()
+                    {
+                        new Logi
+                        {
+                            LogiId = "Ll50",
+                            Kvadratmeter = 50,
+                            Bäddar = 4,
+                            Kök = true,
+                            Typen = "LGH.I"
+                        },
+                        new Logi
+                        {
+                            LogiId = "Ll49",
+                            Kvadratmeter = 50,
+                            Bäddar = 4,
+                            Kök = true,
+                            Typen = "LGH.I"
+                        }
+                 }.ToList()
             }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 12,
-                Avbeställningsskydd = true,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 10, 01),
-                SlutDatum = new DateTime(2023, 10, 05),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 12,
+            //    Avbeställningsskydd = true,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 10, 01),
+            //    SlutDatum = new DateTime(2023, 10, 05),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders"
 
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 13,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 08, 14),
-                SlutDatum = new DateTime(2023, 08, 19),
-                PersonNr = "1",
-                SkapadAv = "Anders"
+            //}); ;
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 13,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 08, 14),
+            //    SlutDatum = new DateTime(2023, 08, 19),
+            //    PersonNr = "1",
+            //    SkapadAv = "Anders"
 
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 14,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 07, 14),
-                SlutDatum = new DateTime(2023, 07, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
+            //}); ;
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 14,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 07, 14),
+            //    SlutDatum = new DateTime(2023, 07, 19),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders"
 
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 15,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2021, 01, 14),
-                SlutDatum = new DateTime(2021, 01, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
+            //}); ;
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 15,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2021, 01, 14),
+            //    SlutDatum = new DateTime(2021, 01, 19),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders"
 
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 16,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 01, 14),
-                SlutDatum = new DateTime(2023, 01, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
+            //}); ;
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 16,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 01, 14),
+            //    SlutDatum = new DateTime(2023, 01, 19),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders"
 
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 17,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 01, 20),
-                SlutDatum = new DateTime(2023, 01, 25),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
+            //}); ;
+            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            //{
+            //    BokningsNr = 17,
+            //    Avbeställningsskydd = false,
+            //    NyttjadKreditsumma = 0,
+            //    BokningsDatum = DateTime.Now,
+            //    StartDatum = new DateTime(2023, 01, 20),
+            //    SlutDatum = new DateTime(2023, 01, 25),
+            //    PersonNr = "19680314-2322",
+            //    SkapadAv = "Anders"
 
-            }); ;
+            //}); ;
 
 
             #endregion
