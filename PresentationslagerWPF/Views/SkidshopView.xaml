@@ -161,6 +161,7 @@
         <DockPanel Grid.Row="2" Grid.Column="0"  Background="LightGray" Grid.ColumnSpan="8">
             <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Horizontal">
                 <Button Command ="{Binding ÅterlämnaUtrustningCommand}" Background="PaleVioletRed">Återlämna Utrustning</Button>
+                <Button Command ="{Binding VisaUtrustningCommand}" Margin="10,0,0,0">Visa Utrustningsbokning</Button>
             </StackPanel>
         </DockPanel>
         <StackPanel IsEnabled="{Binding IsEnabledUtrustning}" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="10,5,5,5">
@@ -246,16 +247,8 @@
 
                 <DockPanel>
                     <StackPanel Margin="0,0,10,0" DockPanel.Dock="Left">
-                        <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}">TaBort</Button>
-                        <Button Margin="0,15,0,0" Content="Återlämnad">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding AccepteraÅterlämningCommand}" />
-                                    <i:InvokeCommandAction Command="{Binding UppdateraCommandSkidshop, UpdateSourceTrigger=PropertyChanged}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
-                        <Button  Background="DarkSeaGreen" Margin="0,20,0,0" Content="Lämna ut">
+                        <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}" Visibility ="{Binding GömTaBortKnapp}">TaBort</Button>
+                        <Button  Background="DarkSeaGreen" Visibility ="{Binding GömLämnaUtKnapp}" Margin="0,20,0,0" Content="Lämna ut">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding SparaCommand, UpdateSourceTrigger=PropertyChanged}" />
@@ -263,7 +256,14 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                        <Button Command ="{Binding SkrivUtKvittoCommand}" Margin="0,20,0,10">Skriv ut Kvitto</Button>
+                        <Button Margin="0,15,0,0" Content="Återlämna" Visibility ="{Binding GömÅterlämnaKnapp}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AccepteraÅterlämningCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding UppdateraCommandSkidshop, UpdateSourceTrigger=PropertyChanged}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
                     </StackPanel>
                     <StackPanel>
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
@@ -284,6 +284,7 @@
 
                 </DockPanel>
             </StackPanel>
+            <Button Command ="{Binding SkrivUtKvittoCommand}" Visibility ="{Binding GömKvittoKnapp}"  Width="100" Margin="10,0,0,10" HorizontalAlignment="Left">Skriv ut Kvitto</Button>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <DockPanel LastChildFill="True" Grid.Row="3" Grid.Column="4" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5" Background="LightGray">
