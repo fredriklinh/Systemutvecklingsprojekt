@@ -557,38 +557,33 @@ namespace PresentationslagerWPF.ViewModels
             GömKvittoKnapp = Visibility.Visible;
             GömLämnaUtKnapp = Visibility.Collapsed;
             GömTaBortKnapp = Visibility.Collapsed;
-            MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(Kundnummer);
-            if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            else
+            
+            if (Företagskund != null)
             {
-                if (Företagskund != null)
+                IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
+                var groupedUtrFöretag = utrFöretag
+                .GroupBy(i => i.Benämning)
+                .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
+                .ToList();
+                TotalDisplayUtrustning.Clear();
+                foreach (var item in groupedUtrFöretag)
                 {
-                    IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
-                    var groupedUtrFöretag = utrFöretag
-                    .GroupBy(i => i.Benämning)
-                    .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
-                    .ToList();
-                    TotalDisplayUtrustning.Clear();
-                    foreach (var item in groupedUtrFöretag)
-                    {
-                        TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
-                    }
+                    TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                 }
-                else if (Privatkund != null)
-                {
-                    IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
+            }
+            else if (Privatkund != null)
+            {
+                IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
 
-                    var groupedUtrFöretag = utrPrivat
-                    .GroupBy(i => i.Benämning)
-                    .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
-                    .ToList();
-                    TotalDisplayUtrustning.Clear();
-                    foreach (var item in groupedUtrFöretag)
-                    {
-                        TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
-                    }
+                var groupedUtrFöretag = utrPrivat
+                .GroupBy(i => i.Benämning)
+                .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
+                .ToList();
+                TotalDisplayUtrustning.Clear();
+                foreach (var item in groupedUtrFöretag)
+                {
+                    TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                 }
-                
             }
         });
 
