@@ -622,10 +622,10 @@ namespace PresentationslagerWPF.ViewModels
             GömLämnaUtKnapp = Visibility.Collapsed;
             GömTaBortKnapp = Visibility.Collapsed;
             GömÅterlämnaKnapp = Visibility.Collapsed;
-            MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(Kundnummer);
-            if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            else
-            {
+            //MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(Kundnummer);
+            //if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            //else
+            //{
                 if (Företagskund != null)
                 {
                     IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
@@ -654,7 +654,7 @@ namespace PresentationslagerWPF.ViewModels
                     }
                 }
 
-            }
+            //}
         });
 
         private ICommand sökKund = null!;
