@@ -937,10 +937,9 @@ namespace PresentationslagerWPF.ViewModels
         public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged();
                 double x = Eleverna.Count;
                 double prisXElever = SelectedPrivatItem.Pris * x;
-                if ()
-                {
-                    lektionsKontroller.TillåtEjKredit(prisXElever)
-                }
+                //fixa if sats
+                    //lektionsKontroller.TillåtEjKredit(prisXElever);
+
 
             
             } }
