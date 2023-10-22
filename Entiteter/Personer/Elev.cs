@@ -1,6 +1,4 @@
-﻿using Entiteter.Tjänster;
-
-namespace Entiteter.Personer
+﻿namespace Entiteter.Personer
 {
     public class Elev : Person
     {

@@ -1,7 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore;
 
 namespace Affärslager
 {
@@ -12,9 +11,17 @@ namespace Affärslager
 
         }
 
+        public UnitOfWork UnitOfWork
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public UnitOfWork unitOfWork = new UnitOfWork();
 
-        
+
 
         /// <summary>
         /// Metoden kollar igenom alla logier mellan två angivna datum som har status tillgänglig true samt kollar igenom alla bokade logier som är utanför angivet datum f
@@ -47,9 +54,7 @@ namespace Affärslager
                 }
 
             }
-
             return logi;
-
         }
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
@@ -89,26 +94,38 @@ namespace Affärslager
         {
             List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(pmb => pmb.PersonNr.Equals(kundnummer)))
+            // Check if masterbokningar is null before entering any loops
+            
+            // Search for items in pmb (ItemP)
+            foreach (MasterBokning itemP in unitOfWork.MasterBokningRepository.Find(pmb => pmb != null && pmb.PersonNr != null && pmb.PersonNr.Equals(kundnummer)))
+            {
+                masterbokningar.Add(itemP);
+            }
+
+            // Check if masterbokningar has any items; if so, return it
+            if (masterbokningar.Count > 0)
+            {
+                return masterbokningar;
+            }
+            
+
+            // If no items found in pmb, search in fmb (ItemF)
+            foreach (MasterBokning itemF in unitOfWork.MasterBokningRepository.Find(fmb => fmb != null && fmb.OrgaNr != null && fmb.OrgaNr.Equals(kundnummer)))
+            {
+                masterbokningar.Add(itemF);
+                return masterbokningar;
+            }
+
+            // No items found in pmb or fmb; search in bNr (Item)
+            int input = Int32.Parse(kundnummer);
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(e => e.BokningsNr == input))
             {
                 masterbokningar.Add(item);
             }
-            if (masterbokningar == null)
-            {
-                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(fmb => fmb.OrgaNr.Equals(kundnummer)))
-                {
-                    masterbokningar.Add(item);
-                }
-            }
-            // TODO ? VIll vi söka på bokningsnummer också?
-            //if (masterbokningar == null)
-            //{
-            //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(bNr => bNr.BokningsNr.Equals(kundnummer)))
-            //    {
-            //        masterbokningar.Add(item);
-            //    }
-            //}
+
             return masterbokningar;
+        
+            
         }
 
         public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)

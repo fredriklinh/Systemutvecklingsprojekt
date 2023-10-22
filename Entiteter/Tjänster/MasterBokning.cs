@@ -15,7 +15,7 @@ namespace Entiteter.Tjänster
 
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
-        
+
         public double NyttjadKreditsumma { get; set; }
 
         public DateTime BokningsDatum { get; set; } // Attribut för när bokningen skapades i systemet. 
@@ -48,7 +48,7 @@ namespace Entiteter.Tjänster
 
 
         //Construktor Privatkund
-        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare, IList<UtrustningsBokning> utrustningsBokningar )
+        public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare, IList<UtrustningsBokning> utrustningsBokningar)
         {
 
             Avbeställningsskydd = avbeställningsskydd;

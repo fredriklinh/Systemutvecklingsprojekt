@@ -243,11 +243,5 @@ namespace Affärslager
             unitOfWork.Complete();
             return mB;
         }
-
-
-
-
-
-
     }
 }
