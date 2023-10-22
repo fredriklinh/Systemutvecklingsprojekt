@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Bilder\Ski-Center-Logga.png" />
     <None Remove="Bilder\TriBookingLogga.png" />
   </ItemGroup>
 
@@ -30,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Bilder\Ski-Center-Logga.png" />
     <Resource Include="Bilder\TriBookingLogga.png" />
   </ItemGroup>
 

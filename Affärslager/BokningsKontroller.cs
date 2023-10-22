@@ -46,7 +46,11 @@ namespace Affärslager
             {
                 logi.Add(allLogi);
             }
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => 
+            (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || 
+            (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || 
+            (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || 
+            (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
             {
                 foreach (Logi ledigLogi in item.ValdLogi)
                 {
