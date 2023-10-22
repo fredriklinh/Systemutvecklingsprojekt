@@ -381,6 +381,14 @@ namespace PresentationslagerWPF.ViewModels
                 TillgängligaKonferensRum.Remove(kRum);
 
             }
+            if (Privatkund != null && ValdaKonferensRum != null)
+            {
+                KnappAktiv = true;
+            }
+            if (Företagskund != null && ValdaKonferensRum != null)
+            {
+                KnappAktiv = true;
+            }
         });
 
         private ICommand syngörKonferensKommand = null!;
@@ -465,6 +473,12 @@ namespace PresentationslagerWPF.ViewModels
             {
                 KnappAktiv = true;
             }
+            if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+            {
+                KnappAktiv = true;
+            }
+
+
         });
 
         private ICommand sökKund = null!;
