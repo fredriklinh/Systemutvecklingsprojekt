@@ -47,14 +47,26 @@ namespace PresentationslagerWPF.ViewModels
         public string InputAdress
         {
             get { return inputAdress; }
-            set { inputAdress = value; OnPropertyChanged(); }
+            set { inputAdress = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            }
         }
 
         private string inputPostnummer;
         public string InputPostnummer
         {
             get { return inputPostnummer; }
-            set { inputPostnummer = value; OnPropertyChanged(); }
+            set { inputPostnummer = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            }
         }
 
 
@@ -62,7 +74,13 @@ namespace PresentationslagerWPF.ViewModels
         public string InputOrt
         {
             get { return inputOrt; }
-            set { inputOrt = value; OnPropertyChanged(); }
+            set { inputOrt = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            }
 
         }
 
@@ -70,7 +88,13 @@ namespace PresentationslagerWPF.ViewModels
         public string InputTelefonnummer
         {
             get { return inputTelefonnummer; }
-            set { inputTelefonnummer = value; OnPropertyChanged(); }
+            set { inputTelefonnummer = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            }
         }
 
 
@@ -78,14 +102,26 @@ namespace PresentationslagerWPF.ViewModels
         public string InputMailAdress
         {
             get { return inputMailAdress; }
-            set { inputMailAdress = value; OnPropertyChanged(); }
+            set { inputMailAdress = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            }
         }
 
         private string inputFörnamn;
         public string InputFörnamn
         {
             get { return inputFörnamn; }
-            set { inputFörnamn = value; OnPropertyChanged(); }
+            set { inputFörnamn = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            }
         }
 
 
@@ -93,18 +129,26 @@ namespace PresentationslagerWPF.ViewModels
         public string InputEfternamn
         {
             get { return inputEfternamn; }
-            set { inputEfternamn = value; OnPropertyChanged(); }
-        }
-
-        private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
-
-        private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged();
-            if (Privatkund != null && ValdLogi != null)
+            set { inputEfternamn = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
                 {
                     KnappAktiv = true;
                 }
+                else { KnappAktiv = false; }
+            }
+        }
+
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged();
+                if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+                {
+                    KnappAktiv = true;
+                }
+                else { KnappAktiv = false; }
+            } }
+
+        private Privatkund privatkund = null!;
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged();
 
             } }
 
@@ -148,10 +192,7 @@ namespace PresentationslagerWPF.ViewModels
 
         private Företagskund företagskund = null!;
         public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged();
-                if (Företagskund != null && ValdLogi != null)
-                {
-                    KnappAktiv = true!;
-                }
+
 
             }
         }
