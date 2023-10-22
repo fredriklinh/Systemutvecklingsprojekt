@@ -525,6 +525,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
+
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
             {
@@ -548,7 +549,10 @@ namespace PresentationslagerWPF.ViewModels
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
             }
-            
+            if (Privatkund != null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+            {
+                KnappAktiv = true;
+            }
 
         });
 
