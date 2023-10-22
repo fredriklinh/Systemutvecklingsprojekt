@@ -58,7 +58,7 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private string inputOrt = "HallåEller";
+        private string inputOrt;
         public string InputOrt
         {
             get { return inputOrt; }
