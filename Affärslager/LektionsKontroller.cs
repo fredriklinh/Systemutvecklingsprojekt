@@ -1,8 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
-using Entiteter.Prislistor;
 using Entiteter.Tjänster;
-using System.Globalization;
 
 namespace Affärslager
 {
@@ -17,25 +15,56 @@ namespace Affärslager
             unitOfWork.Complete();
             return elev;
         }
-        public void BokaGruppLektion(Elev elev, GruppLektion gLektion)
+
+        public void BokaGruppLektion(Elev elev, GruppLektion gLektion, MasterBokning mB)
         {
             if (gLektion.Deltagare.Count < 15)
             {
+                mB.GruppLektioner.Add(gLektion);
                 gLektion.Deltagare.Add(elev);
                 unitOfWork.GruppLektionRepository.Update(gLektion);
+                unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
-        public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion)
+        public void BokaPrivatLektion(Elev elev, PrivatLektion pLektion, MasterBokning mB)
         {
 
             if (pLektion.Deltagare.Count < 2)
             {
+                mB.PrivatLektioner.Add(pLektion);
                 pLektion.Deltagare.Add(elev);
                 unitOfWork.PrivatLektionRepository.Update(pLektion);
+                unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
+        public void AvBokaPrivatLektion(Elev elev, PrivatLektion pLektion, MasterBokning mB)
+        {
+            pLektion.Deltagare.Remove(elev);
+            mB.PrivatLektioner.Remove(pLektion);
+            unitOfWork.ElevRepository.Delete(elev);
+            unitOfWork.ElevRepository.Update(elev);
+            unitOfWork.PrivatLektionRepository.Update(pLektion);
+            unitOfWork.MasterBokningRepository.Update(mB);
+            unitOfWork.Complete();
+        }
+        public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion, MasterBokning mB)
+        {
+            gLektion.Deltagare.Remove(elev);
+            mB.GruppLektioner.Remove(gLektion);
+            unitOfWork.ElevRepository.Delete(elev);
+            unitOfWork.ElevRepository.Update(elev);
+            unitOfWork.GruppLektionRepository.Update(gLektion);
+            unitOfWork.MasterBokningRepository.Update(mB);
+            unitOfWork.Complete();
+        }
+
+
+
+
+
+
         public IList<GruppLektion> AllaGruppLektion()
         {
             IList<GruppLektion> AllaGruppLektion = new List<GruppLektion>();
@@ -80,6 +109,7 @@ namespace Affärslager
         }
 
 
+
         public IList<Object> HämtaAktuellaLektioner(IList<PrivatLektion> pL, IList<GruppLektion> gL)
         {
             IList<Object> AllaLektioner = pL.Cast<Object>().Concat(gL).ToList();
@@ -90,16 +120,17 @@ namespace Affärslager
         {
             IList<Elev> elever = new List<Elev>();
             int elevAntal = 0;
-                if (AllaLektioner.Contains(elever))
+            if (AllaLektioner.Contains(elever))
+            {
+                foreach (Elev e in elever)
                 {
-                    foreach (Elev e in elever)
-                    {
                     elevAntal = elevAntal + 1;
-                    }
+                }
 
             }
             return elevAntal;
         }
+
 
 
         public IList<GruppLektion> AktuellaGruppLektioner(DateTime inDatum)
@@ -112,14 +143,15 @@ namespace Affärslager
                 {
                     AllaGruppLektion.Add(Hej);
                 }
-            else
+
+            if (inDatum.DayOfWeek.Equals(DayOfWeek.Friday) || inDatum.DayOfWeek.Equals(DayOfWeek.Thursday))
             {
                 foreach (GruppLektion Hej in unitOfWork.GruppLektionRepository.Find(gL => gL.LektionsTillfälle.Contains("Tors") && gL.Deltagare.Count < 15))
                 {
                     AllaGruppLektion.Add(Hej);
                 }
             }
-            
+
             return AllaGruppLektion;
         }
         public IList<PrivatLektion> AktuellaPrivatLektioner(DateTime inDatum)
@@ -157,6 +189,51 @@ namespace Affärslager
                     AllaPrivatLektion.Add(Hej);
                 }
             return AllaPrivatLektion;
+        }
+
+        public MasterBokning HämtaKundsMasterBokning(string sökning)
+        {
+
+            MasterBokning item = unitOfWork.MasterBokningRepository.FirstOrDefault(kl => kl.PersonNr == sökning || kl.OrgaNr == sökning);
+            return item;
+        }
+
+
+
+
+
+
+        public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
+        {
+            //SKA TESTAS
+            masterBokning.NyttjadKreditsumma += summaBokning;
+            if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
+            {
+                unitOfWork.Complete();
+                return masterBokning;
+
+            }
+            else return masterBokning;
+        }
+
+        public MasterBokning FixaPrisLektion(double summa, bool påKredit, MasterBokning mB)
+        {
+            if (mB.OrgaNr != null)
+            {
+                Företagskund fk = unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(mB.OrgaNr));
+                if (påKredit == true) KollaKredtiTotal(fk.MaxBeloppsKreditGräns, summa, mB);
+                if (mB.NyttjadKreditsumma > fk.MaxBeloppsKreditGräns) return mB;
+            }
+
+            if (mB.PersonNr != null)
+            {
+                Privatkund pk = unitOfWork.PrivatkundRepository.FirstOrDefault(m => m.Personnummer.Equals(mB.PersonNr));
+                if (påKredit == true) KollaKredtiTotal(pk.MaxBeloppsKreditGräns, summa, mB);
+                if (mB.NyttjadKreditsumma > pk.MaxBeloppsKreditGräns) return mB;
+
+            }
+            unitOfWork.Complete();
+            return mB;
         }
     }
 }

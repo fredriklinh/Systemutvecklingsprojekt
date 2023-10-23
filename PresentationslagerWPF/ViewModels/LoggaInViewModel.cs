@@ -1,11 +1,9 @@
 ﻿using Affärslager;
 using Entiteter.Personer;
-using Entiteter.Tjänster;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
-using System.Collections.ObjectModel;
 using System.Security;
 using System.Windows.Input;
 

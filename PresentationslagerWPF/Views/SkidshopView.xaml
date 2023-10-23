@@ -134,25 +134,25 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel  Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel>
-                                        <Label Content="Adress:"/>
-                                        <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="auto" />
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Postnummer:"/>
-                                        <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Ort:"/>
-                                        <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" />
-                                    </StackPanel>
-                                    <StackPanel Margin="10,0,0,0">
-                                        <Label Content="Telefonummer:"/>
-                                        <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25"/>
-                                    </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Adress:"/>
+                                    <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="auto" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Postnummer:"/>
+                                    <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Ort:"/>
+                                    <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" />
+                                </StackPanel>
+                                <StackPanel Margin="10,0,0,0">
+                                    <Label Content="Telefonummer:"/>
+                                    <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25"/>
                                 </StackPanel>
                             </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </WrapPanel>
@@ -191,22 +191,21 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypAlpin}"  SelectedItem="{Binding SelectedItemAlpin}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalAlpin}"  Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalAlpin}" SelectedItem="{Binding SelectedItemAntalAlpin}"></ComboBox>
-                        <Button Command="{Binding LäggTillAlpinCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnAlpin}"  Command="{Binding LäggTillAlpinCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaAlpin}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSnowboard}" SelectedItem="{Binding SelectedItemSnowboard}" DisplayMemberPath="Benämning" ></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSnowboard}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSnowboard}" SelectedItem="{Binding SelectedItemAntalSnowboard }"></ComboBox>
-                        <Button Command="{Binding LäggTillSnowboardCommand}">+</Button>
-
+                        <Button IsEnabled ="{Binding IsEnabledBtnSnowboard}" Command="{Binding LäggTillSnowboardCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaSnowboard}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypLängd}" SelectedItem="{Binding SelectedItemLängd}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalLängd}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalLängd}" SelectedItem="{Binding SelectedItemAntalLängd}"></ComboBox>
-                        <Button Command="{Binding LäggTillLängdCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnLängd}" Command="{Binding LäggTillLängdCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaLängd}"></TextBox>
                     </StackPanel>
@@ -214,14 +213,14 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypHjälm}" SelectedItem="{Binding SelectedItemHjälm}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalHjälm}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
-                        <Button Command="{Binding LäggTillHjälmCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnHjälm}" Command="{Binding LäggTillHjälmCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaHjälm}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItemSkoter}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSkoter}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
-                        <Button Command="{Binding LäggTillSkoterCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnSkoter}" Command="{Binding LäggTillSkoterCommand}">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaSkoter}"></TextBox>
                     </StackPanel>
@@ -270,7 +269,7 @@
                             <Label>Total</Label>
                             <TextBox Text="{Binding SummaTotal}" Width="50"></TextBox>
                         </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
+                        <StackPanel>
                             <Label>På Kredit</Label>
                             <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked}" Width="20">
                                 <CheckBox.LayoutTransform>
@@ -278,7 +277,7 @@
                                 </CheckBox.LayoutTransform>
                             </CheckBox>
                         </StackPanel>
- 
+
                     </StackPanel>
 
 
@@ -307,7 +306,8 @@
                                 <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                                 <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                                <DataGridTextColumn Header="Pris" Binding="{Binding Pris}" Width="auto"/>
+                               
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -321,7 +321,7 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
+                                <DataGridTextColumn Header="Pris" Binding="{Binding Pris}" Width="auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </DockPanel>
@@ -333,44 +333,46 @@
                 <Label Content="Efternamn:" Margin="10" Height="24"/>
                 <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="10"/>
                 <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label>På Kredit</Label>
+                    <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditCheckLektion}" Width="20">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+
             </StackPanel>
+            
             <StackPanel Margin="5" DockPanel.Dock="Top">
                 <Label Content="Veckans lektioner:" FontSize="16" HorizontalAlignment="Center" />
                 <StackPanel  Orientation="Horizontal">
                     <StackPanel>
-                        <Label Content="Grupplektioner:"/>
                         <DataGrid Height="118" ItemsSource="{Binding AllaLektioner}"
                                 AutoGenerateColumns="False" IsReadOnly="True" Width="auto">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding AntalDeltagare}" Width="auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
-                    <StackPanel Margin="10,0,0,0">
-                        <Label Content="Privatlektioner:" />
-                        <DataGrid Height="118" Width="auto" ItemsSource="{Binding PrivatLektion}"
-                                AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Lärare" Binding="{Binding Personal.Förnamn}" Width="auto"/>
-                                <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
-                                <DataGridTextColumn Header="Lediga platser" Binding="{Binding Svårighetsgrad}" Width="auto"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                    <StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Width="auto" Margin="10,0,0,0">
                 <Label Content="Deltagare i vald lektion"/>
                 <DataGrid Height="97" Width="260" ItemsSource="{Binding Eleverna}"
-                                AutoGenerateColumns="False" IsReadOnly="True">
+                                AutoGenerateColumns="False" IsReadOnly="True"
+                          SelectionMode="Single" SelectionUnit="FullRow"
+                          SelectedItem="{Binding ElevAttTaBortItem, Mode=TwoWay}"
+                          SelectedIndex="{Binding ElevAttTaBortIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Namn" Binding="{Binding Förnamn}" Width="auto"/>
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
+                <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="TaBort" DockPanel.Dock="Left" Margin="10,10,10,10" Width="50" Height="20"/>
             </StackPanel>
+            
         </DockPanel>
     </Grid>
 </UserControl>

@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:PresentationslagerWPF.ViewModels"
              mc:Ignorable="d"
         Height="450" Width="800">
-    <GroupBox Margin="20,20,20,89" Padding="20,20,20,20">
+    <GroupBox Margin="20,20,20,89" Padding="20,20,20,20" BorderThickness="0.5">
         <GroupBox.Header>
             <StackPanel Orientation="Horizontal">
                 <Image Source= "/Bilder/TriBookingLogga.png" Margin="3,0" />
@@ -30,15 +30,9 @@
                     </StackPanel>
                 </DockPanel>
                 <DockPanel LastChildFill="True" HorizontalAlignment="Center" Width="312">
-                    <ToggleButton x:Name="LoggaIn" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding LoggaInCommand}" CommandParameter ="{Binding LoggaInCommand}" Height="27"/>
-                    <Button FontSize="14" Width="100" Margin="0,5,10,5" HorizontalAlignment="Left" Command="{Binding ExitCommand}">AVBRYT</Button>
-
+                    <ToggleButton  FontWeight="DemiBold" Foreground="#ffffff" Background="#4880ff" x:Name="LoggaIn" Content="LOGGA IN"  FontSize="14" Width="100" Margin="10,5,10,5" Command="{Binding LoggaInCommand}" CommandParameter ="{Binding LoggaInCommand}" Height="27"/>
+                    <Button FontWeight="DemiBold" Foreground="#ffffff" Background="#4880ff" FontSize="14" Width="100" Margin="0,5,10,5" HorizontalAlignment="Left" Command="{Binding ExitCommand}">AVBRYT</Button>
                 </DockPanel>
-                <StatusBar DockPanel.Dock="Bottom" Background="White" Margin="10,10,10,10">
-                    <StatusBarItem HorizontalAlignment="Center" >
-                        <TextBlock Text="{Binding Status}" Width="100" />
-                    </StatusBarItem>
-                </StatusBar>
             </StackPanel>
         </DockPanel>
     </GroupBox>

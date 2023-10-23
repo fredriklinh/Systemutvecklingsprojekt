@@ -1,6 +1,5 @@
 ﻿using Affärslager;
 using Entiteter.Personer;
-using Entiteter.Tjänster;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.DataDisplay;
 using PresentationslagerWPF.Models;
@@ -28,7 +27,7 @@ namespace PresentationslagerWPF.ViewModels
             DisplayStatistikLogi = new ObservableCollection<DisplayStatistik>();
             DisplayStatistikUtrustning = new ObservableCollection<DisplayStatistik>();
             Årtal = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
-            
+
         }
         public ICommand NavigateLoggaUtCommand { get; }
 
@@ -51,7 +50,7 @@ namespace PresentationslagerWPF.ViewModels
         private ObservableCollection<DisplayStatistik> displayStatistikLogi = null!;
         public ObservableCollection<DisplayStatistik> DisplayStatistikLogi { get => displayStatistikLogi; set { displayStatistikLogi = value; OnPropertyChanged(); } }
 
-        
+
         private int selectedItemLogiÅr;
         public int SelectedItemLogiÅr
         {
