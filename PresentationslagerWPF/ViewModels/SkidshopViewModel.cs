@@ -1112,7 +1112,15 @@ namespace PresentationslagerWPF.ViewModels
 
 
         private bool kreditCheckLektion = true!;
-        public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged(); } }
+        public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged();
+                double x = Eleverna.Count;
+                double prisXElever = SelectedPrivatItem.Pris * x;
+                //fixa if sats
+                    //lektionsKontroller.TillåtEjKredit(prisXElever);
+
+
+            
+            } }
 
 
         private MasterBokning callesMasterBokning = null!;
