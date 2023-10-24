@@ -271,7 +271,7 @@
                         </StackPanel>
                         <StackPanel>
                             <Label>På Kredit</Label>
-                            <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Width="20">
+                            <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
                                 <CheckBox.LayoutTransform>
                                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                                 </CheckBox.LayoutTransform>
