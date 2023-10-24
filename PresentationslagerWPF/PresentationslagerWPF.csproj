@@ -42,6 +42,7 @@
     <Folder Include="PDF\KvittoLektion\" />
     <Folder Include="PDF\KvittoLektion\" />
     <Folder Include="PDF\KvittoUtrustning\" />
+    <Folder Include="PDF\Bokningsbekräftelse\" />
   </ItemGroup>
 
 </Project>
