@@ -271,7 +271,7 @@
                         </StackPanel>
                         <StackPanel>
                             <Label>På Kredit</Label>
-                            <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked}" Width="20">
+                            <CheckBox Content="KreditUtrustning" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
                                 <CheckBox.LayoutTransform>
                                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                                 </CheckBox.LayoutTransform>
@@ -334,7 +334,7 @@
                 <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="10"/>
                 <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label>På Kredit</Label>
-                    <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditCheckLektion}" Width="20">
+                <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditCheckLektion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
                         <CheckBox.LayoutTransform>
                             <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                         </CheckBox.LayoutTransform>
