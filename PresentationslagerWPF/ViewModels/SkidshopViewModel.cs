@@ -1124,7 +1124,7 @@ namespace PresentationslagerWPF.ViewModels
 
         #region SKIDLEKTION Observables ............
 
-        private bool kreditCheckLektion;
+        
 
         private bool kreditCheckLektion;
 

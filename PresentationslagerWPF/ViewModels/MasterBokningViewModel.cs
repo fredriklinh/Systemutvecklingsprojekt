@@ -369,6 +369,7 @@ namespace PresentationslagerWPF.ViewModels
             get => valdLogi;
             set
             {
+                valdLogi = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
@@ -549,7 +550,7 @@ namespace PresentationslagerWPF.ViewModels
                 FSynlighet = Visibility.Visible;
             }
             if ((Privatkund != null || Företagskund != null) &&
-                ValdLogi.Count >= 1 &&
+                (ValdLogi != null && ValdLogi.Count >= 1) &&
                 !string.IsNullOrEmpty(InputAdress) &&
                 !string.IsNullOrEmpty(InputPostnummer) &&
                 !string.IsNullOrEmpty(InputOrt) &&
