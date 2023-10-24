@@ -2,7 +2,6 @@
 using Affärslager.KundKontroller;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.VisualBasic;
 using PDF;
 using PresentationslagerWPF.Commands;
@@ -203,6 +202,7 @@ namespace PresentationslagerWPF.ViewModels
 
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
+            NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             Användare = användare;
             //Benämning ObservableCollection
@@ -221,6 +221,12 @@ namespace PresentationslagerWPF.ViewModels
 
         public ICommand TillbakaCommand { get; }
         public ICommand UppdateraCommandSkidshop { get; }
+
+        public ICommand NavigateLoggaUtCommand { get; }
+
+        private ICommand exitCommand = null!;
+        public ICommand ExitCommand =>
+        exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         #endregion
 
@@ -427,13 +433,13 @@ namespace PresentationslagerWPF.ViewModels
                         MessageBox.Show("Max kredit har nåtts");
 
                     }
-                    if (privatexisterarEj.UtrustningsBokningar.Count !=0)
+                    if (privatexisterarEj.UtrustningsBokningar.Count != 0)
                     {
                         MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                         PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
                     }
                 }
-                
+
             }
             else if (Företagskund != null)
             {
@@ -563,14 +569,31 @@ namespace PresentationslagerWPF.ViewModels
             if (Företagskund != null)
             {
                 IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
-                PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, utrFöretag, Inlämning);
-                MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                if (utrFöretag == null)
+                {
+                    MessageBox.Show("Utrustningsbokning saknas");
+                }
+                else
+                {
+                    PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, utrFöretag, Inlämning);
+                    MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+
             }
             else if (Privatkund != null)
             {
+
                 IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
-                PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, utrPrivat, Inlämning);
-                MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                if (utrPrivat == null)
+                {
+                    MessageBox.Show("Utrustningsbokning saknas");
+                }
+                else
+                {
+                    PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, utrPrivat, Inlämning);
+                    MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+
             }
             else
             {
@@ -617,7 +640,7 @@ namespace PresentationslagerWPF.ViewModels
                 List<Utrustning> bokningsUtrustning = new List<Utrustning>();
                 foreach (var item in bokningNrExiterar.UtrustningsBokningar)
                 {
-                    foreach (Utrustning utrustning in item.Utrustningar)
+                    foreach (Utrustning utrustning in item.Utrustningar.Where(a => a.Status == false))
                     {
                         bokningsUtrustning.Add(utrustning);
                     }
@@ -627,10 +650,18 @@ namespace PresentationslagerWPF.ViewModels
                     .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
                     .ToList();
                 TotalDisplayUtrustning.Clear();
-                foreach (var item in groupedUtrFöretag)
+                if (bokningsUtrustning != null)
                 {
-                    TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
+                    foreach (var item in groupedUtrFöretag)
+                    {
+                        TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
+                    }
                 }
+                else
+                {
+                    TotalDisplayUtrustning.Clear();
+                }
+
             }
         });
 
@@ -645,9 +676,11 @@ namespace PresentationslagerWPF.ViewModels
             //if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             //else
             //{
-                if (Företagskund != null)
+            if (Företagskund != null)
+            {
+                IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
+                if (utrFöretag != null)
                 {
-                    IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
                     var groupedUtrFöretag = utrFöretag
                     .GroupBy(i => i.Benämning)
                     .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
@@ -658,10 +691,14 @@ namespace PresentationslagerWPF.ViewModels
                         TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                     }
                 }
-                else if (Privatkund != null)
-                {
-                    IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
+                else MessageBox.Show("Utrustningsbokning saknas");
 
+            }
+            else if (Privatkund != null)
+            {
+                IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
+                if (utrPrivat != null)
+                {
                     var groupedUtrFöretag = utrPrivat
                     .GroupBy(i => i.Benämning)
                     .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
@@ -672,13 +709,18 @@ namespace PresentationslagerWPF.ViewModels
                         TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                     }
                 }
+                else MessageBox.Show("Utrustningsbokning saknas");
 
-            //}
+            }
+
+
         });
 
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
+            GömKvittoKnapp = Visibility.Collapsed;
+            TotalDisplayUtrustning.Clear();
             GömLämnaUtKnapp = Visibility.Visible;
             GömTaBortKnapp = Visibility.Visible;
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
