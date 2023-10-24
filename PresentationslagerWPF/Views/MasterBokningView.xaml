@@ -148,7 +148,7 @@
                             <DataGrid x:Name="Logialternativ" Visibility="{Binding SeKonferens}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligLogi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding TillgängligLogiSelectedItem, Mode=TwoWay}"
-                                  SelectedIndex="{Binding TillgängligLogiSelectedIndex, Mode=TwoWay}" 
+                                  SelectedIndex="{Binding TillgängligLogiSelectedIndex, Mode=TwoWay}"
                                   Background="White" Width="273" Height="141" Margin="0,0,10,0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>

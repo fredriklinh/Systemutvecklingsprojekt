@@ -1248,6 +1248,10 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
                 }
+                if (SelectedGruppItem != null)
+                {
+                    SelectedPrivatItem = null;
+                }
 
             }
         }
@@ -1262,6 +1266,10 @@ namespace PresentationslagerWPF.ViewModels
                 if (SelectedPrivatItem != null)
                 {
                     Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
+                }
+                if (SelectedPrivatItem != null)
+                {
+                    selectedGruppItem = null;
                 }
             }
         }
