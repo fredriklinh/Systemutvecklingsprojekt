@@ -17,7 +17,7 @@
             <!--Row 0-->
             <RowDefinition Height="125"/>
             <!--Row 1-->
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <!--Row 2-->
             <RowDefinition/>
             <!--Row 3-->
@@ -59,15 +59,6 @@
             </Menu>
         </StackPanel>
         <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="8" Grid.RowSpan="1" HorizontalAlignment="Left">
-            <StackPanel Orientation="Vertical" Margin="10" Width="200" HorizontalAlignment="Center">
-                <Label FontSize="20" Content="Datum för bokning" HorizontalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel Orientation="Vertical">
-                        <Label Content="Utcheckning:"/>
-                        <DatePicker x:Name="Inlämningckning" SelectedDate="{Binding Inlämning, Mode=TwoWay}"/>
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
             <StackPanel/>
             <StackPanel Margin="10">
                 <Label HorizontalAlignment="Center" FontSize="20" Content="Kund"/>
@@ -158,13 +149,21 @@
             </WrapPanel>
         </StackPanel>
         <!--PANEL FÖR UTRUSTGNIN-->
-        <DockPanel Grid.Row="2" Grid.Column="0"  Background="LightGray" Grid.ColumnSpan="8">
+        <DockPanel Margin="5,0,5,0" Grid.Row="2" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="8">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Utcheckning:"/>
+                <DatePicker x:Name="Inlämningckning" SelectedDate="{Binding Inlämning, Mode=TwoWay}"/>
+            </StackPanel>
             <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Horizontal">
                 <Button Command ="{Binding ÅterlämnaUtrustningCommand}" Background="PaleVioletRed">Återlämna Utrustning</Button>
                 <Button Command ="{Binding VisaUtrustningCommand}" Margin="10,0,0,0">Visa Utrustningsbokning</Button>
             </StackPanel>
         </DockPanel>
-        <StackPanel IsEnabled="{Binding IsEnabledUtrustning}" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="10,5,5,5">
+        <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Vertical">
+            <Label Content="lektionsdatum:"/>
+            <DatePicker x:Name="lektionsDatePicker" SelectedDate="{Binding LektionsDatum, Mode=TwoWay}"/>
+        </StackPanel>
+        <StackPanel IsEnabled="{Binding IsEnabledUtrustning}" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="5,5,5,5">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Margin" Value="0,5,10,10"/>
@@ -227,7 +226,7 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Background="LightGray" Margin="10,5,5,5">
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Background="LightGray" Margin="5,5,5,5">
             <Label Content="Vald till Bokning"/>
             <StackPanel Margin="10,10,10,10" Orientation="Horizontal">
                 <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
@@ -277,10 +276,7 @@
                                 </CheckBox.LayoutTransform>
                             </CheckBox>
                         </StackPanel>
-
                     </StackPanel>
-
-
                 </DockPanel>
             </StackPanel>
             <Button Command ="{Binding SkrivUtKvittoCommand}" Visibility ="{Binding GömKvittoKnapp}"  Width="100" Margin="10,0,0,10" HorizontalAlignment="Left">Skriv ut Kvitto</Button>
@@ -332,7 +328,9 @@
                 <TextBox x:Name="txtFörN" Width="100" Text="{Binding InFörnamn, Mode=OneWayToSource}" Margin="0,10,0,10"/>
                 <Label Content="Efternamn:" Margin="10" Height="24"/>
                 <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="10"/>
-                <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" 
+                        Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}" 
+                        IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}"/>
                 <Label>På Kredit</Label>
                 <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditCheckLektion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
                         <CheckBox.LayoutTransform>

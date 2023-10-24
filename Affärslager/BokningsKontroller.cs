@@ -1,6 +1,7 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
+using System.Reflection.PortableExecutable;
 
 namespace Affärslager
 {
@@ -130,6 +131,16 @@ namespace Affärslager
             return masterbokningar;
 
 
+        }
+        public MasterBokning HämtaAktivPrivatkundMasterbokning(Privatkund privatkund,DateTime datum)
+        {
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datum && a.StartDatum <= datum && a.PersonNr == privatkund.Personnummer);
+            return masterBokning;
+        }
+        public MasterBokning HämtaAktivFöretagskundMasterbokning(Företagskund företagskund,DateTime datum)
+        {
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datum && a.StartDatum <= datum && a.OrgaNr == företagskund.OrgNr);
+            return masterBokning;
         }
 
         public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)

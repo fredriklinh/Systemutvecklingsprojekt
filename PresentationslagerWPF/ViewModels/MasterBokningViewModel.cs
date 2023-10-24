@@ -570,7 +570,15 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
         {
             //Lös bättre lösning för IF och nullning
+            if (Privatkund != null && ValdLogi != null)
+            {
+                MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+
+            }
+            
             if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
             {
 
@@ -580,16 +588,7 @@ namespace PresentationslagerWPF.ViewModels
                 MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                 
             }
-            KnappAktiv = false;
-            if (Privatkund != null && ValdLogi != null)
-            {
-                MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
-                
-            }
-            KnappAktiv = false;
+            
             if (ValdLogi == null)
             {
                 MessageBox.Show("Bokning måste innehålla logi", "Välj logi", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -602,7 +601,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 PDF.CreatePDF.SkapaBokningsbekräftelseFöretag(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-            KnappAktiv = false;
+            
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
             {
