@@ -369,7 +369,8 @@ namespace PresentationslagerWPF.ViewModels
             get => valdLogi;
             set
             {
-                //StoppaSparaKnappen();
+                valdLogi = value; OnPropertyChanged();
+                StoppaSparaKnappen();
             }
         }
 
@@ -548,19 +549,19 @@ namespace PresentationslagerWPF.ViewModels
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
             }
-            //if ((Privatkund != null || Företagskund != null) &&
-            //    ValdLogi.Count >= 1 &&
-            //    !string.IsNullOrEmpty(InputAdress) &&
-            //    !string.IsNullOrEmpty(InputPostnummer) &&
-            //    !string.IsNullOrEmpty(InputOrt) &&
-            //    !string.IsNullOrEmpty(InputTelefonnummer) &&
-            //    !string.IsNullOrEmpty(InputMailAdress) &&
-            //    !string.IsNullOrEmpty(Kundnummer) &&
-            //    !string.IsNullOrEmpty(InputFörnamn) &&
-            //    !string.IsNullOrEmpty(InputEfternamn))
-            //{
-            //    KnappAktiv = true;
-            //}
+            if ((Privatkund != null || Företagskund != null) &&
+                (ValdLogi != null && ValdLogi.Count >= 1) &&
+                !string.IsNullOrEmpty(InputAdress) &&
+                !string.IsNullOrEmpty(InputPostnummer) &&
+                !string.IsNullOrEmpty(InputOrt) &&
+                !string.IsNullOrEmpty(InputTelefonnummer) &&
+                !string.IsNullOrEmpty(InputMailAdress) &&
+                !string.IsNullOrEmpty(Kundnummer) &&
+                !string.IsNullOrEmpty(InputFörnamn) &&
+                !string.IsNullOrEmpty(InputEfternamn))
+            {
+                KnappAktiv = true;
+            }
 
         });
 
