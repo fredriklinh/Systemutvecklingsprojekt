@@ -2,6 +2,7 @@
 using Affärslager.KundKontroller;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.VisualBasic;
 using PDF;
 using PresentationslagerWPF.Commands;
@@ -15,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+
 
 namespace PresentationslagerWPF.ViewModels
 {
@@ -179,8 +181,6 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-
-
         private bool kreditIsChecked;
 
         public bool KreditIsChecked
@@ -195,6 +195,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
             }
         }
+
 
 
         #region NAVIGATION
@@ -392,18 +393,18 @@ namespace PresentationslagerWPF.ViewModels
 
                 if (item.Benämning == "Paket")
                 {
-                    IList<Utrustning> öö = new List<Utrustning>();
-                    öö = utrustningsKontroller.HittaPaket(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
-                    foreach (var ee in öö)
+                    IList<Utrustning> paket = new List<Utrustning>();
+                    paket = utrustningsKontroller.HittaPaket(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
+                    foreach (var paketUtrustning in paket)
                     {
-                        hämtadUtrustning.Add(ee);
+                        hämtadUtrustning.Add(paketUtrustning);
                     }
                 }
                 else
                 {
-                    IList<Utrustning> test = new List<Utrustning>();
-                    test = utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
-                    foreach (var itemUtrustning in test)
+                    IList<Utrustning> utrustningar = new List<Utrustning>();
+                    utrustningar = utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
+                    foreach (var itemUtrustning in utrustningar)
                     {
                         hämtadUtrustning.Add(itemUtrustning);
                     }
@@ -418,7 +419,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, KreditIsChecked);
-                if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns)
+                if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns && KreditIsChecked == true)
                 {
                     MessageBox.Show("Max kredit har nåtts");
 
@@ -439,7 +440,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
                 MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, KreditIsChecked);
-                if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns)
+                if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns && KreditIsChecked == true)
                 {
                     MessageBox.Show("Max kredit har nåtts");
                 }
@@ -1125,6 +1126,8 @@ namespace PresentationslagerWPF.ViewModels
 
         private bool kreditCheckLektion;
 
+        private bool kreditCheckLektion;
+
         public bool KreditCheckLektion
         {
             get { return kreditCheckLektion; }
@@ -1133,8 +1136,7 @@ namespace PresentationslagerWPF.ViewModels
                 if (kreditCheckLektion != value)
                 {
                     kreditCheckLektion = value;
-                    OnPropertyChanged(nameof(kreditCheckLektion));
-
+                    OnPropertyChanged(nameof(KreditCheckLektion));
                 }
             }
         }

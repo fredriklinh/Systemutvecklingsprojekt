@@ -67,8 +67,8 @@
                     </StackPanel>
                     <StackPanel Margin="0,10,0,10">
                         <StackPanel Orientation="Horizontal">
-                            <Label Margin="0,0,50,0" Content="Adress:"></Label>
-                            <Label Margin="0,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
+                            <Label Margin="5,0,50,0" Content="Adress:"></Label>
+                            <Label Margin="5,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
                             <Label FontSize="12" FontWeight="DemiBold"  Content="Ort:"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
@@ -84,32 +84,33 @@
                 </WrapPanel>
                 <!--PANEL FÖR FÖRETAGSKUND-->
                 <WrapPanel Visibility="{Binding FSynlighet}">
-                    <StackPanel Width="371" Height="116">
+                    <StackPanel>
                         <StackPanel Margin="10,10,10,10">
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="OrgNummer:"></Label>
-                                <Label Content="FöretagsNamn:"></Label>
+                                <Label Margin="0,0,0,0" Content="OrgNummer:"></Label>
+                                <Label Margin="9,0,0,0" Content="FöretagsNamn:"></Label>
                                 <Label Content="Rabatsatts:"></Label>
-                                <Label Content="MaxBeloppKredit:"></Label>
+                                <Label Margin="25,0,0,0" Content="MaxBeloppKredit:"></Label>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
                                 <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.FöretagsNamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                                 <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding Företagskund.MaxBeloppsKreditGräns}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
                                 <Label Content="Adress:"></Label>
-                                <Label Content="Postnummer:"></Label>
-                                <Label Content="Ort:"></Label>
-                                <Label Content="Telefonummer:"></Label>
+                                <Label Margin="60,0,0,0" Content="Postnummer:"></Label>
+                                <Label Margin="10,0,0,0" Content="Ort:"></Label>
+                                <Label Margin="55,0,0,0" Content="Telefonummer:"></Label>
                                 <Label Content="Mailadress:"></Label>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" >
-                                <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="100" ></TextBox>
                                 <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                                 <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                                <TextBox x:Name="Mailadress" Text="{Binding Företagskund.MailAdress}" Height="25" Width="190" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -211,7 +212,7 @@
                         <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Kostnad inkl. rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay}"></CheckBox>
+                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
                         <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
