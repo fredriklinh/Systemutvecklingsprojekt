@@ -419,18 +419,21 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
                 MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, KreditIsChecked);
-                if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns && KreditIsChecked == true)
+                if (privatexisterarEj == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
                 {
-                    MessageBox.Show("Max kredit har nåtts");
+                    if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns && KreditIsChecked == true)
+                    {
+                        MessageBox.Show("Max kredit har nåtts");
 
+                    }
+                    if (privatexisterarEj.UtrustningsBokningar.Count !=0)
+                    {
+                        MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                        PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
+                    }
                 }
-                if (privatexisterarEj != null)
-                {
-                    BoolExisterarBokning(privatexisterarEj);
-                    PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
-                }
-
-
+                
             }
             else if (Företagskund != null)
             {
@@ -440,19 +443,20 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
                 MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, KreditIsChecked);
-                if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns && KreditIsChecked == true)
+                if (företagexisterarEj == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
                 {
-                    MessageBox.Show("Max kredit har nåtts");
+                    if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns && KreditIsChecked == true)
+                    {
+                        MessageBox.Show("Max kredit har nåtts");
+                    }
+                    if (företagexisterarEj.UtrustningsBokningar.Count != 0)
+                    {
+
+                        MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                        PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
+                    }
                 }
-                if (företagexisterarEj != null)
-
-                {
-                    BoolExisterarBokning(företagexisterarEj);
-
-                    PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
-                }
-
-
             }
             else
             {
