@@ -1126,8 +1126,6 @@ namespace PresentationslagerWPF.ViewModels
 
         private bool kreditCheckLektion;
 
-        private bool kreditCheckLektion;
-
         public bool KreditCheckLektion
         {
             get { return kreditCheckLektion; }
