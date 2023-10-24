@@ -180,8 +180,22 @@ namespace PresentationslagerWPF.ViewModels
 
 
 
-        private bool isCheckedKredit = true!;
-        public bool IsCheckedKredit { get => isCheckedKredit; set { isCheckedKredit = value; OnPropertyChanged(); } }
+
+        private bool kreditIsChecked;
+
+        public bool KreditIsChecked
+        {
+            get { return kreditIsChecked; }
+            set
+            {
+                if (kreditIsChecked != value)
+                {
+                    kreditIsChecked = value;
+                    OnPropertyChanged(nameof(KreditIsChecked));
+                }
+            }
+        }
+
 
         #region NAVIGATION
         //**** NAVIGATION *******//
@@ -403,7 +417,7 @@ namespace PresentationslagerWPF.ViewModels
                     item.Status = item.StatusBokad();
                 }
                 Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
-                MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
+                MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, KreditIsChecked);
                 if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns)
                 {
                     MessageBox.Show("Max kredit har nåtts");
@@ -424,7 +438,7 @@ namespace PresentationslagerWPF.ViewModels
                     item.Status = item.StatusBokad();
                 }
                 Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-                MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
+                MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, KreditIsChecked);
                 if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns)
                 {
                     MessageBox.Show("Max kredit har nåtts");
