@@ -1123,18 +1123,21 @@ namespace PresentationslagerWPF.ViewModels
 
         #region SKIDLEKTION Observables ............
 
+        private bool kreditCheckLektion;
 
+        public bool KreditCheckLektion
+        {
+            get { return kreditCheckLektion; }
+            set
+            {
+                if (kreditCheckLektion != value)
+                {
+                    kreditCheckLektion = value;
+                    OnPropertyChanged(nameof(kreditCheckLektion));
 
-        private bool kreditCheckLektion = true!;
-        public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged();
-                double x = Eleverna.Count;
-                double prisXElever = SelectedPrivatItem.Pris * x;
-                //fixa if sats
-                    //lektionsKontroller.TillåtEjKredit(prisXElever);
-
-
-            
-            } }
+                }
+            }
+        }
 
 
         private MasterBokning callesMasterBokning = null!;
