@@ -163,5 +163,6 @@ namespace Affärslager
             //unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
         }
+
     }
 }

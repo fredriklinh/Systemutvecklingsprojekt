@@ -9,7 +9,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
-             FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow" Loaded="UserControl_Loaded"
+             FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
              >
     <Grid>
         <Grid.RowDefinitions>
@@ -271,7 +271,7 @@
                         </StackPanel>
                         <StackPanel>
                             <Label>På Kredit</Label>
-                            <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked}" Width="20">
+                            <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
                                 <CheckBox.LayoutTransform>
                                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                                 </CheckBox.LayoutTransform>
