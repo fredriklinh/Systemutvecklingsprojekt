@@ -231,8 +231,21 @@ namespace PresentationslagerWPF.ViewModels
         private bool isNotModified = true;
         public bool IsNotModified { get { return isNotModified; } set { isNotModified = value; OnPropertyChanged(); } }
 
-        private bool avbeställningsskydd = true;
-        public bool Avbeställningsskydd { get { return avbeställningsskydd; } set { avbeställningsskydd = value; OnPropertyChanged(); } }
+        private bool avbeställningsskydd;
+
+        public bool Avbeställningsskydd
+        {
+            get { return avbeställningsskydd; }
+            set
+            {
+                if (avbeställningsskydd != value)
+                {
+                    avbeställningsskydd = value;
+                    OnPropertyChanged(nameof(Avbeställningsskydd));
+                }
+            }
+        }
+
         #endregion
 
 
