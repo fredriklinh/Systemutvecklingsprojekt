@@ -267,7 +267,7 @@
                     <StackPanel>
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                             <Label>Total</Label>
-                            <TextBox Text="{Binding SummaTotal}" Width="50"></TextBox>
+                            <TextBox Text="{Binding SummaTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50"></TextBox>
                         </StackPanel>
                         <StackPanel>
                             <Label>På Kredit</Label>

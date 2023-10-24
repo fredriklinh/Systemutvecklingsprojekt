@@ -192,24 +192,11 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     kreditIsChecked = value;
                     OnPropertyChanged(nameof(KreditIsChecked));
-                    if (KreditIsChecked == true)
-                    {
-                        MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                        bool Potatis = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
-                        if (Potatis = false)
-                        {
-                            KreditIsChecked = false;
-                            MessageBox.Show("Kunden har nått maxkredit!");
-                        }
-                        else
-                        {
-
-                        }
+                    StoppaKredit();
                     }
 
                 }
             }
-        }
 
 
 
@@ -731,6 +718,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaAlpin = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
+                StoppaKredit();
             }
 
 
@@ -747,6 +735,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaSnowboard = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
+                StoppaKredit();
             }
 
         });
@@ -761,7 +750,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaLängd = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-
+                StoppaKredit();
             }
 
         });
@@ -776,7 +765,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaHjälm = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-
+                StoppaKredit();
             }
 
         });
@@ -791,20 +780,58 @@ namespace PresentationslagerWPF.ViewModels
                 SummaSkoter = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
+                StoppaKredit();
 
             }
 
         });
 
         #endregion
+        public void StoppaKredit()
+        {
+            if (KreditIsChecked == true && Privatkund != null)
+            {
+                if (KreditIsChecked == true)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool Potatis = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    if (Potatis == false)
+                    {
+                        KreditIsChecked = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                    else
+                    {
 
+                    }
+                }
+                if (KreditIsChecked == true && Företagskund != null)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool Potatis = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    if (Potatis == false)
+                    {
+                        KreditIsChecked = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
 
         #region SUMMA
         private int summaTotal;
         public int SummaTotal
         {
             get { return summaTotal; }
-            set { summaTotal = value; OnPropertyChanged(); }
+            set
+            {
+                summaTotal = value; OnPropertyChanged();
+                StoppaKredit();
+            }
         }
 
 
@@ -1321,10 +1348,7 @@ namespace PresentationslagerWPF.ViewModels
         });
 
 
-
-
         #endregion
-
 
 
 
