@@ -192,6 +192,21 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     kreditIsChecked = value;
                     OnPropertyChanged(nameof(KreditIsChecked));
+                    if (KreditIsChecked == true)
+                    {
+                        MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                        bool Potatis = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                        if (Potatis = false)
+                        {
+                            KreditIsChecked = false;
+                            MessageBox.Show("Kunden har nått maxkredit!");
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
                 }
             }
         }
@@ -1124,8 +1139,8 @@ namespace PresentationslagerWPF.ViewModels
 
         #region SKIDLEKTION Observables ............
 
-        
 
+        private bool kreditCheckLektion;
         public bool KreditCheckLektion
         {
             get { return kreditCheckLektion; }

@@ -574,7 +574,7 @@ namespace PresentationslagerWPF.ViewModels
             if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
             {
 
-                Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
+                Privatkund = privatkundKontroller.RegistreraPrivatKund(Kundnummer, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, InputAdress, InputFörnamn, InputEfternamn);
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
                 MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);

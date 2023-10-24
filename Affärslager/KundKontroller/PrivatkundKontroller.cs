@@ -7,9 +7,9 @@ namespace Affärslager.KundKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public Privatkund RegistreraPrivatKund(string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string personnummer, string förnamn, string efternamn)
+        public Privatkund RegistreraPrivatKund(string personnummer, string postnummer, string ort, string telefonnummer, string mailAdress, string adress, string förnamn, string efternamn)
         {
-            Privatkund privatkund = new Privatkund(adress, postnummer, ort, telefonnummer, mailAdress, personnummer, förnamn, efternamn);
+            Privatkund privatkund = new Privatkund(personnummer, postnummer, ort, telefonnummer, mailAdress, adress, förnamn, efternamn);
             unitOfWork.PrivatkundRepository.Add(privatkund);
             unitOfWork.Complete();
             return privatkund;
