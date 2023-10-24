@@ -49,7 +49,7 @@ namespace Affärslager
             IList<Utrustning> test123 = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
-                foreach (var lista in item.Utrustningar)
+                foreach (var lista in item.Utrustningar.Where(a => a.Status == false))
                 {
                     test123.Add(lista);
                 }
@@ -103,7 +103,7 @@ namespace Affärslager
             IList<Utrustning> test123 = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
-                foreach (var lista in item.Utrustningar)
+                foreach (var lista in item.Utrustningar.Where(a => a.Status == false))
                 {
                     test123.Add(lista);
                 }
@@ -159,7 +159,11 @@ namespace Affärslager
         {
             DateTime datumIBokning = DateTime.Now;
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datumIBokning && a.UtrustningsBokningar != null && a.PersonNr == privatkund.Personnummer);
-            UtrustningsBokning utrustningsBokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(b => b.SlutDatum >= datumIBokning && b.MasterBokning.OrgaNr == privatkund.Personnummer);
+            UtrustningsBokning utrustningsBokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(b => b.SlutDatum >= datumIBokning && b.MasterBokning.PersonNr == privatkund.Personnummer);
+            if (utrustningsBokning == null)
+            {
+                return null;
+            }
             IList<Utrustning> utrustningar = new List<Utrustning>();
             foreach (var item in masterBokning.UtrustningsBokningar)
             {
