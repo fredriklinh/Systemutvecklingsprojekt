@@ -1422,19 +1422,19 @@ namespace PresentationslagerWPF.ViewModels
             if (SelectedPrivatItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning !=null)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, CallesMasterBokning);
+                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, MasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
                 double x = Eleverna.Count;
                 double prisXElever = SelectedPrivatItem.Pris * x;
-                lektionsKontroller.FixaPrisLektion(prisXElever, KreditCheckLektion, CallesMasterBokning);
+                lektionsKontroller.FixaPrisLektion(prisXElever, KreditCheckLektion, MasterBokning);
             }
             if (SelectedGruppItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning != null)
             {
 
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, CallesMasterBokning);
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, MasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
-                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, CallesMasterBokning);
+                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, MasterBokning);
 
             }
             CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
