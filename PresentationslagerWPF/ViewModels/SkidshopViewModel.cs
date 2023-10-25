@@ -1438,7 +1438,6 @@ namespace PresentationslagerWPF.ViewModels
 
             }
             CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
-
         });
 
         private ICommand avbokaElevCommand = null!;
