@@ -1,10 +1,8 @@
 ﻿using Affärslager;
 using Affärslager.KundKontroller;
-using ceTe.DynamicPDF.PageElements;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
-using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
@@ -64,7 +62,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputAdress
         {
             get { return inputAdress; }
-            set { inputAdress = value; OnPropertyChanged();
+            set
+            {
+                inputAdress = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
@@ -73,7 +73,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputPostnummer
         {
             get { return inputPostnummer; }
-            set { inputPostnummer = value; OnPropertyChanged();
+            set
+            {
+                inputPostnummer = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
@@ -83,7 +85,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputOrt
         {
             get { return inputOrt; }
-            set { inputOrt = value; OnPropertyChanged();
+            set
+            {
+                inputOrt = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
 
@@ -93,7 +97,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputTelefonnummer
         {
             get { return inputTelefonnummer; }
-            set { inputTelefonnummer = value; OnPropertyChanged();
+            set
+            {
+                inputTelefonnummer = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
@@ -103,7 +109,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputMailAdress
         {
             get { return inputMailAdress; }
-            set { inputMailAdress = value; OnPropertyChanged();
+            set
+            {
+                inputMailAdress = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
@@ -112,7 +120,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputFörnamn
         {
             get { return inputFörnamn; }
-            set { inputFörnamn = value; OnPropertyChanged();
+            set
+            {
+                inputFörnamn = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
@@ -122,21 +132,33 @@ namespace PresentationslagerWPF.ViewModels
         public string InputEfternamn
         {
             get { return inputEfternamn; }
-            set { inputEfternamn = value; OnPropertyChanged();
+            set
+            {
+                inputEfternamn = value; OnPropertyChanged();
                 StoppaSparaKnappen();
             }
         }
 
         private string kundnummer;
-        public string Kundnummer {get => kundnummer; set { kundnummer = value; OnPropertyChanged();
+        public string Kundnummer
+        {
+            get => kundnummer; set
+            {
+                kundnummer = value; OnPropertyChanged();
                 StoppaSparaKnappen();
 
-            } }
+            }
+        }
 
         private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged();
+        public Privatkund Privatkund
+        {
+            get => privatkund; set
+            {
+                privatkund = value; OnPropertyChanged();
 
-            } }
+            }
+        }
 
         private MasterBokning masterbokning = null!;
         public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
@@ -177,7 +199,11 @@ namespace PresentationslagerWPF.ViewModels
 
 
         private Företagskund företagskund = null!;
-        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged();
+        public Företagskund Företagskund
+        {
+            get => företagskund; set
+            {
+                företagskund = value; OnPropertyChanged();
 
 
             }
@@ -578,7 +604,7 @@ namespace PresentationslagerWPF.ViewModels
                 PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
 
             }
-            
+
             if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
             {
 
@@ -586,9 +612,9 @@ namespace PresentationslagerWPF.ViewModels
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
                 MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+
             }
-            
+
             if (ValdLogi == null)
             {
                 MessageBox.Show("Bokning måste innehålla logi", "Välj logi", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -601,7 +627,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 PDF.CreatePDF.SkapaBokningsbekräftelseFöretag(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
-            
+
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
             {

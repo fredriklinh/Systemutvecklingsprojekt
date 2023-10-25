@@ -7,13 +7,6 @@
 
         }
 
-        public Användare(int användarID, int behörighetsnivå, string användarnamn, string lösenord)
-        {
-            AnvändarID = användarID;
-            Behörighetsnivå = behörighetsnivå;
-            Användarnamn = användarnamn;
-            Lösenord = lösenord;
-        }
 
         public int AnvändarID { get; set; }
         public int Behörighetsnivå { get; set; }

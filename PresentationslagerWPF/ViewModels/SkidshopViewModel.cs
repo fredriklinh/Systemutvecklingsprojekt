@@ -196,10 +196,10 @@ namespace PresentationslagerWPF.ViewModels
                     kreditIsChecked = value;
                     OnPropertyChanged(nameof(KreditIsChecked));
                     StoppaKredit();
-                    }
-
                 }
+
             }
+        }
 
 
 
@@ -480,7 +480,7 @@ namespace PresentationslagerWPF.ViewModels
 
         #region Properties Logi, Privatkund (Sprint1)
 
-        
+
 
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
@@ -564,12 +564,17 @@ namespace PresentationslagerWPF.ViewModels
         }
 
         private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged();
+        public Privatkund Privatkund
+        {
+            get => privatkund; set
+            {
+                privatkund = value; OnPropertyChanged();
                 if (Privatkund != null)
                 {
-                    MasterBokning = bokningsKontroller.HämtaAktivPrivatkundMasterbokning(Privatkund,LektionsDatum);
+                    MasterBokning = bokningsKontroller.HämtaAktivPrivatkundMasterbokning(Privatkund, LektionsDatum);
                 }
-            } }
+            }
+        }
 
         private MasterBokning masterbokning = null!;
         public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
@@ -1246,7 +1251,7 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-        
+
         private DateTime lektionsDatum = DateTime.Now;
         public DateTime LektionsDatum
         {
@@ -1272,10 +1277,10 @@ namespace PresentationslagerWPF.ViewModels
                     }
                     else if (GruppLektioner != null || PrivatLektioner != null || AllaLektioner != null)
                     {
-                            GruppLektioner.Clear();
-                            PrivatLektioner.Clear();
-                            AllaLektioner.Clear();
-                            KnappAktiv = false;
+                        GruppLektioner.Clear();
+                        PrivatLektioner.Clear();
+                        AllaLektioner.Clear();
+                        KnappAktiv = false;
                     }
                 }
                 else
@@ -1419,7 +1424,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
-            if (SelectedPrivatItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning !=null)
+            if (SelectedPrivatItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning != null)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
                 lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, CallesMasterBokning);

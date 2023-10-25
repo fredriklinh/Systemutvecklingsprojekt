@@ -17,13 +17,22 @@ namespace PresentationslagerWPF
 
 
 
+            //navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
             navigationStore.CurrentViewModel = new LoggaInViewModel(navigationStore);
+
+
+
+
+            HuvudMenyViewModel h = new HuvudMenyViewModel(navigationStore);
+            MasterBokningViewModel m = new MasterBokningViewModel(navigationStore);
 
 
             användarKontroller.LaddaData();
             MainWindow = new MainWindow()
             {
+                //DataContext = new MainViewModel(navigationStore)
                 DataContext = new MainViewModel(navigationStore)
+
 
             };
             MainWindow.Show();

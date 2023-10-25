@@ -7,6 +7,7 @@
 
         }
 
+
         public int FakturaId { get; set; }
         public DateTime UtskriftsDatum { get; set; }
         public int Moms { get; set; }

@@ -2,7 +2,6 @@
 using Entiteter.Personer;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.ViewModels;
-using System.Windows;
 
 namespace PresentationslagerWPF.Commands
 {
@@ -37,15 +36,11 @@ namespace PresentationslagerWPF.Commands
         }
         public override void Execute(object parameter)
         {
-            Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Password);
+            Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Lösenord);
             if (anv != null)
             {
                 _navigationService.Navigate();
-            }
-            else
-            {
 
-                MessageBox.Show("Felaktig inloggningsinformation. Försök igen", "Inlogg", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

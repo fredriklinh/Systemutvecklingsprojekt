@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Entiteter.Prislistor;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entiteter.Tjänster
@@ -9,25 +10,15 @@ namespace Entiteter.Tjänster
         {
 
         }
-
-        public Logi(string logiId, int kvadratmeter, int bäddar, bool kök, string typen, LogiTyp? logiTyp)
-        {
-            LogiId = logiId;
-            Kvadratmeter = kvadratmeter;
-            Bäddar = bäddar;
-            Kök = kök;
-            Typen = typen;
-            LogiTyp = logiTyp;
-        }
-
         public string LogiId { get; set; }
-
         public int Kvadratmeter { get; set; }
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
 
-        //public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
 
+
+        public bool ÄrTillgänglig { get; set; }
+        public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
         public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
         [ForeignKey("LogiTyp")]
@@ -36,10 +27,15 @@ namespace Entiteter.Tjänster
 
 
 
-
-
-
         //Ska vara enum istället, tre olika metoder, för att definiera "pågående", tillgänglig och bokad"
+        public void Tillgänlig()
+        {
+            ÄrTillgänglig = true;
+        }
+        public void Bokad()
+        {
+            ÄrTillgänglig = false;
+        }
 
 
 
