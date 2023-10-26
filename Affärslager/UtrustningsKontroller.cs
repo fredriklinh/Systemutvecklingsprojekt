@@ -1,6 +1,8 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Identity.Client;
 using System.Collections.ObjectModel;
 
 namespace Affärslager
@@ -175,10 +177,18 @@ namespace Affärslager
             return utrustningar;
         }
 
+
+        //ÄLDRE - AXEL
         public MasterBokning BokningExisterar(string bokningsNr)
         {
             return unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.BokningsNr.ToString() == bokningsNr);
         }
+
+        public UtrustningsBokning UtrustningsBokningExisterar(string bokningsNr)
+        {
+            return unitOfWork.UtrustningsBokningRepository.FirstOrDefault(a => a.UtrustningBokningsId.ToString() == bokningsNr);
+        }
+
 
         //OBS Tillkommit
         private MasterBokning KollaKredtiTotal(int summaBokning, MasterBokning masterBokning)
@@ -298,27 +308,48 @@ namespace Affärslager
             return antal;
         }
 
-        public void FullbordaÅterlämning(string InputÅterlämning)
+        public MasterBokning FullbordaÅterlämning(string InputÅterlämning)
         {
             int input = Int32.Parse(InputÅterlämning);
-            MasterBokning masterbokning = unitOfWork.MasterBokningRepository.FirstOrDefault(e => e.BokningsNr == input);
-            IList<UtrustningsBokning> utrustningsBokningar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(a => a.MasterBokning.BokningsNr == masterbokning.BokningsNr).ToList();
-            foreach (var item in utrustningsBokningar)
-            {
-                foreach (Utrustning utr in item.Utrustningar)
-                {
-                    utr.StatusTillgänglig();
-                }
-            }
-            //foreach (var item in masterbokning.UtrustningsBokningar)
+            //MasterBokning masterbokning = unitOfWork.MasterBokningRepository.FirstOrDefault(e => e.BokningsNr == input);
+            //IList<UtrustningsBokning> utrustningsBokningar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(a => a.MasterBokning.BokningsNr == masterbokning.BokningsNr).ToList();
+            UtrustningsBokning utrustningsbokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(a => a.UtrustningBokningsId == input);
+
+            //foreach (var item in utrustningsBokningar)
             //{
             //    foreach (Utrustning utr in item.Utrustningar)
             //    {
             //        utr.StatusTillgänglig();
             //    }
             //}
+
+            foreach (Utrustning item in utrustningsbokning.Utrustningar) item.StatusTillgänglig();
+
+            if (utrustningsbokning.PåKredit == true)
+            {
+                UtrustningsBokning utrustningsbokningFaktura = SkapaFaktura(utrustningsbokning);
+                unitOfWork.Complete();
+                unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.UtrustningsBokningar == utrustningsbokning);
+
+                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.GetAll())
+                {
+                    foreach (UtrustningsBokning utrustningsBokning in item.UtrustningsBokningar)
+                    {
+                        if (utrustningsBokning.UtrustningBokningsId == input) return item;
+                        
+                    }
+                }
+            }
             unitOfWork.Complete();
+            return null;
         }
+
+        public UtrustningsBokning SkapaFaktura(UtrustningsBokning utrustningsbokning)
+        {
+            utrustningsbokning.Faktura = new Faktura("Utrustning", DateTime.Now, 25, utrustningsbokning.Summa);
+            return utrustningsbokning;
+        }
+
 
         public List<Utrustning> SökPaket(string paket)
         {

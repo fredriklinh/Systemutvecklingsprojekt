@@ -103,6 +103,7 @@ namespace Datalager.Context
            .HasKey(utb => utb.UtrustningBokningsId);
             modelBuilder.Entity<UtrustningsBokning>().HasMany<Utrustning>(u => u.Utrustningar);
             modelBuilder.Entity<UtrustningsBokning>().HasOne<MasterBokning>(u => u.MasterBokning);
+            modelBuilder.Entity<UtrustningsBokning>().HasOne<Faktura>(u => u.Faktura);
 
             modelBuilder.Entity<UtrustningsTyp>()
            .HasKey(ut => ut.Typ);

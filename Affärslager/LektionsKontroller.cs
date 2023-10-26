@@ -60,11 +60,6 @@ namespace Affärslager
             unitOfWork.Complete();
         }
 
-
-
-
-
-
         public IList<GruppLektion> AllaGruppLektion()
         {
             IList<GruppLektion> AllaGruppLektion = new List<GruppLektion>();

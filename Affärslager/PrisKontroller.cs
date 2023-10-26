@@ -14,6 +14,8 @@ namespace Affärslager
 
 
         #region PrisLogi
+
+        //Kontrollerar vecka på ett specifikt datum 
         public static int KontrolleraVecka(DateTime datum)
         {
             CultureInfo myCI = new CultureInfo("sv-SE");

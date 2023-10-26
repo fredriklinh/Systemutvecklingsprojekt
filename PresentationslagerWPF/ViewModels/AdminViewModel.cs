@@ -26,22 +26,29 @@ namespace PresentationslagerWPF.ViewModels
 
         #region NAVIGATION
         public AdminViewModel()
-        {
-                
+        { 
         }
 
         public AdminViewModel(NavigationStore navigationStore, Användare användare)
         {
             AllaAnvändare = new ObservableCollection<Användare>(användarKontroller.HämtaAllaAnvändare());
+            
+            TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            UppddateraCommand = new NavigateCommand<AdminViewModel>(new NavigationService<AdminViewModel>(navigationStore, () => new AdminViewModel(navigationStore, användare)));
+            NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
 
             this.windowService = new WindowService();
-
         }
 
 
         #endregion
 
         #region COMMANDS
+        public ICommand TillbakaCommand { get; }
+        public ICommand UppddateraCommand { get; }
+        public ICommand NavigateLoggaUtCommand { get; }
+
+
 
         private ICommand skapaAnvändareWindowCommand = null!;
         public ICommand SkapaAnvändareWindowCommand => skapaAnvändareWindowCommand ??= skapaAnvändareWindowCommand = new RelayCommand(() =>

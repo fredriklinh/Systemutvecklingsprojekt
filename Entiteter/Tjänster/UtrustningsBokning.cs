@@ -1,4 +1,5 @@
 ﻿using Entiteter.Personer;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entiteter.Tjänster
 {
@@ -18,6 +19,16 @@ namespace Entiteter.Tjänster
 
         public virtual Användare Användare { get; set; }
 
+
+
+        [ForeignKey("Faktura")]
+
+        public int? FakturaID { get; set; }
+
+        public virtual Faktura? Faktura { get; set; }
+
+
+
         public UtrustningsBokning(MasterBokning masterbokning, DateTime startDatum, DateTime slutDatum, int summa, bool påKredit, IList<Utrustning> utrustningar, Användare användare)
         {
             MasterBokning = masterbokning;
@@ -27,7 +38,6 @@ namespace Entiteter.Tjänster
             PåKredit = påKredit;
             Utrustningar = utrustningar;
             Användare = användare;
-
         }
         public UtrustningsBokning()
         {
