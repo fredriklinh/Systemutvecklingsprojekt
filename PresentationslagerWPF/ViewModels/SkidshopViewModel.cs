@@ -1268,7 +1268,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 if (LektionsDatum >= DateTime.Now.Date)
                 {
-                    if (MasterBokning != null)
+                    if (MasterBokning != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn))
                     {
                         GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(LektionsDatum));
                         PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(LektionsDatum));
@@ -1285,6 +1285,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 else
                 {
+                    LektionsDatum = DateTime.Now;
                     MessageBox.Show("Datum är inkorrekt", "Bokning", MessageBoxButton.OK);
                 }
 
