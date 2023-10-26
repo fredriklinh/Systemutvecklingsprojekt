@@ -27,6 +27,7 @@ namespace PresentationslagerWPF.ViewModels
             DisplayStatistikLogi = new ObservableCollection<DisplayStatistik>();
             DisplayStatistikUtrustning = new ObservableCollection<DisplayStatistik>();
             Årtal = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
+            ÅrtalUtrustning = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
 
         }
         public ICommand NavigateLoggaUtCommand { get; }
@@ -39,6 +40,9 @@ namespace PresentationslagerWPF.ViewModels
 
         private ObservableCollection<int> årtal = null!;
         public ObservableCollection<int> Årtal { get => årtal; set { årtal = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<int> årtalUtrustning = null!;
+        public ObservableCollection<int> ÅrtalUtrustning { get => årtalUtrustning; set { årtalUtrustning = value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -93,6 +97,7 @@ namespace PresentationslagerWPF.ViewModels
                 }
 
             }
+            statistikLogi.Typ = typ;
             DisplayStatistikLogi.Add(statistikLogi);
         }
 
@@ -117,7 +122,7 @@ namespace PresentationslagerWPF.ViewModels
                 List<string> typAvUtrustning = statistikKontroller.HämtaUnikaBenämningarUtrustning();
                 foreach (var typU in typAvUtrustning)
                 {
-                    List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaTotaltAntalBokningarUtrustning(selectedItemUtrustningÅr);
+                    List<Dictionary<int, int>> bokningarPerMånad = statistikKontroller.HämtaAntalBokningarUtrustning(typU, selectedItemUtrustningÅr);
                     PopuleraDisplayUtrustning(bokningarPerMånad, typU);
                 }
             }
@@ -146,11 +151,11 @@ namespace PresentationslagerWPF.ViewModels
                         if (key == 12) statistikUtrustning.Dec = antal;
                     }
                 }
-
             }
+            statistikUtrustning.Typ = typ;
             DisplayStatistikUtrustning.Add(statistikUtrustning);
-        }
 
+        }
         #endregion
     }
 

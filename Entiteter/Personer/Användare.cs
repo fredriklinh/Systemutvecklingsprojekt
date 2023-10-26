@@ -7,6 +7,15 @@
 
         }
 
+        public Användare(/*int användarID*/int behörighetsnivå, string användarnamn, string lösenord, string förnamn, string efternamn): base()
+        {
+            //AnvändarID = användarID;
+            Behörighetsnivå = behörighetsnivå;
+            Användarnamn = användarnamn;
+            Lösenord = lösenord;
+            Förnamn = förnamn;
+            Efternamn = efternamn;
+        }
 
         public int AnvändarID { get; set; }
         public int Behörighetsnivå { get; set; }

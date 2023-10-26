@@ -1291,7 +1291,6 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-
         private MasterBokning callesMasterBokning = null!;
         public MasterBokning CallesMasterBokning { get => callesMasterBokning; set { callesMasterBokning = value; OnPropertyChanged(); } }
 

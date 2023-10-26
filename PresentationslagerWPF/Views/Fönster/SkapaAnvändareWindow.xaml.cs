@@ -1,0 +1,35 @@
+﻿using PresentationslagerWPF.Commands;
+using PresentationslagerWPF.Services;
+using PresentationslagerWPF.ViewModels.FönsterViewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace PresentationslagerWPF.Views.Fönster
+{
+    /// <summary>
+    /// Interaction logic for SkapaAnvändareWindow.xaml
+    /// </summary>
+    public partial class SkapaAnvändareWindow : Window, ICloseable
+    {
+
+        public SkapaAnvändareWindow()
+        {
+                InitializeComponent();
+        }
+       
+    }
+}
+
+
+
