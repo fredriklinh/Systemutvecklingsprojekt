@@ -94,43 +94,30 @@ namespace Affärslager
         }
 
 
-        //Söker först igenom bokningar på privatkunder om inget hittas söker vi på företagskunder och returnerar
+        //Söker först igenom bokningar på privatkunder om inget hittas söker vi på företagskunder, om ingen hittas på företagskund går vi sist på bokningsnummer och returnerar.
         public List<MasterBokning> HämtaKundsMasterbokningar(string kundnummer)
         {
             List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
-            // Check if masterbokningar is null before entering any loops
-
-            // Search for items in pmb (ItemP)
             foreach (MasterBokning itemP in unitOfWork.MasterBokningRepository.Find(pmb => pmb != null && pmb.PersonNr != null && pmb.PersonNr.Equals(kundnummer)))
             {
                 masterbokningar.Add(itemP);
             }
-
-            // Check if masterbokningar has any items; if so, return it
             if (masterbokningar.Count > 0)
             {
                 return masterbokningar;
             }
-
-
-            // If no items found in pmb, search in fmb (ItemF)
             foreach (MasterBokning itemF in unitOfWork.MasterBokningRepository.Find(fmb => fmb != null && fmb.OrgaNr != null && fmb.OrgaNr.Equals(kundnummer)))
             {
                 masterbokningar.Add(itemF);
                 return masterbokningar;
             }
-
-            // No items found in pmb or fmb; search in bNr (Item)
             int input = Int32.Parse(kundnummer);
             foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(e => e.BokningsNr == input))
             {
                 masterbokningar.Add(item);
             }
-
             return masterbokningar;
-
-
         }
         public MasterBokning HämtaAktivPrivatkundMasterbokning(Privatkund privatkund,DateTime datum)
         {

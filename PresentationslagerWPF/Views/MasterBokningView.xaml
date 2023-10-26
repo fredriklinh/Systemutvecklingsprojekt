@@ -37,7 +37,7 @@
                                 <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Sluttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" IsEnabled="{Binding IsEnabledSökDatum}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel></StackPanel>

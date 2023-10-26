@@ -3,6 +3,7 @@ using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Affärslager
 {
@@ -25,6 +26,22 @@ namespace Affärslager
 
             return datumsVecka;
         }
+        public bool KontrolleraDagarSportlov(List<DateTime> datum)
+        {
+            bool result = false;
+            foreach (var item in datum)
+            {
+                int VeckaNr = KontrolleraVecka(item);
+                if (VeckaNr == 7 || VeckaNr == 8)
+                {
+                    return result = true;
+                }
+            }
+
+            return result;
+        }
+
+
 
         public double BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
         {
@@ -32,91 +49,96 @@ namespace Affärslager
             int antalVeckor = (int)Math.Floor((slutdatum - startdatum.AddDays(-1)).TotalDays / 7);
             //Hämta startvecka för att utgå ifrån rätt prissättning
             int VeckaStart = KontrolleraVecka(startdatum);
+            int VeckaSlut = KontrolleraVecka(slutdatum);
             double totalpris = 0;
 
-            var sportVeckorKontroll = new List<DateTime>();
-            //Placerar alla enskillda dagar från bokningen i en lista
-            for (var dt = startdatum; dt <= slutdatum; dt = dt.AddDays(1))
+            if (VeckaStart != 7 && VeckaStart != 8 && VeckaSlut != 7 && VeckaSlut != 8)
             {
-                sportVeckorKontroll.Add(dt);
-            }
+                var datumBokning = new List<DateTime>();
 
-            var datumBokning = new List<DateTime>();
-
-            //Placerar alla enskillda dagar från bokningen i en lista
-            for (var dt = startdatum; dt <= slutdatum; dt = dt.AddDays(1))
-            {
-                datumBokning.Add(dt);
-            }
-
-            bool startFöre = StartsBeforeWholeWeek(datumBokning);
-
-            //Lista med resterande dagar som inte är hela veckor
-            List<DateTime> restDatum = HämtaRestDagar(startdatum, slutdatum, startFöre, datumBokning);
-            //Kontrollerar om det finns resterande dagar i bokningen som inte är hela veckor.
-            if (restDatum.Count > 0)
-            {   //Går igenom varje datum i lista restDatum, kontrollerar dess vecka och hämtar det individuella dygnspriset.
-                foreach (var dag in restDatum)
+                //Placerar alla enskillda dagar från bokningen i en lista
+                for (var dt = startdatum; dt <= slutdatum; dt = dt.AddDays(1))
                 {
-                    int vecka = KontrolleraVecka(dag);
-                    PrislistaLogi prisLogiDag = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == vecka);
-                    // Kolla om dagen är Lördag eller Söndag. Annar Läggs vardagspris till.
-                    if (dag.DayOfWeek == DayOfWeek.Saturday || dag.DayOfWeek == DayOfWeek.Friday)
+                    datumBokning.Add(dt);
+                }
+
+                bool startFöre = StartFöreHelVecka(datumBokning);
+
+                //Lista med resterande dagar som inte är hela veckor
+                List<DateTime> restDatum = HämtaRestDagar(startdatum, slutdatum, startFöre, datumBokning);
+                //Kontrollerar om det finns resterande dagar i bokningen som inte är hela veckor.
+                if (restDatum.Count > 0)
+                {   //Går igenom varje datum i lista restDatum, kontrollerar dess vecka och hämtar det individuella dygnspriset.
+                    foreach (var dag in restDatum)
                     {
-                        totalpris += prisLogiDag.PrisHelg;
-                    }
-                    else
-                    {
-                        totalpris += prisLogiDag.PrisVardag;
+                        int vecka = KontrolleraVecka(dag);
+                        PrislistaLogi prisLogiDag = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == vecka);
+                        // Kolla om dagen är Lördag eller Söndag. Annar Läggs vardagspris till.
+                        if (dag.DayOfWeek == DayOfWeek.Saturday || dag.DayOfWeek == DayOfWeek.Friday)
+                        {
+                            totalpris += prisLogiDag.PrisHelg;
+                        }
+                        else
+                        {
+                            totalpris += prisLogiDag.PrisVardag;
+                        }
                     }
                 }
-            }
-            //Om det finns hela veckor, räknar ut priset för varje individuell vecka och lägger till i totalpris.
+                //Om det finns hela veckor, räknar ut priset för varje individuell vecka och lägger till i totalpris.
 
-            if (startFöre == false)
-            {
-                if (antalVeckor > 0)
+                if (startFöre == false)
                 {
-                    for (int v = 0; v < antalVeckor; v++)
+                    if (antalVeckor > 0)
                     {
-                        PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == VeckaStart && x.TypAvLogi == LogiNamn);
-                        totalpris += prisPerVecka.PrisVecka;
-                        VeckaStart++;
+                        for (int v = 0; v < antalVeckor; v++)
+                        {
+                            PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == VeckaStart && x.TypAvLogi == LogiNamn);
+                            totalpris += prisPerVecka.PrisVecka;
+                            VeckaStart++;
+                        }
                     }
+                    return totalpris;
                 }
+                else
+                {
+                    if (antalVeckor > 0)
+                    {
+                        for (int v = 0; v < antalVeckor; v++)
+                        {
+                            PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == (VeckaStart + 1) && x.TypAvLogi == LogiNamn);
+                            totalpris += prisPerVecka.PrisVecka;
+                            VeckaStart++;
+                        }
+                    }
+                    return totalpris;
+                }
+            }
+            else 
+            {
+                totalpris = HämtaPrisSportlov(LogiNamn, startdatum, slutdatum, antalVeckor, totalpris, VeckaStart);
                 return totalpris;
             }
-            else
-            {
-                if (antalVeckor > 0)
-                {
-                    for (int v = 0; v < antalVeckor; v++)
-                    {
-                        PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == (VeckaStart + 1) && x.TypAvLogi == LogiNamn);
-                        totalpris += prisPerVecka.PrisVecka;
-                        VeckaStart++;
-                    }
-                }
-                return totalpris;
-            }
-
 
         }
-
-        public bool StartsBeforeWholeWeek(List<DateTime> dateList)
+        /// <StartFöreHelVecka>
+        /// Om vi har en bokning med hela veckor plus extra strödagar räknar denna metod ut om strödagarna är före eller efter den fulla veckan.
+        /// </summary>
+        /// <param name="datumLista"></param>
+        /// <returns></returns>
+        public bool StartFöreHelVecka(List<DateTime> datumLista)
         {
-            if (dateList.Count == 0)
+            if (datumLista.Count == 0)
             {
-                return false; // Empty list, can't determine if it starts before a whole week.
+                return false;
             }
 
-            DateTime startDate = dateList[0];
-            DateTime endDate = dateList[dateList.Count - 1];
+            DateTime startDatum = datumLista[0];
+            DateTime slutDatum = datumLista[datumLista.Count - 1];
 
-            // Calculate the date one week from the start date.
-            DateTime oneWeekLater = startDate.AddDays(7);
 
-            return startDate.DayOfWeek != DayOfWeek.Monday && startDate < oneWeekLater;
+            DateTime enVeckaSenare = startDatum.AddDays(7);
+
+            return startDatum.DayOfWeek != DayOfWeek.Monday && startDatum < enVeckaSenare;
         }
 
 
@@ -173,24 +195,99 @@ namespace Affärslager
         }
 
         //Denna metod ska fixas innan inlämning!!!!
-        public int HämtaPrisSportlov(string LogiNamn, DateTime startdatum, DateTime slutdatum, List<DateTime> sportVeckorKontroll)
+        public double HämtaPrisSportlov(string LogiNamn, DateTime startdatum, DateTime slutdatum, int antalVeckor, double totalpris, int VeckaStart)
         {
-            int totalprisSportlov = 0;
+            var datumBokning = new List<DateTime>();
 
-            foreach (var dag in sportVeckorKontroll)
+            //Placerar alla enskillda dagar från bokningen i en lista
+            for (var dt = startdatum; dt <= slutdatum; dt = dt.AddDays(1))
             {
-                int vecka = KontrolleraVecka(dag);
-                if (vecka == 7 || vecka == 8)
+                datumBokning.Add(dt);
+            }
+
+            bool startFöre = StartFöreHelVecka(datumBokning);
+            bool restDagarÖver7 = false;
+            //Lista med resterande dagar som inte är hela veckor
+            List<DateTime> restDatum = HämtaRestDagar(startdatum, slutdatum, startFöre, datumBokning);
+            if (restDatum.Count >= 7)
+            {
+                antalVeckor = antalVeckor - 1;
+                restDagarÖver7 = true;
+            }
+            //Kontrollerar om det finns resterande dagar i bokningen som inte är hela veckor.
+            bool dagarISportlov = KontrolleraDagarSportlov(restDatum);
+            int totalprisDagarISportLov = 0;
+            if (restDatum.Count > 0 /*&& dagarISportlov == false*/)
+            {   //Går igenom varje datum i lista restDatum, kontrollerar dess vecka och hämtar det individuella dygnspriset.
+                foreach (var dag in restDatum)
                 {
-                    PrislistaLogi sportLov = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == 7);
-                    totalprisSportlov = sportLov.PrisVecka;
-                }
-                if (true)
-                {
+                    int vecka = KontrolleraVecka(dag);
+                    if (vecka != 7 && vecka != 8)
+                    {
+                        PrislistaLogi prisLogiDag = unitOfWork.PrisLogiRepository.FirstOrDefault(a => a.TypAvLogi == LogiNamn && a.Vecka == vecka);
+                        // Kolla om dagen är Lördag eller Söndag. Annar Läggs vardagspris till.
+                        if (dag.DayOfWeek == DayOfWeek.Saturday || dag.DayOfWeek == DayOfWeek.Friday)
+                        {
+                            totalpris += prisLogiDag.PrisHelg;
+                        }
+                        else
+                        {
+                            totalpris += prisLogiDag.PrisVardag;
+                        }
+                    }
+                    if (vecka == 7 || vecka == 8)
+                    {
+                        PrislistaLogi prisVeckaFörDagISportLov = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == 7 && x.TypAvLogi == LogiNamn);
+                        totalprisDagarISportLov = prisVeckaFörDagISportLov.PrisVecka;
+                    }
 
                 }
+                totalpris = totalpris + totalprisDagarISportLov;
             }
-            return totalprisSportlov;
+            if (startFöre == false)
+            {
+                if (antalVeckor > 0)
+                {
+                    for (int v = 0; v < antalVeckor; v++)
+                    {
+                        PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == VeckaStart && x.TypAvLogi == LogiNamn);
+                        totalpris += prisPerVecka.PrisVecka;
+                        VeckaStart++;
+                    }
+                }
+                return totalpris;
+            }
+            else
+            {
+                if (antalVeckor > 0)
+                {
+                    for (int v = 0; v < antalVeckor; v++)
+                    {
+                        //Om det är mer än 2 veckor som bokas med startdatum eller slutdatum inne i vecka 7 eller 8.
+                        if (totalprisDagarISportLov == 0 && antalVeckor > 1)
+                        {
+                            PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == (VeckaStart + 1) && x.TypAvLogi == LogiNamn);
+                            totalpris += prisPerVecka.PrisVecka;
+                            VeckaStart++;
+                        }
+                        //Om det är mer än 7 restdagar i bokningen
+                        if (restDagarÖver7 == true)
+                        {
+                            PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == (VeckaStart + 1) && x.TypAvLogi == LogiNamn);
+                            totalpris += prisPerVecka.PrisVecka;
+                            VeckaStart++;
+                        }
+                        //Om det endast är 1 hel vecka i bokningen som är vecka 7 eller 8
+                        else if (antalVeckor == 1)
+                        {
+                            PrislistaLogi prisPerVecka = unitOfWork.PrisLogiRepository.FirstOrDefault(x => x.Vecka == (VeckaStart + 1) && x.TypAvLogi == LogiNamn);
+                            totalpris += prisPerVecka.PrisVecka;
+                            return totalpris;
+                        }
+                    }
+                }
+                return totalpris;
+            }
         }
 
         public double HämtaRabatt(double TotalPris, Privatkund privatkund)

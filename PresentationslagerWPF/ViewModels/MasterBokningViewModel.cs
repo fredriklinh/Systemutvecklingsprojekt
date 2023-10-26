@@ -49,10 +49,53 @@ namespace PresentationslagerWPF.ViewModels
         #region Properties Logi, kund (Sprint1)
 
         private DateTime starttid = DateTime.Now;
-        public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
+        public DateTime Starttid { get => starttid; set 
+            { 
+                starttid = value; 
+                OnPropertyChanged();
+                if (Starttid >= DateTime.Now.Date && Sluttid > Starttid)
+                {
+                    IsEnabledSökDatum = true;
+                }
+                else if (Starttid < DateTime.Now.Date)
+                {
+                    IsEnabledSökDatum = false;
+                    MessageBox.Show("Datum bakåt i tiden går inte att boka", "Bokning", MessageBoxButton.OK);
+                    //Starttid = DateTime.Now;
+                }
+            } 
+        }
 
         private DateTime sluttid = DateTime.Now;
-        public DateTime Sluttid { get => sluttid; set { sluttid = value; OnPropertyChanged(); } }
+        public DateTime Sluttid { get => sluttid; set 
+            { 
+                sluttid = value; 
+                OnPropertyChanged();
+                if (Sluttid > DateTime.Now.Date)
+                {
+                    IsEnabledSökDatum = true;
+                }
+                if (Sluttid < Starttid)
+                {
+                    IsEnabledSökDatum = false;
+                    MessageBox.Show("Utcheckning får inte vara innan ankomst", "Bokning", MessageBoxButton.OK);
+                }
+                if (Starttid.Date == Sluttid.Date)
+                {
+                    IsEnabledSökDatum = false;
+                    MessageBox.Show("Utcheckning får inte vara på samma dag som ankomst", "Bokning", MessageBoxButton.OK);
+                }
+                else if (Sluttid < DateTime.Now.Date)
+                {
+                    IsEnabledSökDatum = false;
+                    MessageBox.Show("Datum bakåt i tiden går inte att boka", "Bokning", MessageBoxButton.OK);
+                    //Sluttid = DateTime.Now;
+                }
+            } 
+        }
+
+        private bool isEnabledSökDatum = false!;
+        public bool IsEnabledSökDatum { get => isEnabledSökDatum; set { isEnabledSökDatum = value; OnPropertyChanged(); } }
 
         private double? antalSovplatser;
         public double? AntalSovplatser { get => antalSovplatser; set { antalSovplatser = value; OnPropertyChanged(); } }

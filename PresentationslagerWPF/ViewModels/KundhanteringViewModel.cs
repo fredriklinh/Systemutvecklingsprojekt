@@ -7,6 +7,7 @@ using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -319,29 +320,30 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand taBortBokningCommand = null!;
         public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
         {
-            if (ValdBokningSelectedItem != null && valdLogiSelectedItem == null)
+            if (ValdBokningSelectedItem != null && valdLogiSelectedItem == null && DateTime.Now.Date.AddDays(8) <= ValdBokningSelectedItem.StartDatum && ValdBokningSelectedItem.Avbeställningsskydd == true)
             {
                 bokningsKontroller.TaBortMasterBokning(ValdBokningSelectedItem);
                 MessageBox.Show($"Bokning med bokningsNr: {valdBokningSelectedItem.BokningsNr} är borttagen", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
                 //möjlig fullösning
                 Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
-
-
             }
             else if (ValdBokningSelectedItem != null && ValdLogiSelectedItem != null)
             {
-
                 bokningsKontroller.TaBortLogiFrånBokning(ValdBokningSelectedItem, ValdLogiSelectedItem);
                 MessageBox.Show($"Logi: {valdLogiSelectedItem.LogiTyp} är borttagen", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (DateTime.Now.Date.AddDays(8) >= ValdBokningSelectedItem.StartDatum)
+            {
+                MessageBox.Show($"Går inte att avboka pga att det är mindre än 8 dagar innan ankomst", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else if (ValdBokningSelectedItem.Avbeställningsskydd == false)
+            {
+                MessageBox.Show($"Selecterad bokning saknar avbeställningsskydd", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
             {
                 MessageBox.Show($"Selectera bokning eller logi för att kunna ta bort", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-
-
-
-
         });
         #endregion
 

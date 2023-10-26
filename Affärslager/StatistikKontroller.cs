@@ -120,7 +120,19 @@ namespace Affärslager
 
         public List<string> HämtaUnikaBenämningarUtrustning()
         {
-            return unitOfWork.UtrustningRepository.GetAll().Select(a => a.Benämning).Distinct().ToList();
+            string paket = "Paket";
+            List<string> result = unitOfWork.UtrustningRepository.GetAll().Select(a => a.Benämning).Distinct().ToList();
+            List<string> updatedResult = new List<string>();
+
+            foreach (var item in result)
+            {
+                if (item != paket)
+                {
+                    updatedResult.Add(item);
+                }
+            }
+
+            return updatedResult;
         }
         public List<string> HämtaUnikaTyperUtrustning()
         {
@@ -165,7 +177,7 @@ namespace Affärslager
             {
                 foreach (Utrustning item2 in item.Utrustningar)
                 {
-                    if (item2.Typ == Typ) ub.Add(item);
+                    if (item2.Benämning == Typ) ub.Add(item);
 
                 }
 
