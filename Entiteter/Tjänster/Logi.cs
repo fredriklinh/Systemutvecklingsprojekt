@@ -26,10 +26,6 @@ namespace Entiteter.Tjänster
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
 
-        //public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
-
-        public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
-
         [ForeignKey("LogiTyp")]
         public string Typen { get; set; }
         public virtual LogiTyp? LogiTyp { get; set; }
