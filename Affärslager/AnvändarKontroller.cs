@@ -11,7 +11,7 @@ namespace Affärslager
         public void LaddaData()
         {
             dbContext DbContext = new dbContext();
-            DbContext.Reset();
+            //DbContext.Reset();
             DbContext.Database.EnsureCreated();
         }
 
