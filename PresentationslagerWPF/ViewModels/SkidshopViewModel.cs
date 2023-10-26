@@ -1430,7 +1430,7 @@ namespace PresentationslagerWPF.ViewModels
                 if (KreditCheckLektion == true)
                 {
                     MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, LektionsTotalSumma, mbe);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SelectedPrivatItem.Pris, mbe);
                     if (bVariabel == false)
                     {
                         KreditCheckLektion = false;
@@ -1440,7 +1440,7 @@ namespace PresentationslagerWPF.ViewModels
                 if (KreditCheckLektion == true && Företagskund != null)
                 {
                     MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, LektionsTotalSumma, mbe);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SelectedGruppItem.Pris, mbe);
                     if (bVariabel == false)
                     {
                         KreditCheckLektion = false;
