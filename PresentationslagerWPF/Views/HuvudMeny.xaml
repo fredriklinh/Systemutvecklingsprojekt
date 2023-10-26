@@ -37,7 +37,7 @@
                 </Style>
             </StackPanel.Resources>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Label Margin="0,40,0,0" HorizontalAlignment="Center" Foreground="#ffffff" FontSize="30" FontWeight="DemiBold">Huvudmeny</Label>
+                <Label Margin="0,40,0,0" HorizontalAlignment="Center" Foreground="#191970" FontSize="30" FontWeight="DemiBold">Huvudmeny</Label>
                 <Button  x:Name="btnBokning" Command="{Binding NavigateMasterBokningCommand}" Content="Bokning"  FontWeight="DemiBold"/>
                 <Button x:Name="btnUthyrning" Command="{Binding NavigateSkidshopCommand}" Content="Skidshop" FontWeight="DemiBold"></Button>
                 <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" FontWeight="DemiBold" ></Button>
