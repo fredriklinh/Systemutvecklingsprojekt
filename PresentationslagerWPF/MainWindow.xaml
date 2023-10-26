@@ -32,6 +32,9 @@
             <DataTemplate DataType="{x:Type viewmodels:StatistikViewModel}">
                 <views:StatistikView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminViewModel}">
+                <views:AdminView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
     <Window.Resources>

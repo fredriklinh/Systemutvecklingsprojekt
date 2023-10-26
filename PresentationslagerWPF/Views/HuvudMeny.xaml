@@ -5,43 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         xmlns:vm="PresentationslagerWPF.ViewModels"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
+        FontFamily="Calibri"
         >
-
-    <DockPanel LastChildFill="True" Background="#ffffff">
-        <Grid DockPanel.Dock="Top" Background="#4880ff" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+    <DockPanel Background="#edf2ff">
+        <Grid DockPanel.Dock="Top" Background="#191970 " VerticalAlignment="Center" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" HorizontalAlignment="Left">
-                <Image Source="/Bilder/Ski-Center-Logga.png" Margin="10,10" MaxWidth="200"/>
+                <Image Source="/Bilder/Ski-Center-Logga.png" Margin="5,10" MaxWidth="200"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="5,0,5,0" Header="_Uppdatera" Command="{Binding ExitCommand}"/>
+                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="5,0,5,0" Header="_Uppdatera" Command="{Binding UppddateraCommand}"/>
                 <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </StackPanel>
         </Grid>
-        <StackPanel Margin="30" Background="#4880ff" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Background="#edf2ff" VerticalAlignment="Stretch">
             <StackPanel.Resources>
                 <Style TargetType="Button">
-                    <Setter Property="Background" Value="#5a8dff" ></Setter>
-                    <Setter Property="Foreground" Value="#ffffff" ></Setter>
+                    <Setter Property="Background" Value="#191970"></Setter>
+                    <Setter Property="Foreground" Value="#dae6ff"></Setter>
                     <Setter Property="BorderThickness" Value="0"></Setter>
                     <Setter Property="Height" Value="40"></Setter>
                     <Setter Property="HorizontalAlignment" Value="Center"></Setter>
                     <Setter Property="Margin" Value="30,20,30,20"></Setter>
                     <Setter Property="FontSize" Value="25"></Setter>
+                    <Setter Property="Width" Value="200"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <Label HorizontalAlignment="Center" Foreground="#ffffff" FontSize="30" FontWeight="DemiBold">Huvudmeny</Label>
-            <Button x:Name="btnBokning" Command="{Binding NavigateMasterBokningCommand}" Content="Bokning" Width="250"  FontWeight="DemiBold"/>
-            <Button x:Name="btnUthyrning" Command="{Binding NavigateSkidshopCommand}" Content="Skidshop" Width="250" FontWeight="DemiBold"></Button>
-            <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" Width="250" FontWeight="DemiBold" ></Button>
-            <Separator Margin="10"/>
-            <Button x:Name="btnStatistik" Command="{Binding NavigateStatistikCommand}" Content="Statistik" Width="250" FontWeight="DemiBold"></Button>
-            <Button x:Name="btnAdmin" Content="Admin" Width="250" FontWeight="DemiBold" FontFamily="Calibri"></Button>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Margin="0,40,0,0" HorizontalAlignment="Center" Foreground="#ffffff" FontSize="30" FontWeight="DemiBold">Huvudmeny</Label>
+                <Button  x:Name="btnBokning" Command="{Binding NavigateMasterBokningCommand}" Content="Bokning"  FontWeight="DemiBold"/>
+                <Button x:Name="btnUthyrning" Command="{Binding NavigateSkidshopCommand}" Content="Skidshop" FontWeight="DemiBold"></Button>
+                <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" FontWeight="DemiBold" ></Button>
+                <Separator Margin="10"/>
+                <Button x:Name="btnStatistik" Command="{Binding NavigateStatistikCommand}" Content="Statistik" FontWeight="DemiBold"></Button>
+                <Button x:Name="btnAdmin" Content="Admin" Command="{Binding NavigateAdminCommand}" FontWeight="DemiBold"></Button>
+            </StackPanel>
         </StackPanel>
     </DockPanel>
 </UserControl>

@@ -179,7 +179,6 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-
         private bool isCheckedKredit = true!;
         public bool IsCheckedKredit { get => isCheckedKredit; set { isCheckedKredit = value; OnPropertyChanged(); } }
 
@@ -1121,7 +1120,6 @@ namespace PresentationslagerWPF.ViewModels
 
             
             } }
-
 
         private MasterBokning callesMasterBokning = null!;
         public MasterBokning CallesMasterBokning { get => callesMasterBokning; set { callesMasterBokning = value; OnPropertyChanged(); } }

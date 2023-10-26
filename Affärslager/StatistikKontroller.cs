@@ -71,10 +71,13 @@ namespace Affärslager
 
             return grupperadPerMånad;
         }
+
         public List<string> HämtaUnikaBenämningarLogi()
         {
             return unitOfWork.LogiRepository.GetAll().Select(a => a.Typen).Distinct().ToList();
         }
+
+
         public List<Dictionary<int, int>> HämtaAntalBokningarLogi(string Typ, int år)
         {
 

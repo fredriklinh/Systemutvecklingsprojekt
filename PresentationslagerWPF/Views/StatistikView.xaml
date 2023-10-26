@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PresentationslagerWPF.Views"
              xmlns:lvs="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800" Background="White">
     <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -44,15 +44,11 @@
         <Label Grid.Row="5" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Statistik Utrustning:</Label>
         <ComboBox x:Name="ÅrtalUtrustning" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemUtrustningÅr}" 
                   HorizontalAlignment="Center"  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Width="100"/>
-        
+
         <WrapPanel HorizontalAlignment="Center" Grid.Row="7" Grid.ColumnSpan="3">
             <DataGrid x:Name="StatistikUtrustning" ItemsSource="{Binding DisplayStatistikUtrustning}" AlternatingRowBackground="Gray" CanUserAddRows="False" 
                         IsReadOnly="True" AutoGenerateColumns="True">
             </DataGrid>
         </WrapPanel>
-
-
-
-
     </Grid>
 </UserControl>

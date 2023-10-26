@@ -1,6 +1,9 @@
 ﻿using Affärslager;
+using PresentationslagerWPF.Services;
 using PresentationslagerWPF.Stores;
 using PresentationslagerWPF.ViewModels;
+using PresentationslagerWPF.ViewModels.FönsterViewModel;
+using PresentationslagerWPF.Views.Fönster;
 using System.Windows;
 
 namespace PresentationslagerWPF
@@ -15,7 +18,11 @@ namespace PresentationslagerWPF
             NavigationStore navigationStore = new NavigationStore();
             AnvändarKontroller användarKontroller = new AnvändarKontroller();
 
+            Startup += (s, e) =>
+            {
+                WindowService.RegisterWindow<SkapaAnvändareViewModel, SkapaAnvändareWindow>();
 
+            };
 
             navigationStore.CurrentViewModel = new LoggaInViewModel(navigationStore);
 

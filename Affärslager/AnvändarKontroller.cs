@@ -21,6 +21,12 @@ namespace Affärslager
             return anv;
         }
 
+        public List<Användare> HämtaAllaAnvändare()
+        {
+            return unitOfWork.AnvändareRepository.GetAll().ToList();
+
+        }
+
         public ICollection<Användare> SökAnvändare(string input)
         {
             var query = unitOfWork.AnvändareRepository.Find(x => x.Användarnamn.Contains(input));
@@ -34,11 +40,11 @@ namespace Affärslager
             unitOfWork.AnvändareRepository.Add(användare);
             unitOfWork.Complete();
         }
-        public void UppdateraAnvändare(Användare användare)
-        {
-            unitOfWork.AnvändareRepository.Update(användare);
-            unitOfWork.Complete();
-        }
+        //public void UppdateraAnvändare(Användare användare)
+        //{
+        //    unitOfWork.AnvändareRepository.Update(användare);
+        //    unitOfWork.Complete();
+        //}
         public void TaBortAnvändare(Användare användare)
         {
             unitOfWork.AnvändareRepository.Delete(användare);
