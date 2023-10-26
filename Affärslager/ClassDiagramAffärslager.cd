@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Affärslager.KundKontroller.FöretagskundKontroller" Collapsed="true">
+    <Position X="12.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAQIACAAAAAAAAABAAAAAAAABA=</HashCode>
+      <FileName>KundKontroller\FöretagskundKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.KundKontroller.PrivatkundKontroller" Collapsed="true">
+    <Position X="12.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAABAAAAAAAAAAAAAACAAAAAAAACAAAAAAABAAA=</HashCode>
+      <FileName>KundKontroller\PrivatkundKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.AnvändarKontroller" Collapsed="true">
+    <Position X="7.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAABAAAEIAAgAAAAACAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>AnvändarKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.BokningsKontroller" Collapsed="true">
+    <Position X="9.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACABAAAAAAAAAAAGAAAACAAACAgCAAAAAgAAAABQI=</HashCode>
+      <FileName>BokningsKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.FakturaKontroller" Collapsed="true">
+    <Position X="11" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FakturaKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.KonferensKontroller" Collapsed="true">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>KonferensKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.LektionsKontroller" Collapsed="true">
+    <Position X="9.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wwgAQMQEAEAAEAAkAAAAAACAAIAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>LektionsKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.PrisKontroller" Collapsed="true">
+    <Position X="11" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAgAAACAAAABACAAAAAQAAAoIAAAAAAAAA=</HashCode>
+      <FileName>PrisKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.StatistikKontroller" Collapsed="true">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAACAEAAAAAAQAAAggABiAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatistikKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Affärslager.UtrustningsKontroller" Collapsed="true">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgABAEAAgAACAABAADBAAACQgAAAAAABAQCgAAQCAAI=</HashCode>
+      <FileName>UtrustningsKontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Datalager.Context.dbContext" Collapsed="true">
+    <Position X="1.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Datalager.Repository.Repository&lt;T&gt;" Collapsed="true">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Datalager.Seed.Seed" Collapsed="true">
+    <Position X="1.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Datalager.UnitOfWork" Collapsed="true">
+    <Position X="3.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

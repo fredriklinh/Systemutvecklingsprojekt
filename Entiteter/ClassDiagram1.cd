@@ -1,2 +1,159 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Entiteter.Personer.Användare" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAABAAAAACAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Personer\Användare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Personer.Elev" Collapsed="true">
+    <Position X="17.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Personer\Elev.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Personer.Företagskund" Collapsed="true">
+    <Position X="6.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAAACAAAAAgAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Personer\Företagskund.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Personer.Kund" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAACAAAAQAAAAAAAgAAABgAAAAAAAAAAA=</HashCode>
+      <FileName>Personer\Kund.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Personer.Person" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Personer\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Personer.Personal" Collapsed="true">
+    <Position X="19.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Personer\Personal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Personer.Privatkund" Collapsed="true">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAgAAgAAAAAAAACAAAAAAEAAAA=</HashCode>
+      <FileName>Personer\Privatkund.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entiteter.Prislistor.PrisListaKonferens" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAIAAAAAAAACQAAAAAAAAAAAAAAABAAAAE=</HashCode>
+      <FileName>Prislistor\PrisListaKonferens.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Prislistor.PrislistaLogi" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAgEABAAAAAAAAABAAEAA=</HashCode>
+      <FileName>Prislistor\PrislistaLogi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Prislistor.PrisListaUtrustning" Collapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAANADAAAAAAAQAAAAABAAAAA=</HashCode>
+      <FileName>Prislistor\PrisListaUtrustning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.Faktura" Collapsed="true">
+    <Position X="17.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tjänster\Faktura.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.GruppLektion" Collapsed="true">
+    <Position X="19.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAgEAAAAAQAAAAAABABAACAAAAAAAgACA=</HashCode>
+      <FileName>Tjänster\GruppLektion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.Konferenslokal" Collapsed="true">
+    <Position X="21" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tjänster\Konferenslokal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.Logi" Collapsed="true">
+    <Position X="22.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAgAAAAAggAAAAAAAAAAAAAAAAAIAEAAAAAAA=</HashCode>
+      <FileName>Tjänster\Logi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.LogiTyp" Collapsed="true">
+    <Position X="17.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tjänster\LogiTyp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.MasterBokning" Collapsed="true">
+    <Position X="19.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAEAQAACAQAACAUAQAAACAAAEACEAABCAAAAAA=</HashCode>
+      <FileName>Tjänster\MasterBokning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.PrivatLektion" Collapsed="true">
+    <Position X="21" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAgAAAAAAQAAAAAABABAACAAAAAAAgACA=</HashCode>
+      <FileName>Tjänster\PrivatLektion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.Utrustning" Collapsed="true">
+    <Position X="22.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACEAACIAAAgAAAAAAEAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Tjänster\Utrustning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.UtrustningsBokning" Collapsed="true">
+    <Position X="17.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAUIAAAAGBAABEAAAAAAAAAAAA=</HashCode>
+      <FileName>Tjänster\UtrustningsBokning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entiteter.Tjänster.UtrustningsTyp" Collapsed="true">
+    <Position X="19.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIgAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Tjänster\UtrustningsTyp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Entiteter.Interface.IPerson" Collapsed="true">
+    <Position X="4.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IPerson.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Entiteter.Enums.Svårighetsgrad" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAABAAAAAAAAAAAAAAAAAAAgBAAAAAAAAA=</HashCode>
+      <FileName>Enums\Svårighetsgrad.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
