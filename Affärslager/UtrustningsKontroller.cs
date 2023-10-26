@@ -322,7 +322,7 @@ namespace Affärslager
             //        utr.StatusTillgänglig();
             //    }
             //}
-
+            
             foreach (Utrustning item in utrustningsbokning.Utrustningar) item.StatusTillgänglig();
 
             if (utrustningsbokning.PåKredit == true)
