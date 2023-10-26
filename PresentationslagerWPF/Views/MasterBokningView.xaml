@@ -47,7 +47,7 @@
                                 <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Sluttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" IsEnabled="{Binding IsEnabledSökDatum}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" IsEnabled="{Binding IsEnabledSökDatum}" Margin="10,10,10,10" Content="Sök" Background="DarkSeaGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel></StackPanel>
@@ -257,7 +257,7 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
-                                <i:InvokeCommandAction Command="{Binding UppdateraCommandMasterBokning, UpdateSourceTrigger=PropertyChanged}" />
+                                <i:InvokeCommandAction Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>

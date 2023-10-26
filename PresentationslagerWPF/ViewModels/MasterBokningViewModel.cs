@@ -436,7 +436,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
-            UppddateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
+            UppdateraCommand = new NavigateCommand<MasterBokningViewModel>(new NavigationService<MasterBokningViewModel>(navigationStore, () => new MasterBokningViewModel(navigationStore, användare)));
             Användare = användare;
         }
 
@@ -446,7 +446,7 @@ namespace PresentationslagerWPF.ViewModels
 
         public ICommand NavigateLoggaUtCommand { get; }
         public ICommand TillbakaCommand { get; }
-        public ICommand UppddateraCommand { get; }
+        public ICommand UppdateraCommand { get; }
 
 
 

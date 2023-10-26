@@ -640,7 +640,11 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand AccepteraÅterlämningCommand => accepteraÅterlämningCommand ??= accepteraÅterlämningCommand = new RelayCommand(() =>
         {
             MasterBokning masterBokning = utrustningsKontroller.FullbordaÅterlämning(InputBokningsNr.ToString());
-            PDF.CreatePDF.SkapaFaktura(masterBokning, InputBokningsNr.ToString());
+            if (masterBokning != null)
+            {
+                PDF.CreatePDF.SkapaFaktura(masterBokning, InputBokningsNr.ToString());
+            }
+            
 
 
             MessageBox.Show($"Utrustning återlämnad!", "Återlämning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
