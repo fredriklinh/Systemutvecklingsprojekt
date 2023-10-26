@@ -206,37 +206,42 @@ namespace Affärslager
         }
 
 
-        public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
-        {
-            //SKA TESTAS
-            masterBokning.NyttjadKreditsumma += summaBokning;
-            if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
-            {
-                unitOfWork.Complete();
-                return masterBokning;
+        //public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
+        //{
+        //    //SKA TESTAS
+        //    masterBokning.NyttjadKreditsumma += summaBokning;
+        //    if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
+        //    {
+        //        unitOfWork.Complete();
+        //        return masterBokning;
 
-            }
-            else return masterBokning;
-        }
+        //    }
+        //    else return masterBokning;
+        //}
 
         public MasterBokning FixaPrisLektion(double summa, bool påKredit, MasterBokning mB)
         {
             if (mB.OrgaNr != null)
             {
                 Företagskund fk = unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(mB.OrgaNr));
-                if (påKredit == true) KollaKredtiTotal(fk.MaxBeloppsKreditGräns, summa, mB);
-                if (mB.NyttjadKreditsumma > fk.MaxBeloppsKreditGräns) return mB;
+                if (påKredit == true)
+                {
+                    mB.NyttjadKreditsumma += summa;
+                }
             }
 
             if (mB.PersonNr != null)
             {
                 Privatkund pk = unitOfWork.PrivatkundRepository.FirstOrDefault(m => m.Personnummer.Equals(mB.PersonNr));
-                if (påKredit == true) KollaKredtiTotal(pk.MaxBeloppsKreditGräns, summa, mB);
-                if (mB.NyttjadKreditsumma > pk.MaxBeloppsKreditGräns) return mB;
-
+                if (påKredit == true)
+                {
+                    mB.NyttjadKreditsumma += summa;
+                }
             }
+            unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
             return mB;
+            
         }
     }
 }

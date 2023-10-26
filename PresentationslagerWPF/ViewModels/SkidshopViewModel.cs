@@ -1450,22 +1450,20 @@ namespace PresentationslagerWPF.ViewModels
 
         public void StoppaKreditLektion()
         {
-            if (KreditCheckLektion == true && Privatkund != null)
+            if (KreditCheckLektion == true && Privatkund != null && MasterBokning != null)
             {
-                if (KreditCheckLektion == true)
+                if (KreditCheckLektion == true && SelectedPrivatItem != null)
                 {
-                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SelectedPrivatItem.Pris, mbe);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SelectedPrivatItem.Pris, MasterBokning);
                     if (bVariabel == false)
                     {
                         KreditCheckLektion = false;
                         MessageBox.Show("Kunden har nått maxkredit!");
                     }
                 }
-                if (KreditCheckLektion == true && Företagskund != null)
+                if (KreditCheckLektion == true && Företagskund != null && MasterBokning != null && selectedGruppItem != null)
                 {
-                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SelectedGruppItem.Pris, mbe);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SelectedGruppItem.Pris, MasterBokning);
                     if (bVariabel == false)
                     {
                         KreditCheckLektion = false;
