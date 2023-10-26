@@ -129,6 +129,7 @@ namespace PresentationslagerWPF.ViewModels
 
         private string kundnummer;
         public string Kundnummer {get => kundnummer; set { kundnummer = value; OnPropertyChanged();
+
                 StoppaSparaKnappen();
 
             } }

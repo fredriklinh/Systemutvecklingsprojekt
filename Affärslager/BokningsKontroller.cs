@@ -122,6 +122,7 @@ namespace Affärslager
             }
 
             // No items found in pmb or fmb; search in bNr (Item)
+
             int input = Int32.Parse(kundnummer);
             foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(e => e.BokningsNr == input))
             {
@@ -129,7 +130,7 @@ namespace Affärslager
             }
 
             return masterbokningar;
-
+            
 
         }
         public MasterBokning HämtaAktivPrivatkundMasterbokning(Privatkund privatkund,DateTime datum)
