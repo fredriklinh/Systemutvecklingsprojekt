@@ -18,7 +18,6 @@ namespace Entiteter.Personer
         public double RabattSats { get; set; }
 
         public virtual IList<Faktura> Fakturor { get; set; } = new List<Faktura>();
-        public virtual IList<MasterBokning> MasterBokningar { get; set; } = new List<MasterBokning>();
 
         public Företagskund(double maxBeloppsKreditGränds, string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string orgNr, string företagsNamn, double rabattSats)
         {

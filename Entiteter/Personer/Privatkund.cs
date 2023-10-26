@@ -14,7 +14,6 @@ namespace Entiteter.Personer
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
         public virtual IList<Faktura> Fakturor { get; set; } = new List<Faktura>();
-        public virtual IList<MasterBokning> MasterBokningar { get; set; } = new List<MasterBokning>();
 
 
 

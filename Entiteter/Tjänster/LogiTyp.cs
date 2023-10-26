@@ -5,8 +5,6 @@
 
         public string LogiTypId { get; set; }
 
-        public virtual IList<Logi> Logier { get; set; }
-
 
         public LogiTyp()
         {
