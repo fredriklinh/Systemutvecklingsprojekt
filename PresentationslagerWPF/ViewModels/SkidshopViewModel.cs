@@ -1151,7 +1151,7 @@ namespace PresentationslagerWPF.ViewModels
                         KreditIsChecked = false;
                         MessageBox.Show("Kunden har nått maxkredit!");
                     }
-                }
+                }                        
             }
         }
 
