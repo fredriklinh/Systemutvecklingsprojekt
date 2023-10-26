@@ -1294,14 +1294,14 @@ namespace PresentationslagerWPF.ViewModels
                         GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(LektionsDatum));
                         PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(LektionsDatum));
                         AllaLektioner = new ObservableCollection<object>(lektionsKontroller.HämtaAktuellaLektioner(PrivatLektioner, GruppLektioner));
-                        KnappAktiv = true;
+                        StoppaElevKnappen();
                     }
                     else if (GruppLektioner != null || PrivatLektioner != null || AllaLektioner != null)
                     {
                         GruppLektioner.Clear();
                         PrivatLektioner.Clear();
                         AllaLektioner.Clear();
-                        KnappAktiv = false;
+                        StoppaElevKnappen();
                     }
                 }
                 else
@@ -1413,13 +1413,17 @@ namespace PresentationslagerWPF.ViewModels
         public string InFörnamn
         {
             get { return inFörnamn; }
-            set { inFörnamn = value; OnPropertyChanged(); }
+            set { inFörnamn = value; OnPropertyChanged();
+                StoppaElevKnappen();
+            }
         }
         private string inEfternamn;
         public string InEfternamn
         {
             get { return inEfternamn; }
-            set { inEfternamn = value; OnPropertyChanged(); }
+            set { inEfternamn = value; OnPropertyChanged();
+                StoppaElevKnappen();
+            }
         }
 
 
@@ -1493,6 +1497,18 @@ namespace PresentationslagerWPF.ViewModels
             }
             LektionsTotalSumma = total;
         }
+        public void StoppaElevKnappen()
+        {
+            if ((Privatkund != null || Företagskund != null) &&
+                    (SelectedPrivatItem != null || SelectedGruppItem != null ) &&
+                    !string.IsNullOrEmpty(InFörnamn) &&
+                    !string.IsNullOrEmpty(InEfternamn))
+            {
+                KnappAktiv = true;
+            }
+            else { KnappAktiv = false; }
+        }
+
 
 
         #endregion

@@ -332,9 +332,9 @@
             </StackPanel>
             <StackPanel  DockPanel.Dock="Top"   Background="LightGray" HorizontalAlignment="Stretch" Orientation="Horizontal">
                 <Label Content="Förnamn:" Margin="0,10,0,10" Height="24"/>
-                <TextBox x:Name="txtFörN" Width="100" Text="{Binding InFörnamn, Mode=OneWayToSource}" Margin="0,10,0,10"/>
+                <TextBox x:Name="txtFörN" Width="100" Text="{Binding InFörnamn, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,10"/>
                 <Label Content="Efternamn:" Margin="10" Height="24"/>
-                <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, Mode=OneWayToSource}" Margin="10"/>
+                <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, UpdateSourceTrigger=PropertyChanged}" Margin="10"/>
                 <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" 
                         Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}" 
                         IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}"/>

@@ -471,6 +471,17 @@ namespace PresentationslagerWPF.ViewModels
 
         });
 
+        private ICommand gömKommand = null!;
+        public ICommand GömKommand => gömKommand ??= gömKommand = new RelayCommand(() =>
+        {
+            TillgängligaKonferensRum = new ObservableCollection<Konferenslokal>(konferensKontroller.HämtaTillgängligKonferens(Starttid, Sluttid));
+            ValdaKonferensRum = new ObservableCollection<Konferenslokal>();
+            SeKonferens = Visibility.Visible;
+            GömAllt = Visibility.Collapsed;
+
+        });
+
+
         private ICommand taBortKonferens = null!;
         public ICommand TaBortKonferens => taBortKonferens ??= taBortKonferens = new RelayCommand(() =>
         {
