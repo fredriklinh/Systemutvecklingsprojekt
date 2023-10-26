@@ -1404,16 +1404,66 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region SUMMA - Lektion
-        private int lektionsTotalSumma;
-        public int LektionsTotalSumma
+        #region SUMMA & Metoder - Lektion
+        private double lektionsTotalSumma;
+        public double LektionsTotalSumma
         {
             get { return lektionsTotalSumma; }
             set
             {
                 lektionsTotalSumma = value; OnPropertyChanged();
+                StoppaKreditLektion();
             }
         }
+
+        public void StoppaKreditLektion()
+        {
+            if (KreditCheckLektion == true && Privatkund != null)
+            {
+                if (KreditCheckLektion == true)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, LektionsTotalSumma, mbe);
+                    if (bVariabel == false)
+                    {
+                        KreditCheckLektion = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                }
+                if (KreditCheckLektion == true && Företagskund != null)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, LektionsTotalSumma, mbe);
+                    if (bVariabel == false)
+                    {
+                        KreditCheckLektion = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                }
+            }
+        }
+
+        public void BeräknaLektionsTotalSumma()
+        {
+            double total = 0;
+            if(SelectedGruppItem!= null) 
+            { 
+            foreach (var item in Eleverna)
+            {
+                total += SelectedGruppItem.Pris;
+            }
+
+            }
+            if(SelectedPrivatItem!= null) 
+            {
+                foreach (var item in Eleverna)
+                {
+                    total += SelectedPrivatItem.Pris;
+                }
+            }
+            LektionsTotalSumma = total;
+        }
+
 
         #endregion
 
@@ -1441,9 +1491,11 @@ namespace PresentationslagerWPF.ViewModels
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
                 lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, MasterBokning);
 
+
             }
             CreatePDF.SkapaKvittoLektionAlla(MasterBokning, Inlämning);
-
+            BeräknaLektionsTotalSumma();
+            StoppaKreditLektion();
         });
 
         private ICommand avbokaElevCommand = null!;
@@ -1463,6 +1515,7 @@ namespace PresentationslagerWPF.ViewModels
                 lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem, MasterBokning);
             }
             Eleverna.Clear();
+            BeräknaLektionsTotalSumma();
         });
 
 
