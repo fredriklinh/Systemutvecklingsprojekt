@@ -1135,13 +1135,14 @@ namespace PresentationslagerWPF.ViewModels
                 if (KreditIsChecked == true)
                 {
                     MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SelectedGruppItem.Pris, mbe);
                     if (bVariabel == false)
                     {
                         KreditIsChecked = false;
                         MessageBox.Show("Kunden har nått maxkredit!");
                     }
                 }
+            }
                 if (KreditIsChecked == true && Företagskund != null)
                 {
                     MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
@@ -1153,7 +1154,6 @@ namespace PresentationslagerWPF.ViewModels
                     }
                 }                        
             }
-        }
 
 
         #endregion
