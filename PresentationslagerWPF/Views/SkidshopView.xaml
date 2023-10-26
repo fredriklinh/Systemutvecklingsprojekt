@@ -73,7 +73,7 @@
                 <Label Content="Personnummer/OrgNr:"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"/>
-                    <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"/>
+                    <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"/>
                 </StackPanel>
             </StackPanel>
             <!--PANEL FÖR PRIVATKUND-->

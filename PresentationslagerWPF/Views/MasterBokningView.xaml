@@ -47,7 +47,7 @@
                                 <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Sluttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" ToolTip="Klicka för att söka efter boende inom angivna datum" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" ToolTip="Klicka för att söka efter boende inom angivna datum" Margin="10,10,10,10" Content="Sök" Background="DarkSeaGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel></StackPanel>
@@ -56,7 +56,7 @@
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" >Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Ange personnummer- eller organisationsnummer" Height="25" Width="100"></TextBox>
-                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" ToolTip="Klicka för att söka efter en kund"  Height="25" Width="50" Content="Sök" Background="LightGreen"></Button>
+                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" ToolTip="Klicka för att söka efter en kund"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"></Button>
                     </StackPanel>
                 </StackPanel>
                 <!--PANEL FÖR PRIVATKUND-->
@@ -177,7 +177,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                             <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
-                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" ToolTip="Klicka för lägga till valt logi" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
+                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" ToolTip="Klicka för lägga till valt logi" Height="25" Width="70"  Content="Lägg till" Background="DarkSeaGreen"></Button>
 
                             <DataGrid x:Name="KonferensAlternativ" Visibility = "{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum}"
@@ -253,7 +253,7 @@
 
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Visibility="{Binding SeKonferens}" Command="{Binding TaBortCommand}" ToolTip="Klicka för att ta bort valt logi" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button x:Name="btnSpara" Visibility="{Binding SeKonferens}" ToolTip="Klicka för att spara bokning, kund och logi måste vara valda!" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen" IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}">
+                <Button x:Name="btnSpara" Visibility="{Binding SeKonferens}" ToolTip="Klicka för att spara bokning, kund och logi måste vara valda!" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="DarkSeaGreen" IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
@@ -262,6 +262,7 @@
                     </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
+        </StackPanel>
         </StackPanel>
     </DockPanel>
 </UserControl>
