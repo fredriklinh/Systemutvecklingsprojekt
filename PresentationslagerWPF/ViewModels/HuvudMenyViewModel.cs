@@ -28,7 +28,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand NavigateStatistikCommand { get; }
         public ICommand NavigateAdminCommand { get; }
 
-
+        
 
 
         //**** NAVBAR *******//

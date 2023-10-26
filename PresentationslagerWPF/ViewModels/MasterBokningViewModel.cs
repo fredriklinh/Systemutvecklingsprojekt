@@ -129,6 +129,7 @@ namespace PresentationslagerWPF.ViewModels
 
         private string kundnummer;
         public string Kundnummer {get => kundnummer; set { kundnummer = value; OnPropertyChanged();
+                //UppdateraCommandMasterBokning.Execute(true);
                 StoppaSparaKnappen();
 
             } }
@@ -527,41 +528,53 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
 
-            Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
-            if (Privatkund != null)
-            {
-                FSynlighet = Visibility.Collapsed;
-                KSynlighet = Visibility.Visible;
-                InputAdress = Privatkund.Adress;
-                InputPostnummer = Privatkund.Postnummer;
-                InputOrt = Privatkund.Ort;
-                InputTelefonnummer = Privatkund.Telefonnummer;
-                InputMailAdress = Privatkund.MailAdress;
-                Kundnummer = Privatkund.Personnummer;
-                InputFörnamn = Privatkund.Förnamn;
-                InputEfternamn = Privatkund.Efternamn;
+        Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
+        if (Privatkund != null)
+        {
+            FSynlighet = Visibility.Collapsed;
+            KSynlighet = Visibility.Visible;
+            InputAdress = Privatkund.Adress;
+            InputPostnummer = Privatkund.Postnummer;
+            InputOrt = Privatkund.Ort;
+            InputTelefonnummer = Privatkund.Telefonnummer;
+            InputMailAdress = Privatkund.MailAdress;
+            Kundnummer = Privatkund.Personnummer;
+            InputFörnamn = Privatkund.Förnamn;
+            InputEfternamn = Privatkund.Efternamn;
 
-            }
-            Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-            if (företagskund != null)
+        }
+        Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
+        
+        if (Företagskund != null)
             {
 
-                KSynlighet = Visibility.Collapsed;
-                FSynlighet = Visibility.Visible;
+            KSynlighet = Visibility.Collapsed;
+            FSynlighet = Visibility.Visible;
             }
+        
             if ((Privatkund != null || Företagskund != null) &&
-                (ValdLogi != null && ValdLogi.Count >= 1) &&
-                !string.IsNullOrEmpty(InputAdress) &&
-                !string.IsNullOrEmpty(InputPostnummer) &&
-                !string.IsNullOrEmpty(InputOrt) &&
-                !string.IsNullOrEmpty(InputTelefonnummer) &&
-                !string.IsNullOrEmpty(InputMailAdress) &&
-                !string.IsNullOrEmpty(Kundnummer) &&
-                !string.IsNullOrEmpty(InputFörnamn) &&
-                !string.IsNullOrEmpty(InputEfternamn))
+            (ValdLogi != null && ValdLogi.Count >= 1) &&
+            !string.IsNullOrEmpty(InputAdress) &&
+            !string.IsNullOrEmpty(InputPostnummer) &&
+            !string.IsNullOrEmpty(InputOrt) &&
+            !string.IsNullOrEmpty(InputTelefonnummer) &&
+            !string.IsNullOrEmpty(InputMailAdress) &&
+            !string.IsNullOrEmpty(Kundnummer) &&
+            !string.IsNullOrEmpty(InputFörnamn) &&
+            !string.IsNullOrEmpty(InputEfternamn))
             {
-                KnappAktiv = true;
+            KnappAktiv = true;
             }
+
+            if ((privatkundKontroller.SökPrivatkund(Kundnummer) == null) && (företagskundKontroller.SökFöretagskund(Kundnummer) == null))
+            {
+                MessageBox.Show("Kund med organisationsnummer/personummer: " + " '" + Kundnummer + "' " +
+                    "finns inte registrerad.", "Bokning");
+            }
+            
+
+
+
 
         });
 

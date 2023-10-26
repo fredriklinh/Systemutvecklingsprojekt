@@ -45,7 +45,7 @@
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="100"></TextBox>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="100"></TextBox>
                         <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"></Button>
                     </StackPanel>
                 </StackPanel>
