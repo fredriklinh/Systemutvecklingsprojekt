@@ -1482,6 +1482,7 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
+            StoppaKreditLektion();
             if (SelectedPrivatItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning !=null)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
@@ -1503,7 +1504,6 @@ namespace PresentationslagerWPF.ViewModels
             }
             CreatePDF.SkapaKvittoLektionAlla(MasterBokning, Inlämning);
             BeräknaLektionsTotalSumma();
-            StoppaKreditLektion();
         });
 
         private ICommand avbokaElevCommand = null!;

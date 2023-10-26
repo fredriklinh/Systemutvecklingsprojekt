@@ -37,13 +37,6 @@
   <ItemGroup>
     <Folder Include="PDF\Bokningsbekräftelse\" />
     <Folder Include="PDF\KvittoUtrustning\" />
-    <Folder Include="PDF\KvittoUtrustning\" />
-    <Folder Include="PDF\KvittoUtrustning\" />
-    <Folder Include="PDF\KvittoLektion\" />
-    <Folder Include="PDF\KvittoLektion\" />
-    <Folder Include="PDF\KvittoUtrustning\" />
-    <Folder Include="PDF\Bokningsbekräftelse\" />
-    <Folder Include="PDF\Bokningsbekräftelse\" />
   </ItemGroup>
 
 </Project>
