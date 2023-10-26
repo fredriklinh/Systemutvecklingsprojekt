@@ -1471,7 +1471,6 @@ namespace Datalager.Seed
 
                 modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
                 {
-                    FöretagsId = 999 + i,
                     OrgNr = "4343-2321",
                     FöretagsNamn = "Byggplockarna AB",
                     Adress = "Karlatornsväg 23",
