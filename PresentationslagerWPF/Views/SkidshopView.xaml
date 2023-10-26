@@ -341,7 +341,8 @@
             </StackPanel>
             
             <StackPanel Margin="5" DockPanel.Dock="Top">
-                <Label Content="Veckans lektioner:" FontSize="16" HorizontalAlignment="Center" />
+                <Label Content="Pris för vald lektion" FontSize="16" HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding LektionsTotalSumma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Width="50"></TextBox>
                 <StackPanel  Orientation="Horizontal">
                     <StackPanel>
                         <DataGrid Height="118" ItemsSource="{Binding AllaLektioner}"

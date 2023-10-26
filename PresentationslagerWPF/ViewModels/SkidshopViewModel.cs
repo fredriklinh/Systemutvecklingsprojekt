@@ -30,7 +30,7 @@ namespace PresentationslagerWPF.ViewModels
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
         BokningsKontroller bokningsKontroller = new BokningsKontroller();
 
-        #region Observable Collection 
+        #region Observable Collection utrustning
 
 
         private ObservableCollection<DisplayUtrustning> totalDisplayUtrustning = null!;
@@ -195,7 +195,7 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     kreditIsChecked = value;
                     OnPropertyChanged(nameof(KreditIsChecked));
-                    StoppaKredit();
+                    StoppaKreditUtrustning();
                     }
 
                 }
@@ -392,7 +392,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region Commands
+        #region Command - Spara Utrustning
 
         private ICommand sparaCommand = null!;
         public ICommand SparaCommand => sparaCommand ??= sparaCommand = new RelayCommand(() =>
@@ -476,11 +476,11 @@ namespace PresentationslagerWPF.ViewModels
             }
             hämtadUtrustning.Clear();
         });
-
+        #endregion
 
         #region Properties Logi, Privatkund (Sprint1)
 
-        
+
 
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
@@ -771,7 +771,7 @@ namespace PresentationslagerWPF.ViewModels
             }
             lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
         });
-
+        #region Lägg till Commands - Utrustning
         private ICommand läggTillAlpinCommand = null!;
         public ICommand LäggTillAlpinCommand => läggTillAlpinCommand ??= läggTillAlpinCommand = new RelayCommand(() =>
         {
@@ -783,7 +783,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaAlpin = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-                StoppaKredit();
+                StoppaKreditUtrustning();
             }
 
 
@@ -800,7 +800,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaSnowboard = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-                StoppaKredit();
+                StoppaKreditUtrustning();
             }
 
         });
@@ -815,7 +815,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaLängd = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-                StoppaKredit();
+                StoppaKreditUtrustning();
             }
 
         });
@@ -830,7 +830,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaHjälm = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-                StoppaKredit();
+                StoppaKreditUtrustning();
             }
 
         });
@@ -845,41 +845,15 @@ namespace PresentationslagerWPF.ViewModels
                 SummaSkoter = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-                StoppaKredit();
+                StoppaKreditUtrustning();
 
             }
 
         });
 
         #endregion
-        public void StoppaKredit()
-        {
-            if (KreditIsChecked == true && Privatkund != null)
-            {
-                if (KreditIsChecked == true)
-                {
-                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool Potatis = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
-                    if (Potatis == false)
-                    {
-                        KreditIsChecked = false;
-                        MessageBox.Show("Kunden har nått maxkredit!");
-                    }
-                }
-                if (KreditIsChecked == true && Företagskund != null)
-                {
-                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool Potatis = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SummaTotal, mbe);
-                    if (Potatis == false)
-                    {
-                        KreditIsChecked = false;
-                        MessageBox.Show("Kunden har nått maxkredit!");
-                    }
-                }
-            }
-        }
 
-        #region SUMMA
+        #region SUMMA - Utrustning
         private int summaTotal;
         public int SummaTotal
         {
@@ -887,7 +861,7 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 summaTotal = value; OnPropertyChanged();
-                StoppaKredit();
+                StoppaKreditUtrustning();
             }
         }
 
@@ -938,7 +912,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region AntalInt
+        #region AntalInt - Utrustning
 
         private ObservableCollection<int> antalAlpin;
         public ObservableCollection<int> AntalAlpin
@@ -985,7 +959,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region SELECTEDITEM
+        #region SELECTEDITEM - Utrustning
 
         private DisplayUtrustning selectedItemDisplayUtrustning = null!;
         public DisplayUtrustning SelectedItemDisplayUtrustning
@@ -1096,7 +1070,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        #region Metoder
+        #region Metoder - Utrustning
 
         public bool ÄrRedanIBokning(Utrustning selectedItem)
         {
@@ -1148,10 +1122,39 @@ namespace PresentationslagerWPF.ViewModels
             }
             SummaTotal = total;
         }
+
+        public void StoppaKreditUtrustning()
+        {
+            if (KreditIsChecked == true && Privatkund != null)
+            {
+                if (KreditIsChecked == true)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    if (bVariabel == false)
+                    {
+                        KreditIsChecked = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                }
+                if (KreditIsChecked == true && Företagskund != null)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    if (bVariabel == false)
+                    {
+                        KreditIsChecked = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                }
+            }
+        }
+
+
         #endregion
 
 
-        #region SELECTED INT
+        #region SELECTED INT - Utrustning
 
         private int selectedItemAntalAlpin;
         public int SelectedItemAntalAlpin
@@ -1218,10 +1221,12 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
+
+
         #endregion
 
 
-        #region SKIDLEKTION Observables ............
+        #region Observable Properties & Collections - Skidlektion ............
 
 
         private bool kreditCheckLektion;
@@ -1396,6 +1401,19 @@ namespace PresentationslagerWPF.ViewModels
 
         private Elev elevAttTaBortIndex = null!;
         public Elev ElevAttTaBortIndex { get => elevAttTaBortIndex; set { elevAttTaBortIndex = value; OnPropertyChanged(); } }
+        #endregion
+
+
+        #region SUMMA - Lektion
+        private int lektionsTotalSumma;
+        public int LektionsTotalSumma
+        {
+            get { return lektionsTotalSumma; }
+            set
+            {
+                lektionsTotalSumma = value; OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -1456,86 +1474,5 @@ namespace PresentationslagerWPF.ViewModels
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //private DisplayUtrustning antalTest = null!;
-        //public DisplayUtrustning AntalTest
-        //{
-        //    get => antalTest;
-        //    set
-        //    {
-        //        antalTest = value; OnPropertyChanged();
-
-        //    }
-        //}
-        private ObservableCollection<DisplayUtrustning> antalTestList = null!;
-        public ObservableCollection<DisplayUtrustning> AntalTestList
-        {
-            get => antalTestList; set
-            {
-                antalTestList = value; OnPropertyChanged();
-            }
-        }
-
-
-
-        private string inPutKundSök;
-        public string InputKundSök { get => inPutKundSök; set { inPutKundSök = value; OnPropertyChanged(); } }
-
-
-
-
-
-
     }
 }
-
-
