@@ -184,24 +184,6 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-        private bool kreditIsChecked;
-
-        public bool KreditIsChecked
-        {
-            get { return kreditIsChecked; }
-            set
-            {
-                if (kreditIsChecked != value)
-                {
-                    kreditIsChecked = value;
-                    OnPropertyChanged(nameof(KreditIsChecked));
-                    StoppaKreditUtrustning();
-                    }
-
-                }
-            }
-
-
 
         #region NAVIGATION
         //**** NAVIGATION *******//
@@ -302,6 +284,8 @@ namespace PresentationslagerWPF.ViewModels
 
         #region Properties Utrustning + Datum
 
+
+
         private Användare användare = null!;
         public Användare Användare
         {
@@ -387,6 +371,23 @@ namespace PresentationslagerWPF.ViewModels
             get { return gömLämnaUtKnapp; }
             set { gömLämnaUtKnapp = value; OnPropertyChanged(); }
 
+        }
+
+        private bool kreditIsChecked;
+
+        public bool KreditIsChecked
+        {
+            get { return kreditIsChecked; }
+            set
+            {
+                if (kreditIsChecked != value)
+                {
+                    kreditIsChecked = value;
+                    OnPropertyChanged(nameof(KreditIsChecked));
+                    StoppaKreditUtrustning();
+                }
+
+            }
         }
 
         #endregion
@@ -584,6 +585,7 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
+        #region Commands Utrustning + SökKund
         private ICommand skrivUtKvittoCommand = null!;
         public ICommand SkrivUtKvittoCommand => skrivUtKvittoCommand ??= skrivUtKvittoCommand = new RelayCommand(() =>
         {
@@ -771,6 +773,9 @@ namespace PresentationslagerWPF.ViewModels
             }
             lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
         });
+
+        #endregion
+
         #region Lägg till Commands - Utrustning
         private ICommand läggTillAlpinCommand = null!;
         public ICommand LäggTillAlpinCommand => läggTillAlpinCommand ??= läggTillAlpinCommand = new RelayCommand(() =>
@@ -1239,6 +1244,7 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     kreditCheckLektion = value;
                     OnPropertyChanged(nameof(KreditCheckLektion));
+                    StoppaKreditLektion();
                 }
             }
         }
@@ -1458,7 +1464,9 @@ namespace PresentationslagerWPF.ViewModels
             {
                 foreach (var item in Eleverna)
                 {
-                    total += SelectedPrivatItem.Pris;
+                    double x = Eleverna.Count;
+                    double prisXElever = SelectedPrivatItem.Pris * x;
+                    total += prisXElever;
                 }
             }
             LektionsTotalSumma = total;
