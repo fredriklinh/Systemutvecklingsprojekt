@@ -133,7 +133,7 @@ namespace Affärslager
         }
         public MasterBokning HämtaAktivPrivatkundMasterbokning(Privatkund privatkund, DateTime datum)
         {
-            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datum && a.StartDatum <= datum && a.PersonNr == privatkund.Personnummer);
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum.Date >= datum && a.StartDatum.Date <= datum && a.PersonNr == privatkund.Personnummer);
             return masterBokning;
         }
         public MasterBokning HämtaAktivFöretagskundMasterbokning(Företagskund företagskund, DateTime datum)

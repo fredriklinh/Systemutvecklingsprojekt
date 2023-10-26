@@ -18,6 +18,9 @@ namespace Entiteter.Tjänster
         [ForeignKey("Personal")]
         public int? Lärare { get; set; }
         public virtual Personal Personal { get; set; } = null!;
+        [ForeignKey("MasterBokning")]
+        public int? BokningsNr { get; set; }
+        public virtual MasterBokning? MasterBokning { get; set; }
 
         public GruppLektion() { }
     }
