@@ -547,7 +547,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 kundnummer = value; OnPropertyChanged();
 
-                CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                MasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
             }
         }
         private Företagskund företagskund = null!;
@@ -865,10 +865,6 @@ namespace PresentationslagerWPF.ViewModels
                         KreditIsChecked = false;
                         MessageBox.Show("Kunden har nått maxkredit!");
                     }
-                    else
-                    {
-
-                    }
                 }
                 if (KreditIsChecked == true && Företagskund != null)
                 {
@@ -878,10 +874,6 @@ namespace PresentationslagerWPF.ViewModels
                     {
                         KreditIsChecked = false;
                         MessageBox.Show("Kunden har nått maxkredit!");
-                    }
-                    else
-                    {
-
                     }
                 }
             }
@@ -1246,6 +1238,8 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+
+
         
         private DateTime lektionsDatum = DateTime.Now;
         public DateTime LektionsDatum
@@ -1286,12 +1280,6 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-        private MasterBokning callesMasterBokning = null!;
-        public MasterBokning CallesMasterBokning { get => callesMasterBokning; set { callesMasterBokning = value; OnPropertyChanged(); } }
-
-
-        private ObservableCollection<Elev> elev = null!;
-        public ObservableCollection<Elev> Elev { get => elev; set { elev = value; OnPropertyChanged(); } }
 
         private ObservableCollection<GruppLektion> gruppLektioner = null!;
         public ObservableCollection<GruppLektion> GruppLektioner
@@ -1436,7 +1424,7 @@ namespace PresentationslagerWPF.ViewModels
                 lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, MasterBokning);
 
             }
-            CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
+            CreatePDF.SkapaKvittoLektionAlla(MasterBokning, Inlämning);
 
         });
 
@@ -1447,14 +1435,14 @@ namespace PresentationslagerWPF.ViewModels
             if (ElevAttTaBortItem != null && SelectedGruppItem != null)
             {
 
-                lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem, CallesMasterBokning);
+                lektionsKontroller.AvBokaGruppLektion(ElevAttTaBortItem, SelectedGruppItem, MasterBokning);
             }
 
 
             if (ElevAttTaBortItem != null && SelectedPrivatItem != null)
             {
 
-                lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem, CallesMasterBokning);
+                lektionsKontroller.AvBokaPrivatLektion(ElevAttTaBortItem, SelectedPrivatItem, MasterBokning);
             }
             Eleverna.Clear();
         });
