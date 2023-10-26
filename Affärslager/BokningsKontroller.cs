@@ -1,12 +1,16 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-
+using System.Reflection.PortableExecutable;
 
 namespace Affärslager
 {
     public class BokningsKontroller
     {
+        public BokningsKontroller()
+        {
+
+        }
 
         public UnitOfWork UnitOfWork
         {
@@ -16,7 +20,9 @@ namespace Affärslager
             }
         }
 
-        UnitOfWork unitOfWork = new UnitOfWork();
+        public UnitOfWork unitOfWork = new UnitOfWork();
+
+
 
         /// <summary>
         /// Metoden kollar igenom alla logier mellan två angivna datum som har status tillgänglig true samt kollar igenom alla bokade logier som är utanför angivet datum f
@@ -24,27 +30,36 @@ namespace Affärslager
         /// <param name="startdatum"></param>
         /// <param name="slutdatum"></param>
         /// <returns></returns>
+        /// 
+
+        //    var blogs = ctx.Blogs
+        //.Include(b => b.Posts)
+        //.ThenInclude(p => p.Comments)
+        //.ToList();
+
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
 
+            List<Logi> logi = new List<Logi>();
 
-                List<Logi> logi = new List<Logi>();
 
-
-                foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
+            foreach (Logi allLogi in unitOfWork.LogiRepository.GetAll())
+            {
+                logi.Add(allLogi);
+            }
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f =>
+            (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) ||
+            (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) ||
+            (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) ||
+            (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
+            {
+                foreach (Logi ledigLogi in item.ValdLogi)
                 {
-                    logi.Add(allLogi);
-                }
-                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(f => (startdatum >= f.StartDatum && slutdatum <= f.SlutDatum) || (startdatum <= f.SlutDatum && startdatum >= f.StartDatum) || (slutdatum >= f.StartDatum && slutdatum <= f.SlutDatum) && (startdatum <= f.StartDatum && slutdatum >= f.SlutDatum)))
-                {
-                    foreach (Logi ledigLogi in item.ValdLogi)
-                    {
-                        logi.Remove(ledigLogi);
-                    }
+                    logi.Remove(ledigLogi);
                 }
 
-                return logi;
-           
+            }
+            return logi;
         }
 
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
@@ -84,26 +99,48 @@ namespace Affärslager
         {
             List<MasterBokning> masterbokningar = new List<MasterBokning>();
 
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(pmb => pmb.PersonNr.Equals(kundnummer)))
+            // Check if masterbokningar is null before entering any loops
+
+            // Search for items in pmb (ItemP)
+            foreach (MasterBokning itemP in unitOfWork.MasterBokningRepository.Find(pmb => pmb != null && pmb.PersonNr != null && pmb.PersonNr.Equals(kundnummer)))
+            {
+                masterbokningar.Add(itemP);
+            }
+
+            // Check if masterbokningar has any items; if so, return it
+            if (masterbokningar.Count > 0)
+            {
+                return masterbokningar;
+            }
+
+
+            // If no items found in pmb, search in fmb (ItemF)
+            foreach (MasterBokning itemF in unitOfWork.MasterBokningRepository.Find(fmb => fmb != null && fmb.OrgaNr != null && fmb.OrgaNr.Equals(kundnummer)))
+            {
+                masterbokningar.Add(itemF);
+                return masterbokningar;
+            }
+
+            // No items found in pmb or fmb; search in bNr (Item)
+            int input = Int32.Parse(kundnummer);
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(e => e.BokningsNr == input))
             {
                 masterbokningar.Add(item);
             }
-            if (masterbokningar == null)
-            {
-                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(fmb => fmb.OrgaNr.Equals(kundnummer)))
-                {
-                    masterbokningar.Add(item);
-                }
-            }
-            // TODO ? VIll vi söka på bokningsnummer också?
-            //if (masterbokningar == null)
-            //{
-            //    foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(bNr => bNr.BokningsNr.Equals(kundnummer)))
-            //    {
-            //        masterbokningar.Add(item);
-            //    }
-            //}
+
             return masterbokningar;
+
+
+        }
+        public MasterBokning HämtaAktivPrivatkundMasterbokning(Privatkund privatkund,DateTime datum)
+        {
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum.Date >= datum && a.StartDatum.Date <= datum && a.PersonNr == privatkund.Personnummer);
+            return masterBokning;
+        }
+        public MasterBokning HämtaAktivFöretagskundMasterbokning(Företagskund företagskund,DateTime datum)
+        {
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datum && a.StartDatum <= datum && a.OrgaNr == företagskund.OrgNr);
+            return masterBokning;
         }
 
         public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)
@@ -137,5 +174,6 @@ namespace Affärslager
             //unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
         }
+
     }
 }

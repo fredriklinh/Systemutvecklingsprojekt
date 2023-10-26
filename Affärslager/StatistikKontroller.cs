@@ -7,7 +7,28 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        #region StatistikLogi
+        public List<int> HämtaÅr()
+        {
+            List<MasterBokning> ma = new List<MasterBokning>();
+            //Hämtar antal bokningar på angivet årtal
+            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.GetAll())
+            {
+                ma.Add(item);
+            }
+            var query = ma
+                .GroupBy(i => i.StartDatum.Year)
+                .Select(group => group.First())
+                .Distinct()
+                .ToList();
+            List<int> årtal = new List<int>();
+            foreach (var item in query)
+            {
+                årtal.Add(item.StartDatum.Year);
+
+            }
+            årtal.Sort();
+            return årtal;
+        }
 
         public List<MasterBokning> HämtaAllaBokningar(int år)
         {
@@ -20,17 +41,19 @@ namespace Affärslager
             return MS;
         }
 
-        public List<Dictionary<int, int>> HämtaAntalBokningar(int år)
+        #region Statistik Logi
+
+        public List<Dictionary<int, int>> HämtaTotaltAntalBokningarLogi(int år)
         {
 
-            List<MasterBokning> ma = new List<MasterBokning>();
+            List<MasterBokning> mb = new List<MasterBokning>();
             //Hämtar antal bokningar på angivet årtal
             foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(a => a.StartDatum.Year.Equals(år)))
             {
-                ma.Add(item);
+                mb.Add(item);
             }
             //Grupperar efter månad samt räknas hur många gånger i månaden en bokningen förekommer. Sortera listan på månad.
-            var sorteraPerMånad = ma
+            var sorteraPerMånad = mb
              .GroupBy(s => s.StartDatum.Month)
              .Select(g => new { Value = g.Key, Count = g.Count() })
              .OrderBy(x => x.Value).ToList();
@@ -48,10 +71,13 @@ namespace Affärslager
 
             return grupperadPerMånad;
         }
+
         public List<string> HämtaUnikaBenämningarLogi()
         {
             return unitOfWork.LogiRepository.GetAll().Select(a => a.Typen).Distinct().ToList();
         }
+
+
         public List<Dictionary<int, int>> HämtaAntalBokningarLogi(string Typ, int år)
         {
 
@@ -86,27 +112,82 @@ namespace Affärslager
             return grupperadPerMånad;
         }
 
-        public List<int> HämtaÅr()
+
+
+        #endregion
+
+        #region Statistik Utrustning
+
+        public List<string> HämtaUnikaBenämningarUtrustning()
         {
-            List<MasterBokning> ma = new List<MasterBokning>();
+            return unitOfWork.UtrustningRepository.GetAll().Select(a => a.Benämning).Distinct().ToList();
+        }
+        public List<string> HämtaUnikaTyperUtrustning()
+        {
+            return unitOfWork.UtrustningRepository.GetAll().Select(a => a.Typ).Distinct().ToList();
+        }
+
+        public List<Dictionary<int, int>> HämtaTotaltAntalBokningarUtrustning(int år)
+        {
+
+            List<UtrustningsBokning> ub = new List<UtrustningsBokning>();
             //Hämtar antal bokningar på angivet årtal
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.GetAll())
+            foreach (UtrustningsBokning item in unitOfWork.UtrustningsBokningRepository.Find(a => a.StartDatum.Year.Equals(år)))
             {
-                ma.Add(item);
+                ub.Add(item);
             }
-            var query = ma
-                .GroupBy(i => i.StartDatum.Year)
-                .Select(group => group.First())
-                .Distinct()
-                .ToList();
-            List<int> årtal = new List<int>();
-            foreach (var item in query)
+            //Grupperar efter månad samt räknas hur många gånger i månaden en bokningen förekommer. Sortera listan på månad.
+            var sorteraPerMånad = ub
+             .GroupBy(s => s.StartDatum.Month)
+             .Select(g => new { Value = g.Key, Count = g.Count() })
+             .OrderBy(x => x.Value).ToList();
+
+            //konvertera var grupperaPerMånad till en Dictionary list.
+            List<Dictionary<int, int>> grupperadPerMånad = new List<Dictionary<int, int>>();
+            foreach (var item in sorteraPerMånad)
             {
-                årtal.Add(item.StartDatum.Year);
+                Dictionary<int, int> månadAntal = new Dictionary<int, int>
+                {
+                    { item.Value, item.Count }
+                };
+                grupperadPerMånad.Add(månadAntal);
+            }
+
+            return grupperadPerMånad;
+        }
+
+        public List<Dictionary<int, int>> HämtaAntalBokningarUtrustning(string Typ, int år)
+        {
+
+            List<UtrustningsBokning> ub = new List<UtrustningsBokning>();
+            //Hämtar antal bokningar på angivet årtal
+            foreach (UtrustningsBokning item in unitOfWork.UtrustningsBokningRepository.Find(a => a.StartDatum.Year.Equals(år)))
+            {
+                foreach (Utrustning item2 in item.Utrustningar)
+                {
+                    if (item2.Typ == Typ) ub.Add(item);
+
+                }
 
             }
-            årtal.Sort();
-            return årtal;
+            //Grupperar efter månad samt räknas hur många gånger i månaden en bokningen förekommer. Sortera listan på månad.
+            var sorteraPerMånad = ub
+             .GroupBy(s => s.StartDatum.Month)
+             .Select(g => new { Value = g.Key, Count = g.Count() })
+             .OrderBy(x => x.Value).ToList();
+
+            //konvertera var grupperaPerMånad till en Dictionary list.
+            List<Dictionary<int, int>> grupperadPerMånad = new List<Dictionary<int, int>>();
+            foreach (var item in sorteraPerMånad)
+            {
+                Dictionary<int, int> månadAntal = new Dictionary<int, int>
+                {
+                    { item.Value, item.Count }
+                };
+                grupperadPerMånad.Add(månadAntal);
+            }
+
+            return grupperadPerMånad;
         }
 
         #endregion

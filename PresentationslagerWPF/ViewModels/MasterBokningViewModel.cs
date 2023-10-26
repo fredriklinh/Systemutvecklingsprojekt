@@ -1,8 +1,10 @@
 ﻿using Affärslager;
 using Affärslager.KundKontroller;
+using ceTe.DynamicPDF.PageElements;
 using Entiteter.Personer;
 using Entiteter.Prislistor;
 using Entiteter.Tjänster;
+using Microsoft.IdentityModel.Tokens;
 using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
@@ -26,7 +28,23 @@ namespace PresentationslagerWPF.ViewModels
         public MasterBokningViewModel() { }
         #endregion
 
-
+        public void StoppaSparaKnappen()
+        {
+            if ((Privatkund == null || Företagskund == null) &&
+                    (ValdLogi != null && ValdLogi.Count >= 1) &&
+                    !string.IsNullOrEmpty(InputAdress) &&
+                    !string.IsNullOrEmpty(InputPostnummer) &&
+                    !string.IsNullOrEmpty(InputOrt) &&
+                    !string.IsNullOrEmpty(InputTelefonnummer) &&
+                    !string.IsNullOrEmpty(InputMailAdress) &&
+                    !string.IsNullOrEmpty(Kundnummer) &&
+                    !string.IsNullOrEmpty(InputFörnamn) &&
+                    !string.IsNullOrEmpty(InputEfternamn))
+            {
+                KnappAktiv = true;
+            }
+            else { KnappAktiv = false; }
+        }
 
         #region Properties Logi, kund (Sprint1)
 
@@ -46,22 +64,28 @@ namespace PresentationslagerWPF.ViewModels
         public string InputAdress
         {
             get { return inputAdress; }
-            set { inputAdress = value; OnPropertyChanged(); }
+            set { inputAdress = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
         }
 
         private string inputPostnummer;
         public string InputPostnummer
         {
             get { return inputPostnummer; }
-            set { inputPostnummer = value; OnPropertyChanged(); }
+            set { inputPostnummer = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
         }
 
 
-        private string inputOrt = "HallåEller";
+        private string inputOrt;
         public string InputOrt
         {
             get { return inputOrt; }
-            set { inputOrt = value; OnPropertyChanged(); }
+            set { inputOrt = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
 
         }
 
@@ -69,7 +93,9 @@ namespace PresentationslagerWPF.ViewModels
         public string InputTelefonnummer
         {
             get { return inputTelefonnummer; }
-            set { inputTelefonnummer = value; OnPropertyChanged(); }
+            set { inputTelefonnummer = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
         }
 
 
@@ -77,14 +103,18 @@ namespace PresentationslagerWPF.ViewModels
         public string InputMailAdress
         {
             get { return inputMailAdress; }
-            set { inputMailAdress = value; OnPropertyChanged(); }
+            set { inputMailAdress = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
         }
 
         private string inputFörnamn;
         public string InputFörnamn
         {
             get { return inputFörnamn; }
-            set { inputFörnamn = value; OnPropertyChanged(); }
+            set { inputFörnamn = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
         }
 
 
@@ -92,14 +122,21 @@ namespace PresentationslagerWPF.ViewModels
         public string InputEfternamn
         {
             get { return inputEfternamn; }
-            set { inputEfternamn = value; OnPropertyChanged(); }
+            set { inputEfternamn = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+            }
         }
 
         private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+        public string Kundnummer {get => kundnummer; set { kundnummer = value; OnPropertyChanged();
+                StoppaSparaKnappen();
+
+            } }
 
         private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged();
+
+            } }
 
         private MasterBokning masterbokning = null!;
         public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
@@ -140,7 +177,11 @@ namespace PresentationslagerWPF.ViewModels
 
 
         private Företagskund företagskund = null!;
-        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
+        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged();
+
+
+            }
+        }
 
         private PrislistaLogi prislistaLogi = null!;
         public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
@@ -181,6 +222,8 @@ namespace PresentationslagerWPF.ViewModels
 
             }
         }
+        private bool knappAktiv = false!;
+        public bool KnappAktiv { get => knappAktiv; set { knappAktiv = value; OnPropertyChanged(); } }
 
         private int valdLogiSelectedIndex;
         public int ValdLogiSelectedIndex { get => valdLogiSelectedIndex; set { valdLogiSelectedIndex = value; OnPropertyChanged(); } }
@@ -188,8 +231,21 @@ namespace PresentationslagerWPF.ViewModels
         private bool isNotModified = true;
         public bool IsNotModified { get { return isNotModified; } set { isNotModified = value; OnPropertyChanged(); } }
 
-        private bool avbeställningsskydd = true;
-        public bool Avbeställningsskydd { get { return avbeställningsskydd; } set { avbeställningsskydd = value; OnPropertyChanged(); } }
+        private bool avbeställningsskydd;
+
+        public bool Avbeställningsskydd
+        {
+            get { return avbeställningsskydd; }
+            set
+            {
+                if (avbeställningsskydd != value)
+                {
+                    avbeställningsskydd = value;
+                    OnPropertyChanged(nameof(Avbeställningsskydd));
+                }
+            }
+        }
+
         #endregion
 
 
@@ -314,7 +370,7 @@ namespace PresentationslagerWPF.ViewModels
             set
             {
                 valdLogi = value; OnPropertyChanged();
-
+                StoppaSparaKnappen();
             }
         }
 
@@ -366,6 +422,14 @@ namespace PresentationslagerWPF.ViewModels
                 ValdaKonferensRum.Add(kRum);
                 TillgängligaKonferensRum.Remove(kRum);
 
+            }
+            if (Privatkund != null && ValdaKonferensRum != null)
+            {
+                KnappAktiv = true;
+            }
+            if (Företagskund != null && ValdaKonferensRum != null)
+            {
+                KnappAktiv = true;
             }
         });
 
@@ -443,11 +507,26 @@ namespace PresentationslagerWPF.ViewModels
                 }
                 AntalSovplatser = resBädd;
             }
+            if (ValdLogi != null && Privatkund != null)
+            {
+                KnappAktiv = true;
+            }
+            if (ValdLogi != null && Företagskund != null)
+            {
+                KnappAktiv = true;
+            }
+            if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+            {
+                KnappAktiv = true;
+            }
+
+
         });
 
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
+
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
             {
@@ -461,14 +540,29 @@ namespace PresentationslagerWPF.ViewModels
                 Kundnummer = Privatkund.Personnummer;
                 InputFörnamn = Privatkund.Förnamn;
                 InputEfternamn = Privatkund.Efternamn;
-            }
 
+            }
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
             if (företagskund != null)
             {
+
                 KSynlighet = Visibility.Collapsed;
                 FSynlighet = Visibility.Visible;
             }
+            if ((Privatkund != null || Företagskund != null) &&
+                (ValdLogi != null && ValdLogi.Count >= 1) &&
+                !string.IsNullOrEmpty(InputAdress) &&
+                !string.IsNullOrEmpty(InputPostnummer) &&
+                !string.IsNullOrEmpty(InputOrt) &&
+                !string.IsNullOrEmpty(InputTelefonnummer) &&
+                !string.IsNullOrEmpty(InputMailAdress) &&
+                !string.IsNullOrEmpty(Kundnummer) &&
+                !string.IsNullOrEmpty(InputFörnamn) &&
+                !string.IsNullOrEmpty(InputEfternamn))
+            {
+                KnappAktiv = true;
+            }
+
         });
 
 
@@ -476,32 +570,38 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand Spara => spara ??= spara = new RelayCommand(() =>
         {
             //Lös bättre lösning för IF och nullning
-
-            if (Privatkund == null && Företagskund == null && ValdLogi != null)
-            {
-                Privatkund = privatkundKontroller.RegistreraPrivatKund(InputAdress, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, Kundnummer, InputFörnamn, InputEfternamn);
-                MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
-                PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
-                MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
             if (Privatkund != null && ValdLogi != null)
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
                 MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+
             }
+            
+            if (Privatkund == null && Företagskund == null && ValdLogi != null && InputAdress != string.Empty && InputPostnummer != null && InputOrt != string.Empty && InputTelefonnummer != string.Empty && InputMailAdress != string.Empty && Kundnummer != string.Empty && InputFörnamn != string.Empty && InputEfternamn != string.Empty)
+            {
+
+                Privatkund = privatkundKontroller.RegistreraPrivatKund(Kundnummer, InputPostnummer, InputOrt, InputTelefonnummer, InputMailAdress, InputAdress, InputFörnamn, InputEfternamn);
+                MasterBokning = bokningsKontroller.SkapaMasterbokningPrivatkund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Privatkund, Användare);
+                PDF.CreatePDF.SkapaBokningsbekräftelsePrivat(Privatkund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
+                MessageBox.Show("Privatkund registrerad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+            }
+            
             if (ValdLogi == null)
             {
                 MessageBox.Show("Bokning måste innehålla logi", "Välj logi", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
-            if (Företagskund != null)
+            if (Företagskund != null && ValdLogi != null)
             {
                 MasterBokning = bokningsKontroller.SkapaMasterbokningFöretagskund(Avbeställningsskydd, Starttid, Sluttid, ValdLogi, Företagskund, Användare);
                 MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 PDF.CreatePDF.SkapaBokningsbekräftelseFöretag(Företagskund, MasterBokning, TotalKostnad, TotalPrisRabatt, ValdLogi);
             }
+            
             bokningsKontroller.SparaÄndring(MasterBokning);
             if (ValdLogi != null)
             {
@@ -511,6 +611,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 bokningsKontroller.KonferensTillMasterBokning(ValdaKonferensRum, MasterBokning);
             }
+            KnappAktiv = false;
         });
 
         private ICommand taBortCommand = null!;

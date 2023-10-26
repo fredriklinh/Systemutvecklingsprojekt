@@ -1,5 +1,4 @@
-﻿using Entiteter.Prislistor;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entiteter.Tjänster
@@ -26,9 +25,6 @@ namespace Entiteter.Tjänster
         public int Kvadratmeter { get; set; }
         public int Bäddar { get; set; }
         public bool Kök { get; set; }
-
-        public virtual IList<PrislistaLogi> PrislistaLogi { get; set; } = new List<PrislistaLogi>();
-        //public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
         [ForeignKey("LogiTyp")]
         public string Typen { get; set; }

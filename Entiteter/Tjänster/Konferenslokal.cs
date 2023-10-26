@@ -7,7 +7,7 @@
 
         public int AntalPlatser { get; set; }
 
-        public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
+        //public virtual IList<MasterBokning> MasterBokning { get; set; } = new List<MasterBokning>();
 
 
 

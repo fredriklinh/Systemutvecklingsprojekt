@@ -147,23 +147,23 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private ICommand sparaPrivatCommand = null!;
-        public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
-        {
+        //private ICommand sparaPrivatCommand = null!;
+        //public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
+        //{
 
-        });
-        private ICommand ändraPrivatCommand = null!;
-        public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>
-        {
-            //ÄNDRA
+        //});
+        //private ICommand ändraPrivatCommand = null!;
+        //public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>
+        //{
+        //    //ÄNDRA
 
-        });
-        private ICommand taBortPrivatCommand = null!;
-        public ICommand TaBortPrivatCommand => taBortPrivatCommand ??= taBortPrivatCommand = new RelayCommand(() =>
-        {
-            //TABORT
+        //});
+        //private ICommand taBortPrivatCommand = null!;
+        //public ICommand TaBortPrivatCommand => taBortPrivatCommand ??= taBortPrivatCommand = new RelayCommand(() =>
+        //{
+        //    //TABORT
 
-        });
+        //});
 
         #endregion
 
@@ -360,8 +360,12 @@ namespace PresentationslagerWPF.ViewModels
 
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
 
+            Masterbokningar = new ObservableCollection<MasterBokning>(bokningsKontroller.HämtaKundsMasterbokningar(Kundnummer));
+            if (Masterbokningar != null && Privatkund == null && Företagskund == null)
+            {
+                Masterbokningar = Masterbokningar;
+            }
 
             //Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
@@ -393,7 +397,7 @@ namespace PresentationslagerWPF.ViewModels
 
                 NollaPrivatkundInformation();
             }
-            else
+            else if (Företagskund == null && Masterbokningar == null && Privatkund == null)
             {
 
                 NollaFöretagsKundInformation();

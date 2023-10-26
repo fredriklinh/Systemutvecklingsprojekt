@@ -10,6 +10,9 @@ namespace Entiteter.Tjänster
         public virtual IList<Elev> Deltagare { get; set; } = new List<Elev>();
         public double Pris { get; set; }
 
+        [ForeignKey("MasterBokning")]
+        public int? BokningsNr { get; set; }
+        public virtual MasterBokning? MasterBokning { get; set; }
 
         [ForeignKey("Personal")]
         public int? Lärare { get; set; }

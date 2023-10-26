@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PresentationslagerWPF.Views"
-             xmlns:lvs="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800" Background="White">
     <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -15,7 +13,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,44 +30,23 @@
             <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
         </Menu>
         <Label Grid.Row="1" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Årtal</Label>
-        <Label Grid.Row="1" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Logityp</Label>
-        <Label Grid.Row="1" Grid.Column="2" Margin="40,0,40,0" Background="LightGray">År</Label>
-        <ComboBox Name="Årtal" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemÅr}" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Width="180"/>
-        <ComboBox Name="Årtal2" ItemsSource="{Binding Logityp}" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
-        
+        <Label Grid.Row="1" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Statistik Logier:</Label>
+        <ComboBox Name="ÅrtalLogi" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemLogiÅr}" 
+                    HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Width="100"/>
         <WrapPanel HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3">
-            <DataGrid x:Name="StatistikLogi" ItemsSource="{Binding DisplayStatistik}" AlternatingRowBackground="Gray" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True">
+            <DataGrid x:Name="StatistikLogi" ItemsSource="{Binding DisplayStatistikLogi}" AlternatingRowBackground="Gray" CanUserAddRows="False" 
+                      IsReadOnly="True" AutoGenerateColumns="True">
+             </DataGrid>
+        </WrapPanel>
+        <Label Grid.Row="5" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Årtal</Label>
+        <Label Grid.Row="5" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Statistik Utrustning:</Label>
+        <ComboBox x:Name="ÅrtalUtrustning" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemUtrustningÅr}" 
+                  HorizontalAlignment="Center"  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Width="100"/>
+
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="7" Grid.ColumnSpan="3">
+            <DataGrid x:Name="StatistikUtrustning" ItemsSource="{Binding DisplayStatistikUtrustning}" AlternatingRowBackground="Gray" CanUserAddRows="False" 
+                        IsReadOnly="True" AutoGenerateColumns="True">
             </DataGrid>
         </WrapPanel>
-        <Label Grid.Row="4" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Datakälla</Label>
-        <Label Grid.Row="4" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Datatyp</Label>
-        <Label Grid.Row="4" Grid.Column="2" Margin="40,0,40,0" Background="LightGray">År</Label>
-        <ComboBox x:Name="Datakälla2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Width="180"/>
-        <ComboBox x:Name="Datatyp2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Width="180"/>
-        <ComboBox x:Name="År2" HorizontalAlignment="Center"  Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="180"/>
-        <WrapPanel HorizontalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="3">
-            <DataGrid x:Name="StatistikUtrustning" AlternatingRowBackground="Gray" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Källa" Binding="{Binding Objekt}"/>
-                    <DataGridTextColumn Header="Datatyp" Binding="{Binding Path=Utrustning.Typ}"/>
-                    <DataGridTextColumn Header="Jan" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Feb" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Mar" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Apr" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Maj" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Jun" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Jul" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Aug" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Sep" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Okt" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Nov" Binding="{Binding Path=Antal}"/>
-                    <DataGridTextColumn Header="Dec" Binding="{Binding Path=Antal}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </WrapPanel>
-
-
-
-
     </Grid>
 </UserControl>
