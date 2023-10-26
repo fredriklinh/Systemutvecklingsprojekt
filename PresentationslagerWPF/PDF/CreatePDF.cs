@@ -184,11 +184,11 @@ namespace PDF
 
                 int count = 1;
                 string newFileName = originalFileName;
-
+                DateTime dagensDatum = DateTime.Now;
                 while (File.Exists(filePath))
                 {
                     // Om filen redan finns, lägg till ett efterföljande nummer i filnamnet och försök igen
-                    newFileName = $"{mB.Privatkund.MailAdress}_{count}.pdf";
+                    newFileName = $"{mB.Privatkund.MailAdress}_{dagensDatum + "_" + count}.pdf";
                     filePath = Util.GetPath($"PDF/KvittoLektion/{newFileName}");
                     count++;
                 }
@@ -211,11 +211,12 @@ namespace PDF
 
                 int count = 1;
                 string newFileName = originalFileName;
-
+                DateTime dagensDatum = DateTime.Now;
                 while (File.Exists(filePath))
                 {
+
                     // Om filen redan finns, lägg till ett efterföljande nummer i filnamnet och försök igen
-                    newFileName = $"{mB.Företagskund.MailAdress}_{count}.pdf";
+                    newFileName = $"{mB.Företagskund.MailAdress}_{dagensDatum + "_" + count}.pdf";
                     filePath = Util.GetPath($"PDF/KvittoLektion/{newFileName}");
                     count++;
                 }
@@ -230,7 +231,7 @@ namespace PDF
 
             int input = Int32.Parse(utrstningsBokningsNr);
             UtrustningsBokning utrustningsBokning = masterBokning.UtrustningsBokningar.FirstOrDefault(a => a.UtrustningBokningsId == input);
-           
+
 
             Document document = new Document();
 
@@ -246,7 +247,7 @@ namespace PDF
                 $"\n\"Summa:{utrustningsBokning.Summa}\n" +
                 $"\n\"--------------------------------------------------------------\n";
 
-           
+
             string utrustning = "\n\n\n\n\n\n\n\n\n\n\n\n\n\nUtrustning som hyrts ut: \n";
             foreach (var objekt in utrustningsBokning.Utrustningar)
             {

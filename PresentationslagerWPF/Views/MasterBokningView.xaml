@@ -261,8 +261,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
         </StackPanel>
     </DockPanel>
 </UserControl>
