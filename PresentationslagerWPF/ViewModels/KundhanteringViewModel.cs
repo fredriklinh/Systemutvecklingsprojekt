@@ -147,23 +147,23 @@ namespace PresentationslagerWPF.ViewModels
         }
 
 
-        private ICommand sparaPrivatCommand = null!;
-        public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
-        {
+        //private ICommand sparaPrivatCommand = null!;
+        //public ICommand SparaPrivatCommand => sparaPrivatCommand ??= sparaPrivatCommand = new RelayCommand(() =>
+        //{
 
-        });
-        private ICommand ändraPrivatCommand = null!;
-        public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>
-        {
-            //ÄNDRA
+        //});
+        //private ICommand ändraPrivatCommand = null!;
+        //public ICommand ÄndraPrivatCommand => ändraPrivatCommand ??= ändraPrivatCommand = new RelayCommand(() =>
+        //{
+        //    //ÄNDRA
 
-        });
-        private ICommand taBortPrivatCommand = null!;
-        public ICommand TaBortPrivatCommand => taBortPrivatCommand ??= taBortPrivatCommand = new RelayCommand(() =>
-        {
-            //TABORT
+        //});
+        //private ICommand taBortPrivatCommand = null!;
+        //public ICommand TaBortPrivatCommand => taBortPrivatCommand ??= taBortPrivatCommand = new RelayCommand(() =>
+        //{
+        //    //TABORT
 
-        });
+        //});
 
         #endregion
 

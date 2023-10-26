@@ -16,6 +16,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
+
 namespace PresentationslagerWPF.ViewModels
 {
 
@@ -27,6 +28,7 @@ namespace PresentationslagerWPF.ViewModels
         PrisKontroller priskontroller = new PrisKontroller();
         PrivatkundKontroller privatkundKontroller = new PrivatkundKontroller();
         FöretagskundKontroller företagskundKontroller = new FöretagskundKontroller();
+        BokningsKontroller bokningsKontroller = new BokningsKontroller();
 
         #region Observable Collection 
 
@@ -176,17 +178,37 @@ namespace PresentationslagerWPF.ViewModels
         private bool isEnabledBtnSkoter = false!;
         public bool IsEnabledBtnSkoter { get => isEnabledBtnSkoter; set { isEnabledBtnSkoter = value; OnPropertyChanged(); } }
 
+        private bool knappAktiv = false!;
+        public bool KnappAktiv { get => knappAktiv; set { knappAktiv = value; OnPropertyChanged(); } }
+
         #endregion
 
 
-        private bool isCheckedKredit = true!;
-        public bool IsCheckedKredit { get => isCheckedKredit; set { isCheckedKredit = value; OnPropertyChanged(); } }
+        private bool kreditIsChecked;
+
+        public bool KreditIsChecked
+        {
+            get { return kreditIsChecked; }
+            set
+            {
+                if (kreditIsChecked != value)
+                {
+                    kreditIsChecked = value;
+                    OnPropertyChanged(nameof(KreditIsChecked));
+                    StoppaKredit();
+                    }
+
+                }
+            }
+
+
 
         #region NAVIGATION
         //**** NAVIGATION *******//
 
         public SkidshopViewModel(NavigationStore navigationStore, Användare användare)
         {
+            NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             Användare = användare;
             //Benämning ObservableCollection
@@ -205,6 +227,12 @@ namespace PresentationslagerWPF.ViewModels
 
         public ICommand TillbakaCommand { get; }
         public ICommand UppdateraCommandSkidshop { get; }
+
+        public ICommand NavigateLoggaUtCommand { get; }
+
+        private ICommand exitCommand = null!;
+        public ICommand ExitCommand =>
+        exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         #endregion
 
@@ -377,18 +405,18 @@ namespace PresentationslagerWPF.ViewModels
 
                 if (item.Benämning == "Paket")
                 {
-                    IList<Utrustning> öö = new List<Utrustning>();
-                    öö = utrustningsKontroller.HittaPaket(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
-                    foreach (var ee in öö)
+                    IList<Utrustning> paket = new List<Utrustning>();
+                    paket = utrustningsKontroller.HittaPaket(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
+                    foreach (var paketUtrustning in paket)
                     {
-                        hämtadUtrustning.Add(ee);
+                        hämtadUtrustning.Add(paketUtrustning);
                     }
                 }
                 else
                 {
-                    IList<Utrustning> test = new List<Utrustning>();
-                    test = utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
-                    foreach (var itemUtrustning in test)
+                    IList<Utrustning> utrustningar = new List<Utrustning>();
+                    utrustningar = utrustningsKontroller.HittaUtrustning(item.Value, item.Typ, item.Benämning, Inlämning, hämtadUtrustning);
+                    foreach (var itemUtrustning in utrustningar)
                     {
                         hämtadUtrustning.Add(itemUtrustning);
                     }
@@ -402,18 +430,21 @@ namespace PresentationslagerWPF.ViewModels
                     item.Status = item.StatusBokad();
                 }
                 Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
-                MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, isCheckedKredit);
-                if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns)
+                MasterBokning privatexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningPrivat(hämtadUtrustning, Inlämning, Privatkund, Användare, SummaTotal, KreditIsChecked);
+                if (privatexisterarEj == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
                 {
-                    MessageBox.Show("Max kredit har nåtts");
+                    if (privatexisterarEj.NyttjadKreditsumma > Privatkund.MaxBeloppsKreditGräns && KreditIsChecked == true)
+                    {
+                        MessageBox.Show("Max kredit har nåtts");
 
+                    }
+                    if (privatexisterarEj.UtrustningsBokningar.Count != 0)
+                    {
+                        MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                        PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
+                    }
                 }
-                if (privatexisterarEj != null)
-                {
-                    BoolExisterarBokning(privatexisterarEj);
-                    PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, hämtadUtrustning, Inlämning);
-                }
-
 
             }
             else if (Företagskund != null)
@@ -423,20 +454,21 @@ namespace PresentationslagerWPF.ViewModels
                     item.Status = item.StatusBokad();
                 }
                 Företagskund = företagskundKontroller.SökFöretagskund(Kundnummer);
-                MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, isCheckedKredit);
-                if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns)
+                MasterBokning företagexisterarEj = utrustningsKontroller.SkapaUtrustningsBokningFöretag(hämtadUtrustning, Inlämning, Företagskund, Användare, SummaTotal, KreditIsChecked);
+                if (företagexisterarEj == null) MessageBox.Show("Bokning existerar ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
                 {
-                    MessageBox.Show("Max kredit har nåtts");
+                    if (företagexisterarEj.NyttjadKreditsumma > Företagskund.MaxBeloppsKreditGräns && KreditIsChecked == true)
+                    {
+                        MessageBox.Show("Max kredit har nåtts");
+                    }
+                    if (företagexisterarEj.UtrustningsBokningar.Count != 0)
+                    {
+
+                        MessageBox.Show("Bokning skapad", "Bokning", MessageBoxButton.OK, MessageBoxImage.Information);
+                        PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
+                    }
                 }
-                if (företagexisterarEj != null)
-
-                {
-                    BoolExisterarBokning(företagexisterarEj);
-
-                    PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, hämtadUtrustning, Inlämning);
-                }
-
-
             }
             else
             {
@@ -448,8 +480,7 @@ namespace PresentationslagerWPF.ViewModels
 
         #region Properties Logi, Privatkund (Sprint1)
 
-        private Företagskund företagskund = null!;
-        public Företagskund Företagskund { get => företagskund; set { företagskund = value; OnPropertyChanged(); } }
+        
 
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
@@ -519,10 +550,26 @@ namespace PresentationslagerWPF.ViewModels
                 CallesMasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
             }
         }
-
+        private Företagskund företagskund = null!;
+        public Företagskund Företagskund
+        {
+            get => företagskund; set
+            {
+                företagskund = value; OnPropertyChanged();
+                if (Företagskund != null)
+                {
+                    MasterBokning = bokningsKontroller.HämtaAktivFöretagskundMasterbokning(Företagskund, LektionsDatum);
+                }
+            }
+        }
 
         private Privatkund privatkund = null!;
-        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged(); } }
+        public Privatkund Privatkund { get => privatkund; set { privatkund = value; OnPropertyChanged();
+                if (Privatkund != null)
+                {
+                    MasterBokning = bokningsKontroller.HämtaAktivPrivatkundMasterbokning(Privatkund,LektionsDatum);
+                }
+            } }
 
         private MasterBokning masterbokning = null!;
         public MasterBokning MasterBokning { get => masterbokning; set { masterbokning = value; OnPropertyChanged(); } }
@@ -543,14 +590,31 @@ namespace PresentationslagerWPF.ViewModels
             if (Företagskund != null)
             {
                 IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
-                PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, utrFöretag, Inlämning);
-                MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                if (utrFöretag == null)
+                {
+                    MessageBox.Show("Utrustningsbokning saknas");
+                }
+                else
+                {
+                    PDF.CreatePDF.SkapaKvittoUthyrningFöretag(Företagskund, utrFöretag, Inlämning);
+                    MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+
             }
             else if (Privatkund != null)
             {
+
                 IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
-                PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, utrPrivat, Inlämning);
-                MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                if (utrPrivat == null)
+                {
+                    MessageBox.Show("Utrustningsbokning saknas");
+                }
+                else
+                {
+                    PDF.CreatePDF.SkapaKvittoUthyrningPrivat(Privatkund, utrPrivat, Inlämning);
+                    MessageBox.Show($"Kvitto utskrivet för bokning", "Kvitto", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+
             }
             else
             {
@@ -597,7 +661,7 @@ namespace PresentationslagerWPF.ViewModels
                 List<Utrustning> bokningsUtrustning = new List<Utrustning>();
                 foreach (var item in bokningNrExiterar.UtrustningsBokningar)
                 {
-                    foreach (Utrustning utrustning in item.Utrustningar)
+                    foreach (Utrustning utrustning in item.Utrustningar.Where(a => a.Status == false))
                     {
                         bokningsUtrustning.Add(utrustning);
                     }
@@ -607,10 +671,18 @@ namespace PresentationslagerWPF.ViewModels
                     .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
                     .ToList();
                 TotalDisplayUtrustning.Clear();
-                foreach (var item in groupedUtrFöretag)
+                if (bokningsUtrustning != null)
                 {
-                    TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
+                    foreach (var item in groupedUtrFöretag)
+                    {
+                        TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
+                    }
                 }
+                else
+                {
+                    TotalDisplayUtrustning.Clear();
+                }
+
             }
         });
 
@@ -625,9 +697,11 @@ namespace PresentationslagerWPF.ViewModels
             //if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             //else
             //{
-                if (Företagskund != null)
+            if (Företagskund != null)
+            {
+                IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
+                if (utrFöretag != null)
                 {
-                    IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
                     var groupedUtrFöretag = utrFöretag
                     .GroupBy(i => i.Benämning)
                     .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
@@ -638,10 +712,14 @@ namespace PresentationslagerWPF.ViewModels
                         TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                     }
                 }
-                else if (Privatkund != null)
-                {
-                    IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
+                else MessageBox.Show("Utrustningsbokning saknas");
 
+            }
+            else if (Privatkund != null)
+            {
+                IList<Utrustning> utrPrivat = utrustningsKontroller.HämtaUtrustningsbokningPrivatkund(Privatkund);
+                if (utrPrivat != null)
+                {
                     var groupedUtrFöretag = utrPrivat
                     .GroupBy(i => i.Benämning)
                     .Select(group => new { Benämning = group.Key, Count = group.Count(), Utrustning = group.First() })
@@ -652,13 +730,18 @@ namespace PresentationslagerWPF.ViewModels
                         TotalDisplayUtrustning.Add(new DisplayUtrustning(item.Count, item.Utrustning, item.Utrustning.Typ, item.Benämning, item.Utrustning.Status));
                     }
                 }
+                else MessageBox.Show("Utrustningsbokning saknas");
 
-            //}
+            }
+
+
         });
 
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
+            GömKvittoKnapp = Visibility.Collapsed;
+            TotalDisplayUtrustning.Clear();
             GömLämnaUtKnapp = Visibility.Visible;
             GömTaBortKnapp = Visibility.Visible;
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
@@ -700,6 +783,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaAlpin = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
+                StoppaKredit();
             }
 
 
@@ -716,6 +800,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaSnowboard = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
+                StoppaKredit();
             }
 
         });
@@ -730,7 +815,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaLängd = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-
+                StoppaKredit();
             }
 
         });
@@ -745,7 +830,7 @@ namespace PresentationslagerWPF.ViewModels
                 SummaHjälm = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
-
+                StoppaKredit();
             }
 
         });
@@ -760,20 +845,58 @@ namespace PresentationslagerWPF.ViewModels
                 SummaSkoter = 0;
                 BeräknaSummaTotal();
                 LaddaOmSelectedInfo();
+                StoppaKredit();
 
             }
 
         });
 
         #endregion
+        public void StoppaKredit()
+        {
+            if (KreditIsChecked == true && Privatkund != null)
+            {
+                if (KreditIsChecked == true)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool Potatis = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    if (Potatis == false)
+                    {
+                        KreditIsChecked = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                    else
+                    {
 
+                    }
+                }
+                if (KreditIsChecked == true && Företagskund != null)
+                {
+                    MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
+                    bool Potatis = lektionsKontroller.TillåtEjKredit(Företagskund.MaxBeloppsKreditGräns, SummaTotal, mbe);
+                    if (Potatis == false)
+                    {
+                        KreditIsChecked = false;
+                        MessageBox.Show("Kunden har nått maxkredit!");
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
 
         #region SUMMA
         private int summaTotal;
         public int SummaTotal
         {
             get { return summaTotal; }
-            set { summaTotal = value; OnPropertyChanged(); }
+            set
+            {
+                summaTotal = value; OnPropertyChanged();
+                StoppaKredit();
+            }
         }
 
 
@@ -1109,17 +1232,59 @@ namespace PresentationslagerWPF.ViewModels
         #region SKIDLEKTION Observables ............
 
 
+        private bool kreditCheckLektion;
+        public bool KreditCheckLektion
+        {
+            get { return kreditCheckLektion; }
+            set
+            {
+                if (kreditCheckLektion != value)
+                {
+                    kreditCheckLektion = value;
+                    OnPropertyChanged(nameof(KreditCheckLektion));
+                }
+            }
+        }
 
-        private bool kreditCheckLektion = true!;
-        public bool KreditCheckLektion { get => kreditCheckLektion; set { kreditCheckLektion = value; OnPropertyChanged();
-                double x = Eleverna.Count;
-                double prisXElever = SelectedPrivatItem.Pris * x;
-                //fixa if sats
-                    //lektionsKontroller.TillåtEjKredit(prisXElever);
+        
+        private DateTime lektionsDatum = DateTime.Now;
+        public DateTime LektionsDatum
+        {
+            get => lektionsDatum; set
+            {
+                lektionsDatum = value; OnPropertyChanged();
+                if (Privatkund != null)
+                {
+                    MasterBokning = bokningsKontroller.HämtaAktivPrivatkundMasterbokning(Privatkund, LektionsDatum);
+                }
+                if (Företagskund != null)
+                {
+                    MasterBokning = bokningsKontroller.HämtaAktivFöretagskundMasterbokning(Företagskund, LektionsDatum);
+                }
+                if (LektionsDatum >= DateTime.Now.Date)
+                {
+                    if (MasterBokning != null)
+                    {
+                        GruppLektioner = new ObservableCollection<GruppLektion>(lektionsKontroller.AktuellaGruppLektioner(LektionsDatum));
+                        PrivatLektioner = new ObservableCollection<PrivatLektion>(lektionsKontroller.AktuellaPrivatLektioner(LektionsDatum));
+                        AllaLektioner = new ObservableCollection<object>(lektionsKontroller.HämtaAktuellaLektioner(PrivatLektioner, GruppLektioner));
+                        KnappAktiv = true;
+                    }
+                    else if (GruppLektioner != null || PrivatLektioner != null || AllaLektioner != null)
+                    {
+                            GruppLektioner.Clear();
+                            PrivatLektioner.Clear();
+                            AllaLektioner.Clear();
+                            KnappAktiv = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Datum är inkorrekt", "Bokning", MessageBoxButton.OK);
+                }
 
-
-            
-            } }
+            }
+        }
 
         private MasterBokning callesMasterBokning = null!;
         public MasterBokning CallesMasterBokning { get => callesMasterBokning; set { callesMasterBokning = value; OnPropertyChanged(); } }
@@ -1187,6 +1352,10 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
                 }
+                if (SelectedGruppItem != null)
+                {
+                    SelectedPrivatItem = null;
+                }
 
             }
         }
@@ -1201,6 +1370,10 @@ namespace PresentationslagerWPF.ViewModels
                 if (SelectedPrivatItem != null)
                 {
                     Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
+                }
+                if (SelectedPrivatItem != null)
+                {
+                    selectedGruppItem = null;
                 }
             }
         }
@@ -1245,22 +1418,22 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillElevCommand = null!;
         public ICommand LäggTillElevCommand => läggTillElevCommand ??= läggTillElevCommand = new RelayCommand(() =>
         {
-            if (SelectedPrivatItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedPrivatItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning !=null)
             {
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, CallesMasterBokning);
+                lektionsKontroller.BokaPrivatLektion(ElevTillLektion, SelectedPrivatItem, MasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionP(SelectedPrivatItem));
                 double x = Eleverna.Count;
                 double prisXElever = SelectedPrivatItem.Pris * x;
-                lektionsKontroller.FixaPrisLektion(prisXElever, KreditCheckLektion, CallesMasterBokning);
+                lektionsKontroller.FixaPrisLektion(prisXElever, KreditCheckLektion, MasterBokning);
             }
-            if (SelectedGruppItem != null && InFörnamn != string.Empty && InEfternamn != string.Empty)
+            if (SelectedGruppItem != null && !string.IsNullOrEmpty(InputFörnamn) && !string.IsNullOrEmpty(InputEfternamn) && MasterBokning != null)
             {
 
                 ElevTillLektion = lektionsKontroller.RegistreraElev(InFörnamn, InEfternamn);
-                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, CallesMasterBokning);
+                lektionsKontroller.BokaGruppLektion(ElevTillLektion, SelectedGruppItem, MasterBokning);
                 Eleverna = new ObservableCollection<Elev>(lektionsKontroller.HämtaDeltagareFrånLektionG(SelectedGruppItem));
-                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, CallesMasterBokning);
+                lektionsKontroller.FixaPrisLektion(SelectedGruppItem.Pris, KreditCheckLektion, MasterBokning);
 
             }
             CreatePDF.SkapaKvittoLektionAlla(CallesMasterBokning, Inlämning);
@@ -1287,10 +1460,7 @@ namespace PresentationslagerWPF.ViewModels
         });
 
 
-
-
         #endregion
-
 
 
 

@@ -37,7 +37,7 @@
                                 <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Sluttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel></StackPanel>
@@ -45,7 +45,7 @@
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"></TextBox>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="100"></TextBox>
                         <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"></Button>
                     </StackPanel>
                 </StackPanel>
@@ -57,59 +57,60 @@
                             <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                            <TextBox x:Name="KundFörnamn" Text="{Binding InputFörnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="80" ></TextBox>
-                            <TextBox x:Name="EfterNamn" Text="{Binding InputEfternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
+                            <TextBox x:Name="KundFörnamn" Text="{Binding InputFörnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="80" ></TextBox>
+                            <TextBox x:Name="EfterNamn" Text="{Binding InputEfternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                         </StackPanel>
                         <StackPanel>
                             <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Telefonnummer:"></Label>
-                            <TextBox x:Name="Telefonnummer" Text="{Binding InputTelefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                            <TextBox x:Name="Telefonnummer" Text="{Binding InputTelefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="0,10,0,10">
                         <StackPanel Orientation="Horizontal">
-                            <Label Margin="0,0,50,0" Content="Adress:"></Label>
-                            <Label Margin="0,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
+                            <Label Margin="5,0,50,0" Content="Adress:"></Label>
+                            <Label Margin="5,0,25,0" FontSize="12" FontWeight="DemiBold"  Content="Postnummer:"></Label>
                             <Label FontSize="12" FontWeight="DemiBold"  Content="Ort:"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                            <TextBox Text="{Binding InputAdress, Mode=TwoWay}" Height="25" Width="94"></TextBox>
-                            <TextBox Margin="10,0,10,0" Text="{Binding InputPostnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="90"></TextBox>
-                            <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="90"></TextBox>
+                            <TextBox Text="{Binding InputAdress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="94"></TextBox>
+                            <TextBox Margin="10,0,10,0" Text="{Binding InputPostnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="90"></TextBox>
+                            <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="90"></TextBox>
                         </StackPanel>
                         <StackPanel>
                             <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
-                            <TextBox Text="{Binding InputMailAdress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
+                            <TextBox Text="{Binding InputMailAdress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                         </StackPanel>
                     </StackPanel>
                 </WrapPanel>
                 <!--PANEL FÖR FÖRETAGSKUND-->
                 <WrapPanel Visibility="{Binding FSynlighet}">
-                    <StackPanel Width="371" Height="116">
+                    <StackPanel>
                         <StackPanel Margin="10,10,10,10">
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="OrgNummer:"></Label>
-                                <Label Content="FöretagsNamn:"></Label>
+                                <Label Margin="0,0,0,0" Content="OrgNummer:"></Label>
+                                <Label Margin="9,0,0,0" Content="FöretagsNamn:"></Label>
                                 <Label Content="Rabatsatts:"></Label>
-                                <Label Content="MaxBeloppKredit:"></Label>
+                                <Label Margin="25,0,0,0" Content="MaxBeloppKredit:"></Label>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
                                 <TextBox x:Name="Orgnummer" Text="{Binding Företagskund.OrgNr}" Height="25" Width="80" ></TextBox>
                                 <TextBox x:Name="Företagsnamn" Text="{Binding Företagskund.FöretagsNamn}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Rabatsatts" Text="{Binding Företagskund.RabattSats}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                                 <TextBox x:Name="MaxBelopKreditGräns" Text="{Binding Företagskund.MaxBeloppsKreditGräns}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
                                 <Label Content="Adress:"></Label>
-                                <Label Content="Postnummer:"></Label>
-                                <Label Content="Ort:"></Label>
-                                <Label Content="Telefonummer:"></Label>
+                                <Label Margin="60,0,0,0" Content="Postnummer:"></Label>
+                                <Label Margin="10,0,0,0" Content="Ort:"></Label>
+                                <Label Margin="55,0,0,0" Content="Telefonummer:"></Label>
                                 <Label Content="Mailadress:"></Label>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" >
-                                <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Adress" Text="{Binding Företagskund.Adress}" Height="25" Width="100" ></TextBox>
                                 <TextBox x:Name="Postnummer" Text="{Binding Företagskund.Postnummer}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
-                                <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" ></TextBox>
+                                <TextBox x:Name="Ort" Text="{Binding Företagskund.Ort}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
                                 <TextBox x:Name="Telefonummer" Text="{Binding Företagskund.Telefonnummer}" Height="25" Width="80" Margin="8,0,0,0" ></TextBox>
+                                <TextBox x:Name="Mailadress" Text="{Binding Företagskund.MailAdress}" Height="25" Width="190" Margin="8,0,0,0" ></TextBox>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -147,7 +148,7 @@
                             <DataGrid x:Name="Logialternativ" Visibility="{Binding SeKonferens}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligLogi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding TillgängligLogiSelectedItem, Mode=TwoWay}"
-                                  SelectedIndex="{Binding TillgängligLogiSelectedIndex, Mode=TwoWay}" 
+                                  SelectedIndex="{Binding TillgängligLogiSelectedIndex, Mode=TwoWay}"
                                   Background="White" Width="273" Height="141" Margin="0,0,10,0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
@@ -157,7 +158,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                             <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
-                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
+                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
 
                             <DataGrid x:Name="KonferensAlternativ" Visibility = "{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum}"
@@ -182,7 +183,7 @@
                 <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="TOTAL" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Background="LightGray">
-                <DataGrid Visibility="{Binding SeKonferens}" x:Name="ValdaLogier" ItemsSource="{Binding ValdLogi,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                <DataGrid Visibility="{Binding SeKonferens}" x:Name="ValdaLogier" ItemsSource="{Binding ValdLogi}" 
                           AutoGenerateColumns="False" SelectionMode="Single"
                           SelectionUnit="FullRow" IsReadOnly="True"
                           SelectedItem="{Binding ValdLogiSelectedItem, Mode=TwoWay}"
@@ -211,7 +212,7 @@
                         <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Kostnad inkl. rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay}"></CheckBox>
+                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
                         <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
@@ -232,7 +233,7 @@
 
             <StackPanel Orientation="Horizontal" Background="LightGray">
                 <Button x:Name="btnTaBortLogi" Visibility="{Binding SeKonferens}" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button x:Name="btnSpara" Visibility="{Binding SeKonferens}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen" IsEnabled="{Binding KnappAktiv}">
+                <Button x:Name="btnSpara" Visibility="{Binding SeKonferens}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen" IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
