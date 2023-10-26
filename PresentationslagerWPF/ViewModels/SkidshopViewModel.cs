@@ -1135,7 +1135,7 @@ namespace PresentationslagerWPF.ViewModels
                 if (KreditIsChecked == true)
                 {
                     MasterBokning mbe = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
-                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SelectedGruppItem.Pris, mbe);
+                    bool bVariabel = lektionsKontroller.TillåtEjKredit(Privatkund.MaxBeloppsKreditGräns, SummaTotal, mbe);
                     if (bVariabel == false)
                     {
                         KreditIsChecked = false;
