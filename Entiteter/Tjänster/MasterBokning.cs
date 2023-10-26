@@ -50,7 +50,6 @@ namespace Entiteter.Tjänster
         //Construktor Privatkund
         public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare, IList<UtrustningsBokning> utrustningsBokningar)
         {
-
             Avbeställningsskydd = avbeställningsskydd;
             NyttjadKreditsumma = 0;
             BokningsDatum = DateTime.Now;

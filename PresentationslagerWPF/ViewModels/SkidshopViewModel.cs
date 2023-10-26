@@ -210,6 +210,8 @@ namespace PresentationslagerWPF.ViewModels
         {
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            UppdateraCommand = new NavigateCommand<SkidshopViewModel>(new NavigationService<SkidshopViewModel>(navigationStore, () => new SkidshopViewModel(navigationStore, användare)));
+
             Användare = användare;
             //Benämning ObservableCollection
             TypAlpin = new ObservableCollection<Utrustning>(utrustningsKontroller.SökBenämning("Alpint"));
@@ -225,6 +227,7 @@ namespace PresentationslagerWPF.ViewModels
             UppdateraCommandSkidshop = new NavigateCommand<SkidshopViewModel>(new NavigationService<SkidshopViewModel>(navigationStore, () => new SkidshopViewModel(navigationStore, användare)));
         }
 
+        public ICommand UppdateraCommand { get; }
         public ICommand TillbakaCommand { get; }
         public ICommand UppdateraCommandSkidshop { get; }
 
@@ -636,7 +639,10 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand accepteraÅterlämningCommand = null!;
         public ICommand AccepteraÅterlämningCommand => accepteraÅterlämningCommand ??= accepteraÅterlämningCommand = new RelayCommand(() =>
         {
-            utrustningsKontroller.FullbordaÅterlämning(InputBokningsNr.ToString());
+            MasterBokning masterBokning = utrustningsKontroller.FullbordaÅterlämning(InputBokningsNr.ToString());
+            PDF.CreatePDF.SkapaFaktura(masterBokning, InputBokningsNr.ToString());
+
+
             MessageBox.Show($"Utrustning återlämnad!", "Återlämning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             GömÅterlämnaKnapp = Visibility.Collapsed;
             GömLämnaUtKnapp = Visibility.Visible;
@@ -651,19 +657,29 @@ namespace PresentationslagerWPF.ViewModels
             GömLämnaUtKnapp = Visibility.Collapsed;
             GömTaBortKnapp = Visibility.Collapsed;
             GömKvittoKnapp = Visibility.Collapsed;
-            string input = Interaction.InputBox("Ange Bokningsnummer", "Återlämmning", "Default", 50, 50);
-            MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(input);
+            string input = Interaction.InputBox("Ange Bokningsnummer", "Återlämmning","", 100, 100);
+            //MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(input);
+            UtrustningsBokning bokningNrExiterar = utrustningsKontroller.UtrustningsBokningExisterar(input);
+
             if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             else
             {
                 InputBokningsNr = input;
                 int antalUtrustningar = 0;
                 List<Utrustning> bokningsUtrustning = new List<Utrustning>();
-                foreach (var item in bokningNrExiterar.UtrustningsBokningar)
+                //Äldre för masterbokning
+                //foreach (var item in bokningNrExiterar.UtrustningsBokningar)
+                //{
+                //    foreach (Utrustning utrustning in item.Utrustningar.Where(a => a.Status == false))
+                //    {
+                //        bokningsUtrustning.Add(utrustning);
+                //    }
+                //}
+                foreach (Utrustning item in bokningNrExiterar.Utrustningar)
                 {
-                    foreach (Utrustning utrustning in item.Utrustningar.Where(a => a.Status == false))
+                    if (item.Status == false)
                     {
-                        bokningsUtrustning.Add(utrustning);
+                        bokningsUtrustning.Add(item);
                     }
                 }
                 var groupedUtrFöretag = bokningsUtrustning
@@ -852,6 +868,7 @@ namespace PresentationslagerWPF.ViewModels
         });
 
         #endregion
+
         public void StoppaKredit()
         {
             if (KreditIsChecked == true && Privatkund != null)
