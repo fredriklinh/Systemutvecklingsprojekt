@@ -506,7 +506,7 @@ namespace PresentationslagerWPF.ViewModels
             set { inputPostnummer = value; OnPropertyChanged(); }
         }
 
-        private string inputOrt = "HallåEller";
+        private string inputOrt;
         public string InputOrt
         {
             get { return inputOrt; }
