@@ -22,8 +22,8 @@ namespace Affärslager
             {
                 mB.GruppLektioner.Add(gLektion);
                 gLektion.Deltagare.Add(elev);
-                unitOfWork.GruppLektionRepository.Update(gLektion);
-                unitOfWork.MasterBokningRepository.Update(mB);
+                //unitOfWork.GruppLektionRepository.Update(gLektion);
+                //unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
@@ -34,8 +34,8 @@ namespace Affärslager
             {
                 mB.PrivatLektioner.Add(pLektion);
                 pLektion.Deltagare.Add(elev);
-                unitOfWork.PrivatLektionRepository.Update(pLektion);
-                unitOfWork.MasterBokningRepository.Update(mB);
+                //unitOfWork.PrivatLektionRepository.Update(pLektion);
+                //unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
@@ -44,9 +44,9 @@ namespace Affärslager
             pLektion.Deltagare.Remove(elev);
             mB.PrivatLektioner.Remove(pLektion);
             unitOfWork.ElevRepository.Delete(elev);
-            unitOfWork.ElevRepository.Update(elev);
-            unitOfWork.PrivatLektionRepository.Update(pLektion);
-            unitOfWork.MasterBokningRepository.Update(mB);
+            //unitOfWork.ElevRepository.Update(elev);
+            //unitOfWork.PrivatLektionRepository.Update(pLektion);
+            //unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
         }
         public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion, MasterBokning mB)
@@ -54,9 +54,9 @@ namespace Affärslager
             gLektion.Deltagare.Remove(elev);
             mB.GruppLektioner.Remove(gLektion);
             unitOfWork.ElevRepository.Delete(elev);
-            unitOfWork.ElevRepository.Update(elev);
-            unitOfWork.GruppLektionRepository.Update(gLektion);
-            unitOfWork.MasterBokningRepository.Update(mB);
+            //unitOfWork.ElevRepository.Update(elev);
+            //unitOfWork.GruppLektionRepository.Update(gLektion);
+            //unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
         }
 
@@ -238,7 +238,6 @@ namespace Affärslager
                     mB.NyttjadKreditsumma += summa;
                 }
             }
-            unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
             return mB;
             
