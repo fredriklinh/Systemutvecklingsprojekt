@@ -261,7 +261,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                        <Button Margin="0,15,0,0" Content="Återlämna" Visibility ="{Binding GömÅterlämnaKnapp}">
+                        <Button Margin="0,20,0,0" Content="Återlämna" Visibility ="{Binding GömÅterlämnaKnapp}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding AccepteraÅterlämningCommand}" />
