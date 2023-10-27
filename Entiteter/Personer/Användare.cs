@@ -7,7 +7,7 @@
 
         }
 
-        public Användare(/*int användarID*/int behörighetsnivå, string användarnamn, string lösenord, string förnamn, string efternamn): base()
+        public Användare(/*int användarID*/int behörighetsnivå, string användarnamn, string lösenord, string förnamn, string efternamn) : base()
         {
             //AnvändarID = användarID;
             Behörighetsnivå = behörighetsnivå;

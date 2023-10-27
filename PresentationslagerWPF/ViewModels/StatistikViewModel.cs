@@ -28,7 +28,7 @@ namespace PresentationslagerWPF.ViewModels
             //Commands
             UppddateraCommand = new NavigateCommand<StatistikViewModel>(new NavigationService<StatistikViewModel>(navigationStore, () => new StatistikViewModel(navigationStore, användare)));
 
-            
+
             DisplayStatistikLogi = new ObservableCollection<DisplayStatistik>();
             DisplayStatistikUtrustning = new ObservableCollection<DisplayStatistik>();
             Årtal = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
