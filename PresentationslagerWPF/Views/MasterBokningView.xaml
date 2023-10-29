@@ -55,8 +55,8 @@
                     <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold">Kund</Label>
                     <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" >Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="100"></TextBox>
-                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"></Button>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Ange personnummer- eller organisationsnummer" Height="25" Width="100"></TextBox>
+                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" ToolTip="Klicka för att söka efter en kund"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"></Button>
                     </StackPanel>
                 </StackPanel>
                 <!--PANEL FÖR PRIVATKUND-->
@@ -177,7 +177,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                             <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
-                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="70"  Content="Lägg till" Background="DarkSeaGreen"></Button>
+                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" ToolTip="Klicka för lägga till valt logi" Height="25" Width="70"  Content="Lägg till" Background="DarkSeaGreen"></Button>
 
                             <DataGrid x:Name="KonferensAlternativ" Visibility = "{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum}"

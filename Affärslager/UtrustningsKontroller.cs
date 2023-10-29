@@ -1,8 +1,6 @@
 ﻿using Datalager;
 using Entiteter.Personer;
 using Entiteter.Tjänster;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Identity.Client;
 using System.Collections.ObjectModel;
 
 namespace Affärslager
@@ -336,7 +334,7 @@ namespace Affärslager
                     foreach (UtrustningsBokning utrustningsBokning in item.UtrustningsBokningar)
                     {
                         if (utrustningsBokning.UtrustningBokningsId == input) return item;
-                        
+
                     }
                 }
             }
