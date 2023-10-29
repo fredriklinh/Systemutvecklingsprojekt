@@ -17,6 +17,8 @@ namespace PresentationslagerWPF.ViewModels
             NavigateSkidshopCommand = new NavigateCommand<SkidshopViewModel>(new NavigationService<SkidshopViewModel>(navigationStore, () => new SkidshopViewModel(navigationStore, användare)));
             NavigateStatistikCommand = new NavigateCommand<StatistikViewModel>(new NavigationService<StatistikViewModel>(navigationStore, () => new StatistikViewModel(navigationStore, användare)));
             NavigateAdminCommand = new NavigateCommand<AdminViewModel>(new NavigationService<AdminViewModel>(navigationStore, () => new AdminViewModel(navigationStore, användare)));
+            Behörighet(användare);
+
 
         }
         public HuvudMenyViewModel() { }
@@ -29,14 +31,29 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand NavigateAdminCommand { get; }
 
 
-
-
         //**** NAVBAR *******//
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
         public ICommand NavigateLoggaUtCommand { get; }
+
+
+        //**** PROPERTIES *******//
+
+
+
+        private bool isEnabledAdmin = false!;
+
+        public bool IsEnabledAdmin { get => isEnabledAdmin; set { isEnabledAdmin = value; OnPropertyChanged(); } }
+
+
+        public void Behörighet(Användare användare)
+        {
+            if (användare.Behörighetsnivå == 1) isEnabledAdmin = true;
+            else isEnabledAdmin = false;
+
+        }
 
 
     }

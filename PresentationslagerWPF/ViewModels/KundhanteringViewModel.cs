@@ -28,7 +28,7 @@ namespace PresentationslagerWPF.ViewModels
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             UppddateraCommand = new NavigateCommand<KundhanteringViewModel>(new NavigationService<KundhanteringViewModel>(navigationStore, () => new KundhanteringViewModel(navigationStore, användare)));
-
+            Behörighet(användare);
         }
         //**** NAVIGATION *******//
         public ICommand UppddateraCommand { get; }
@@ -44,6 +44,10 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region ISENABLEd
+
+        private bool isEnabledMarknadsChef = false!;
+        public bool IsEnabledMarknadsChef { get => isEnabledMarknadsChef; set { isEnabledMarknadsChef = value; OnPropertyChanged(); } }
+
 
         private bool isEnabledFöretag = false!;
         public bool IsEnabledFöretag { get => isEnabledFöretag; set { isEnabledFöretag = value; OnPropertyChanged(); } }
@@ -444,7 +448,11 @@ namespace PresentationslagerWPF.ViewModels
         {
             Masterbokningar = null;
         }
-
+        public void Behörighet(Användare användare)
+        {
+            if (användare.Behörighetsnivå == 1 || användare.Behörighetsnivå ==  2) IsEnabledMarknadsChef = true;
+            else IsEnabledMarknadsChef = false;
+        }
 
 
 

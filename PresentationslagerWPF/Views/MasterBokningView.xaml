@@ -138,7 +138,7 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" x:Name="btnLogi" Command="{Binding GömKommando, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Content="Logi" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"/>
-                    <Button Grid.Column="1" x:Name="btnKonferens" Command="{Binding SyngörKonferensKommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Konferens" Height="30" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>
+                    <!--<Button Grid.Column="1" x:Name="btnKonferens" Command="{Binding SyngörKonferensKommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Konferens" Height="30" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>-->
 
                     <!--<Button x:Name="btnUtrustning" Margin="372,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button x:Name="btnLektion" Margin="488,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Lektion" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
