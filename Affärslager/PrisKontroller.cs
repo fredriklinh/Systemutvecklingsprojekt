@@ -326,17 +326,8 @@ namespace Affärslager
 
         public double HämtaRabattFöretagskund(double TotalPris, Företagskund företagskund)
         {
-            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.OrgaNr == företagskund.OrgNr);
-
-            if (masterBokning != null)
-            {
-                double rabatt = företagskund.RabattSats;
-                TotalPris = TotalPris - (TotalPris * (rabatt / 100));
-            }
-            else
-            {
-                TotalPris = default;
-            }
+            double rabatt = företagskund.RabattSats;
+            TotalPris = TotalPris - (TotalPris * (rabatt / 100));
             return Math.Round(TotalPris, 1);
         }
 
