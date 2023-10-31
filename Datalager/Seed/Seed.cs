@@ -22,6 +22,42 @@ namespace Datalager.Seed
                     Förnamn = "Magnifike"
                 }
                 );
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    //Marknadschef
+                    AnvändarID = 22,
+                    Behörighetsnivå = 2,
+                    Användarnamn = "erikar",
+                    Lösenord = "erika",
+                    Efternamn = "Karlsson",
+                    Förnamn = "Erika"
+                }
+                );
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    //Bokningsmottagare
+                    AnvändarID = 33,
+                    Behörighetsnivå = 3,
+                    Användarnamn = "magber",
+                    Lösenord = "magnus",
+                    Efternamn = "Bergquist",
+                    Förnamn = "Magnus"
+                }
+                );
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    //Skidshopspersonal
+                    AnvändarID = 44,
+                    Behörighetsnivå = 4,
+                    Användarnamn = "petsve",
+                    Lösenord = "peter",
+                    Efternamn = "Svensson",
+                    Förnamn = "Peter"
+                }
+                );
             #endregion Ladda användare
 
 
