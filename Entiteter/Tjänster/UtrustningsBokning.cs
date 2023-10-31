@@ -20,7 +20,6 @@ namespace Entiteter.Tjänster
         public virtual Användare Användare { get; set; }
 
 
-
         [ForeignKey("Faktura")]
 
         public int? FakturaID { get; set; }

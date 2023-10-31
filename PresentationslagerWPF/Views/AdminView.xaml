@@ -46,7 +46,7 @@
             </DockPanel>
                 <DataGrid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3"  AutoGenerateColumns="True" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding AllaAnvändare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-                                  SelectedItem="{Binding AllaAnvändareSelectedItem, Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedItemAllaAnvändare, Mode=TwoWay}"
                                   SelectedIndex="{Binding AllaAnvändareSelectedIndex, Mode=TwoWay}" 
                                   Background="White" Margin="0,0,10,0" ColumnWidth="*">
                 </DataGrid>

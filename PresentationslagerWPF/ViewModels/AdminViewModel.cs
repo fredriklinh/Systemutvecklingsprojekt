@@ -71,9 +71,9 @@ namespace PresentationslagerWPF.ViewModels
             {
                 MessageBoxResult var = MessageBox.Show("Är du säker att användare ska tas bort?", "Användare", MessageBoxButton.YesNo);
                 if (var == MessageBoxResult.Yes) användarKontroller.TaBortAnvändare(SelectedItemAllaAnvändare);
+
             }
         });
-
 
 
         #region OBSERVABLE COLLECTION ANVÄNDARE
