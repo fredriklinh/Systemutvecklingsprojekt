@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         FontFamily="Calibri"
         >
-    <DockPanel Background="#edf2ff">
+    <DockPanel>
         <Grid DockPanel.Dock="Top" Background="#191970 " VerticalAlignment="Center" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -25,7 +25,7 @@
                 </Menu>
             </StackPanel>
         </Grid>
-        <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Background="#edf2ff" VerticalAlignment="Stretch">
+        <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <StackPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="#191970"></Setter>

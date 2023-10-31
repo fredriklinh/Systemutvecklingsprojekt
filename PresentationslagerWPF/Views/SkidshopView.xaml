@@ -252,7 +252,7 @@
                             <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
                             <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
                             <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
-                            <DataGridTextColumn Header="Summa" Binding= "{Binding Summa}"/>
+                        <DataGridTextColumn Header="Summa" Binding= "{Binding Summa}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 <DockPanel>
