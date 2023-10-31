@@ -24,12 +24,20 @@ namespace PresentationslagerWPF.ViewModels
 
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+
+            //Commands
+            UppddateraCommand = new NavigateCommand<StatistikViewModel>(new NavigationService<StatistikViewModel>(navigationStore, () => new StatistikViewModel(navigationStore, användare)));
+
+
             DisplayStatistikLogi = new ObservableCollection<DisplayStatistik>();
             DisplayStatistikUtrustning = new ObservableCollection<DisplayStatistik>();
             Årtal = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
             ÅrtalUtrustning = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
 
         }
+
+        public ICommand UppddateraCommand { get; }
+
         public ICommand NavigateLoggaUtCommand { get; }
 
         private ICommand exitCommand = null!;

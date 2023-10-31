@@ -22,8 +22,8 @@ namespace Affärslager
             {
                 mB.GruppLektioner.Add(gLektion);
                 gLektion.Deltagare.Add(elev);
-                unitOfWork.GruppLektionRepository.Update(gLektion);
-                unitOfWork.MasterBokningRepository.Update(mB);
+                //unitOfWork.GruppLektionRepository.Update(gLektion);
+                //unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
@@ -34,8 +34,8 @@ namespace Affärslager
             {
                 mB.PrivatLektioner.Add(pLektion);
                 pLektion.Deltagare.Add(elev);
-                unitOfWork.PrivatLektionRepository.Update(pLektion);
-                unitOfWork.MasterBokningRepository.Update(mB);
+                //unitOfWork.PrivatLektionRepository.Update(pLektion);
+                //unitOfWork.MasterBokningRepository.Update(mB);
             }
             unitOfWork.Complete();
         }
@@ -44,9 +44,9 @@ namespace Affärslager
             pLektion.Deltagare.Remove(elev);
             mB.PrivatLektioner.Remove(pLektion);
             unitOfWork.ElevRepository.Delete(elev);
-            unitOfWork.ElevRepository.Update(elev);
-            unitOfWork.PrivatLektionRepository.Update(pLektion);
-            unitOfWork.MasterBokningRepository.Update(mB);
+            //unitOfWork.ElevRepository.Update(elev);
+            //unitOfWork.PrivatLektionRepository.Update(pLektion);
+            //unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
         }
         public void AvBokaGruppLektion(Elev elev, GruppLektion gLektion, MasterBokning mB)
@@ -54,16 +54,11 @@ namespace Affärslager
             gLektion.Deltagare.Remove(elev);
             mB.GruppLektioner.Remove(gLektion);
             unitOfWork.ElevRepository.Delete(elev);
-            unitOfWork.ElevRepository.Update(elev);
-            unitOfWork.GruppLektionRepository.Update(gLektion);
-            unitOfWork.MasterBokningRepository.Update(mB);
+            //unitOfWork.ElevRepository.Update(elev);
+            //unitOfWork.GruppLektionRepository.Update(gLektion);
+            //unitOfWork.MasterBokningRepository.Update(mB);
             unitOfWork.Complete();
         }
-
-
-
-
-
 
         public IList<GruppLektion> AllaGruppLektion()
         {
@@ -211,37 +206,41 @@ namespace Affärslager
         }
 
 
-        public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
-        {
-            //SKA TESTAS
-            masterBokning.NyttjadKreditsumma += summaBokning;
-            if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
-            {
-                unitOfWork.Complete();
-                return masterBokning;
+        //public MasterBokning KollaKredtiTotal(double kreditTotalKund, double summaBokning, MasterBokning masterBokning)
+        //{
+        //    //SKA TESTAS
+        //    masterBokning.NyttjadKreditsumma += summaBokning;
+        //    if (masterBokning.NyttjadKreditsumma + summaBokning <= kreditTotalKund)
+        //    {
+        //        unitOfWork.Complete();
+        //        return masterBokning;
 
-            }
-            else return masterBokning;
-        }
+        //    }
+        //    else return masterBokning;
+        //}
 
         public MasterBokning FixaPrisLektion(double summa, bool påKredit, MasterBokning mB)
         {
             if (mB.OrgaNr != null)
             {
                 Företagskund fk = unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(mB.OrgaNr));
-                if (påKredit == true) KollaKredtiTotal(fk.MaxBeloppsKreditGräns, summa, mB);
-                if (mB.NyttjadKreditsumma > fk.MaxBeloppsKreditGräns) return mB;
+                if (påKredit == true)
+                {
+                    mB.NyttjadKreditsumma += summa;
+                }
             }
 
             if (mB.PersonNr != null)
             {
                 Privatkund pk = unitOfWork.PrivatkundRepository.FirstOrDefault(m => m.Personnummer.Equals(mB.PersonNr));
-                if (påKredit == true) KollaKredtiTotal(pk.MaxBeloppsKreditGräns, summa, mB);
-                if (mB.NyttjadKreditsumma > pk.MaxBeloppsKreditGräns) return mB;
-
+                if (påKredit == true)
+                {
+                    mB.NyttjadKreditsumma += summa;
+                }
             }
             unitOfWork.Complete();
             return mB;
+            
         }
     }
 }

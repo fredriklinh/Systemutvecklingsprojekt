@@ -43,7 +43,7 @@
                 <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" FontWeight="DemiBold" ></Button>
                 <Separator Margin="10"/>
                 <Button x:Name="btnStatistik" Command="{Binding NavigateStatistikCommand}" Content="Statistik" FontWeight="DemiBold"></Button>
-                <Button x:Name="btnAdmin" Content="Admin" Command="{Binding NavigateAdminCommand}" FontWeight="DemiBold"></Button>
+                <Button IsEnabled="{Binding IsEnabledAdmin}" x:Name="btnAdmin" Content="Admin" Command="{Binding NavigateAdminCommand}" FontWeight="DemiBold"></Button>
             </StackPanel>
         </StackPanel>
     </DockPanel>

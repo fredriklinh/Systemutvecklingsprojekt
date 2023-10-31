@@ -13,55 +13,65 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
 
-    <DockPanel Margin="20,20,20,20" LastChildFill="True">
-        <Menu DockPanel.Dock="Top" Background="LightGray" Margin="10,10,10,10">
-            <MenuItem Header="_Arkiv">
-                <MenuItem Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
-                <MenuItem Header="_Avsluta" Command="{Binding ExitCommand}"/>
-            </MenuItem>
-            <MenuItem Header="_Tillbaka" Command="{Binding TillbakaCommand}"/>
-        </Menu>
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#191970" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Image Source="/Bilder/Ski-Center-Logga.png" Margin="5,10" MaxWidth="200"/>
+                <StackPanel VerticalAlignment="Center">
+                    <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Left" Header="Tillbaka" Command="{Binding TillbakaCommand}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
+                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="5,0,5,0" Header="_Uppdatera" Command="{Binding UppdateraCommand}"/>
+                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="_Avsluta" Command="{Binding ExitCommand}"/>
+            </StackPanel>
+        </Grid>
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Width="215" HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical">
-                        <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Datum för bokning</Label>
+                        <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" >Datum för bokning</Label>
 
                         <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                             <StackPanel Orientation="Vertical">
-                                <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Ankomst:</Label>
+                                <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold">Ankomst:</Label>
                                 <DatePicker x:Name="Ankomst" SelectedDate="{Binding Starttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
-                                <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Utcheckning:</Label>
+                                <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" >Utcheckning:</Label>
                                 <DatePicker x:Name="Utcheckning" SelectedDate="{Binding Sluttid, Mode=TwoWay}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Margin="10,10,10,10" Content="Sök" Background="LightGreen" Width="100" ></Button>
+                        <Button x:Name="BtnSökLogi" Command="{Binding HämtaBokningCommand, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" IsEnabled="{Binding IsEnabledSökDatum}" Margin="10,10,10,10" Content="Sök" Background="DarkSeaGreen" Width="100" ></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel></StackPanel>
                 <StackPanel Margin="10,10,10,10">
-                    <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Kund</Label>
-                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray">Personnummer/OrgNr:</Label>
+                    <Label FontSize="15" FontFamily="Calibri" FontWeight="DemiBold">Kund</Label>
+                    <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" >Personnummer/OrgNr:</Label>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="100"></TextBox>
-                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="LightGreen"></Button>
+                        <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Ange personnummer- eller organisationsnummer" Height="25" Width="100"></TextBox>
+                        <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" ToolTip="Klicka för att söka efter en kund"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"></Button>
                     </StackPanel>
                 </StackPanel>
                 <!--PANEL FÖR PRIVATKUND-->
                 <WrapPanel Visibility="{Binding KSynlighet}">
                     <StackPanel  Margin="10,10,10,10">
                         <StackPanel Orientation="Horizontal">
-                            <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Förnamn:"></Label>
-                            <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Efternamn:"></Label>
+                            <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold"  Content="Förnamn:"></Label>
+                            <Label FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Content="Efternamn:"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                             <TextBox x:Name="KundFörnamn" Text="{Binding InputFörnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="80" ></TextBox>
                             <TextBox x:Name="EfterNamn" Text="{Binding InputEfternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="80" Margin="8,0,0,0"></TextBox>
                         </StackPanel>
                         <StackPanel>
-                            <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Telefonnummer:"></Label>
+                            <Label Margin="0,0,30,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Content="Telefonnummer:"></Label>
                             <TextBox x:Name="Telefonnummer" Text="{Binding InputTelefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="169" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                         </StackPanel>
                     </StackPanel>
@@ -77,7 +87,7 @@
                             <TextBox Margin="0,0,0,0" Text="{Binding InputOrt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="90"></TextBox>
                         </StackPanel>
                         <StackPanel>
-                            <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Content="Mail:"></Label>
+                            <Label Margin="0,0,50,0" FontSize="12" FontFamily="Calibri" FontWeight="DemiBold" Content="Mail:"></Label>
                             <TextBox Text="{Binding InputMailAdress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="190" Margin="5,0,0,0" HorizontalAlignment="Left"></TextBox>
                         </StackPanel>
                     </StackPanel>
@@ -117,15 +127,24 @@
                 </WrapPanel>
             </StackPanel>
             <Separator></Separator>
-            <StackPanel Orientation="Vertical" Background="LightGray" Margin="10,10,10,10">
-                <Grid>
-                    <Button x:Name="btnLogi" Command="{Binding GömKommando, UpdateSourceTrigger=PropertyChanged}" Margin="5,10,0,0" HorizontalAlignment="Left" Content="Logi" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"/>
-                    <Button x:Name="btnKonferens" Command="{Binding SyngörKonferensKommand}" Margin="120,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Konferens" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>
-                    <Button x:Name="btnUtrustning" Margin="372,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+            <StackPanel Orientation="Vertical" Background="LightGray" Margin="5,5,5,5">
+                <Grid Background="AliceBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="0" x:Name="btnLogi" Command="{Binding GömKommando, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Content="Logi" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"/>
+                    <!--<Button Grid.Column="1" x:Name="btnKonferens" Command="{Binding SyngörKonferensKommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Konferens" Height="30" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>-->
+
+                    <!--<Button x:Name="btnUtrustning" Margin="372,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
                     <Button x:Name="btnLektion" Margin="488,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Lektion" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
-                    <Button x:Name="btnBokningTotal" Margin="234,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Bokning total" Height="30" Width="120" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
+                    <Button x:Name="btnBokningTotal" Margin="234,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Bokning total" Height="30" Width="120" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>-->
                 </Grid>
-                <Grid x:Name="bokningGrid" Margin="0,0,0,0">
+                <Grid x:Name="bokningGrid">
                     <!--<local:MasterBokningLogi x:Name="logi"></local:MasterBokningLogi>
                     <local:MasterBokningKonferens x:Name="konferens" Visibility="Collapsed"></local:MasterBokningKonferens>
                     <local:MasterBokningUtrustning x:Name="utrustning" Visibility="Collapsed"></local:MasterBokningUtrustning>
@@ -158,7 +177,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                             <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
-                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
+                            <Button x:Name="btnLäggTillLogi" Visibility="{Binding SeKonferens}" Command="{Binding LäggTillCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" ToolTip="Klicka för lägga till valt logi" Height="25" Width="70"  Content="Lägg till" Background="DarkSeaGreen"></Button>
 
                             <DataGrid x:Name="KonferensAlternativ" Visibility = "{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligaKonferensRum}"
@@ -171,76 +190,78 @@
                                     <DataGridTextColumn Header="Platser" Binding="{Binding AntalPlatser}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <Button x:Name="LäggTillKonferens" Visibility="{Binding GömAllt}" Command="{Binding LäggTillKonferens}" Height="25" Width="70"  Content="Lägg till" Background="LightGreen"></Button>
+                            <Button x:Name="LäggTillKonferens" Visibility="{Binding GömAllt}" Command="{Binding LäggTillKonferens}" Height="25" Width="70"  Content="Lägg till" Background="DarkSeaGreen"></Button>
                         </StackPanel>
                     </StackPanel>
 
                 </DockPanel>
 
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Background="LightGray">
-                <Label HorizontalAlignment="Left" Width="450" Content="VALD" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="TOTAL" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Background="LightGray">
-                <DataGrid Visibility="{Binding SeKonferens}" x:Name="ValdaLogier" ItemsSource="{Binding ValdLogi}" 
-                          AutoGenerateColumns="False" SelectionMode="Single"
-                          SelectionUnit="FullRow" IsReadOnly="True"
-                          SelectedItem="{Binding ValdLogiSelectedItem, Mode=TwoWay}"
-                          SelectedIndex="{Binding ValdLogiSelectedIndex, Mode=TwoWay}"
-                          Background="White" Width="450" Height="150" Margin="0,0,10,0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <StackPanel Visibility="{Binding SeKonferens}" Width="320" Background="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left"  Content="Antal sovplatser:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                        <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Total kostnad:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                        <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+            <StackPanel Margin="5,5,5,5" Background="LightGray">
+                <StackPanel Orientation="Horizontal" Background="LightGray">
+                    <Label HorizontalAlignment="Left" Width="450" Content="VALD" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                    <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="TOTAL" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Background="LightGray" Margin="10">
+                    <DataGrid Visibility="{Binding SeKonferens}" x:Name="ValdaLogier" ItemsSource="{Binding ValdLogi}" 
+              AutoGenerateColumns="False" SelectionMode="Single"
+              SelectionUnit="FullRow" IsReadOnly="True"
+              SelectedItem="{Binding ValdLogiSelectedItem, Mode=TwoWay}"
+              SelectedIndex="{Binding ValdLogiSelectedIndex, Mode=TwoWay}"
+              Background="White" Width="450" Height="150" Margin="0,0,10,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Visibility="{Binding SeKonferens}" Width="320" Background="White">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalAlignment="Left"  Content="Antal sovplatser:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                            <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Total kostnad:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                            <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding AntalSovplatser}" Width="100" Margin="0,0,5,0"></TextBox>
+                            <TextBox Text="{Binding TotalKostnad}" Width="100" Margin="0,0,5,0"></TextBox>
+                            <TextBox Width="100" Margin="0,0,5,0"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalAlignment="Left"  Content="Avbeställningsskydd" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                            <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Kostnad inkl. rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                            <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding AntalSovplatser}" Width="100" Margin="0,0,5,0"></TextBox>
-                        <TextBox Text="{Binding TotalKostnad}" Width="100" Margin="0,0,5,0"></TextBox>
-                        <TextBox Width="100" Margin="0,0,5,0"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left"  Content="Avbeställningsskydd" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                        <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Kostnad inkl. rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
-                        <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
-                    </StackPanel>
+
+                    <DataGrid  x:Name="KonferensValda" Visibility="{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
+                      SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding ValdaKonferensRum}"
+                      SelectedItem="{Binding ValdKonferensItem, Mode=TwoWay}"
+                      SelectedIndex="{Binding ValdKonferensIndex}"
+                      Background="White" Width="294" Height="146" Margin="0,0,10,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Konferensnummer" Binding="{Binding KonferensBenämningsId}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Storlek" Binding="{Binding Storlek}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Platser" Binding="{Binding AntalPlatser}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="TaBortKonferens" Visibility="{Binding GömAllt}" Command="{Binding TaBortKonferens}" Height="25" Width="70"  Content="Ta Bort" Background="Red"></Button>
                 </StackPanel>
 
-                <DataGrid  x:Name="KonferensValda" Visibility="{Binding GömAllt}" AutoGenerateColumns="False" SelectionMode="Single"
-                                  SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding ValdaKonferensRum}"
-                                  SelectedItem="{Binding ValdKonferensItem, Mode=TwoWay}"
-                                  SelectedIndex="{Binding ValdKonferensIndex}"
-                                  Background="White" Width="294" Height="146" Margin="0,0,10,0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Konferensnummer" Binding="{Binding KonferensBenämningsId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Storlek" Binding="{Binding Storlek}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Platser" Binding="{Binding AntalPlatser}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Button x:Name="TaBortKonferens" Visibility="{Binding GömAllt}" Command="{Binding TaBortKonferens}" Height="25" Width="70"  Content="Ta Bort" Background="Red"></Button>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Background="LightGray">
-                <Button x:Name="btnTaBortLogi" Visibility="{Binding SeKonferens}" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
-                <Button x:Name="btnSpara" Visibility="{Binding SeKonferens}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="LightGreen" IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
-                            <i:InvokeCommandAction Command="{Binding UppdateraCommandMasterBokning, UpdateSourceTrigger=PropertyChanged}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Button>
+                <StackPanel Orientation="Horizontal" Background="LightGray">
+                    <Button x:Name="btnTaBortLogi" Visibility="{Binding SeKonferens}" Command="{Binding TaBortCommand}" Height="25" Width="70" Margin="370,10,10,10" Content="Ta bort" Background="red"></Button>
+                    <Button x:Name="btnSpara" Visibility="{Binding SeKonferens}" Height="25" Width="70" Margin="250,10,10,10" Content="SPARA" Background="DarkSeaGreen" IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" />
+                                <i:InvokeCommandAction Command="{Binding UppdateraCommand, UpdateSourceTrigger=PropertyChanged}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </DockPanel>

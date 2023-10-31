@@ -4,11 +4,7 @@ using PresentationslagerWPF.Commands;
 using PresentationslagerWPF.Models;
 using PresentationslagerWPF.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,7 +19,7 @@ namespace PresentationslagerWPF.ViewModels.FönsterViewModel
         public SkapaAnvändareViewModel()
         {
             this.windowService = new WindowService();
-            Behörighet = new ObservableCollection<int> { 1, 2, 3, 4, 5};
+            Behörighet = new ObservableCollection<int> { 1, 2, 3, 4, 5 };
         }
 
         #region COMMANDS

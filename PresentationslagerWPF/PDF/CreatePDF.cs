@@ -4,7 +4,10 @@ using Entiteter.Personer;
 using Entiteter.Tjänster;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Globalization;
 
 namespace PDF
 {
@@ -158,17 +161,13 @@ namespace PDF
         }
 
 
-
-
-
-
         public static void SkapaKvittoLektionAlla(MasterBokning mB, DateTime LektionsDatum)
         {
             Document document = new Document();
-            string LektionsTyp = "Hej";
             Page page = new Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
             document.Pages.Add(page);
-
+            var Datum = DateTime.Now.Date;
+            var kortDatum = new DateOnly(Datum.Year, Datum.Month, Datum.Day);
             DateTime utlämningsTid = DateTime.Now.Date;
             if (mB.Privatkund != null)
             {
@@ -214,17 +213,72 @@ namespace PDF
 
                 int count = 1;
                 string newFileName = originalFileName;
-
                 while (File.Exists(filePath))
                 {
+
                     // Om filen redan finns, lägg till ett efterföljande nummer i filnamnet och försök igen
-                    newFileName = $"{mB.Företagskund.MailAdress}_{count}.pdf";
+                    newFileName = $"{mB.Företagskund.MailAdress}_{kortDatum}_{count}.pdf";
                     filePath = Util.GetPath($"PDF/KvittoLektion/{newFileName}");
                     count++;
                 }
                 document.Draw(filePath);
             }
         }
+
+
+        #region FAKTURA
+        public static void SkapaFaktura(MasterBokning masterBokning, string utrstningsBokningsNr)
+        {
+
+            int input = Int32.Parse(utrstningsBokningsNr);
+            UtrustningsBokning utrustningsBokning = masterBokning.UtrustningsBokningar.FirstOrDefault(a => a.UtrustningBokningsId == input);
+
+
+            Document document = new Document();
+
+            Page page = new Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
+            document.Pages.Add(page);
+
+            DateTime utlämningsTid = DateTime.Now.Date;
+            string labelText =
+                $"\nFaktura\t\tSki-Center\n" +
+                $"\n---------------------------------------------------------------\n" +
+                $"\nKund: {masterBokning.Privatkund.Förnamn}, {masterBokning.Privatkund.Efternamn}" +
+                $"\n\nUthyrningstider: \nFrån:{utrustningsBokning.StartDatum}\nTill:{utrustningsBokning.SlutDatum}\n" +
+                $"\n\"Summa:{utrustningsBokning.Summa}\n" +
+                $"\n\"--------------------------------------------------------------\n";
+
+
+            string utrustning = "\n\n\n\n\n\n\n\n\n\n\n\n\n\nUtrustning som hyrts ut: \n";
+            foreach (var objekt in utrustningsBokning.Utrustningar)
+            {
+                utrustning += objekt.UtrustningsId.ToString() + Environment.NewLine;
+            }
+
+            Label label = new Label(utrustning, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);
+            page.Elements.Add(label);
+
+            Label label2 = new Label(labelText, 0, 0, 504, 500, Font.Helvetica, 18, TextAlign.Center);
+            page.Elements.Add(label2);
+
+            //document.Draw(Util.GetPath($"PDF/{företagskund.FöretagsNamn}.pdf"));
+            string originalFileName = $"Faktura_{masterBokning.Privatkund.MailAdress}.pdf";
+            string filePath = Util.GetPath($"PDF/Faktura/{originalFileName}");
+
+            int count = 1;
+            string newFileName = originalFileName;
+
+            while (File.Exists(filePath))
+            {
+                // Om filen redan finns, lägg till ett efterföljande nummer i filnamnet och försök igen
+                newFileName = $"Faktura_{masterBokning.Privatkund.MailAdress}_{count}.pdf";
+                filePath = Util.GetPath($"PDF/Faktura/{newFileName}");
+                count++;
+            }
+            document.Draw(filePath);
+        }
+        #endregion
+
     }
 
 }

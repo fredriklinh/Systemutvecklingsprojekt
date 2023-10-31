@@ -5,23 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationslagerWPF.Views"
         mc:Ignorable="d">
-    <!-- Put things in Grid.Column="0" for left, and "1' for right -->
-    <Grid HorizontalAlignment="Left">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="320"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
         <!--MENU NAVBAR-->
-        <Grid Grid.Row="0" Grid.ColumnSpan="3"    Background="#191970" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Column="3" Grid.Row="2" HorizontalAlignment="Stretch" Background="White">
+            <Label HorizontalAlignment="Stretch">.</Label>
+        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="4" Background="#191970" VerticalAlignment="Center" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -32,29 +37,27 @@
                     <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Left" Header="Tillbaka" Command="{Binding TillbakaCommand}"/>
                 </StackPanel>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
                 <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="5,0,5,0" Header="_Uppdatera" Command="{Binding UppddateraCommand}"/>
                 <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="_Avsluta" Command="{Binding ExitCommand}"/>
             </StackPanel>
         </Grid>
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,0" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Center">
             <StackPanel>
                 <Label Margin="0,0,10,0">Kundnummer</Label>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
                 <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
                 <Button Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Background="Green" Width="53">Sök</Button>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center" Margin="10">
             <Button Command ="{Binding IsEnabledPrivatCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till PrivatKund</Button>
-            <Button Command ="{Binding IsEnabledFöretagCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Företagskund</Button>
+            <Button IsEnabled="{Binding IsEnabledMarknadsChef}" Command ="{Binding IsEnabledFöretagCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Företagskund</Button>
         </StackPanel>
         <Label Grid.Row="2" Grid.Column="0" Margin="10,0,5,0" Background="LightGray">Privatkund</Label>
         <WrapPanel Grid.Row="3" Grid.Column="0" Margin="10,10,5,10" Background="LightGray" HorizontalAlignment="Left">
-
             <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path= IsEnabledPrivat}">
                 <StackPanel Margin="10,10,10,10" Background="LightGray">
                     <Label>Personummer</Label>
@@ -115,10 +118,12 @@
                 <!--SPRINT 2/3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraKundPrivat}">Ändra Kund</Button>-->
             </StackPanel>
         </WrapPanel>
-        <Label Grid.Row="2" Grid.Column="2" Margin="5,0,10,0" Background="LightGray">Bokningar</Label>
+        <StackPanel Grid.Row="2" Grid.Column="2" Background="LightGray">
+            <Label  Margin="5,0,10,0">Bokningar</Label>
+        </StackPanel>
         <WrapPanel Grid.Row="3" Grid.Column="2" Margin="5,10,10,10" Background="LightGray" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical">
-                <DataGrid x:Name="Masterbokningar" ItemsSource="{Binding Masterbokningar, UpdateSourceTrigger=PropertyChanged}" 
+                <DataGrid Margin="10" x:Name="Masterbokningar" ItemsSource="{Binding Masterbokningar, UpdateSourceTrigger=PropertyChanged}" 
                                 AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True"
                                   SelectedItem="{Binding ValdBokningSelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
