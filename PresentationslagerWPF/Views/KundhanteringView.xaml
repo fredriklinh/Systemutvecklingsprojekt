@@ -165,7 +165,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel Orientation="Horizontal" Margin="10,10">
-                            <Button Background="Green" Command="{Binding SparaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Content="Spara"/>
+                            <!--<Button Background="DarkSeaGreen" Command="{Binding SparaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Content="Spara"/>-->
                             <Button Margin="5,0" Background="Red" Command="{Binding TaBortBokningCommand}" Content="Ta bort"/>
                         </StackPanel>
                     </StackPanel>

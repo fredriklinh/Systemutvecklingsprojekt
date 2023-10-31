@@ -327,14 +327,14 @@ namespace PresentationslagerWPF.ViewModels
         private int valdLogiSelectedIndex;
         public int ValdLogiSelectedIndex { get => valdLogiSelectedIndex; set { valdLogiSelectedIndex = value; OnPropertyChanged(); } }
 
-        private ICommand sparaBokningCommand = null!;
-        public ICommand SparaBokningCommand => sparaBokningCommand ??= sparaBokningCommand = new RelayCommand(() =>
-        {
+        //private ICommand sparaBokningCommand = null!;
+        //public ICommand SparaBokningCommand => sparaBokningCommand ??= sparaBokningCommand = new RelayCommand(() =>
+        //{
 
-            bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
-            MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //    bokningsKontroller.SparaÄndring(ValdBokningSelectedItem);
+        //    MessageBox.Show($"Avbeställningsskyddet är tillagt", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
-        });
+        //});
         private ICommand taBortBokningCommand = null!;
         public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
         {
