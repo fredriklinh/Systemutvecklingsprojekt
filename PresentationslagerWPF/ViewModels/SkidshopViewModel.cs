@@ -658,6 +658,7 @@ namespace PresentationslagerWPF.ViewModels
             GömLämnaUtKnapp = Visibility.Collapsed;
             GömTaBortKnapp = Visibility.Collapsed;
             GömKvittoKnapp = Visibility.Collapsed;
+            TotalDisplayUtrustning.Clear();
             string input = Interaction.InputBox("Ange Bokningsnummer", "Återlämmning", "", 100, 100);
             //MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(input);
             UtrustningsBokning bokningNrExiterar = utrustningsKontroller.UtrustningsBokningExisterar(input);
@@ -761,6 +762,7 @@ namespace PresentationslagerWPF.ViewModels
             TotalDisplayUtrustning.Clear();
             GömLämnaUtKnapp = Visibility.Visible;
             GömTaBortKnapp = Visibility.Visible;
+            GömÅterlämnaKnapp = Visibility.Collapsed;
             Privatkund = privatkundKontroller.SökPrivatkund(Kundnummer);
             if (Privatkund != null)
             {
