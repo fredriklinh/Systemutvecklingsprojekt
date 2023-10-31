@@ -26,6 +26,17 @@ namespace PresentationslagerWPF.ViewModels
         public MasterBokningViewModel() { }
         #endregion
 
+
+        private double rabattSats;
+        public double RabattSats
+        {
+            get => rabattSats; set
+            {
+                rabattSats = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void StoppaSparaKnappen()
         {
             if ((Privatkund == null || Företagskund == null) &&
@@ -549,6 +560,7 @@ namespace PresentationslagerWPF.ViewModels
             TillgängligLogi = new ObservableCollection<Logi>(bokningsKontroller.HämtaTillgängligLogi(Starttid, Sluttid));
             ValdLogi = new ObservableCollection<Logi>();
         });
+
         private ICommand läggTillCommand = null!;
         public ICommand LäggTillCommand => läggTillCommand ??= läggTillCommand = new RelayCommand(() =>
         {
@@ -559,7 +571,13 @@ namespace PresentationslagerWPF.ViewModels
                 if (Privatkund != null)
                 {
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                    RabattSats = prisKontroller.HämtaRabattSatsPrivat(Privatkund);
                     //TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
+                }
+                if (Företagskund != null)
+                {
+                    TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
+                    RabattSats = Företagskund.RabattSats;
                 }
 
                 if (TotalPrisRabatt == 0)
@@ -718,14 +736,19 @@ namespace PresentationslagerWPF.ViewModels
             {
                 Logi tabortLogi = ValdLogiSelectedItem;
                 //Ta bort kostnad
-                if (tabortLogi != null)
+                if (tabortLogi != null && Privatkund != null)
                 {
                     TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
+                }
+                if (tabortLogi != null && Företagskund != null)
+                {
+                    TotalPris = prisKontroller.BeräknaPrisLogi(tabortLogi.Typen, Starttid, Sluttid);
                     TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
                 }
                 TillgängligLogi.Add(tabortLogi);
                 ValdLogi.Remove(tabortLogi);
+
                 //Ta bort bäddar totalt
                 int res = 0;
                 if (ValdLogi != null)

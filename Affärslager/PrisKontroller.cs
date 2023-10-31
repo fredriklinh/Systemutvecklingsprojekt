@@ -11,6 +11,22 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
+        public double HämtaRabattSatsPrivat(Privatkund privatkund)
+        {
+            double totalRabatt = 0;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.PersonNr == privatkund.Personnummer && m.BokningsDatum >= DateTime.Now.AddYears(-1));
+
+            if (masterBokning != null)
+            {
+                totalRabatt = 8;
+            }
+            else
+            {
+                totalRabatt = default;
+            }
+            return Math.Round(totalRabatt, 1);
+        }
+
 
 
         #region PrisLogi
@@ -315,7 +331,7 @@ namespace Affärslager
             if (masterBokning != null)
             {
                 double rabatt = företagskund.RabattSats;
-                TotalPris = TotalPris * rabatt;
+                TotalPris = TotalPris - (TotalPris * (rabatt / 100));
             }
             else
             {
