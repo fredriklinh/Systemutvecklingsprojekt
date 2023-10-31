@@ -52,7 +52,7 @@
         </StackPanel>
         <StackPanel Margin="0,20" Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Button IsCancel="True" Margin="5" Padding="5">Avbryt</Button>
-            <Button  IsCancel="True" Command ="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" Margin="5" Padding="5" Content="Spara">
+            <Button  Background="DarkSeaGreen" IsCancel="True" Command ="{Binding Spara, UpdateSourceTrigger=PropertyChanged}" Margin="5" Padding="5" Content="Spara">
             </Button>
         </StackPanel>
     </Grid>

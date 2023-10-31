@@ -26,7 +26,6 @@ namespace Affärslager
             return unitOfWork.AnvändareRepository.GetAll().ToList();
 
         }
-
         public ICollection<Användare> SökAnvändare(string input)
         {
             var query = unitOfWork.AnvändareRepository.Find(x => x.Användarnamn.Contains(input));

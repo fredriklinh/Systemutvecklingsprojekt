@@ -40,12 +40,12 @@
             </StackPanel.Resources>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label Margin="0,40,0,0" HorizontalAlignment="Center" Foreground="#191970" FontSize="30" FontWeight="DemiBold">Huvudmeny</Label>
-                <Button IsEnabled="{Binding IsEnabledBokning}" x:Name="btnBokning" Command="{Binding NavigateMasterBokningCommand}" Content="Logibokning"  FontWeight="DemiBold"/>
-                <Button IsEnabled="{Binding IsEnabledSkidshop}" x:Name="btnUthyrning" Command="{Binding NavigateSkidshopCommand}" Content="Skidshop" FontWeight="DemiBold"></Button>
-                <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" FontWeight="DemiBold" ></Button>
+                <Button IsEnabled="{Binding IsEnabledBokning}" x:Name="btnBokning" Command="{Binding NavigateMasterBokningCommand}" Content="Logibokning"  FontWeight="DemiBold" ToolTip="Navigation till logibokning-fönster"/>
+                <Button IsEnabled="{Binding IsEnabledSkidshop}" x:Name="btnUthyrning" Command="{Binding NavigateSkidshopCommand}" Content="Skidshop" FontWeight="DemiBold" ToolTip="Navigation till skidshop-fönster"></Button>
+                <Button x:Name="btnKundhantering" Command ="{Binding NavigateKundHanteringCommand}" Content="Kundhantering" FontWeight="DemiBold" ToolTip="Navigation till hantering av kundinformation och bokningar-fönster"></Button>
                 <Separator Margin="10"/>
-                <Button x:Name="btnStatistik" Command="{Binding NavigateStatistikCommand}" Content="Statistik" FontWeight="DemiBold"></Button>
-                <Button IsEnabled="{Binding IsEnabledAdmin}" x:Name="btnAdmin" Content="Admin" Command="{Binding NavigateAdminCommand}" FontWeight="DemiBold"></Button>
+                <Button x:Name="btnStatistik" Command="{Binding NavigateStatistikCommand}" Content="Statistik" FontWeight="DemiBold" ToolTip="Navigation till statistik-fönster" ></Button>
+                <Button IsEnabled="{Binding IsEnabledAdmin}" x:Name="btnAdmin" Content="Admin" Command="{Binding NavigateAdminCommand}" FontWeight="DemiBold" ToolTip="Navigation till admin-fönster"></Button>
             </StackPanel>
         </StackPanel>
     </DockPanel>

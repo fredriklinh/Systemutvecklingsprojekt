@@ -47,7 +47,7 @@
             <DockPanel Grid.Column="1" Grid.Row="0"  VerticalAlignment="Center" Grid.ColumnSpan="3">
                 <Label DockPanel.Dock="Left" FontSize="30">Användare</Label>
                 <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Button DockPanel.Dock="Right" Margin="10" Padding="5" Background="DarkSeaGreen" Command="{Binding SkapaAnvändareWindowCommand}" Width="auto">+ Skapa Användare</Button>
+                    <Button DockPanel.Dock="Right" Margin="10" Padding="5" Background="DarkSeaGreen" Command="{Binding SkapaAnvändareWindowCommand}" Width="auto" ToolTip="Navigation till skapa användare">+ Skapa Användare</Button>
                 </StackPanel>
             </DockPanel>
                 <DataGrid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3"  AutoGenerateColumns="True" SelectionMode="Single"
@@ -57,7 +57,7 @@
                 </DataGrid>
             <DockPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
                 <StackPanel Margin="10" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <Button Command="{Binding TaBortBokningCommand}" DockPanel.Dock="Right" Padding="5" Width="60" Background="PaleVioletRed">Ta Bort</Button>
+                    <Button Command="{Binding TaBortBokningCommand}" DockPanel.Dock="Right" Padding="5" Width="60" Background="PaleVioletRed" ToolTip="Ta bort vald användare">Ta Bort</Button>
                 </StackPanel>
             </DockPanel>
         </Grid>

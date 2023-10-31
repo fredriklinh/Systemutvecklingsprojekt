@@ -54,7 +54,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
                 <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
-                <Button Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Background="Green" Width="53">Sök</Button>
+                <Button Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Background="DarkSeaGreen" Width="53">Sök</Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center" Margin="10">
@@ -86,7 +86,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10,10,10,10">
-                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaPrivatCommand, UpdateSourceTrigger=PropertyChanged}">Spara</Button>
+                <Button Margin="10,10,10,10" Background="DarkSeaGreen" Command="{Binding SparaPrivatCommand, UpdateSourceTrigger=PropertyChanged}" ToolTip="Spara angiven information för privatkund">Spara</Button>
                 <!--TILL FÖR ADMIN<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding TaBortFöretagCommand}">Ta bort Kund</Button>-->
                 <!--SPRINT 3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraFöretagCommand}">Ändra Kund</Button>-->
             </StackPanel>
@@ -118,7 +118,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10,10,10,10">
-                <Button Margin="10,10,10,10" Background="Green" Command="{Binding SparaFöretagCommand, UpdateSourceTrigger=PropertyChanged}">Spara</Button>
+                <Button Margin="10,10,10,10" Background="DarkSeaGreen" Command="{Binding SparaFöretagCommand, UpdateSourceTrigger=PropertyChanged}" ToolTip="Spara angiven information för företagskund">Spara</Button>
                 <!--KRÄVS ADMIN FÖR DETTA<Button Margin="10,10,10,10" Background="DarkRed" Command ="{Binding TaBortPrivatCommand}">Ta bort Kund</Button>-->
                 <!--SPRINT 2/3<Button Margin="10,10,10,10" Background="DarkRed" Command="{Binding ÄndraKundPrivat}">Ändra Kund</Button>-->
             </StackPanel>
@@ -166,7 +166,7 @@
                         </DataGrid>
                         <StackPanel Orientation="Horizontal" Margin="10,10">
                             <!--<Button Background="DarkSeaGreen" Command="{Binding SparaBokningCommand, UpdateSourceTrigger=PropertyChanged}" Content="Spara"/>-->
-                            <Button Margin="5,0" Background="Red" Command="{Binding TaBortBokningCommand}" Content="Ta bort"/>
+                            <Button Margin="5,0" Background="Red" Command="{Binding TaBortBokningCommand}" Content="Ta bort" ToolTip="Ta bort vald bokning"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

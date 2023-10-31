@@ -47,14 +47,14 @@
         <Label Grid.Row="1" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Statistik Logier:</Label>
         <ComboBox Name="ÅrtalLogi" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemLogiÅr}" 
                     HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Width="100"/>
-        <WrapPanel HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3">
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3" ToolTip="Årtal för logistatistik">
             <DataGrid x:Name="StatistikLogi" ItemsSource="{Binding DisplayStatistikLogi}" AlternatingRowBackground="Gray" CanUserAddRows="False" 
                       IsReadOnly="True" AutoGenerateColumns="True">
              </DataGrid>
         </WrapPanel>
         <Label Grid.Row="5" Grid.Column="0" Margin="40,0,40,0" Background="LightGray">Årtal</Label>
         <Label Grid.Row="5" Grid.Column="1" Margin="40,0,40,0" Background="LightGray">Statistik Utrustning:</Label>
-        <ComboBox x:Name="ÅrtalUtrustning" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemUtrustningÅr}" 
+        <ComboBox x:Name="ÅrtalUtrustning" ItemsSource="{Binding Årtal}" SelectedItem="{Binding SelectedItemUtrustningÅr}" ToolTip="Årtal för utrustningsstatistik" 
                   HorizontalAlignment="Center"  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Width="100"/>
 
         <WrapPanel HorizontalAlignment="Center" Grid.Row="7" Grid.ColumnSpan="3">

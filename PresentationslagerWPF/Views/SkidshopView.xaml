@@ -160,7 +160,7 @@
                 </StackPanel>
             </WrapPanel>
         </StackPanel>
-        <!--PANEL FÖR UTRUSTGNIN-->
+        <!--PANEL FÖR UTRUSTNING-->
         <DockPanel Margin="5,0,5,0" Grid.Row="2" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="8">
             <StackPanel Orientation="Vertical">
                 <Label Content="Utcheckning:"/>
@@ -245,7 +245,7 @@
                           AutoGenerateColumns="False" SelectionMode="Single"
                           SelectionUnit="FullRow" IsReadOnly="True"
                           SelectedItem="{Binding SelectedItemDisplayUtrustning, Mode=TwoWay}"
-                          Background="White" MinWidth="300" Height="150" Margin="0,0,10,0">
+                          Background="White" MinWidth="300" MinHeight="100" Margin="0,0,10,0">
                     <!--Index låg här-->
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
@@ -314,7 +314,6 @@
                                 <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
                                 <DataGridTextColumn Header="Pris" Binding="{Binding Pris}" Width="auto"/>
-
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -348,9 +347,7 @@
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                     </CheckBox.LayoutTransform>
                 </CheckBox>
-
             </StackPanel>
-
             <StackPanel Margin="5" DockPanel.Dock="Top">
                 <!--<Label Content="Pris för vald lektion" FontSize="16" HorizontalAlignment="Center"/>-->
                 <!--<TextBox Text="{Binding LektionsTotalSumma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Width="50"></TextBox>-->
@@ -382,7 +379,6 @@
                 </DataGrid>
                 <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="Ta Bort" DockPanel.Dock="Left" Margin="10,10,10,10" Width="50" Height="20"/>
             </StackPanel>
-
         </DockPanel>
     </Grid>
 </UserControl>
