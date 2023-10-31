@@ -273,6 +273,8 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
+                        <Button Command ="{Binding SkrivUtKvittoCommand}" Visibility ="{Binding GömKvittoKnapp}"  Width="100" Margin="0,10,0,0" HorizontalAlignment="Left">Skriv ut Kvitto</Button>
+
                     </StackPanel>
                     <StackPanel>
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
@@ -290,7 +292,6 @@
                     </StackPanel>
                 </DockPanel>
             </StackPanel>
-            <Button Command ="{Binding SkrivUtKvittoCommand}" Visibility ="{Binding GömKvittoKnapp}"  Width="100" Margin="10,0,0,10" HorizontalAlignment="Left">Skriv ut Kvitto</Button>
         </StackPanel>
         <!--LEKTIONSBOKNING-->
         <DockPanel LastChildFill="True" Grid.Row="3" Grid.Column="4" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5" Background="LightGray">
