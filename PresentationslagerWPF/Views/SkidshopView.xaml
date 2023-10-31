@@ -173,7 +173,7 @@
             </StackPanel>
         </DockPanel>
         <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Vertical">
-            <Label Content="lektionsdatum:"/>
+            <Label Content="Lektionsdatum:"/>
             <DatePicker x:Name="lektionsDatePicker" SelectedDate="{Binding LektionsDatum, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel IsEnabled="{Binding IsEnabledUtrustning}" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="5,5,5,5">
@@ -374,7 +374,7 @@
                 <DataGrid Height="97" Width="260" ItemsSource="{Binding Eleverna}"
                                 AutoGenerateColumns="False" IsReadOnly="True"
                           SelectionMode="Single" SelectionUnit="FullRow"
-                          SelectedItem="{Binding ElevAttTaBortItem, Mode=TwoWay}"
+                          SelectedItem="{Binding ElevAttTaBortItem, Mode=TwoWay}" ColumnWidth="*"
                           >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Namn" Binding="{Binding Förnamn}" Width="auto"/>

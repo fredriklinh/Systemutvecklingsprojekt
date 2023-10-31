@@ -37,7 +37,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
                 {
-                    //Bokningsmottagare
+                    //Skidshop
                     //AnvändarID = 33,
                     Behörighetsnivå = 3,
                     Användarnamn = "magber",
@@ -49,7 +49,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
                 {
-                    //Skidshopspersonal
+                    //Bokninsmottagare
                     //AnvändarID = 44,
                     Behörighetsnivå = 4,
                     Användarnamn = "petsve",
