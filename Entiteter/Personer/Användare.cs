@@ -17,7 +17,7 @@
             Efternamn = efternamn;
         }
 
-        public int AnvändarID { get; set; }
+        //public int AnvändarID { get; set; }
         public int Behörighetsnivå { get; set; }
 
         public string Användarnamn { get; set; }

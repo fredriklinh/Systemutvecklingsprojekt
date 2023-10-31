@@ -58,15 +58,22 @@ namespace PresentationslagerWPF.ViewModels
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
 
 
+        private Användare användare = null!;
+        public Användare Användare { get => användare; set { användare = value; OnPropertyChanged(); } }
 
 
         private ICommand taBortBokningCommand = null!;
         public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
         {
-            MessageBoxResult var = MessageBox.Show("Är du säker att användare ska tas bort?", "Användare", MessageBoxButton.YesNo);
-            if (var == MessageBoxResult.Yes) användarKontroller.TaBortAnvändare(SelectedItemAllaAnvändare);
 
+            if (Användare == SelectedItemAllaAnvändare) MessageBox.Show("Kan inte ta bort inloggad Användare", "Användare", MessageBoxButton.OK);
+            else
+            {
+                MessageBoxResult var = MessageBox.Show("Är du säker att användare ska tas bort?", "Användare", MessageBoxButton.YesNo);
+                if (var == MessageBoxResult.Yes) användarKontroller.TaBortAnvändare(SelectedItemAllaAnvändare);
+            }
         });
+
 
 
         #region OBSERVABLE COLLECTION ANVÄNDARE
