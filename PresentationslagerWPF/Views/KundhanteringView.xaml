@@ -50,7 +50,7 @@
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Center">
             <StackPanel>
-                <Label Margin="0,0,10,0">Kundnummer</Label>
+                <Label Margin="0,0,10,0">Kundnummer / Bokningsnummer</Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
                 <TextBox Text="{Binding Kundnummer}" Width="200"></TextBox>
@@ -58,7 +58,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center" Margin="10">
-            <Button Command ="{Binding IsEnabledPrivatCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till PrivatKund</Button>
+            <Button Command ="{Binding IsEnabledPrivatCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Privatkund</Button>
             <Button IsEnabled="{Binding IsEnabledMarknadsChef}" Command ="{Binding IsEnabledFöretagCommand}" Background="DarkSeaGreen" Margin="10,10,10,10">Lägg till Företagskund</Button>
         </StackPanel>
         <Label Grid.Row="2" Grid.Column="0" Margin="10,0,5,0" Background="LightGray">Privatkund</Label>

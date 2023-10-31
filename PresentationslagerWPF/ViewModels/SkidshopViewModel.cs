@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 
@@ -542,6 +543,7 @@ namespace PresentationslagerWPF.ViewModels
                 MasterBokning = lektionsKontroller.HämtaKundsMasterBokning(Kundnummer);
             }
         }
+
         private Företagskund företagskund = null!;
         public Företagskund Företagskund
         {
@@ -855,6 +857,9 @@ namespace PresentationslagerWPF.ViewModels
         private ICommand läggTillSkoterCommand = null!;
         public ICommand LäggTillSkoterCommand => läggTillSkoterCommand ??= läggTillSkoterCommand = new RelayCommand(() =>
         {
+            DateTime startdatum = DateTime.Now;
+            TimeSpan dagar = Inlämning  - startdatum;
+            double skillnadTimmar = dagar.Hours;
             if (AntalSkoter.Count == 0) ;
             else
             {
@@ -929,7 +934,6 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
-
         #region AntalInt - Utrustning
 
         private ObservableCollection<int> antalAlpin;
@@ -975,7 +979,6 @@ namespace PresentationslagerWPF.ViewModels
             set { antalPaket = value; OnPropertyChanged(); }
         }
         #endregion
-
 
         #region SELECTEDITEM - Utrustning
 
@@ -1087,7 +1090,6 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-
         #region Metoder - Utrustning
 
         public bool ÄrRedanIBokning(Utrustning selectedItem)
@@ -1171,7 +1173,6 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-
         #region SELECTED INT - Utrustning
 
         private int selectedItemAntalAlpin;
@@ -1242,7 +1243,6 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #endregion
-
 
         #region Observable Properties & Collections - Skidlektion ............
 
@@ -1427,8 +1427,8 @@ namespace PresentationslagerWPF.ViewModels
         public Elev ElevAttTaBortIndex { get => elevAttTaBortIndex; set { elevAttTaBortIndex = value; OnPropertyChanged(); } }
         #endregion
 
-
         #region SUMMA & Metoder - Lektion
+
         private double lektionsTotalSumma;
         public double LektionsTotalSumma
         {
@@ -1502,7 +1502,6 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #endregion
-
 
         #region SKIDLEKTION Commands................
 

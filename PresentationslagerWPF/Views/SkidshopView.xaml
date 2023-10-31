@@ -7,9 +7,8 @@
              xmlns:vm="clr-namespace:PresentationslagerWPF.ViewModels"
              xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="PresentationslagerWPF.Views.SkidshopView"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200"
-             FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow"
+             mc:Ignorable="d" d:DesignWidth="1200"
+             FontSize="15" FontFamily="Calibri" FontWeight="Black"  Foreground="DarkSlateGray" Background="Snow" Height="876"
              >
     <Grid>
         <Grid.RowDefinitions>
@@ -78,7 +77,7 @@
                 <Label Content="Personnummer/OrgNr:"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="txtSökKund" Text="{Binding Kundnummer}" Height="25" Width="100"/>
-                    <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"/>
+                    <Button x:Name="btnSökKund" Command="{Binding SökKund, UpdateSourceTrigger=PropertyChanged}" ToolTip="Söker kund"  Height="25" Width="50" Content="Sök" Background="DarkSeaGreen"/>
                 </StackPanel>
             </StackPanel>
             <!--PANEL FÖR PRIVATKUND-->
@@ -165,7 +164,7 @@
         <DockPanel Margin="5,0,5,0" Grid.Row="2" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="8">
             <StackPanel Orientation="Vertical">
                 <Label Content="Utcheckning:"/>
-                <DatePicker x:Name="Inlämningckning" SelectedDate="{Binding Inlämning, Mode=TwoWay}"/>
+                <DatePicker x:Name="Inlämningckning" SelectedDate="{Binding Inlämning, Mode=TwoWay}" ToolTip="Slutdatum för utrustningsbokning"/>
             </StackPanel>
             <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Horizontal">
                 <Button Command ="{Binding ÅterlämnaUtrustningCommand}" Background="PaleVioletRed">Återlämna Utrustning</Button>
@@ -174,7 +173,7 @@
         </DockPanel>
         <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Vertical">
             <Label Content="Lektionsdatum:"/>
-            <DatePicker x:Name="lektionsDatePicker" SelectedDate="{Binding LektionsDatum, Mode=TwoWay}"/>
+            <DatePicker x:Name="lektionsDatePicker" SelectedDate="{Binding LektionsDatum, Mode=TwoWay}" ToolTip="Slutdatum för Lektionsbokning"/>
         </StackPanel>
         <StackPanel IsEnabled="{Binding IsEnabledUtrustning}" Grid.Row ="3" Grid.Column="0" Background="LightGray" Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="5,5,5,5">
             <StackPanel.Resources>
@@ -203,21 +202,21 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypAlpin}" SelectedItem="{Binding SelectedItemAlpin}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalAlpin}"  Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalAlpin}" SelectedItem="{Binding SelectedItemAntalAlpin}"></ComboBox>
-                        <Button IsEnabled ="{Binding IsEnabledBtnAlpin}"  Command="{Binding LäggTillAlpinCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnAlpin}" Command="{Binding LäggTillAlpinCommand}" ToolTip="Lägg till Alpin Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaAlpin}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSnowboard}" SelectedItem="{Binding SelectedItemSnowboard}" DisplayMemberPath="Benämning" ></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSnowboard}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSnowboard}" SelectedItem="{Binding SelectedItemAntalSnowboard }"></ComboBox>
-                        <Button IsEnabled ="{Binding IsEnabledBtnSnowboard}" Command="{Binding LäggTillSnowboardCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnSnowboard}" Command="{Binding LäggTillSnowboardCommand}" ToolTip="Lägg till Snowboard-Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaSnowboard}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypLängd}" SelectedItem="{Binding SelectedItemLängd}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalLängd}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalLängd}" SelectedItem="{Binding SelectedItemAntalLängd}"></ComboBox>
-                        <Button IsEnabled ="{Binding IsEnabledBtnLängd}" Command="{Binding LäggTillLängdCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnLängd}" Command="{Binding LäggTillLängdCommand}" ToolTip="Lägg till Längd Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaLängd}"></TextBox>
                     </StackPanel>
@@ -225,14 +224,14 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypHjälm}" SelectedItem="{Binding SelectedItemHjälm}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalHjälm}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
-                        <Button IsEnabled ="{Binding IsEnabledBtnHjälm}" Command="{Binding LäggTillHjälmCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnHjälm}" Command="{Binding LäggTillHjälmCommand}" ToolTip="Lägg till Hjälm. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaHjälm}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItemSkoter}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSkoter}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
-                        <Button IsEnabled ="{Binding IsEnabledBtnSkoter}" Command="{Binding LäggTillSkoterCommand}">+</Button>
+                        <Button IsEnabled ="{Binding IsEnabledBtnSkoter}" Command="{Binding LäggTillSkoterCommand}" ToolTip="Lägg till Skoter-Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
                         <TextBox Text="{Binding SummaSkoter}"></TextBox>
                     </StackPanel>
@@ -242,23 +241,23 @@
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Background="LightGray" Margin="5,5,5,5">
             <Label Content="Vald till Bokning"/>
             <StackPanel Margin="10,10,10,10" Orientation="Horizontal">
-                    <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
+                <DataGrid x:Name="ValdaLogier" ItemsSource="{Binding TotalDisplayUtrustning, UpdateSourceTrigger=PropertyChanged}" 
                           AutoGenerateColumns="False" SelectionMode="Single"
                           SelectionUnit="FullRow" IsReadOnly="True"
                           SelectedItem="{Binding SelectedItemDisplayUtrustning, Mode=TwoWay}"
                           Background="White" MinWidth="300" Height="150" Margin="0,0,10,0">
                     <!--Index låg här-->
                     <DataGrid.Columns>
-                            <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
-                            <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
-                            <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
+                        <DataGridTextColumn Header="Antal" Binding= "{Binding Value}"/>
+                        <DataGridTextColumn Header="Typ" Binding= "{Binding Typ}"/>
+                        <DataGridTextColumn Header="Benämning" Binding= "{Binding Benämning}"/>
                         <DataGridTextColumn Header="Summa" Binding= "{Binding Summa}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <DockPanel>
                     <StackPanel Margin="0,0,10,0" DockPanel.Dock="Left">
-                        <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}" Visibility ="{Binding GömTaBortKnapp}">Ta Bort</Button>
-                        <Button  Background="DarkSeaGreen" Visibility ="{Binding GömLämnaUtKnapp}" Margin="0,20,0,0" Content="Lämna ut">
+                        <Button Background="PaleVioletRed" Command="{Binding TaBortCommand}" Visibility ="{Binding GömTaBortKnapp}" ToolTip="Ta bort tillvald utrustning">Ta Bort</Button>
+                        <Button  Background="DarkSeaGreen" Visibility ="{Binding GömLämnaUtKnapp}" Margin="0,20,0,0" Content="Lämna ut" ToolTip="Lämna ut utrustningsbokning">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding SparaCommand, UpdateSourceTrigger=PropertyChanged}" />
@@ -266,7 +265,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                        <Button Margin="0,15,0,0" Content="Återlämna" Visibility ="{Binding GömÅterlämnaKnapp}">
+                        <Button Margin="0,15,0,0" Content="Återlämna" Visibility ="{Binding GömÅterlämnaKnapp}" ToolTip="Återlämna Utrustningsbokning">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding AccepteraÅterlämningCommand}" />
@@ -282,7 +281,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label>På Kredit</Label>
-                            <CheckBox Content="KreditUtrustning" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
+                            <CheckBox Content="KreditUtrustning" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding KreditIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20" ToolTip="Lägger bokning på kredit">
                                 <CheckBox.LayoutTransform>
                                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
                                 </CheckBox.LayoutTransform>
@@ -315,7 +314,7 @@
                                 <DataGridTextColumn Header="Kunskaps Nivå" Binding="{Binding Svårighetsgrad}" Width="auto"/>
                                 <DataGridTextColumn Header="Dag" Binding="{Binding LektionsTillfälle}" Width="auto"/>
                                 <DataGridTextColumn Header="Pris" Binding="{Binding Pris}" Width="auto"/>
-                               
+
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -342,16 +341,16 @@
                 <TextBox x:Name="txtEfterN"  Width="100" Height="20" Text="{Binding InEfternamn, UpdateSourceTrigger=PropertyChanged}" Margin="10"/>
                 <Button x:Name="btnLäggTillElev" Background="DarkSeaGreen" Content="Boka" Width="50" Height="20" 
                         Command="{Binding LäggTillElevCommand, UpdateSourceTrigger=PropertyChanged}" 
-                        IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}"/>
+                        IsEnabled="{Binding KnappAktiv,UpdateSourceTrigger=PropertyChanged}" ToolTip="Boka Elev"/>
                 <Label>På Kredit</Label>
                 <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Center" IsChecked="{Binding KreditCheckLektion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20">
-                        <CheckBox.LayoutTransform>
-                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
-                        </CheckBox.LayoutTransform>
-                    </CheckBox>
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
+                    </CheckBox.LayoutTransform>
+                </CheckBox>
 
             </StackPanel>
-            
+
             <StackPanel Margin="5" DockPanel.Dock="Top">
                 <!--<Label Content="Pris för vald lektion" FontSize="16" HorizontalAlignment="Center"/>-->
                 <!--<TextBox Text="{Binding LektionsTotalSumma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Width="50"></TextBox>-->
@@ -381,9 +380,9 @@
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="TaBort" DockPanel.Dock="Left" Margin="10,10,10,10" Width="50" Height="20"/>
+                <Button Background="PaleVioletRed" Command="{Binding AvbokaElevCommand}" Content="Ta Bort" DockPanel.Dock="Left" Margin="10,10,10,10" Width="50" Height="20"/>
             </StackPanel>
-            
+
         </DockPanel>
     </Grid>
 </UserControl>
