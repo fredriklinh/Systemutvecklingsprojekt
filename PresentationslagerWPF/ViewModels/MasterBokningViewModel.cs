@@ -622,6 +622,7 @@ namespace PresentationslagerWPF.ViewModels
             {
                 KnappAktiv = true;
             }
+            
 
 
         });
@@ -762,6 +763,12 @@ namespace PresentationslagerWPF.ViewModels
                 if (TotalPrisRabatt != 0)
                 {
                     TotalPrisRabatt = TotalPrisRabatt - TotalPrisRabatt2;
+                }
+                if (ValdLogi.Count == 0)
+                {
+                    KnappAktiv = false;
+                    RabattSats = 0;
+                    TotalPrisRabatt = 0;
                 }
 
                 TotalKostnad = TotalKostnad - TotalPris;
