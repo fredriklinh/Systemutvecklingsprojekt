@@ -26,7 +26,7 @@ namespace Datalager.Seed
                 new Användare()
                 {
                     //Marknadschef
-                    AnvändarID = 22,
+                    //AnvändarID = 22,
                     Behörighetsnivå = 2,
                     Användarnamn = "erikar",
                     Lösenord = "erika",
@@ -38,7 +38,7 @@ namespace Datalager.Seed
                 new Användare()
                 {
                     //Bokningsmottagare
-                    AnvändarID = 33,
+                    //AnvändarID = 33,
                     Behörighetsnivå = 3,
                     Användarnamn = "magber",
                     Lösenord = "magnus",
@@ -50,7 +50,7 @@ namespace Datalager.Seed
                 new Användare()
                 {
                     //Skidshopspersonal
-                    AnvändarID = 44,
+                    //AnvändarID = 44,
                     Behörighetsnivå = 4,
                     Användarnamn = "petsve",
                     Lösenord = "peter",
