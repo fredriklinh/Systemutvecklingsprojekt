@@ -204,21 +204,21 @@
                         <ComboBox IsEnabled="{Binding IsEnabledAntalAlpin}"  Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalAlpin}" SelectedItem="{Binding SelectedItemAntalAlpin}"></ComboBox>
                         <Button IsEnabled ="{Binding IsEnabledBtnAlpin}" Command="{Binding LäggTillAlpinCommand}" ToolTip="Lägg till Alpin Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
-                        <TextBox Text="{Binding SummaAlpin}"></TextBox>
+                        <TextBox Text="{Binding SummaAlpin}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSnowboard}" SelectedItem="{Binding SelectedItemSnowboard}" DisplayMemberPath="Benämning" ></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSnowboard}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSnowboard}" SelectedItem="{Binding SelectedItemAntalSnowboard }"></ComboBox>
                         <Button IsEnabled ="{Binding IsEnabledBtnSnowboard}" Command="{Binding LäggTillSnowboardCommand}" ToolTip="Lägg till Snowboard-Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
-                        <TextBox Text="{Binding SummaSnowboard}"></TextBox>
+                        <TextBox Text="{Binding SummaSnowboard}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypLängd}" SelectedItem="{Binding SelectedItemLängd}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalLängd}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalLängd}" SelectedItem="{Binding SelectedItemAntalLängd}"></ComboBox>
                         <Button IsEnabled ="{Binding IsEnabledBtnLängd}" Command="{Binding LäggTillLängdCommand}" ToolTip="Lägg till Längd Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
-                        <TextBox Text="{Binding SummaLängd}"></TextBox>
+                        <TextBox Text="{Binding SummaLängd}" IsReadOnly="True"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
@@ -226,14 +226,14 @@
                         <ComboBox IsEnabled="{Binding IsEnabledAntalHjälm}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalHjälm}" SelectedItem="{Binding SelectedItemAntalHjälm}"></ComboBox>
                         <Button IsEnabled ="{Binding IsEnabledBtnHjälm}" Command="{Binding LäggTillHjälmCommand}" ToolTip="Lägg till Hjälm. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
-                        <TextBox Text="{Binding SummaHjälm}"></TextBox>
+                        <TextBox Text="{Binding SummaHjälm}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Width="125"  Margin="5,10,0,10" ItemsSource="{Binding TypSkoter}"  SelectedItem="{Binding SelectedItemSkoter}" DisplayMemberPath="Benämning"></ComboBox>
                         <ComboBox IsEnabled="{Binding IsEnabledAntalSkoter}" Width="50" Margin="0,10,0,10" ItemsSource="{Binding AntalSkoter}" SelectedItem="{Binding SelectedItemAntalSkoter}"></ComboBox>
                         <Button IsEnabled ="{Binding IsEnabledBtnSkoter}" Command="{Binding LäggTillSkoterCommand}" ToolTip="Lägg till Skoter-Utrustning. Välj Typ + Antal">+</Button>
                         <Label Margin="10,10,0,10">Kr</Label>
-                        <TextBox Text="{Binding SummaSkoter}"></TextBox>
+                        <TextBox Text="{Binding SummaSkoter}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -277,7 +277,7 @@
                     <StackPanel>
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                             <Label>Total</Label>
-                            <TextBox Text="{Binding SummaTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50"></TextBox>
+                            <TextBox Text="{Binding SummaTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="50"></TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label>På Kredit</Label>

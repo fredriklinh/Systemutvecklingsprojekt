@@ -227,9 +227,9 @@
                             <Label HorizontalAlignment="Left" Margin="10,0,0,0" Content="Rabatt:" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0,10,0">
-                            <TextBox Text="{Binding AntalSovplatser}" Width="100" Margin="0,0,5,0"></TextBox>
-                            <TextBox Text="{Binding TotalKostnad}" Width="100" Margin="0,0,5,0"></TextBox>
-                            <TextBox Text="{Binding RabattSats}" Width="100" Margin="0,0,5,0"></TextBox>
+                            <TextBox Text="{Binding AntalSovplatser}" IsReadOnly="True" Width="100" Margin="0,0,5,0"></TextBox>
+                            <TextBox Text="{Binding TotalKostnad}" IsReadOnly="True" Width="100" Margin="0,0,5,0"></TextBox>
+                            <TextBox Text="{Binding RabattSats}" IsReadOnly="True" Width="100" Margin="0,0,5,0"></TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label HorizontalAlignment="Left"  Content="Avbeställningsskydd" FontSize="13" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Label>
@@ -237,7 +237,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="10,0,0,0" IsChecked="{Binding Avbeställningsskydd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
-                            <TextBox Text="{Binding TotalPrisRabatt}" Width="100" Margin="110,0,0,0"></TextBox>
+                            <TextBox Text="{Binding TotalPrisRabatt}" IsReadOnly="True" Width="100" Margin="110,0,0,0"></TextBox>
                         </StackPanel>
                     </StackPanel>
 
