@@ -1,4 +1,6 @@
-﻿namespace Entiteter.Tjänster
+﻿using Entiteter.Personer;
+
+namespace Entiteter.Tjänster
 {
     public class Faktura
     {
@@ -18,20 +20,25 @@
         public int Moms { get; set; }
 
         public int TotalBelopp { get; set; }
+        public string Kund { get; set; }
 
-        public Faktura(string fakturaName, DateTime utskriftsDatum, int moms, int totalBelopp)
+
+        public Faktura(string fakturaName, DateTime utskriftsDatum, int moms, int totalBelopp, Företagskund företagskund)
         {
             FakturaName = fakturaName;
             UtskriftsDatum = utskriftsDatum;
             Moms = moms;
             TotalBelopp = totalBelopp;
+            Kund = företagskund.OrgNr;
         }
-
-
-        //[ForeignKey("MasterBokning")]
-        //public int? Bokningsnummer { get; set; }
-        //public virtual MasterBokning MasterBokning { get; set; }
-
+        public Faktura(string fakturaName, DateTime utskriftsDatum, int moms, int totalBelopp, Privatkund privatkund)
+        {
+            FakturaName = fakturaName;
+            UtskriftsDatum = utskriftsDatum;
+            Moms = moms;
+            TotalBelopp = totalBelopp;
+            Kund = privatkund.Personnummer;
+        }
 
     }
 }

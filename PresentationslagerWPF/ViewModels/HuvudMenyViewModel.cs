@@ -17,6 +17,8 @@ namespace PresentationslagerWPF.ViewModels
             NavigateSkidshopCommand = new NavigateCommand<SkidshopViewModel>(new NavigationService<SkidshopViewModel>(navigationStore, () => new SkidshopViewModel(navigationStore, användare)));
             NavigateStatistikCommand = new NavigateCommand<StatistikViewModel>(new NavigationService<StatistikViewModel>(navigationStore, () => new StatistikViewModel(navigationStore, användare)));
             NavigateAdminCommand = new NavigateCommand<AdminViewModel>(new NavigationService<AdminViewModel>(navigationStore, () => new AdminViewModel(navigationStore, användare)));
+            UppdateraCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
+            
             Behörighet(användare);
 
 
@@ -24,6 +26,7 @@ namespace PresentationslagerWPF.ViewModels
         public HuvudMenyViewModel() { }
 
         //**** NAVIGATION *******//
+        public ICommand UppdateraCommand { get; }
         public ICommand NavigateSkidshopCommand { get; }
         public ICommand NavigateMasterBokningCommand { get; }
         public ICommand NavigateKundHanteringCommand { get; }

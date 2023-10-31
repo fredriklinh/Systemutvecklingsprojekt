@@ -344,7 +344,14 @@ namespace Affärslager
 
         public UtrustningsBokning SkapaFaktura(UtrustningsBokning utrustningsbokning)
         {
-            utrustningsbokning.Faktura = new Faktura("Utrustning", DateTime.Now, 25, utrustningsbokning.Summa);
+            if (utrustningsbokning.MasterBokning.Privatkund == null)
+            {
+                utrustningsbokning.Faktura = new Faktura("Utrustning", DateTime.Now, 25, utrustningsbokning.Summa, utrustningsbokning.MasterBokning.Företagskund);
+            }
+            else
+            {
+                utrustningsbokning.Faktura = new Faktura("Utrustning", DateTime.Now, 25, utrustningsbokning.Summa, utrustningsbokning.MasterBokning.Privatkund);
+            }
             return utrustningsbokning;
         }
 

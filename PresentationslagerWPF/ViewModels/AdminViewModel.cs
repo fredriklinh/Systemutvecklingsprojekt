@@ -30,6 +30,7 @@ namespace PresentationslagerWPF.ViewModels
             UppddateraCommand = new NavigateCommand<AdminViewModel>(new NavigationService<AdminViewModel>(navigationStore, () => new AdminViewModel(navigationStore, användare)));
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
 
+            Användare = användare;
             this.windowService = new WindowService();
         }
 
@@ -66,7 +67,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand TaBortBokningCommand => taBortBokningCommand ??= taBortBokningCommand = new RelayCommand(() =>
         {
 
-            if (Användare == SelectedItemAllaAnvändare) MessageBox.Show("Kan inte ta bort inloggad Användare", "Användare", MessageBoxButton.OK);
+            if (Användare.Användarnamn == SelectedItemAllaAnvändare.Användarnamn) MessageBox.Show("Kan inte ta bort inloggad Användare", "Användare", MessageBoxButton.OK);
             else
             {
                 MessageBoxResult var = MessageBox.Show("Är du säker att användare ska tas bort?", "Användare", MessageBoxButton.YesNo);

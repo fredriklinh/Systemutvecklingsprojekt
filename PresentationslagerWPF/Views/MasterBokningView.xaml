@@ -22,13 +22,18 @@
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
                 <Image Source="/Bilder/Ski-Center-Logga.png" Margin="5,10" MaxWidth="200"/>
                 <StackPanel VerticalAlignment="Center">
-                    <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Left" Header="Tillbaka" Command="{Binding TillbakaCommand}"/>
+                    <Menu Background="Transparent">
+                        <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Left" Header="Tillbaka" Command="{Binding TillbakaCommand}"/>
+                    </Menu>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="5,0,5,0" Header="_Uppdatera" Command="{Binding UppdateraCommand}"/>
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="_Avsluta" Command="{Binding ExitCommand}"/>
+                <Menu Background="Transparent">
+                    <MenuItem FontSize="15" Foreground="#ffffff" Margin="20,0,20,0" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
+                    <MenuItem FontSize="15" Foreground="#ffffff" Margin="20,0,20,0" Header="_Uppdatera" Command="{Binding UppdateraCommand}"/>
+                    <MenuItem FontSize="15" Foreground="#ffffff" Margin="20,0,20,0" Header="_Avsluta" Command="{Binding ExitCommand}"/>
+                </Menu>
+
             </StackPanel>
         </Grid>
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
@@ -137,7 +142,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" x:Name="btnLogi" Command="{Binding GömKommando, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Content="Logi" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"/>
+                    <!--<Button Grid.Column="0" x:Name="btnLogi" Command="{Binding GömKommando, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Content="Logi" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray" Background="LightGoldenrodYellow"/>-->
                     <!--<Button Grid.Column="1" x:Name="btnKonferens" Command="{Binding SyngörKonferensKommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Konferens" Height="30" Width="150" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"/>-->
 
                     <!--<Button x:Name="btnUtrustning" Margin="372,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Utrustning" Height="30" Width="100" FontSize="20" FontFamily="Calibri" FontWeight="DemiBold" Foreground="DarkSlateGray"></Button>
@@ -167,13 +172,12 @@
                             <DataGrid x:Name="Logialternativ" Visibility="{Binding SeKonferens}" AutoGenerateColumns="False" SelectionMode="Single"
                                   SelectionUnit="FullRow" IsReadOnly="True" ItemsSource="{Binding TillgängligLogi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                   SelectedItem="{Binding TillgängligLogiSelectedItem, Mode=TwoWay}"
-                                  SelectedIndex="{Binding TillgängligLogiSelectedIndex, Mode=TwoWay}"
                                   Background="White" Width="273" Height="141" Margin="0,0,10,0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Kök" Binding="{Binding Kök}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <TextBox Visibility="{Binding SeKonferens}" MinWidth="100" Height="20" Margin="10,10,10,10" Text="{Binding TotalPris}" IsReadOnly="True"></TextBox>
@@ -213,7 +217,7 @@
                             <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Bäddar" Binding="{Binding Bäddar}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Kvadratmeter" Binding="{Binding Kvadratmeter}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Kök" Binding="{Binding kök}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Kök" Binding="{Binding Kök}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Visibility="{Binding SeKonferens}" Width="320" Background="White">

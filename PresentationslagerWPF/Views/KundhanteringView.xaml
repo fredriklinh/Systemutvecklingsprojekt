@@ -34,13 +34,18 @@
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
                 <Image Source="/Bilder/Ski-Center-Logga.png" Margin="5,10" MaxWidth="200"/>
                 <StackPanel VerticalAlignment="Center">
-                    <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Left" Header="Tillbaka" Command="{Binding TillbakaCommand}"/>
+                    <Menu Background="Transparent"> 
+                        <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Left" Header="Tillbaka" Command="{Binding TillbakaCommand}"/>
+                    </Menu>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="5,0,5,0" Header="_Uppdatera" Command="{Binding UppddateraCommand}"/>
-                <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="_Avsluta" Command="{Binding ExitCommand}"/>
+                <Menu Background="Transparent">
+                    <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="20,0,20,0" Header="_Logga Ut" Command="{Binding NavigateLoggaUtCommand}"/>
+                    <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="20,0,20,0" Header="_Uppdatera" Command="{Binding UppddateraCommand}"/>
+                    <MenuItem FontSize="15" Foreground="#ffffff" HorizontalContentAlignment="Right" Margin="20,0,20,0" HorizontalAlignment="Right" Header="_Avsluta" Command="{Binding ExitCommand}"/>
+                </Menu>
+
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Center">
@@ -154,8 +159,6 @@
                     <StackPanel Margin="5,10,10,10" Orientation="Vertical">
                         <DataGrid x:Name="Logi" Margin="0,10,0,0" AutoGenerateColumns="False"
                                       IsReadOnly="True" ItemsSource="{Binding ValdBokningSelectedItem.ValdLogi}"
-                                      SelectedItem="{Binding TillgänligLogiSelectedItem, Mode=TwoWay}"
-                                      SelectedIndex="{Binding TillgänligLogiSelectedIndex, Mode=TwoWay}"
                                       Background="White" Height="105">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="LogiNr" Binding="{Binding LogiId}"></DataGridTextColumn>

@@ -7,9 +7,9 @@
         xmlns:viewmodels="clr-namespace:PresentationslagerWPF.ViewModels"
              mc:Ignorable="d"
         Height="450" Width="800">
-    <GroupBox Margin="20,20,20,89" Padding="20,20,20,20" BorderThickness="0.5" Background="#edf2ff">
+    <GroupBox Margin="20,20,20,89" Padding="20,20,20,20" BorderThickness="0.5" Background="Transparent">
         <GroupBox.Header>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Background="Transparent" Orientation="Horizontal">
                 <Image Source= "/Bilder/TriBookingLogga.png" Margin="3,0" />
                 <TextBlock VerticalAlignment="Center">  TriBooking - Inloggning</TextBlock>
             </StackPanel>

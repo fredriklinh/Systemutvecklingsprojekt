@@ -253,6 +253,9 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+        private double kök;
+        public double Kök { get => kök; set { kök = value; OnPropertyChanged(); } }
+
         private PrislistaLogi prislistaLogi = null!;
         public PrislistaLogi PrislistaLogi { get => prislistaLogi; set { prislistaLogi = value; OnPropertyChanged(); } }
 
