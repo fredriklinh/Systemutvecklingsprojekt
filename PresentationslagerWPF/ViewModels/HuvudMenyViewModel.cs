@@ -46,12 +46,41 @@ namespace PresentationslagerWPF.ViewModels
         private bool isEnabledAdmin = false!;
 
         public bool IsEnabledAdmin { get => isEnabledAdmin; set { isEnabledAdmin = value; OnPropertyChanged(); } }
+        
+        private bool isEnabledBokning = false!;
+
+        public bool IsEnabledBokning { get => isEnabledBokning; set { isEnabledBokning = value; OnPropertyChanged(); } }
+
+        private bool isEnabledSkidshop = false!;
+
+        public bool IsEnabledSkidshop { get => isEnabledSkidshop; set { isEnabledSkidshop = value; OnPropertyChanged(); } }
 
 
         public void Behörighet(Användare användare)
         {
-            if (användare.Behörighetsnivå == 1) isEnabledAdmin = true;
-            else isEnabledAdmin = false;
+            if (användare.Behörighetsnivå == 1)
+            {
+                IsEnabledAdmin = true;
+                isEnabledBokning = true;
+                IsEnabledSkidshop = true;
+            }
+
+            if (användare.Behörighetsnivå == 2)
+            {
+                isEnabledBokning = true;
+                IsEnabledSkidshop = true;
+            }
+            if (användare.Behörighetsnivå == 3)
+            {
+                isEnabledBokning = false;
+                IsEnabledSkidshop = true;
+            }
+            if (användare.Behörighetsnivå == 4)
+            {
+                isEnabledBokning = true;
+                IsEnabledSkidshop = false;
+
+            }
 
         }
 

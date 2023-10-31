@@ -211,7 +211,7 @@ namespace Affärslager
             {
                 return masterBokningFöretag;
             }
-            Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
+            Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.Användarnamn.Equals(användare.Användarnamn));
             UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningFöretag, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
             masterBokningFöretag.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);
@@ -227,7 +227,7 @@ namespace Affärslager
             if (påKredit == true) masterBokningPrivat.NyttjadKreditsumma = masterBokningPrivat.NyttjadKreditsumma + summa;
             if (masterBokningPrivat.NyttjadKreditsumma > privatkund.MaxBeloppsKreditGräns && påKredit == true) return masterBokningPrivat;
 
-            Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.AnvändarID.Equals(användare.AnvändarID));
+            Användare korrektAnvändare = unitOfWork.AnvändareRepository.FirstOrDefault(pk => pk.Användarnamn.Equals(användare.Användarnamn));
             UtrustningsBokning utrustningsBokning = new UtrustningsBokning(masterBokningPrivat, startdatum, slutdatum, summa, påKredit, utrustningar, korrektAnvändare);
             masterBokningPrivat.UtrustningsBokningar.Add(utrustningsBokning);
             unitOfWork.UtrustningsBokningRepository.Add(utrustningsBokning);

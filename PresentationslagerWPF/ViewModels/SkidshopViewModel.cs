@@ -174,22 +174,6 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
 
-
-        public bool KreditIsChecked
-        {
-            get { return kreditIsChecked; }
-            set
-            {
-                if (kreditIsChecked != value)
-                {
-                    kreditIsChecked = value;
-                    OnPropertyChanged(nameof(KreditIsChecked));
-                    StoppaKredit();
-                    }
-
-                }
-            }
-
         
 
         #region NAVIGATION

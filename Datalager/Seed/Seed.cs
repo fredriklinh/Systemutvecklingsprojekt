@@ -14,7 +14,7 @@ namespace Datalager.Seed
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
                 {
-                    AnvändarID = 55,
+                    //AnvändarID = 55,
                     Behörighetsnivå = 1,
                     Användarnamn = "Anders",
                     Lösenord = "a",
