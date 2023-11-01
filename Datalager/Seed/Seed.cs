@@ -1465,155 +1465,6 @@ namespace Datalager.Seed
             }
             #endregion Ladda Logi
 
-            #region MASTERBOKNING
- 
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 12,
-                Avbeställningsskydd = true,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 10, 01),
-                SlutDatum = new DateTime(2023, 11, 05),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 13,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 08, 14),
-                SlutDatum = new DateTime(2023, 09, 19),
-                PersonNr = "1",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 14,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 07, 14),
-                SlutDatum = new DateTime(2023, 08, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 15,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2021, 05, 14),
-                SlutDatum = new DateTime(2021, 06, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 16,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 04, 14),
-                SlutDatum = new DateTime(2023, 05, 19),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 17,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2023, 05, 20),
-                SlutDatum = new DateTime(2023, 05, 25),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 18,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2022, 01, 20),
-                SlutDatum = new DateTime(2023, 01, 25),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            {
-                BokningsNr = 19,
-                Avbeställningsskydd = false,
-                NyttjadKreditsumma = 0,
-                BokningsDatum = DateTime.Now,
-                StartDatum = new DateTime(2022, 01, 20),
-                SlutDatum = new DateTime(2023, 01, 25),
-                PersonNr = "19680314-2322",
-                SkapadAv = "Anders"
-
-            }); ;
-
-
-            #endregion
-
-            #region  --------------------------------------------Ladda Kund
-            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
-            {
-                //PrivatkundId = 1,
-                Personnummer = "19680314-2322",
-                Förnamn = "Fiel",
-                Efternamn = "Skogholm",
-                Adress = "Tingstadsalé 24",
-                MaxBeloppsKreditGräns = 12000,
-                Postnummer = "78533",
-                Ort = "Stockholm",
-                Telefonnummer = "07266555994",
-                MailAdress = "Fiel.Skogholm@stocknäs.se"
-
-            });
-
-            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
-            {
-                //PrivatkundId = 2,
-                Personnummer = "1",
-                Förnamn = "Fidde",
-                Efternamn = "Skoglund",
-                Adress = "Tingstadsgatan 24",
-                Postnummer = "45839",
-                MaxBeloppsKreditGräns = 12000,
-                Ort = "Stockholm",
-                Telefonnummer = "07366555994",
-                MailAdress = "Fiel.Skogholm@stocknäs.se"
-
-            });
-            modelBuilder.Entity<Företagskund>().HasData(new Företagskund()
-            {
-                //FöretagsId = 999,
-                OrgNr = "4343-2321",
-                FöretagsNamn = "Byggplockarna AB",
-                Adress = "Karlatornsväg 23",
-                Postnummer = "46941",
-                Ort = "Utby",
-                Telefonnummer = "07266555994",
-                MailAdress = "ByggplockAB@foretagsadress.se",
-                RabattSats = 12.5,
-                MaxBeloppsKreditGräns = 60000
-
-            });
-
-            #endregion Ladda Kund
-
 
             #region --------------------------------------------Ladda utrustning    
 
@@ -2018,6 +1869,7 @@ namespace Datalager.Seed
             #endregion Ladda PrivatLektion
 
 
+            // Personal för grupplektion
             #region Ladda Personal
             modelBuilder.Entity<Personal>().HasData(new Personal()
             {
@@ -3172,7 +3024,6 @@ namespace Datalager.Seed
 
 
             #endregion
-
 
             #region Ladda PrisUtrustning
             //Ladda Prisutrustningar
