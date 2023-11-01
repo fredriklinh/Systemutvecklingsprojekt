@@ -25,7 +25,6 @@ namespace Datalager.Seed
 
             #endregion Ladda användare
 
-
             #region --------------------------------------------Ladda Logi
             modelBuilder.Entity<PrislistaLogi>().HasData(new PrislistaLogi()
             {
@@ -1465,7 +1464,6 @@ namespace Datalager.Seed
             }
             #endregion Ladda Logi
 
-
             #region --------------------------------------------Ladda utrustning    
 
             //TEST - Tillkommit 
@@ -1709,7 +1707,6 @@ namespace Datalager.Seed
 
 
             #endregion Ladda utrustning
-
 
             #region Ladda Grupplektioner
             modelBuilder.Entity<GruppLektion>().HasData(
