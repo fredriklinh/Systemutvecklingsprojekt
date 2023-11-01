@@ -30,12 +30,6 @@ namespace Affärslager
         /// <param name="slutdatum"></param>
         /// <returns></returns>
         /// 
-
-        //    var blogs = ctx.Blogs
-        //.Include(b => b.Posts)
-        //.ThenInclude(p => p.Comments)
-        //.ToList();
-
         public List<Logi> HämtaTillgängligLogi(DateTime startdatum, DateTime slutdatum)
         {
 
@@ -61,6 +55,7 @@ namespace Affärslager
             return logi;
         }
 
+        //Metoden tar parameterar och söker upp privatkund, användare och för att sedan användas som parameter och skapa en MasterBokning. Returnerar en Masterbokning
         public MasterBokning SkapaMasterbokningPrivatkund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Privatkund privatkund, Användare användare)
         {
             Privatkund privatkund1 = unitOfWork.PrivatkundRepository.FirstOrDefault(pk => pk.Personnummer.Equals(privatkund.Personnummer));
@@ -71,6 +66,7 @@ namespace Affärslager
             return masterBokning;
         }
 
+        //Metoden tar parameterar och söker upp företagskund, användare och för att sedan användas som parameter och skapa en MasterBokning. Returnerar en Masterbokning
         public MasterBokning SkapaMasterbokningFöretagskund(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund, Användare användare)
         {
             Företagskund företagskund1 = unitOfWork.FöretagskundRepository.FirstOrDefault(fk => fk.OrgNr.Equals(företagskund.OrgNr));
@@ -81,6 +77,8 @@ namespace Affärslager
             return masterBokning;
         }
 
+
+        //EJ AKTIV METOD
         public void KonferensTillMasterBokning(IList<Konferenslokal> kLista, MasterBokning mb)
         {
 
@@ -118,17 +116,23 @@ namespace Affärslager
             }
             return masterbokningar;
         }
+
+        //Hämtar den privatkund som är aktiv i skidshop. Tar in privatkund och datum som parametrar.
         public MasterBokning HämtaAktivPrivatkundMasterbokning(Privatkund privatkund, DateTime datum)
         {
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum.Date >= datum && a.StartDatum.Date <= datum && a.PersonNr == privatkund.Personnummer);
             return masterBokning;
         }
+
+        //Hämtar den företagskund som är aktiv i skidshop. Tar in privatkund och datum som parametrar.
         public MasterBokning HämtaAktivFöretagskundMasterbokning(Företagskund företagskund, DateTime datum)
         {
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.SlutDatum >= datum && a.StartDatum <= datum && a.OrgaNr == företagskund.OrgNr);
             return masterBokning;
         }
 
+
+        //Hämtar en masterboknign för angiven företagskund. Tar in OrgNr som parameter
         public List<MasterBokning> HämtaMasterbokningarFöretag(string OrgNr)
         {
             List<MasterBokning> företagMasterbokning = new List<MasterBokning>();
@@ -140,11 +144,14 @@ namespace Affärslager
             return företagMasterbokning;
         }
 
+        //Sparar ändringar till masterbokning
         public void SparaÄndring(MasterBokning masterBokning)
         {
             unitOfWork.MasterBokningRepository.Update(masterBokning);
             unitOfWork.Complete();
         }
+
+        //Tar bort masterbokning
         public void TaBortMasterBokning(MasterBokning masterBokning)
         {
             unitOfWork.MasterBokningRepository.Delete(masterBokning);

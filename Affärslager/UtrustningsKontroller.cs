@@ -9,59 +9,40 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public IList<Utrustning> HämtaTillgängligUtrustning()
-        {
-            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
 
-            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
-            {
-                AllaUtrustningar.Add(Hej);
-            }
-            return AllaUtrustningar;
-
-        }
-
-        public IList<Utrustning> HämtaTillgängligUtrustningTyp()
-        {
-
-
-            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
-
-            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
-            {
-                AllaUtrustningar.Add(Hej);
-            }
-            return AllaUtrustningar;
-        }
+        //Metod för att beräkna och hitta tillgänliga paket
         public IList<Utrustning> HittaPaket(int antal, string typ, string benämning, DateTime slutdatum, List<Utrustning> tempUtrustningar)
         {
             DateTime dagensDatum = DateTime.Now.Date;
 
             IList<Utrustning> UnikaBenämningarUtrustning = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning).Distinct().ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
+            //Grupperar unika benämningar 
             var BenämningarUnika = UnikaBenämningarUtrustning.GroupBy(x => x.Benämning).Select(group => group.First()).Distinct().ToList();
 
+            //Hämtar alla paket som finns tillgängliga
             IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning != benämning && a.Status == true).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
             IList<UtrustningsBokning> AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum <= f.SlutDatum) || (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
 
-            IList<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
 
-            IList<Utrustning> test123 = new List<Utrustning>();
+            IList<Utrustning> tempUtrustning = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
                 foreach (var lista in item.Utrustningar.Where(a => a.Status == false))
                 {
-                    test123.Add(lista);
+                    tempUtrustning.Add(lista);
                 }
             }
 
+            //Tar bort duplikat
             foreach (Utrustning item in AllaUtrustningar.ToList())
             {
-                if (test123.Contains(item))
+                if (tempUtrustning.Contains(item))
                 {
                     AllaUtrustningar.Remove(item);
                 }
             }
+
             IList<Utrustning> MatchadeUtrustningar = new List<Utrustning>();
             int index = 0;
             foreach (var itemPaket in BenämningarUnika)
@@ -89,29 +70,29 @@ namespace Affärslager
         }
 
 
+        //Hittar utrustnign som är tillgnäglig för bokning utifrån angivet slutdaum och DateTime.Now. 
         public IList<Utrustning> HittaUtrustning(int antal, string typ, string benämning, DateTime slutdatum, List<Utrustning> tempUtrustningar)
         {
             DateTime dagensDatum = DateTime.Now.Date;
-            //Tis--------------Fre            TIDIGARE BOKNING
+
             IList<Utrustning> AllaUtrustningar = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == typ && a.Benämning == benämning && a.Status == true).ToList(); // Mån , Tis, Ons , Tor , Fre, Lör, Sön
 
+            //Tittar på tillgänliga utrustningar inom start och slutdatum
             IList<UtrustningsBokning> AllaBokadeUtrustnignar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(f => (dagensDatum <= f.StartDatum && slutdatum <= f.SlutDatum) || (dagensDatum <= f.StartDatum && slutdatum >= f.SlutDatum) || (dagensDatum >= f.SlutDatum && dagensDatum <= f.StartDatum) || (slutdatum <= f.StartDatum && slutdatum >= f.SlutDatum) && (dagensDatum >= f.StartDatum && slutdatum <= f.SlutDatum)).ToList();
-            IList<UtrustningsBokning> test222 = unitOfWork.UtrustningsBokningRepository.GetAll().ToList();
 
-
-
-            IList<Utrustning> test123 = new List<Utrustning>();
+            IList<Utrustning> tempUtrustning = new List<Utrustning>();
             foreach (var item in AllaBokadeUtrustnignar)
             {
                 foreach (var lista in item.Utrustningar.Where(a => a.Status == false))
                 {
-                    test123.Add(lista);
+                    tempUtrustning.Add(lista);
                 }
             }
-            //var UnikaUtrustningar = AllaUtrustningar.Concat(test123).Distinct().ToList();
+
+            //Tar bort duplikat som finns i tempUtrustning och AllaUtrustningar
             foreach (Utrustning item in AllaUtrustningar.ToList())
             {
-                if (test123.Contains(item))
+                if (tempUtrustning.Contains(item))
                 {
                     AllaUtrustningar.Remove(item);
                 }
@@ -140,6 +121,8 @@ namespace Affärslager
             }
             return MatchadeUtrustningar;
         }
+
+        //Hämtar utrustningsbokning för företagskund. Returnerar en lista med utrustningar som bokning innehåller.
         public IList<Utrustning> HämtaUtrustningsbokningFöretagskund(Företagskund företagskund)
         {
             DateTime datumIBokning = DateTime.Now;
@@ -155,6 +138,8 @@ namespace Affärslager
             }
             return utrustningar;
         }
+
+        //Hämtar utrustningsbokning för privatkund. Returnerar en lista med utrustningar som bokning innehåller.
         public IList<Utrustning> HämtaUtrustningsbokningPrivatkund(Privatkund privatkund)
         {
             DateTime datumIBokning = DateTime.Now;
@@ -175,31 +160,14 @@ namespace Affärslager
             return utrustningar;
         }
 
-
-        //ÄLDRE - AXEL
-        public MasterBokning BokningExisterar(string bokningsNr)
-        {
-            return unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.BokningsNr.ToString() == bokningsNr);
-        }
-
+        //Kollar om utrustningsboknign existerar eller inte utifrån angivet bokningsnummer
         public UtrustningsBokning UtrustningsBokningExisterar(string bokningsNr)
         {
             return unitOfWork.UtrustningsBokningRepository.FirstOrDefault(a => a.UtrustningBokningsId.ToString() == bokningsNr);
         }
 
 
-        //OBS Tillkommit
-        private MasterBokning KollaKredtiTotal(int summaBokning, MasterBokning masterBokning)
-        {
-            //SKA TESTAS
-            masterBokning.NyttjadKreditsumma = masterBokning.NyttjadKreditsumma + summaBokning;
-
-            return masterBokning;
-
-        }
-
-
-        //Tillkommit
+        //Skapar utrustningsbokning för företagskund. Tilldelar även masterbokningen värde av bokningens kredit om kund har valt att lägga betalning på kredit.
         public MasterBokning SkapaUtrustningsBokningFöretag(List<Utrustning> utrustningar, DateTime slutdatum, Företagskund företagskund, Användare användare, int summa, bool påKredit)
         {
             DateTime startdatum = DateTime.Now;
@@ -218,6 +186,8 @@ namespace Affärslager
             unitOfWork.Complete();
             return masterBokningFöretag;
         }
+
+        //Skapar utrustningsbokning för privatkund. Tilldelar även masterbokningen värde av bokningens kredit om kund har valt att lägga betalning på kredit.
         public MasterBokning SkapaUtrustningsBokningPrivat(List<Utrustning> utrustningar, DateTime slutdatum, Privatkund privatkund, Användare användare, int summa, bool påKredit)
         {
             DateTime startdatum = DateTime.Now;
@@ -236,6 +206,8 @@ namespace Affärslager
         }
 
 
+        //Söker utrustning utifrån angiven benämning, typ och om de är tillgängliga för ett visst datum. Räknar slutligen hur många som är tillgänliga
+        //och returnerar antal tillgängliga.
         public ObservableCollection<int> SökBenämningTyp(string benämning, string typ, DateTime slutdatum)
         {
             List<Utrustning> utrustningAvTyp = new List<Utrustning>();
@@ -253,6 +225,8 @@ namespace Affärslager
             }
             return RäknaAntal(utrustningAvTyp);
         }
+
+        //Metod för att söka paket som finnss tillgänliga utifrån benämning, typ och datum som de är tillgänliga. Beräknar slutligen antalet tillgängliga paket.
         public ObservableCollection<int> SökPaketTyp(string benämning, string typ, DateTime slutdatum)
         {
             DateTime startDatum = DateTime.Now;
@@ -269,6 +243,8 @@ namespace Affärslager
             return RäknaAntalPaket(TillgängligUtrustning);
         }
 
+        //Räknar på antalet paket tillgänligUtrustning innehåller med det minsta värde som basis för hur många paket som kan bokas
+        //Returnerar max 50 st.
         private ObservableCollection<int> RäknaAntalPaket(List<Utrustning> tillgänligUtrustning)
         {
             //Grupperar listan efter hur många gånger en string förekommer med den minsta värdet överst
@@ -278,10 +254,10 @@ namespace Affärslager
              .OrderBy(x => x.Count);
 
             //Hämtar det första värde i SorteraAntal => Minsta värdet
-            var minsFörekommande = SorteraAntal.FirstOrDefault();
+            var minstFörekommande = SorteraAntal.FirstOrDefault();
 
             ObservableCollection<int> AntalPaket = new ObservableCollection<int>();
-            for (int i = 0; i < minsFörekommande.Count; i++)
+            for (int i = 0; i < minstFörekommande.Count; i++)
             {
                 if (AntalPaket.Count > 50) break;
                 AntalPaket.Add(i);
@@ -306,20 +282,12 @@ namespace Affärslager
             return antal;
         }
 
+        //Fullbordar återlämmning efter att återlämnad utrustning stämmer överens med uthyrt utrustning
         public MasterBokning FullbordaÅterlämning(string InputÅterlämning)
         {
             int input = Int32.Parse(InputÅterlämning);
-            //MasterBokning masterbokning = unitOfWork.MasterBokningRepository.FirstOrDefault(e => e.BokningsNr == input);
-            //IList<UtrustningsBokning> utrustningsBokningar = unitOfWork.UtrustningsBokningRepository.GetAll().Where(a => a.MasterBokning.BokningsNr == masterbokning.BokningsNr).ToList();
             UtrustningsBokning utrustningsbokning = unitOfWork.UtrustningsBokningRepository.FirstOrDefault(a => a.UtrustningBokningsId == input);
 
-            //foreach (var item in utrustningsBokningar)
-            //{
-            //    foreach (Utrustning utr in item.Utrustningar)
-            //    {
-            //        utr.StatusTillgänglig();
-            //    }
-            //}
 
             foreach (Utrustning item in utrustningsbokning.Utrustningar) item.StatusTillgänglig();
 
@@ -342,6 +310,7 @@ namespace Affärslager
             return null;
         }
 
+        //Skapar faktura för uthyrning av utrustning.
         public UtrustningsBokning SkapaFaktura(UtrustningsBokning utrustningsbokning)
         {
             if (utrustningsbokning.MasterBokning.Privatkund == null)
@@ -355,7 +324,7 @@ namespace Affärslager
             return utrustningsbokning;
         }
 
-
+        //Populerar och söker paket för skidshop
         public List<Utrustning> SökPaket(string paket)
         {
 
@@ -368,7 +337,7 @@ namespace Affärslager
 
         }
 
-
+        //Populerar och söker utrustnign för skidshop.
         public List<Utrustning> SökBenämning(string utrBenämning)
         {
             var querable = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Typ == utrBenämning);
@@ -379,14 +348,50 @@ namespace Affärslager
                     .ToList();
         }
 
-        public IList<Utrustning> SökTyp(Utrustning SelectedItem)
-        {
-            var querable = unitOfWork.UtrustningRepository.GetAll().Where(a => a.Benämning == SelectedItem.Benämning);
+        #region EJ AKTIV
 
-            return querable
-                        .GroupBy(i => i.Benämning)
-                        .Select(group => group.First())
-                        .ToList();
+        //EJ AKTVI Tillkommit
+        private MasterBokning KollaKredtiTotal(int summaBokning, MasterBokning masterBokning)
+        {
+            //SKA TESTAS
+            masterBokning.NyttjadKreditsumma = masterBokning.NyttjadKreditsumma + summaBokning;
+
+            return masterBokning;
+
         }
+
+
+
+        // EJ AKTIV ÄLDRE - AXEL
+        public MasterBokning BokningExisterar(string bokningsNr)
+        {
+            return unitOfWork.MasterBokningRepository.FirstOrDefault(a => a.BokningsNr.ToString() == bokningsNr);
+        }
+
+        //EJ AKTIV Hämtar tillgängliga utrustningar utifrån typer
+        public IList<Utrustning> HämtaTillgängligUtrustningTyp()
+        {
+            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+            {
+                AllaUtrustningar.Add(Hej);
+            }
+            return AllaUtrustningar;
+        }
+
+        //EJ AKTIV Hämtar tillgänglig utrustning för utrustningsbokning
+        public IList<Utrustning> HämtaTillgängligUtrustning()
+        {
+            List<Utrustning> AllaUtrustningar = new List<Utrustning>();
+
+            foreach (Utrustning Hej in unitOfWork.UtrustningRepository.GetAll())
+            {
+                AllaUtrustningar.Add(Hej);
+            }
+            return AllaUtrustningar;
+
+        }
+        #endregion
     }
 }

@@ -6,6 +6,8 @@ namespace Affärslager
     public class KonferensKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
+
+        //Ej atktiv för stunden
         public List<Konferenslokal> HämtaTillgängligKonferens(DateTime startdatum, DateTime slutdatum)
         {
             List<Konferenslokal> lokaler = new List<Konferenslokal>();

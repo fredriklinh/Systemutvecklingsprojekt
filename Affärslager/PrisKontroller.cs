@@ -11,28 +11,11 @@ namespace Affärslager
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public double HämtaRabattSatsPrivat(Privatkund privatkund)
-        {
-            double totalRabatt = 0;
-            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.PersonNr == privatkund.Personnummer && m.BokningsDatum >= DateTime.Now.AddYears(-1));
-
-            if (masterBokning != null)
-            {
-                totalRabatt = 8;
-            }
-            else
-            {
-                totalRabatt = default;
-            }
-            return Math.Round(totalRabatt, 1);
-        }
-
 
 
         #region PrisLogi
-
         //Kontrollerar vecka på ett specifikt datum 
-        public static int KontrolleraVecka(DateTime datum)
+        private static int KontrolleraVecka(DateTime datum)
         {
             CultureInfo myCI = new CultureInfo("sv-SE");
             Calendar myCal = myCI.Calendar;
@@ -44,7 +27,9 @@ namespace Affärslager
 
             return datumsVecka;
         }
-        public bool KontrolleraDagarSportlov(List<DateTime> datum)
+
+        //Kontrollerar om angivna dagars vecka är sportlovsvecka
+        private bool KontrolleraDagarSportlov(List<DateTime> datum)
         {
             bool result = false;
             foreach (var item in datum)
@@ -60,10 +45,9 @@ namespace Affärslager
         }
 
 
-
+        //Metod för att beräka priset för logi. 
         public double BeräknaPrisLogi(string LogiNamn, DateTime startdatum, DateTime slutdatum)
         {
-            //TimeSpan AntalDagarBokade = slutdatum.Subtract(startdatum.AddDays(-1));
             int antalVeckor = (int)Math.Floor((slutdatum - startdatum.AddDays(-1)).TotalDays / 7);
             //Hämta startvecka för att utgå ifrån rätt prissättning
             int VeckaStart = KontrolleraVecka(startdatum);
@@ -143,7 +127,7 @@ namespace Affärslager
         /// </summary>
         /// <param name="datumLista"></param>
         /// <returns></returns>
-        public bool StartFöreHelVecka(List<DateTime> datumLista)
+        private bool StartFöreHelVecka(List<DateTime> datumLista)
         {
             if (datumLista.Count == 0)
             {
@@ -160,6 +144,7 @@ namespace Affärslager
         }
 
 
+        //Metod för att hämta resterande dagar som inte går jämnt ut på hela veckor.
         public List<DateTime> HämtaRestDagar(DateTime startdatum, DateTime slutdatum, bool startFöre, List<DateTime> restDatum)
         {
             if (startFöre == true)
@@ -212,7 +197,7 @@ namespace Affärslager
             return restDatum;
         }
 
-        //Denna metod ska fixas innan inlämning!!!!
+        //Hämtar pris för sportlovsveckan
         public double HämtaPrisSportlov(string LogiNamn, DateTime startdatum, DateTime slutdatum, int antalVeckor, double totalpris, int VeckaStart)
         {
             var datumBokning = new List<DateTime>();
@@ -308,6 +293,29 @@ namespace Affärslager
             }
         }
 
+
+
+        #endregion
+
+        #region RABATT
+        //Hämtar rabatsattsen% för privatkund. Tilldelar rabatt om de har en boking sedan -1 tillbaka
+        public double HämtaRabattSatsPrivat(Privatkund privatkund)
+        {
+            double totalRabatt = 0;
+            MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.PersonNr == privatkund.Personnummer && m.BokningsDatum >= DateTime.Now.AddYears(-1));
+
+            if (masterBokning != null)
+            {
+                totalRabatt = 8;
+            }
+            else
+            {
+                totalRabatt = default;
+            }
+            return Math.Round(totalRabatt, 1);
+        }
+
+        //Beräknar det nya priset inklusive rabatt. Returnerar pris inklusive rabatt.
         public double HämtaRabatt(double TotalPris, Privatkund privatkund)
         {
             MasterBokning masterBokning = unitOfWork.MasterBokningRepository.FirstOrDefault(m => m.PersonNr == privatkund.Personnummer && m.BokningsDatum >= DateTime.Now.AddYears(-1));
@@ -324,6 +332,7 @@ namespace Affärslager
             return Math.Round(TotalPris, 1);
         }
 
+        //Hämtar rabatsattsen% för företagskund. Tilldelar rabatt om de har en boking sedan -1 tillbaka
         public double HämtaRabattFöretagskund(double TotalPris, Företagskund företagskund)
         {
             double rabatt = företagskund.RabattSats;
@@ -331,9 +340,7 @@ namespace Affärslager
             return Math.Round(TotalPris, 1);
         }
 
-
         #endregion
-
 
         #region PristUtrustning
 

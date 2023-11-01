@@ -7,6 +7,7 @@ namespace Affärslager.KundKontroller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
+        //Registrerar privatkung
         public Företagskund RegistreraFöretagskund(double maxBeloppsKreditGränds, string adress, string postnummer, string ort, string telefonnummer, string mailAdress, string orgNr, string företagsNamn, double rabattSats)
         {
 
@@ -16,6 +17,7 @@ namespace Affärslager.KundKontroller
             return företagskund;
         }
 
+        //Kontrollerar företagskund
         public void KontrollFKund(string orgnr, bool x)
         {
             Företagskund k = unitOfWork.FöretagskundRepository.FirstOrDefault(f => f.OrgNr == orgnr);
@@ -30,7 +32,8 @@ namespace Affärslager.KundKontroller
             }
         }
 
-        //OBS. FUNKTION ENDAST FÖR ADMIN
+       
+        //Tar bort företagskund beroende på input
         public Företagskund TaBortFöretagskund(string OrgNummer)
         {
             Företagskund företag = unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(OrgNummer));
@@ -41,6 +44,7 @@ namespace Affärslager.KundKontroller
 
         }
 
+        //Söker företagskund utifråninput
         public Företagskund SökFöretagskund(string input)
         {
             return unitOfWork.FöretagskundRepository.FirstOrDefault(a => a.OrgNr.Equals(input));

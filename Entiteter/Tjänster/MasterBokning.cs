@@ -11,8 +11,6 @@ namespace Entiteter.Tjänster
 
         }
 
-
-
         public int BokningsNr { get; set; }
         public bool Avbeställningsskydd { get; set; }
 
@@ -30,6 +28,7 @@ namespace Entiteter.Tjänster
         public virtual IList<UtrustningsBokning>? UtrustningsBokningar { get; set; } = new List<UtrustningsBokning>();
 
         public virtual IList<PrivatLektion>? PrivatLektioner { get; set; } = new List<PrivatLektion>();
+        
         public virtual IList<GruppLektion>? GruppLektioner { get; set; } = new List<GruppLektion>();
 
 
@@ -62,7 +61,6 @@ namespace Entiteter.Tjänster
         }
 
         //Construktor Företagskund
-
         public MasterBokning(bool avbeställningsskydd, DateTime startDatum, DateTime slutDatum, IList<Logi> valdLogi, Företagskund företagskund, Användare användare)
         {
             Avbeställningsskydd = avbeställningsskydd;
@@ -74,20 +72,5 @@ namespace Entiteter.Tjänster
             Företagskund = företagskund;
             Användare = användare;
         }
-
-
-
-
-
-        //[ForeignKey("Faktura")]
-        //public int? Fakturanummer { get; set; }
-        //public virtual Faktura Faktura { get; set; }
-
-
-
-
-
-
-
     }
 }
