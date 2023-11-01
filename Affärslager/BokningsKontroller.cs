@@ -109,12 +109,24 @@ namespace Affärslager
                 masterbokningar.Add(itemF);
                 return masterbokningar;
             }
-            int input = Int32.Parse(kundnummer);
-            foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(e => e.BokningsNr == input))
+            //OBS Personummer måste vara en int
+            if (long.TryParse(kundnummer, out long parsedValue))
             {
-                masterbokningar.Add(item);
+                foreach (MasterBokning item in unitOfWork.MasterBokningRepository.Find(e => e.BokningsNr == parsedValue))
+                {
+                    masterbokningar.Add(item);
+                }
             }
             return masterbokningar;
+        }
+
+        public void RättSiffra(string kundnummer) // typ av int accepterar endast positiva tal
+        {
+            uint siffra; // variabelnamn för tal som är mer än 0
+            while (!uint.TryParse(kundnummer, out siffra)) // sålänge som påståendet inte stämmer: 
+            {
+
+            }
         }
 
         //Hämtar den privatkund som är aktiv i skidshop. Tar in privatkund och datum som parametrar.

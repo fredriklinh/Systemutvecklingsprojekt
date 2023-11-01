@@ -10,6 +10,7 @@ namespace Entiteter.Personer
 
 
         public string Personnummer { get; set; }
+
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
         public virtual IList<Faktura> Fakturor { get; set; } = new List<Faktura>();
