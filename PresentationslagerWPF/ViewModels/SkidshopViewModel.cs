@@ -119,8 +119,6 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-
-
         #region IsEnabled - Utrustning
 
         private bool isEnabledUtrustning = false!;
@@ -173,9 +171,6 @@ namespace PresentationslagerWPF.ViewModels
         public bool KnappAktiv { get => knappAktiv; set { knappAktiv = value; OnPropertyChanged(); } }
 
         #endregion
-
-
-        
 
         #region NAVIGATION
         //**** NAVIGATION *******//
@@ -276,7 +271,6 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
 
-
         #region Properties Utrustning + Datum
 
 
@@ -292,14 +286,6 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-        //private string inputBokningsNr;
-        //public string InputBokningsNr
-        //{
-        //    get => inputBokningsNr; set
-        //    {
-
-        //    }
-        //}
         private string inputBokningsNr;
         public string InputBokningsNr { get => inputBokningsNr; set { inputBokningsNr = value; OnPropertyChanged(); } }
 
@@ -383,7 +369,6 @@ namespace PresentationslagerWPF.ViewModels
         }
 
         #endregion
-
 
         #region Command - Spara Utrustning
 
@@ -472,8 +457,6 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region Properties Logi, Privatkund (Sprint1)
-
-
 
         private DateTime starttid = DateTime.Now;
         public DateTime Starttid { get => starttid; set { starttid = value; OnPropertyChanged(); } }
@@ -641,8 +624,6 @@ namespace PresentationslagerWPF.ViewModels
             {
                 PDF.CreatePDF.SkapaFaktura(masterBokning, InputBokningsNr.ToString());
             }
-            
-
 
             MessageBox.Show($"Utrustning återlämnad!", "Återlämning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             GömÅterlämnaKnapp = Visibility.Collapsed;
@@ -669,14 +650,7 @@ namespace PresentationslagerWPF.ViewModels
                 InputBokningsNr = input;
                 int antalUtrustningar = 0;
                 List<Utrustning> bokningsUtrustning = new List<Utrustning>();
-                //Äldre för masterbokning
-                //foreach (var item in bokningNrExiterar.UtrustningsBokningar)
-                //{
-                //    foreach (Utrustning utrustning in item.Utrustningar.Where(a => a.Status == false))
-                //    {
-                //        bokningsUtrustning.Add(utrustning);
-                //    }
-                //}
+
                 foreach (Utrustning item in bokningNrExiterar.Utrustningar)
                 {
                     if (item.Status == false)
@@ -711,10 +685,7 @@ namespace PresentationslagerWPF.ViewModels
             GömLämnaUtKnapp = Visibility.Collapsed;
             GömTaBortKnapp = Visibility.Collapsed;
             GömÅterlämnaKnapp = Visibility.Collapsed;
-            //MasterBokning bokningNrExiterar = utrustningsKontroller.BokningExisterar(Kundnummer);
-            //if (bokningNrExiterar == null) MessageBox.Show("Bokning Existerar Ej", "Bokning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            //else
-            //{
+
             if (Företagskund != null)
             {
                 IList<Utrustning> utrFöretag = utrustningsKontroller.HämtaUtrustningsbokningFöretagskund(Företagskund);
@@ -751,8 +722,6 @@ namespace PresentationslagerWPF.ViewModels
                 else MessageBox.Show("Utrustningsbokning saknas");
 
             }
-
-
         });
 
         private ICommand sökKund = null!;
@@ -879,6 +848,7 @@ namespace PresentationslagerWPF.ViewModels
         #endregion
 
         #region SUMMA - Utrustning
+
         private int summaTotal;
         public int SummaTotal
         {
@@ -1246,8 +1216,9 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-        #region Observable Properties & Collections - Skidlektion ............
 
+
+        #region Observable Properties & Collections - Skidlektion ............
 
         private bool kreditCheckLektion;
         public bool KreditCheckLektion
@@ -1263,9 +1234,6 @@ namespace PresentationslagerWPF.ViewModels
                 }
             }
         }
-
-
-
 
         private DateTime lektionsDatum = DateTime.Now;
         public DateTime LektionsDatum
@@ -1467,6 +1435,7 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
+
         public void BeräknaLektionsTotalSumma()
         {
             double total = 0;
@@ -1558,12 +1527,6 @@ namespace PresentationslagerWPF.ViewModels
 
 
         #endregion
-
-
-
-
-
-
 
     }
 }

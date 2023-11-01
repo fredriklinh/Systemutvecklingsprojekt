@@ -26,6 +26,7 @@ namespace PresentationslagerWPF.ViewModels
         {
             AllaAnvändare = new ObservableCollection<Användare>(användarKontroller.HämtaAllaAnvändare());
 
+            //Navigation
             TillbakaCommand = new NavigateCommand<HuvudMenyViewModel>(new NavigationService<HuvudMenyViewModel>(navigationStore, () => new HuvudMenyViewModel(navigationStore, användare)));
             UppddateraCommand = new NavigateCommand<AdminViewModel>(new NavigationService<AdminViewModel>(navigationStore, () => new AdminViewModel(navigationStore, användare)));
             NavigateLoggaUtCommand = new NavigateCommand<LoggaInViewModel>(new NavigationService<LoggaInViewModel>(navigationStore, () => new LoggaInViewModel(navigationStore)));
@@ -51,16 +52,9 @@ namespace PresentationslagerWPF.ViewModels
             bool result = windowService.ShowDialog(skapaAnvändareWindow);
         });
 
-
-        #endregion
-
         private ICommand exitCommand = null!;
         public ICommand ExitCommand =>
         exitCommand ??= exitCommand = new RelayCommand(() => App.Current.Shutdown());
-
-
-        private Användare användare = null!;
-        public Användare Användare { get => användare; set { användare = value; OnPropertyChanged(); } }
 
 
         private ICommand taBortBokningCommand = null!;
@@ -75,6 +69,12 @@ namespace PresentationslagerWPF.ViewModels
 
             }
         });
+
+        #endregion
+
+
+        private Användare användare = null!;
+        public Användare Användare { get => användare; set { användare = value; OnPropertyChanged(); } }
 
 
         #region OBSERVABLE COLLECTION ANVÄNDARE

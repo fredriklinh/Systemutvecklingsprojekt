@@ -2,6 +2,8 @@
 {
     public class DisplayStatistik
     {
+
+        //Används för att visa formaterad information i statistikfönster
         public string Typ { get; set; }
 
         public int Jan { get; set; }

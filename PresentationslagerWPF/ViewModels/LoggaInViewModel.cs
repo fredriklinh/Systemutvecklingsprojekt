@@ -22,11 +22,6 @@ namespace PresentationslagerWPF.ViewModels
 
         }
 
-        //STATUS
-        private string status = "Ready";
-        public string Status { get { return status; } set { status = value; OnPropertyChanged(); } }
-
-
         //Användarnamn för ANVÄNDARE
         private string användarnamn = null!;
         public string Användarnamn
@@ -36,16 +31,6 @@ namespace PresentationslagerWPF.ViewModels
                 användarnamn = value; OnPropertyChanged();
             }
         }
-
-        //Lösenord för ANVÄNDARE
-        //private string lösenord = null!;
-        //public string Lösenord { 
-        //    get => lösenord; 
-        //    set { lösenord = value; OnPropertyChanged();
-        //    } }
-
-        //Observable object användare
-
 
         private Användare användare = null!;
         public Användare Användare { get => användare; set { användare = value; OnPropertyChanged(); } }

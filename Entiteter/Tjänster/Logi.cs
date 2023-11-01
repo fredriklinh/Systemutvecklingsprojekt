@@ -31,10 +31,6 @@ namespace Entiteter.Tjänster
         public virtual LogiTyp? LogiTyp { get; set; }
 
 
-
-
-
-
         //Ska vara enum istället, tre olika metoder, för att definiera "pågående", tillgänglig och bokad"
 
 

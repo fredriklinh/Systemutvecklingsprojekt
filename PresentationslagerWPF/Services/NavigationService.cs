@@ -7,6 +7,7 @@ namespace PresentationslagerWPF.Services
     public class NavigationService<TViewModel>
         where TViewModel : ObservableObject
     {
+        //Används för att navigera användare vidare och tillbaka via fönster
 
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;

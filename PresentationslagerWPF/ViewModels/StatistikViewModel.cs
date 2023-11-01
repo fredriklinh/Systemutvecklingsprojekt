@@ -35,7 +35,6 @@ namespace PresentationslagerWPF.ViewModels
             ÅrtalUtrustning = new ObservableCollection<int>(statistikKontroller.HämtaÅr());
 
         }
-
         public ICommand UppddateraCommand { get; }
 
         public ICommand NavigateLoggaUtCommand { get; }
@@ -46,13 +45,14 @@ namespace PresentationslagerWPF.ViewModels
 
         public ICommand TillbakaCommand { get; }
 
+
+        #endregion
+
         private ObservableCollection<int> årtal = null!;
         public ObservableCollection<int> Årtal { get => årtal; set { årtal = value; OnPropertyChanged(); } }
 
         private ObservableCollection<int> årtalUtrustning = null!;
         public ObservableCollection<int> ÅrtalUtrustning { get => årtalUtrustning; set { årtalUtrustning = value; OnPropertyChanged(); } }
-
-        #endregion
 
         #region -----------------------------------MasterBokning Logi
 
@@ -166,6 +166,4 @@ namespace PresentationslagerWPF.ViewModels
         }
         #endregion
     }
-
-
 }

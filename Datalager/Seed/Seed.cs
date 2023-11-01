@@ -22,42 +22,7 @@ namespace Datalager.Seed
                     Förnamn = "Magnifike"
                 }
                 );
-            modelBuilder.Entity<Användare>().HasData(
-                new Användare()
-                {
-                    //Marknadschef
-                    //AnvändarID = 22,
-                    Behörighetsnivå = 2,
-                    Användarnamn = "erikar",
-                    Lösenord = "erika",
-                    Efternamn = "Karlsson",
-                    Förnamn = "Erika"
-                }
-                );
-            modelBuilder.Entity<Användare>().HasData(
-                new Användare()
-                {
-                    //Skidshop
-                    //AnvändarID = 33,
-                    Behörighetsnivå = 3,
-                    Användarnamn = "magber",
-                    Lösenord = "magnus",
-                    Efternamn = "Bergquist",
-                    Förnamn = "Magnus"
-                }
-                );
-            modelBuilder.Entity<Användare>().HasData(
-                new Användare()
-                {
-                    //Bokninsmottagare
-                    //AnvändarID = 44,
-                    Behörighetsnivå = 4,
-                    Användarnamn = "petsve",
-                    Lösenord = "peter",
-                    Efternamn = "Svensson",
-                    Förnamn = "Peter"
-                }
-                );
+
             #endregion Ladda användare
 
 
@@ -1501,83 +1466,7 @@ namespace Datalager.Seed
             #endregion Ladda Logi
 
             #region MASTERBOKNING
-            //Försök till att skapa en masterbokning med vald logi till +klassen som EF skapar åt oss "LogiMasterBokning"
-            //var LogiMasterBokning = new Dictionary<int, Logi>
-            //{
-            //    { 1, new Logi { LogiId = "Ll49",} },
-            //    { 2, new Logi { LogiId = "Ll50",} },
-            //};
-
-            //modelBuilder.Entity<MasterBokning>().HasData(LogiMasterBokning.Values);
-
-            //modelBuilder.Entity<ValdLogi>().HasData(new ValdLogi()
-            //{
-            //    ValdLogiId = 1,
-            //    LogiName = "Logi1",
-            //    MasterBokningBokningsNr = 10, // Set the foreign key to link to the MasterBokning
-            //});
-
-
-            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            //{
-            //    BokningsNr = 1,
-            //    Avbeställningsskydd = false,
-            //    NyttjadKreditsumma = 0,
-            //    BokningsDatum = DateTime.Now,
-            //    StartDatum = new DateTime(2022, 10, 14),
-            //    SlutDatum = new DateTime(2022, 10, 19),
-            //    PersonNr = "19680314-2322",
-            //    SkapadAv = "Anders",
-            //    ValdLogi = new List<Logi>()
-            //    {
-            //        new Logi
-            //        {
-            //            LogiId = "Ll50",
-            //            Kvadratmeter = 50,
-            //            Bäddar = 4,
-            //            Kök = true,
-            //            Typen = "LGH.I"
-            //        },
-            //        new Logi
-            //        {
-            //            LogiId = "Ll49",
-            //            Kvadratmeter = 50,
-            //            Bäddar = 4,
-            //            Kök = true,
-            //            Typen = "LGH.I"
-            //        }
-            //    }.ToList()
-            //}); ;
-            //modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
-            //{
-            //    BokningsNr = 2,
-            //    Avbeställningsskydd = false,
-            //    NyttjadKreditsumma = 0,
-            //    BokningsDatum = DateTime.Now,
-            //    StartDatum = new DateTime(2023, 10, 14),
-            //    SlutDatum = new DateTime(2023, 10, 19),
-            //    PersonNr = "19680314-2322",
-            //    SkapadAv = "Anders",
-            //    ValdLogi = new List<Logi>()
-            //        {
-            //            new Logi
-            //            {
-            //                LogiId = "Ll50",
-            //                Kvadratmeter = 50,
-            //                Bäddar = 4,
-            //                Kök = true,
-            //                Typen = "LGH.I"
-            //            },
-            //            new Logi
-            //            {
-            //                LogiId = "Ll49",
-            //                Kvadratmeter = 50,
-            //                Bäddar = 4,
-            //                Kök = true,
-            //                Typen = "LGH.I"
-            //            }
-            //     }.ToList()
-            //}); ;
+ 
             modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
             {
                 BokningsNr = 12,

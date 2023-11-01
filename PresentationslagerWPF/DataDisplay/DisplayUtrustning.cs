@@ -4,6 +4,9 @@ namespace PresentationslagerWPF.DataDisplay
 {
     public class DisplayUtrustning
     {
+
+        //Används för att visa formaterad information i utrustningsfönster
+
         public DisplayUtrustning(int antal, Utrustning propUtrustning, string typ, string benämning, int summa)
         {
             Value = antal;

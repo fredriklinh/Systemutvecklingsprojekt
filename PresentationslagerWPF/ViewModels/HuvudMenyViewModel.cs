@@ -42,9 +42,7 @@ namespace PresentationslagerWPF.ViewModels
         public ICommand NavigateLoggaUtCommand { get; }
 
 
-        //**** PROPERTIES *******//
-
-
+        #region IsEnabled för navigation av knappar
 
         private bool isEnabledAdmin = false!;
 
@@ -59,6 +57,7 @@ namespace PresentationslagerWPF.ViewModels
         public bool IsEnabledSkidshop { get => isEnabledSkidshop; set { isEnabledSkidshop = value; OnPropertyChanged(); } }
 
 
+        //Metod för att kolla behörighet av användare
         public void Behörighet(Användare användare)
         {
             if (användare.Behörighetsnivå == 1)
@@ -86,6 +85,7 @@ namespace PresentationslagerWPF.ViewModels
             }
 
         }
+        #endregion
 
 
     }

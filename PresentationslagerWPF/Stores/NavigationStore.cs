@@ -5,6 +5,7 @@ namespace PresentationslagerWPF.Stores
 {
     public class NavigationStore
     {
+        //Tildelar fönster sin viewmodel
 
         public event Action CurrentViewModelChanged;
 

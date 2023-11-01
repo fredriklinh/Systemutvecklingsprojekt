@@ -8,7 +8,6 @@ namespace Entiteter.Personer
     {
 
 
-        //public int PrivatkundId { get; set; }
 
         public string Personnummer { get; set; }
         public string Förnamn { get; set; }

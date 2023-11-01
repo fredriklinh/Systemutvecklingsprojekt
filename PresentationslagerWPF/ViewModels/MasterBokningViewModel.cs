@@ -37,24 +37,6 @@ namespace PresentationslagerWPF.ViewModels
             }
         }
 
-        public void StoppaSparaKnappen()
-        {
-            if ((Privatkund == null || Företagskund == null) &&
-                    (ValdLogi != null && ValdLogi.Count >= 1) &&
-                    !string.IsNullOrEmpty(InputAdress) &&
-                    !string.IsNullOrEmpty(InputPostnummer) &&
-                    !string.IsNullOrEmpty(InputOrt) &&
-                    !string.IsNullOrEmpty(InputTelefonnummer) &&
-                    !string.IsNullOrEmpty(InputMailAdress) &&
-                    !string.IsNullOrEmpty(Kundnummer) &&
-                    !string.IsNullOrEmpty(InputFörnamn) &&
-                    !string.IsNullOrEmpty(InputEfternamn))
-            {
-                KnappAktiv = true;
-            }
-            else { KnappAktiv = false; }
-        }
-
         #region Properties Logi, kund (Sprint1)
 
         private DateTime starttid = DateTime.Now;
@@ -235,24 +217,6 @@ namespace PresentationslagerWPF.ViewModels
 
         }
 
-
-
-        //private bool synligBool = false;
-        //public bool SynligBool
-        //{
-        //    get { return synligBool; }
-        //    set
-        //    {
-        //        if (value != synligBool)
-        //        {
-        //            synligBool = value;
-        //            OnPropertyChanged("SynligBool");
-        //        }
-        //    }
-        //}
-        // Tillhörande i Xaml Visibility="{Bool}", Converter={StaticResource BooleanToVisibilityConverter}}" 
-
-
         private Företagskund företagskund = null!;
         public Företagskund Företagskund
         {
@@ -332,7 +296,6 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-
         #region FöretagsKund + DisplayKundPanel
 
         //**** FÖRETAGSKUND *******//
@@ -395,7 +358,6 @@ namespace PresentationslagerWPF.ViewModels
             set { företagMailadress = value; OnPropertyChanged(); }
         }
         #endregion
-
 
         #region Observable collections + Properties - Konferens - Sprint 2
         private ObservableCollection<Konferenslokal> tillgängligaKonferensRum = null!;
@@ -493,7 +455,6 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
-
         #region ICommands - Konferens - Sprint 2
 
 
@@ -572,7 +533,6 @@ namespace PresentationslagerWPF.ViewModels
                 {
                     TotalPrisRabatt2 = prisKontroller.HämtaRabatt(TotalPris, Privatkund);
                     RabattSats = prisKontroller.HämtaRabattSatsPrivat(Privatkund);
-                    //TotalPrisRabatt2 = prisKontroller.HämtaRabattFöretagskund(TotalPris, Företagskund);
                 }
                 if (Företagskund != null)
                 {
@@ -779,6 +739,28 @@ namespace PresentationslagerWPF.ViewModels
 
         #endregion
 
+        #region Metoder
+
+
+        //Metod för att reglera tillgängligheten för Sparaknappen
+        public void StoppaSparaKnappen()
+        {
+            if ((Privatkund == null || Företagskund == null) &&
+                    (ValdLogi != null && ValdLogi.Count >= 1) &&
+                    !string.IsNullOrEmpty(InputAdress) &&
+                    !string.IsNullOrEmpty(InputPostnummer) &&
+                    !string.IsNullOrEmpty(InputOrt) &&
+                    !string.IsNullOrEmpty(InputTelefonnummer) &&
+                    !string.IsNullOrEmpty(InputMailAdress) &&
+                    !string.IsNullOrEmpty(Kundnummer) &&
+                    !string.IsNullOrEmpty(InputFörnamn) &&
+                    !string.IsNullOrEmpty(InputEfternamn))
+            {
+                KnappAktiv = true;
+            }
+            else { KnappAktiv = false; }
+        }
+        #endregion
 
     }
 }

@@ -298,6 +298,9 @@ namespace PresentationslagerWPF.ViewModels
 
         #region BOKNING
 
+        private string kundnummer;
+        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
+
         private ObservableCollection<MasterBokning> masterbokningar = null!;
         public ObservableCollection<MasterBokning> Masterbokningar { get => masterbokningar; set { masterbokningar = value; OnPropertyChanged(); } }
 
@@ -365,13 +368,7 @@ namespace PresentationslagerWPF.ViewModels
         });
         #endregion
 
-
-
-
-
-        private string kundnummer;
-        public string Kundnummer { get => kundnummer; set { kundnummer = value; OnPropertyChanged(); } }
-
+        //Kommand för att söka kund
         private ICommand sökKund = null!;
         public ICommand SökKund => sökKund ??= sökKund = new RelayCommand(() =>
         {
@@ -429,7 +426,10 @@ namespace PresentationslagerWPF.ViewModels
         });
 
 
+        #region Metoder
 
+
+        //Nollar information om företagskund
         public void NollaFöretagsKundInformation()
         {
             FöretagAdress = null;
@@ -443,6 +443,8 @@ namespace PresentationslagerWPF.ViewModels
             MaxBeloppKredit = 0;
 
         }
+
+        //Nollar information om privatkund
         public void NollaPrivatkundInformation()
         {
 
@@ -455,10 +457,14 @@ namespace PresentationslagerWPF.ViewModels
             PrivatFörnamn = null;
             PrivatEfternamn = null;
         }
+
+        //Nollar inforation om masterbokn ing
         public void NollaBokningInformation()
         {
             Masterbokningar = null;
         }
+
+        //Validerar användarens behörighet
         public void Behörighet(Användare användare)
         {
             if (användare.Behörighetsnivå == 1 || användare.Behörighetsnivå ==  2) IsEnabledMarknadsChef = true;
@@ -467,6 +473,6 @@ namespace PresentationslagerWPF.ViewModels
 
 
 
-
+        #endregion
     }
 }

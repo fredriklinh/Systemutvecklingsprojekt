@@ -9,15 +9,7 @@ namespace PresentationslagerWPF.Commands
     public class LoggaInCommand : CommandBase
     {
 
-
-
-        /// <summary>
-        /// KOMMANDS ATT KONTROLLERA BOKNING 
-        /// </summary>
-
         AnvändarKontroller användarKontroller = new AnvändarKontroller();
-
-
 
         public readonly LoggaInViewModel _viewModel;
         private readonly NavigationService<HuvudMenyViewModel> _navigationService;
@@ -35,6 +27,8 @@ namespace PresentationslagerWPF.Commands
             return true;
 
         }
+
+        //Validerar och kontrollerar om inloggnign stämmer överens. Om det stämmer navigeras användare till nästa fönster.
         public override void Execute(object parameter)
         {
             Användare anv = användarKontroller.Inloggning(_viewModel.Användarnamn, _viewModel.Password);
