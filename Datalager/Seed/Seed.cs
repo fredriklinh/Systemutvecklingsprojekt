@@ -10,6 +10,112 @@ namespace Datalager.Seed
         public static void Populate(this ModelBuilder modelBuilder)
         {
 
+            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            {
+                BokningsNr = 1,
+                Avbeställningsskydd = true,
+                NyttjadKreditsumma = 0,
+                BokningsDatum = DateTime.Now,
+                StartDatum = new DateTime(2021, 02, 05),
+                SlutDatum = new DateTime(2021, 02, 08),
+                SkapadAv = "Anders",
+                PersonNr = "199012270000"
+            });
+            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            {
+                BokningsNr = 2,
+                Avbeställningsskydd = true,
+                NyttjadKreditsumma = 0,
+                BokningsDatum = DateTime.Now,
+                StartDatum = new DateTime(2021, 02, 05),
+                SlutDatum = new DateTime(2021, 02, 08),
+                SkapadAv = "Anders",
+                PersonNr = "199012270977"
+            });
+            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            {
+                BokningsNr = 3,
+                Avbeställningsskydd = false,
+                NyttjadKreditsumma = 0,
+                BokningsDatum = DateTime.Now,
+                StartDatum = new DateTime(2021, 02, 05),
+                SlutDatum = new DateTime(2021, 02, 08),
+                SkapadAv = "magber",
+                PersonNr = "199012270977"
+            });
+            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            {
+                BokningsNr = 4,
+                Avbeställningsskydd = true,
+                NyttjadKreditsumma = 0,
+                BokningsDatum = DateTime.Now,
+                StartDatum = new DateTime(2021, 02, 05),
+                SlutDatum = new DateTime(2021, 02, 08),
+                SkapadAv = "magber",
+                PersonNr = "199012270977"
+            });
+            modelBuilder.Entity<MasterBokning>().HasData(new MasterBokning()
+            {
+                BokningsNr = 5,
+                Avbeställningsskydd = true,
+                NyttjadKreditsumma = 0,
+                BokningsDatum = DateTime.Now,
+                StartDatum = new DateTime(2021, 01, 05),
+                SlutDatum = new DateTime(2021, 01, 08),
+                SkapadAv = "magber",
+                PersonNr = "199012270977"
+            });
+
+            modelBuilder.Entity<Privatkund>().HasData(new Privatkund()
+            {
+                MaxBeloppsKreditGräns = 12000,
+                Adress = "Bergvägen 2",
+                Postnummer = "13420",
+                Ort = "Värnamo",
+                Telefonnummer = "0729995530",
+                MailAdress = "Erik@gmail.com",
+                Personnummer = "199012270000",
+                Förnamn = "Erik",
+                Efternamn = "Eriksson"
+            });
+
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    //Marknadschef
+                    //AnvändarID = 22,
+                    Behörighetsnivå = 2,
+                    Användarnamn = "erikar",
+                    Lösenord = "erika",
+                    Efternamn = "Karlsson",
+                    Förnamn = "Erika"
+                }
+                );
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    //Bokningsmottagare
+                    //AnvändarID = 33,
+                    Behörighetsnivå = 3,
+                    Användarnamn = "magber",
+                    Lösenord = "magnus",
+                    Efternamn = "Bergquist",
+                    Förnamn = "Magnus"
+                }
+                );
+            modelBuilder.Entity<Användare>().HasData(
+                new Användare()
+                {
+                    //Skidshopspersonal
+                    //AnvändarID = 44,
+                    Behörighetsnivå = 4,
+                    Användarnamn = "petsve",
+                    Lösenord = "peter",
+                    Efternamn = "Svensson",
+                    Förnamn = "Peter"
+                }
+                );
+
             #region --------------------------------------------Ladda användare
             modelBuilder.Entity<Användare>().HasData(
                 new Användare()
